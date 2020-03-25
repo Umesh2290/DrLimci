@@ -1,0 +1,173 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en" dir="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Gull - Laravel + Bootstrap 4 admin template</title>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/styles/css/themes/lite-purple.min.css">
+    <link rel="stylesheet" href="~/Content/styles/vendor/toastr.css" />
+    <link rel="stylesheet" href="~/Content/styles/vendor/sweetalert2.min.css" />
+    <style>
+        .loadscreen {
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            left: 0;
+            right: 0;
+            margin: auto;
+            top: 0;
+            height: 100vh;
+            background: #ffffff;
+            opacity: 0.7;
+        }
+
+            .loadscreen .loader {
+                position: absolute;
+                top: calc(50vh - 50px);
+                left: 0;
+                right: 0;
+                margin: auto;
+            }
+
+            .loadscreen .logo {
+                display: inline-block !important;
+                width: 80px;
+                height: 80px;
+            }
+    </style>
+</head>
+<body class="text-left">
+    <div class="auth-layout-wrap" style="background-image: url(../../../Content/images/photo-wide-4.jpg)">
+        <div>
+            <div class="card o-hidden" style="width: 350px;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="p-4">
+                            <div class="auth-logo text-center mb-4">
+                                <img src="../../../Content/images/logo.png" alt="">
+                            </div>
+                            <h1 class="mb-3 text-18 loginHeading">Forget Password</h1>
+
+<input type="hidden" id="sytemUserID" value=@ViewBag.SystemUserID/>
+                            @if (!ViewBag.IsLinkExpired){
+                            <form id="changePasswordform" method="post">
+
+<input type="hidden" id="sytemUserID" name= "systemUserID" value="@ViewBag.SystemUserID" />
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input id="password" name="password" class="form-control form-control-rounded" type="password" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirmpassword">Confirm Password</label>
+                                    <input id="confirmpassword" name="confirmpassword" class="form-control form-control-rounded" type="password" required>
+                                </div>
+                                <button class="btn btn-rounded btn-primary btn-block mt-2" id="changePassword">Submit</button>
+                            </form>
+                            }
+else
+{
+                            <h3>Your Link is Down.... Generate New One</h3>
+                            }
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="loadscreen" style="display: none">
+        <div class="loader">
+            <img src="~/Content/images/logo.png" class="logo mb-3" alt="">
+            <div class="loader-bubble loader-bubble-primary d-block"></div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/js/vendor/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/js/es5/script.min.js"></script>
+    <script src="~/Scripts/js/vendor/toastr.min.js"></script>
+    <script src="~/Scripts/js/toastr.script.js"></script>
+    <script src="~/Scripts/js/vendor/sweetalert2.min.js"></script>
+    <script src="~/Scripts/js/sweetalert.script.js"></script>
+    <script src="~/Scripts/Custom/General.js"></script>
+
+    <script>
+
+        function checkPasswordRegex(password) {
+
+            var mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
+            if (password.match(mediumRegex))
+            { 
+               
+                return true;
+            }
+            else
+            { 
+                toastr.error("Input Password and Submit [contain at least 1 lowercase, uppercase , numeric, special alphabetical character and 8 characters or longer.]");
+                return false;
+            }
+
+           
+        }
+        function checkPasswordAndConfirmPassword(password, confirmPassword) {
+           
+            if (password == confirmPassword) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        $(document).ready(function () {
+
+
+
+            $("#changePassword").click(function () {
+                var form = document.querySelector('#changePasswordform');
+                if (checkPasswordRegex($('#password').val())) {
+                    if (form.reportValidity() && checkPasswordAndConfirmPassword($('#confirmpassword').val(), $('#password').val())) {
+
+                        MakeRequest(_ChangePassword, "POST", objectifyForm($("#changePasswordform").serializeArray()), "json",
+                            function (jqXHR, settings) {
+                                //For Before Send
+                                $('.loadscreen').fadeIn();
+                            },
+                            function (data, status, xhr) {
+                                //For Success
+                                $('.loadscreen').fadeOut();
+                                var rs = WebResponse(data);
+                                if (rs.ResponseType == "toastr-sucsess") {
+                                    setTimeout(function () {
+                                        window.location.replace("/Admin/Account");
+                                    }, 2000);
+                                }
+                            },
+                        function (jqXhr, textStatus, errorMessage) {
+                            //For Error
+                            $('.loadscreen').fadeOut();
+                            WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                        });
+                    }
+                    else {
+                        toastr.error("Password and confirm password not matching", "Password not matching");
+
+                        // WebResponse(new { ResponseType: "toastr-error", description: 'Password and confirm password not matching', title: "Password not matching", data: {} });
+                    }
+                }
+                return false;
+            })
+        })
+    </script>
+</body>
+</html>

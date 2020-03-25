@@ -1,0 +1,410 @@
+﻿
+@{
+    ViewBag.Title = "Completed Opinion Requests";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+<script>
+    var currentmenu = 45;
+    $(document).ready(function () {
+
+
+        MakeRequest(_User_OpinionRequest_GetList, "POST", { "status": "Completed" }, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+    var outputdt = {};
+    if (rs.ResponseType == "Simple") {
+        var dt = rs.ResponseData.opinionrequestjson;
+        outputdt = dt;
+    }
+
+    $('#requesttable').DataTable({
+        data: outputdt,
+        columns: [
+            { data: 'OpinionRequestID' },
+            { data: 'PatientDetails' },
+            { data: 'RequestBy' },
+            { data: 'StatusCustom' },
+            { data: 'OpinionRequestID' }
+        ],
+        "columnDefs": [
+            {
+                "render": function (data, type, row) {
+                    if (data == "New") {
+                        return '<span class="badge badge-success">New</span>';
+                    }
+                    else if (data == "In-Progress") {
+                        return '<span class="badge badge-warning">In-Progress</span>';
+                    }
+                    else if (data == "Completed") {
+                        return '<span class="badge badge-success">Completed</span>';
+                    }
+                    else if (data == "Cancelled") {
+                        return '<span class="badge badge-danger">Cancelled</span>';
+                    }
+                    else {
+                        return data;
+                    }
+                },
+                "targets": 3
+            },
+            {
+                "render": function (data, type, row) {
+                    return '<button type="button" class="btn btn-info viewdetail" title="View Detail" class="viewdetail" data-id="' + data + '"><i class="nav-icon i-Magnifi-Glass1"></i></button>';
+                },
+                "targets": 4
+            }
+        ]
+    });
+
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+
+    })
+</script>
+<div class="breadcrumb">
+    <h1 class="mr-2">Completed</h1>
+    <ul>
+        <li><a href="">Opinion Request</a></li>
+        <li>Completed</li>
+    </ul>
+</div>
+
+
+<div id="backbtndiv" style="display:none">
+    <div class="row" style="margin:0 0.83em 0">
+        <div class="offset-md-11"></div>
+        <div class="col-md-1">
+            <button type="button" class="btn btn-gray-300" id="backtogridbtn"><i class="nav-icon i-Back1 "></i>Back</button>
+        </div>
+    </div>
+    <br />
+    <br />
+</div>
+<div class="separator-breadcrumb border-top"></div>
+<div id="gridarea">
+    <div class="row mb-4">
+
+        <div class="col-md-12 mb-3">
+            <div class="card text-left">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="requesttable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Request ID #</th>
+                                    <th scope="col">Patient Details</th>
+                                    <th scope="col">Request By</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">View Detail</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end of col-->
+    </div>
+</div>
+<div id="detailarea" style="display:none;">
+    <h4 id="detailtitle">Details</h4>
+    <hr>
+    <div class="row">
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Request ID #</p>
+                <span id="requestid_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Patient Details</p>
+                <span id="patientdetails_lbl">N/A</span>
+            </div>
+            <div class="mb-4 requestdate">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Request Date</p>
+                <span id="requestdate_lbl">N/A</span>
+            </div>
+            <div class="mb-4 inprogressby" style="display:none">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> In-Progress By</p>
+                <span id="inprogressby_lbl">N/A</span>
+            </div>
+            <div class="mb-4 completedby" style="display:none">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Completed By</p>
+                <span id="completedby_lbl">N/A</span>
+            </div>
+            <div class="mb-4 ispublish" style="display:none">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Is Publish</p>
+                <span id="ispublish_lbl">N/A</span>
+            </div>
+        </div>
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Sample Analysis Details</p>
+                <span id="sampleanalysisdetails_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Opinion Needed Description</p>
+                <span id="opinionneededdescription_lbl">N/A</span>
+            </div>
+            <div class="mb-4 commentforrequester" style="display:none">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Comment From System Admin</p>
+                <span id="commentforrequester_lbl">N/A</span>
+            </div>
+            <div class="mb-4 inprogressdate" style="display:none">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> In-Progress Date</p>
+                <span id="inprogressdate_lbl">N/A</span>
+            </div>
+            <div class="mb-4 completeddate" style="display:none">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Completed Date</p>
+                <span id="completeddate_lbl">N/A</span>
+            </div>
+            <div class="mb-4 opinionby" style="display:none">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Opinion By</p>
+                <span id="opinionby_lbl">N/A</span>
+            </div>
+        </div>
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Status</p>
+                <span id="status_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Request By</p>
+                <span id="requestby_lbl">N/A</span>
+            </div>
+            <div class="mb-4 inprogresscomments" style="display:none">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> In-Progress Comments</p>
+                <span id="inprogresscomments_lbl">N/A</span>
+            </div>
+            <div class="mb-4 completedcomments" style="display:none">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Completed Comments</p>
+                <span id="completedcomments_lbl">N/A</span>
+            </div>
+            <div class="mb-4 consultantopinion" style="display:none">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Consultant Opinion</p>
+                <span id="consultantopinion_lbl">N/A</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    $(document).ready(function () {
+        $("#backtogridbtn").click(function () {
+            $("#detailarea").slideUp();
+            $("#gridarea").slideDown();
+            $("#backbtndiv").fadeOut();
+        })
+
+
+        $(document).on('click', '.viewdetail', function () {
+
+            MakeRequest(_User_OpinionRequest_GetDetail, "POST", { "opinionrequestid": $(this).attr("data-id") }, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+    var opinionrequestobj = null;
+    var newaction = null;
+    var progressaction = null;
+
+    if (rs.ResponseType == "Simple") {
+        opinionrequestobj = rs.ResponseData.opinionrequestobjjson;
+        newaction = rs.ResponseData.newactionjson;
+        progressaction = rs.ResponseData.progressactionjson;
+    }
+
+    if (opinionrequestobj != null) {
+
+
+
+        $("#requestid_lbl").text(opinionrequestobj.OpinionRequestID);
+        $("#patientdetails_lbl").text(opinionrequestobj.PatientDetails);
+        $("#sampleanalysisdetails_lbl").text(opinionrequestobj.SampleAnalysisDetails);
+        $("#opinionneededdescription_lbl").text(opinionrequestobj.OpinionNeededDescription);
+        $("#requestdate_lbl").text(opinionrequestobj.RequestCreatedDateCustom);
+        $("#requestby_lbl").text(opinionrequestobj.RequestCreatedByName);
+        $("#status_lbl").text(opinionrequestobj.StatusName);
+
+        if (opinionrequestobj.CommentForRequester != null) {
+            $("#commentforrequester_lbl").text(opinionrequestobj.CommentForRequester);
+
+            $(".commentforrequester").show();
+
+        }
+        else {
+            $("#commentforrequester_lbl").text("N/A");
+
+            $(".commentforrequester").hide();
+        }
+
+        if (newaction != null) {
+            if (newaction.NewActionStatusName == "In-Progress") {
+                $("#inprogressby_lbl").text(newaction.NewActionByName);
+                $("#inprogressdate_lbl").text(newaction.NewActionDateCustom);
+                $("#inprogresscomments_lbl").text(newaction.NewActionComments);
+
+                $(".inprogressby").show();
+                $(".inprogressdate").show();
+                $(".inprogresscomments").show();
+
+                $("#completedby_lbl").text("N/A");
+                $("#completeddate_lbl").text("N/A");
+                $("#completedcomments_lbl").text("N/A");
+                $("#ispublish_lbl").text("N/A");
+
+                $(".completedby").hide();
+                $(".completeddate").hide();
+                $(".completedcomments").hide();
+                $(".ispublish").hide();
+            }
+            else {
+                $("#inprogressby_lbl").text("N/A");
+                $("#inprogressdate_lbl").text("N/A");
+                $("#inprogresscomments_lbl").text("N/A");
+
+                $(".inprogressby").hide();
+                $(".inprogressdate").hide();
+                $(".inprogresscomments").hide();
+
+                $("#completedby_lbl").text(newaction.NewActionByName);
+                $("#completeddate_lbl").text(newaction.NewActionDateCustom);
+                $("#completedcomments_lbl").text(newaction.NewActionComments);
+                $("#ispublish_lbl").text(opinionrequestobj.IsPublish == null ? "No" : (opinionrequestobj.IsPublish?"Yes":"No"));
+
+                $(".completedby").show();
+                $(".completeddate").show();
+                $(".completedcomments").show();
+                $(".ispublish").show();
+            }
+        }
+        else {
+            $("#inprogressby_lbl").text("N/A");
+            $("#inprogressdate_lbl").text("N/A");
+            $("#inprogresscomments_lbl").text("N/A");
+            $("#completedby_lbl").text("N/A");
+            $("#completeddate_lbl").text("N/A");
+            $("#completedcomments_lbl").text("N/A");
+            $("#ispublish_lbl").text("N/A");
+
+            $(".inprogressby").hide();
+            $(".inprogressdate").hide();
+            $(".inprogresscomments").hide();
+            $(".completedby").hide();
+            $(".completeddate").hide();
+            $(".completedcomments").hide();
+            $(".ispublish").hide();
+
+
+        }
+
+        if (progressaction != null) {
+            $("#completedby_lbl").text(progressaction.ProgressActionByName);
+            $("#completeddate_lbl").text(progressaction.ProgressActionDateCustom);
+            $("#completedcomments_lbl").text(progressaction.ProgressActionComments);
+            $("#ispublish_lbl").text(opinionrequestobj.IsPublish == null ? "No" : (opinionrequestobj.IsPublish ? "Yes" : "No"));
+
+            $(".completedby").show();
+            $(".completeddate").show();
+            $(".completedcomments").show();
+            $(".ispublish").show();
+        }
+        else {
+            if (newaction == null) {
+                $("#completedby_lbl").text("N/A");
+                $("#completeddate_lbl").text("N/A");
+                $("#completedcomments_lbl").text("N/A");
+                $("#ispublish_lbl").text("N/A");
+
+                $(".completedby").hide();
+                $(".completeddate").hide();
+                $(".completedcomments").hide();
+                $(".ispublish").hide();
+
+            }
+        }
+
+        if ((opinionrequestobj.IsPublish == null ? "No" : (opinionrequestobj.IsPublish ? "Yes" : "No")) == "Yes") {
+            $("#opinionby_lbl").text(opinionrequestobj.OpinionBy);
+            $("#consultantopinion_lbl").text(opinionrequestobj.ConsultationOpinion);
+
+            $(".completedcomments").show();
+            $(".opinionby").show();
+            $(".consultantopinion").show();
+
+        }
+        else {
+            $("#opinionby_lbl").text("N/A");
+            $("#consultantopinion_lbl").text("N/A");
+
+            $(".completedcomments").hide();
+            $(".opinionby").hide();
+            $(".consultantopinion").hide();
+        }
+
+
+    }
+    else {
+        $("#requestid_lbl").text("N/A");
+        $("#patientdetails_lbl").text("N/A");
+        $("#sampleanalysisdetails_lbl").text("N/A");
+        $("#opinionneededdescription_lbl").text("N/A");
+        $("#requestdate_lbl").text("N/A");
+        $("#requestby_lbl").text("N/A");
+        $("#status_lbl").text("N/A");
+
+        $("#inprogressby_lbl").text("N/A");
+        $("#inprogressdate_lbl").text("N/A");
+        $("#inprogresscomments_lbl").text("N/A");
+        $("#completedby_lbl").text("N/A");
+        $("#completeddate_lbl").text("N/A");
+        $("#completedcomments_lbl").text("N/A");
+        $("#ispublish_lbl").text("N/A");
+        $("#opinionby_lbl").text("N/A");
+        $("#consultantopinion_lbl").text("N/A");
+
+        $(".inprogressby").hide();
+        $(".inprogressdate").hide();
+        $(".inprogresscomments").hide();
+        $(".completedby").hide();
+        $(".completeddate").hide();
+        $(".completedcomments").hide();
+        $(".ispublish").hide();
+        $(".opinionby").hide();
+        $(".consultantopinion").hide();
+    }
+
+    $("#gridarea").slideUp();
+    $("#detailarea").slideDown();
+    $("#backbtndiv").fadeIn();
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+
+        });
+
+
+    })
+</script>

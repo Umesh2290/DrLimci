@@ -1,0 +1,338 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LabSystemDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Tbl_Client">
+    <Key>
+      <PropertyRef Name="ClientDetailID" />
+    </Key>
+    <Property Name="ClientDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CompanyName" Type="varchar(max)" />
+    <Property Name="Subdomain" Type="varchar(max)" />
+    <Property Name="PlanID" Type="int" />
+    <Property Name="PlanDuration" Type="int" />
+    <Property Name="TotalLicenseCost" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="PriceUnit" Type="varchar" MaxLength="50" />
+    <Property Name="STandDBprovdiderID" Type="int" />
+    <Property Name="InvoiceID" Type="int" />
+    <Property Name="InvoicePDFLink" Type="varchar(max)" />
+    <Property Name="IsDBCreated" Type="bit" />
+    <Property Name="IsDbError" Type="bit" />
+    <Property Name="DBErrorDetail" Type="varchar(max)" />
+    <Property Name="IsStorageConfigured" Type="bit" />
+    <Property Name="IsStorageError" Type="bit" />
+    <Property Name="StorageErrorDetail" Type="varchar(max)" />
+    <Property Name="LastActionOnDB" Type="datetime" />
+    <Property Name="LastActionOnStorage" Type="datetime" />
+    <Property Name="LogoImgLink" Type="varchar(max)" />
+    <Property Name="BackgroundImgLink" Type="varchar(max)" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="Tbl_ClientParameter">
+    <Key>
+      <PropertyRef Name="ClientParameterID" />
+    </Key>
+    <Property Name="ClientParameterID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ParameterID" Type="int" />
+    <Property Name="ParameterValue" Type="varchar(max)" />
+    <Property Name="ClientDetailID" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="Tbl_Consultant">
+    <Key>
+      <PropertyRef Name="ConsultantID" />
+    </Key>
+    <Property Name="ConsultantID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SpecialisationAreas" Type="varchar(max)" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="Tbl_ForgetPassword">
+    <Key>
+      <PropertyRef Name="ForgetPasswordID" />
+    </Key>
+    <Property Name="ForgetPasswordID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UniqueCode" Type="varchar(max)" />
+    <Property Name="SystemUserID" Type="int" />
+    <Property Name="ExpiresInMinutes" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Tbl_IncorrectPasswordAttempt">
+    <Key>
+      <PropertyRef Name="IncorrectPasswordID" />
+    </Key>
+    <Property Name="IncorrectPasswordID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SystemUserID" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="Password" Type="varchar(max)" />
+    <Property Name="IsInclude" Type="bit" />
+  </EntityType>
+  <EntityType Name="Tbl_Menu">
+    <Key>
+      <PropertyRef Name="MenuID" />
+    </Key>
+    <Property Name="MenuID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MenuName" Type="varchar" MaxLength="400" />
+    <Property Name="Description" Type="varchar" MaxLength="400" />
+    <Property Name="ParentID" Type="int" />
+    <Property Name="Icon" Type="varchar" MaxLength="400" />
+    <Property Name="ToolTip" Type="varchar" MaxLength="500" />
+    <Property Name="Link" Type="varchar" MaxLength="400" />
+    <Property Name="IsViewable" Type="bit" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="Tbl_MenuAssignment">
+    <Key>
+      <PropertyRef Name="AssignmentID" />
+    </Key>
+    <Property Name="AssignmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MenuID" Type="int" />
+    <Property Name="RoleID" Type="int" />
+    <Property Name="EmployeeID" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="Tbl_Notification">
+    <Key>
+      <PropertyRef Name="NotificationID" />
+    </Key>
+    <Property Name="NotificationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="varchar" MaxLength="400" />
+    <Property Name="Description" Type="varchar(max)" />
+    <Property Name="Icon" Type="varchar(max)" />
+    <Property Name="Type" Type="varchar" MaxLength="400" />
+    <Property Name="ClickLink" Type="varchar" MaxLength="400" />
+    <Property Name="CreatedDatetime" Type="datetime" />
+    <Property Name="Isviewed" Type="bit" />
+    <Property Name="ViewedDatetime" Type="datetime" />
+    <Property Name="EmployeeID" Type="int" />
+    <Property Name="CreatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="Tbl_OpinionRequest">
+    <Key>
+      <PropertyRef Name="OpinionRequestID" />
+    </Key>
+    <Property Name="OpinionRequestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PatientDetails" Type="varchar(max)" />
+    <Property Name="SampleAnalysisDetails" Type="varchar(max)" />
+    <Property Name="OpinionNeededDescription" Type="varchar(max)" />
+    <Property Name="ConsultantOpinion" Type="varchar(max)" />
+    <Property Name="ClientOpinionRequestID" Type="int" />
+    <Property Name="ClientID" Type="int" />
+    <Property Name="StatusID" Type="int" />
+    <Property Name="AssignedTo" Type="int" />
+    <Property Name="CommentForRequester" Type="varchar(max)" />
+    <Property Name="CommentForConsultant" Type="varchar(max)" />
+    <Property Name="Payment" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="PaymentReceiptPdfLink" Type="varchar(max)" />
+    <Property Name="RequestCreatedDate" Type="datetime" />
+    <Property Name="RequestCreatedBy" Type="int" />
+    <Property Name="IsPublish" Type="bit" />
+    <Property Name="NewActionDate" Type="datetime" />
+    <Property Name="NewActionBy" Type="int" />
+    <Property Name="NewActionStatusID" Type="int" />
+    <Property Name="NewActionComments" Type="varchar(max)" />
+    <Property Name="PendingActionBy" Type="int" />
+    <Property Name="PendingActionDate" Type="datetime" />
+    <Property Name="PendingActionComments" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Tbl_OpinionRequestStatus">
+    <Key>
+      <PropertyRef Name="OpinionRequestStatusID" />
+    </Key>
+    <Property Name="OpinionRequestStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="250" />
+    <Property Name="Description" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Tbl_Plan">
+    <Key>
+      <PropertyRef Name="PlanID" />
+    </Key>
+    <Property Name="PlanID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PlanName" Type="varchar(max)" />
+    <Property Name="PlanDescription" Type="varchar(max)" />
+    <Property Name="PlanDetail" Type="varchar(max)" />
+    <Property Name="PlanCost" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="PlanStatus" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="Tbl_ProviderParameterMapping">
+    <Key>
+      <PropertyRef Name="ProviderParameterMappingID" />
+    </Key>
+    <Property Name="ProviderParameterMappingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProviderID" Type="int" />
+    <Property Name="ParameterID" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="Tbl_ProviderParamter">
+    <Key>
+      <PropertyRef Name="ParameterID" />
+    </Key>
+    <Property Name="ParameterID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ParameterName" Type="varchar" MaxLength="400" />
+    <Property Name="Type" Type="varchar" MaxLength="50" />
+    <Property Name="IsRequired" Type="bit" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="Tbl_Role">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleName" Type="varchar" MaxLength="400" />
+    <Property Name="Description" Type="varchar" MaxLength="400" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="Tbl_RoleMapping">
+    <Key>
+      <PropertyRef Name="RoleMappingID" />
+    </Key>
+    <Property Name="RoleMappingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleID" Type="int" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="IsDefault" Type="bit" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="Tbl_SalesAndContactQuery">
+    <Key>
+      <PropertyRef Name="SalesAndContactQueryID" />
+    </Key>
+    <Property Name="SalesAndContactQueryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar(max)" />
+    <Property Name="Email" Type="varchar(max)" />
+    <Property Name="ContactNo" Type="varchar(max)" />
+    <Property Name="Subject" Type="varchar(max)" />
+    <Property Name="Description" Type="varchar(max)" />
+    <Property Name="TypeID" Type="int" />
+    <Property Name="StatusID" Type="int" />
+    <Property Name="RequestCreatedDate" Type="datetime" />
+    <Property Name="NewActionBy" Type="int" />
+    <Property Name="NewActionDate" Type="datetime" />
+    <Property Name="NewActionStatusID" Type="int" />
+    <Property Name="NewActionComments" Type="varchar(max)" />
+    <Property Name="PendingActionBy" Type="int" />
+    <Property Name="PendingActionDate" Type="datetime" />
+    <Property Name="PendingActionComments" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Tbl_SalesAndContactQueryStatus">
+    <Key>
+      <PropertyRef Name="SalesAndContactQueryStatusID" />
+    </Key>
+    <Property Name="SalesAndContactQueryStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StatusName" Type="varchar(max)" />
+    <Property Name="StatusDescription" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Tbl_SalesAndContactQueryType">
+    <Key>
+      <PropertyRef Name="SalesAndContactQueryTypeID" />
+    </Key>
+    <Property Name="SalesAndContactQueryTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TypeName" Type="varchar" MaxLength="50" />
+    <Property Name="Description" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Tbl_SectionRestriction">
+    <Key>
+      <PropertyRef Name="SectionID" />
+    </Key>
+    <Property Name="SectionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SectionSelector" Type="varchar(max)" />
+    <Property Name="MenuID" Type="int" />
+    <Property Name="EmployeeID" Type="int" />
+    <Property Name="RoleID" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="Tbl_StorageandDBProvider">
+    <Key>
+      <PropertyRef Name="ProviderID" />
+    </Key>
+    <Property Name="ProviderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProviderName" Type="varchar" MaxLength="400" />
+    <Property Name="Description" Type="varchar" MaxLength="400" />
+  </EntityType>
+  <EntityType Name="Tbl_SystemUser">
+    <Key>
+      <PropertyRef Name="SystemUserID" />
+    </Key>
+    <Property Name="SystemUserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="varchar" MaxLength="250" />
+    <Property Name="Password" Type="varchar(max)" />
+    <Property Name="FirstName" Type="varchar(max)" />
+    <Property Name="MiddleName" Type="varchar(max)" />
+    <Property Name="LastName" Type="varchar(max)" />
+    <Property Name="Email" Type="varchar(max)" />
+    <Property Name="MobileNo" Type="varchar(max)" />
+    <Property Name="Address" Type="varchar(max)" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="ProfilePic" Type="varchar(max)" />
+    <Property Name="DetailID" Type="int" />
+    <Property Name="DetailType" Type="int" />
+    <Property Name="IsBlock" Type="bit" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="Tbl_SystemUserType">
+    <Key>
+      <PropertyRef Name="SystemUserTypeID" />
+    </Key>
+    <Property Name="SystemUserTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TypeName" Type="varchar(max)" />
+    <Property Name="Description" Type="varchar(max)" />
+  </EntityType>
+  <EntityContainer Name="LabSystemDBModelStoreContainer">
+    <EntitySet Name="Tbl_Client" EntityType="Self.Tbl_Client" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_ClientParameter" EntityType="Self.Tbl_ClientParameter" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Consultant" EntityType="Self.Tbl_Consultant" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_ForgetPassword" EntityType="Self.Tbl_ForgetPassword" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_IncorrectPasswordAttempt" EntityType="Self.Tbl_IncorrectPasswordAttempt" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Menu" EntityType="Self.Tbl_Menu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_MenuAssignment" EntityType="Self.Tbl_MenuAssignment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Notification" EntityType="Self.Tbl_Notification" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_OpinionRequest" EntityType="Self.Tbl_OpinionRequest" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_OpinionRequestStatus" EntityType="Self.Tbl_OpinionRequestStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Plan" EntityType="Self.Tbl_Plan" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_ProviderParameterMapping" EntityType="Self.Tbl_ProviderParameterMapping" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_ProviderParamter" EntityType="Self.Tbl_ProviderParamter" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Role" EntityType="Self.Tbl_Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_RoleMapping" EntityType="Self.Tbl_RoleMapping" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_SalesAndContactQuery" EntityType="Self.Tbl_SalesAndContactQuery" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_SalesAndContactQueryStatus" EntityType="Self.Tbl_SalesAndContactQueryStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_SalesAndContactQueryType" EntityType="Self.Tbl_SalesAndContactQueryType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_SectionRestriction" EntityType="Self.Tbl_SectionRestriction" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_StorageandDBProvider" EntityType="Self.Tbl_StorageandDBProvider" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_SystemUser" EntityType="Self.Tbl_SystemUser" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_SystemUserType" EntityType="Self.Tbl_SystemUserType" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

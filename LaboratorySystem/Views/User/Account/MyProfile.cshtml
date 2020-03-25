@@ -1,0 +1,372 @@
+﻿@model LaboratoryBusiness.POCO.User.Cl_ClientUser
+
+@{
+    ViewBag.Title = "My Profile";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+<script>
+    var currentmenu = 27;
+</script>
+
+<div class="">
+    <div class="breadcrumb">
+        <h1>My Profile</h1>
+        <ul>
+            <li><a href="">Profile</a></li>
+            <li>My Profile</li>
+        </ul>
+    </div>
+
+    <div class="separator-breadcrumb border-top"></div>
+
+    <div class="card user-profile o-hidden mb-4">
+        <div class="header-cover" style="background-image: none"></div>
+        <div class="user-info">
+            <img class="profile-picture avatar-lg mb-2" src="@ViewBag.profileimage" alt="">
+            <p class="m-0 text-24">@ViewBag.username</p>
+            <p class="text-muted m-0">@ViewBag.Roles</p>
+        </div>
+        <div class="card-body">
+            <ul class="nav nav-tabs profile-nav mb-4" id="profileTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="timeline-tab" data-toggle="tab" href="#UserProfile" role="tab" aria-controls="timeline" aria-selected="false">Profile Information</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="about-tab" data-toggle="tab" href="#ChangePassword" role="tab" aria-controls="about" aria-selected="true">Change Password</a>
+                </li>
+
+            </ul>
+
+            <div class="tab-content" id="profileTabContent">
+                <div class="tab-pane fade active show" id="UserProfile" role="tabpanel" aria-labelledby="timeline-tab">
+
+                    <div class="">
+
+                        <div class="row">
+
+                            <div class="col-lg-12">
+                                <!--begin::form 3 Horizontal-->
+                                @using (Html.BeginForm("SaveUserProfile", "User/Account/", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <!-- start card 3 Columns Horizontal Form Layout-->
+                                    <div class="card ul-card__margin-25">
+                                        <div class="card-header bg-transparent">
+                                            <h3 class="card-title" id="cardheading">Edit Information</h3>
+                                        </div>
+
+
+                                        <div class="card-body">
+                                            <div class="form-group row">
+                                                <label for="firstname" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                                    First Name:
+                                                </label>
+                                                <div class="col-lg-3 ">
+                                                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter first name", @required = "required" } })
+
+                                                    <small id="firstnamehelpblock" class="ul-form__text form-text ">
+                                                        Please enter first name
+                                                    </small>
+                                                </div>
+
+
+                                                <label for="lastname" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                                    Last Name:
+                                                </label>
+                                                <div class="col-lg-3 ">
+                                                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter last name", @required = "required" } })
+                                                    <small id="lastnamehelpblock" class="ul-form__text form-text ">
+                                                        Please enter last name
+                                                    </small>
+                                                </div>
+
+                                                <label for="email" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                                    Email:
+                                                </label>
+                                                <div class="col-lg-3 ">
+                                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter email", @required = "required" } })
+
+                                                    <small id="emailhelpblock" class="ul-form__text form-text ">
+                                                        Please enter email
+                                                    </small>
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="custom-separator"></div>
+
+                                            <div class="form-group row">
+
+                                                <label for="mobileno" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                                    Mobile No:
+                                                </label>
+                                                <div class="col-lg-3 ">
+                                                    @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter mobile no", @required = "required" } })
+                                                    <small id="mobilenohelpblock" class="ul-form__text form-text ">
+                                                        Please enter mobile no
+                                                    </small>
+                                                </div>
+
+                                                <label for="address" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Address:</label>
+                                                <div class="col-lg-3">
+                                                <textarea cols="20" htmlattributes="" id="Address" name="Address" rows="2" class="form-control">London</textarea>
+                                                    
+                                                    <small id="addressBlock" class="ul-form__text form-text ">Please enter address
+                                                    </small>
+                                            </div>
+
+                                                <label for="username" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                                    Username:
+                                                </label>
+                                                <div class="col-lg-3 ">
+                                                    @Html.EditorFor(model => model.Username, new { htmlAttributes = new { disabled = "disabled", @class = "form-control", @placeholder = "Please enter username", @required = "required" } })
+
+                                                    <small id="usernamehelpblock" class="ul-form__text form-text ">
+                                                        Please enter username
+                                                    </small>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="custom-separator"></div>
+
+                                            <div class="form-group row">
+                                                @*
+                                                        <label for="status" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Status:</label>
+                                                    <div class="col-lg-3">
+
+
+                                                        <select class="form-control" id="status" name="status">
+                                                            <option value="true">Active</option>
+                                                            <option value="false">Inactive</option>
+                                                        </select>
+
+
+                                                        <small id="statusHelpBlock" class="ul-form__text form-text ">Please select status
+                                                        </small>
+                                                    </div>
+                                                *@
+
+
+                                                <label for="profilePicture" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                                    Profile Image:
+                                                </label>
+                                                <div class="col-lg-3 ">
+
+                                                    <input type="file" name="file" id="file" />
+
+
+                                                    <small id="usernamehelpblock" class="ul-form__text form-text ">
+                                                        Upload profile image here
+                                                    </small>
+                                                </div>
+
+
+
+                                            </div>
+
+
+
+
+
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="mc-footer">
+                                                <div class="row text-center">
+                                                    <div class="col-lg-12 ">
+                                                        <button type="submit" class="btn btn-primary m-1" id="saveorupdatebtn">Save</button>
+                                                        <a href="/User/Home" role="button" data-tooltip="Add Record" class="btn btn-outline-secondary m-1">Reset</a>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                <!-- end card 3 Columns Horizontal Form Layout-->
+                                    @Html.HiddenFor(model => model.Username)
+
+                                    @Html.HiddenFor(model => model.ClientUserID)
+
+                                    <input type="hidden" id="isSuccessullySave" name="isSuccessullySave" value="@ViewBag.IsSuccessfullySave" />
+
+                                }
+                                <!-- end::form 3-->
+
+
+
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="ChangePassword" role="tabpanel" aria-labelledby="about-tab">
+                    <div class="">
+
+                        <div class="row">
+
+                            <div class="col-lg-12">
+                                <!--begin::form 3 Horizontal-->
+                                <!-- start card 3 Columns Horizontal Form Layout-->
+                                <div class="card ul-card__margin-25">
+                                    <div class="card-header bg-transparent">
+                                        <h3 class="card-title" id="cardheading">Change password</h3>
+                                    </div>
+
+
+                                    <form id="changePasswordform">
+                                        <div class="card-body">
+                                            <div class="form-group row">
+                                                <label for="firstname" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                                    Old Password:
+                                                </label>
+                                                <div class="col-lg-3 ">
+                                                    <input type="password" class="form-control" placeholder="Enter Old Password" name="oldpassword" id="oldpassword" required="required" />
+                                                    <small id="firstnamehelpblock" class="ul-form__text form-text ">
+                                                        Please enter old password
+                                                    </small>
+                                                </div>
+                                                <label for="firstname" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                                    New Password:
+                                                </label>
+                                                <div class="col-lg-3 ">
+
+                                                    <input type="password" class="form-control" placeholder="Enter New Password" name="newpassword" id="newpassword" required="required" />
+
+                                                    <small id="firstnamehelpblock" class="ul-form__text form-text ">
+                                                        Please enter new password
+                                                    </small>
+                                                </div>
+                                                <label for="firstname" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                                    Confirm Password:
+                                                </label>
+                                                <div class="col-lg-3 ">
+                                                    <input type="password" class="form-control" placeholder="Enter Confirm Password" name="confirmpassword" id="confirmpassword" required="required" />
+
+                                                    <small id="firstnamehelpblock" class="ul-form__text form-text ">
+                                                        Please enter confirm password
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="mc-footer">
+                                                <div class="row text-center">
+                                                    <div class="col-lg-12 ">
+                                                        <button type="submit" class="btn btn-primary m-1" id="saveorupdatebtnChangePassword">Save</button>
+                                                        <a href="/User/Home" role="button" data-tooltip="Add Record" class="btn btn-outline-secondary m-1">Reset</a>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        function checkPasswordRegex(password) {
+
+            var mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
+            if (password.match(mediumRegex)) {
+
+                return true;
+            }
+            else {
+                toastr.error("Input Password and Submit [contain at least 1 lowercase, uppercase , numeric, special alphabetical character and 8 characters or longer.]");
+                return false;
+            }
+
+
+        }
+        function checkPasswordAndConfirmPassword(password, confirmPassword) {
+
+            if (password == confirmPassword) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        $("#saveorupdatebtn").click(function () {
+            $('.loadscreen').fadeIn();
+
+        });
+
+        $("#saveorupdatebtnChangePassword").click(function () {
+            var form = document.querySelector('#changePasswordform');
+            if (checkPasswordRegex($('#newpassword').val())) {
+                if (form.reportValidity() && checkPasswordAndConfirmPassword($('#confirmpassword').val(), $('#newpassword').val())) {
+
+                    MakeRequest(_User_Account_ChangePasswordInternal, "POST", objectifyForm($("#changePasswordform").serializeArray()), "json",
+                        function (jqXHR, settings) {
+                            //For Before Send
+                            $('.loadscreen').fadeIn();
+                        },
+                        function (data, status, xhr) {
+                            //For Success
+                            $('.loadscreen').fadeOut();
+                            $("#changePasswordform").trigger("reset");
+                            var rs = WebResponse(data);
+                           // WebResponse(new { ResponseType: "toastr-success", description: '', title: "Password Changed Successfully", data: {} });
+
+                            //if (rs.ResponseType == "toastr-sucsess") {
+                            //    setTimeout(function () {
+                            //        window.location.replace("/Admin/Account");
+                            //    }, 2000);
+                            //}
+                        },
+                    function (jqXhr, textStatus, errorMessage) {
+                        //For Error
+                        $('.loadscreen').fadeOut();
+                        WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                    });
+                }
+                else {
+                    toastr.error("Password and confirm password not matching", "Password not matching");
+
+                    // WebResponse(new { ResponseType: "toastr-error", description: 'Password and confirm password not matching', title: "Password not matching", data: {} });
+                }
+            }
+            return false;
+        });
+
+
+
+        function processAjaxData(response, urlPath) {
+            //  document.getElementById("content").innerHTML = response.html;
+            //    document.title = response.pageTitle;
+            window.history.pushState({ "html": '', "pageTitle": 'Profile' }, "", urlPath);
+        }
+
+        $('#cancelbtn').click(function () { window.location.replace(window.location.hostname + "/User/Home") });
+        if ($('#isSuccessullySave').val() == 1) {
+            toastr.success("profile has been updated successfully", "profile updated");
+        }
+        if ($('#isSuccessullySave').val() == 2) {
+
+            toastr.error("Something went wrong", "profile not updated");
+        }
+
+    });
+</script>
+
+

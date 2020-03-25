@@ -1,0 +1,179 @@
+﻿
+@{
+    ViewBag.Title = "All Test Records";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+<script>
+    var currentmenu = 25;
+    $(document).ready(function () {
+
+
+        MakeRequest(_User_ExportData_GetAllTestRecords, "POST", null, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For SuccessF
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+    var outputdt = {};
+    if (rs.ResponseType == "Simple") {
+        var dt = rs.ResponseData.testjson;
+        outputdt = dt;
+    }
+
+    $('#clientpaymenttable').DataTable({
+        data: outputdt,
+        columns: [
+            { data: 'TestID' },
+            { data: 'TestName' },
+            { data: 'PatientName' },
+  { data: 'Status' },
+            { data: 'TestCreatedDateCustom' },
+           
+  { data: 'PdfLink' }
+
+        ],
+        "columnDefs": [
+{
+    "render": function (data, type, row) {
+        return ConvertDate(row["CreatedDate"]);
+    }
+}, {
+    "render": function (data, type, row) {
+        if (data == "Completed") {
+            return '<span class="badge badge-success">Completed</span>';
+        }
+
+        else if (data == "Pending") {
+            return '<span class="badge badge-warning">Pending</span>';
+        }
+        else {
+            return data;
+        }
+    }, "targets": 3
+
+},
+
+            {
+                "render": function (data, type, row) {
+                    return "<input type='checkbox' class='form-check downloadcheckbox' value='" + row["TestID"] + "' /><a href='" + row["PdfLink"] + "' target='_blank'>Click here to download</a>";
+                },
+                "targets": 5
+            }
+        ]
+    });
+
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+
+    })
+</script>
+<div class="breadcrumb">
+    <h1 class="mr-2">All Test Records</h1>
+    <ul>
+        <li><a href="">Export Data</a></li>
+        <li>All Test Records</li>
+    </ul>
+</div>
+
+
+<div id="gridarea">
+    <div class="row mb-4">
+
+        <div class="col-md-12 mb-3">
+            <div class="card text-left">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="clientpaymenttable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Test ID #</th>
+                                    <th scope="col">Test Name</th>
+                                    <th scope="col">Patient Name</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Date</th>
+
+                                    <th scope="col">PDF Link<br /><a href="#" id="alldowloadlink">Download Selected</a><input type="checkbox" class="form-check alldownloadpdf" /></th>
+                                   
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end of col-->
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $("#backtogridbtn").click(function () {
+            $("#detailarea").slideUp();
+            $("#gridarea").slideDown();
+        })
+
+
+        $(document).on('change', '.alldownloadpdf', function () {
+            $(".downloadcheckbox").prop('checked', $(this).prop('checked'));
+        });
+
+
+        $(document).on('change', '.downloadcheckbox', function () {
+            var allcheckboxcount = 0;
+            var allcheckboxcheckedcount = 0;
+            $('.downloadcheckbox').each(function (i, obj) {
+                allcheckboxcount++;
+                if ($(obj).prop('checked')) {
+                    allcheckboxcheckedcount++;
+                }
+            });
+
+            if (allcheckboxcount == allcheckboxcheckedcount) {
+                $(".alldownloadpdf").prop('checked', true);
+            }
+
+            else {
+                $(".alldownloadpdf").prop('checked', false);
+            }
+        })
+
+        $("#alldowloadlink").click(function () {
+            debugger
+            var totalids = "";
+            $('.downloadcheckbox').each(function (i, obj) {
+                if ($(obj).prop('checked')) {
+                    totalids += $(obj).val() + ",";
+                }
+            });
+
+            totalids = totalids.replace(/,\s*$/, "");
+            if (totalids == '') {
+                swal.fire({ title: "Error", icon: "error", html: "Select atleast one test pdf to download !" });
+                return;
+            }
+            var origin = window.location.origin;
+            var win = window.open(origin + '/' + _User_ExportData_DownloadAllTestRecords + '?qr=' + totalids, '_blank');
+            console.log(win);
+            if (win) {
+                //Browser has allowed it to be opened
+                win.focus();
+            } else {
+                //Browser has blocked it
+                alert('Please allow popups for this website');
+            }
+        })
+    });
+</script>

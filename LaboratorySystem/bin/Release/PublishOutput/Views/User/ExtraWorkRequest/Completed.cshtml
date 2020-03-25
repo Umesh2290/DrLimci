@@ -1,0 +1,464 @@
+﻿
+@{
+    ViewBag.Title = "Extra Work Completed";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+<Script>
+    var currentmenu = 40;
+    $(document).ready(function () {
+
+
+        MakeRequest(_User_ExtraWorkRequest_GetList, "POST", { "status": "Completed" }, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+    var outputdt = {};
+    if (rs.ResponseType == "Simple") {
+        var dt = rs.ResponseData.extraworkrequestjson;
+        outputdt = dt;
+    }
+
+    $('#requesttable').on('init.dt', function () {
+        allloaded = true;
+    }).DataTable({
+        data: outputdt,
+        columns: [
+            { data: 'ExtraWorkID' },
+            { data: 'TestName' },
+            { data: 'H_ELevels' },
+            { data: 'RequestCreatedDate' },
+            { data: 'StatusCustom' },
+            { data: 'ExtraWorkID', className: 'editcolumn' }
+        ],
+        "columnDefs": [
+            {
+                "render": function (data, type, row) {
+                    if (data == "New") {
+                        return '<span class="badge badge-warning">New</span>';
+                    }
+                    else if (data == "In-Progress") {
+                        return '<span class="badge badge-danger">In-Progress</span>';
+                    }
+                    else if (data == "Completed") {
+                        return '<span class="badge badge-success">Completed</span>';
+                    }
+                    else {
+                        data;
+                    }
+                },
+                "targets": 4
+            },
+            {
+                "render": function (data, type, row) {
+                    return '<button type="button" class="btn btn-info viewdetail" title="View Detail" class="viewdetail" data-id="' + data + '"><i class="nav-icon i-Magnifi-Glass1"></i></button>';
+                },
+                "targets": 5
+            }
+        ]
+    });
+
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+
+    });
+</script>
+<div class="breadcrumb">
+    <h1 class="mr-2" id="mainheading">Completed</h1>
+    <ul>
+        <li><a href="">Extra Work Request</a></li>
+        <li id="subheading">Completed</li>
+    </ul>
+</div>
+
+<div id="backbtndiv" style="display:none">
+    <div class="row" style="margin:0 0.83em 0">
+        <div class="offset-md-11"></div>
+        <div class="col-md-1">
+            <button type="button" class="btn btn-gray-300" id="backtogridbtn"><i class="nav-icon i-Back1 "></i>Back</button>
+        </div>
+    </div>
+    <br />
+    <br />
+</div>
+<div class="separator-breadcrumb border-top"></div>
+<div id="gridarea">
+    <div class="row mb-4">
+
+        <div class="col-md-12 mb-3">
+            <div class="card text-left">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="requesttable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Request ID #</th>
+                                    <th scope="col">Test Name</th>
+                                    <th scope="col">H&E Levels</th>
+                                    <th scope="col">Request Created Date</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">View Detail</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end of col-->
+    </div>
+</div>
+<div id="detailarea" style="display:none;">
+    <h4 id="detailtitle">Details</h4>
+    <hr>
+    <div class="row">
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Extra Work Request ID #</p>
+                <span id="requestid_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Test Name</p>
+                <span id="testname_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> H&E Levels</p>
+                <span id="helevels_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Special Stains</p>
+                <span id="specialstains_lbl">N/A</span>
+            </div>
+            <div class="mb-4 completedby" style="display:none">
+                <p class="text-primary mb-1" id="completedbylbl"><i class="text-16 mr-1"></i> Completed By</p>
+                <span id="completedby_lbl">N/A</span>
+            </div>
+        </div>
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Immuno Histo Chemisty</p>
+                <span id="immunohistochemistry_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Others</p>
+                <span id="others_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Request Date</p>
+                <span id="requestdate_lbl">N/A</span>
+            </div>
+            <div class="mb-4 inprogressdate" style="display:none">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> In-Progress Date</p>
+                <span id="inprogressdate_lbl">N/A</span>
+            </div>
+            <div class="mb-4 completeddate" style="display:none">
+                <p class="text-primary mb-1" id="completeddatelbl"><i class="text-16 mr-1"></i> Completed Date</p>
+                <span id="completeddate_lbl">N/A</span>
+            </div>
+        </div>
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Status</p>
+                <span id="status_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Request By</p>
+                <span id="requestby_lbl">N/A</span>
+            </div>
+            <div class="mb-4 inprogresscomments" style="display:none">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> In-Progress Comments</p>
+                <span id="inprogresscomments_lbl">N/A</span>
+            </div>
+            <div class="mb-4 inprogressby" style="display:none">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> In-Progress By</p>
+                <span id="inprogressby_lbl">N/A</span>
+            </div>
+            <div class="mb-4 completedcomments" style="display:none">
+                <p class="text-primary mb-1" id="completedcommentslbl"><i class="text-16 mr-1"></i> Completed Comments</p>
+                <span id="completedcomments_lbl">N/A</span>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row investigations-section" style="display:none">
+        <div class="col-lg-12">
+
+            <div class="table-borderless">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="color:#70657b">Investigation Name</th>
+                            <th scope="col" style="color:#70657b">Values</th>
+                            <th scope="col" style="color:#70657b">Range</th>
+                            <th scope="col" style="color:#70657b">Result</th>
+                        </tr>
+                    </thead>
+                    <tbody id="investigationsrow_inv_vw"></tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <h4 class="card-title mb-3 attachmentinvestigations-section" style="margin-left: 20px;display:none">Attachments</h4>
+    <hr class="attachmentinvestigations-section" style="display:none">
+    <div class="row attachmentinvestigations-section" style="display:none" id="attachmentlist_investigation">
+    </div>
+    
+</div>
+<script>
+    $(document).ready(function () {
+
+        $("#backtogridbtn").click(function () {
+            $("#detailarea").slideUp();
+            $("#gridarea").slideDown();
+            $("#backbtndiv").fadeOut();
+        });
+        $(document).on('click', '.viewdetail', function () {
+
+            MakeRequest(_User_ExtraWorkRequest_GetDetail, "POST", { "extraworkrequestid": $(this).attr("data-id") }, "json",
+    function (jqXHR, settings) {
+        //For Before Send
+        $('.loadscreen').fadeIn();
+    },
+    function (data, status, xhr) {
+        //For Success
+        $('.loadscreen').fadeOut();
+        var rs = WebResponse(data);
+        var extraworkrequestobj = null;
+        var openaction = null;
+        var progressaction = null;
+
+        if (rs.ResponseType == "Simple") {
+            extraworkrequestobj = rs.ResponseData.extraworkrequestobjjson;
+            openaction = rs.ResponseData.openactionjson;
+            progressaction = rs.ResponseData.progressactionjson;
+        }
+
+        if (extraworkrequestobj != null) {
+
+            var html_investigationresult = '';
+            if (rs.ResponseData.investigationlistjson != null) {
+                if (rs.ResponseData.investigationlistjson.length > 0) {
+                    $.each(rs.ResponseData.investigationlistjson, function (i, e) {
+
+                        html_investigationresult += '<tr>\
+                                                        <td>'+ e.InvestigationName + '</td>\
+                                                        <td>'+ e.Value + '</td>\
+                                                        <td>'+ e.Range + '</td>\
+                                                        <td>'+ e.InvestigationResult + '</td>\
+                                                    </tr>'
+                    });
+
+
+
+                }
+                else {
+                    $(".investigations-section").hide();
+                }
+            }
+            else {
+                $(".investigations-section").hide();
+            }
+            $("#investigationsrow_inv_vw").html(html_investigationresult);
+            if (html_investigationresult != '') {
+                $(".investigations-section").show();
+            }
+
+            var html_investigationattachment = '';
+            if (rs.ResponseData.attachmentsjson != null) {
+                if (rs.ResponseData.attachmentsjson.length > 0) {
+                    $.each(rs.ResponseData.attachmentsjson, function (i, e) {
+
+                        html_investigationattachment += '<div class="col-md-2 col-4 attachmentbox">\
+                                    <div class="mb-4">\
+                                        <p class="text-primary mb-1">\
+                                        <i class="i-Download text-16 mr-1 " title="Download"></i><a href="' + e.Link + '" target="_blank"> ' + e.Name + '</a></p>\
+                                    </div>\
+                                </div>'
+                    });
+
+
+
+                }
+                else {
+                    $(".attachmentinvestigations-section").hide();
+                }
+            }
+            else {
+                $(".attachmentinvestigations-section").hide();
+            }
+
+            $("#attachmentlist_investigation").html(html_investigationattachment);
+            if (html_investigationattachment != '') {
+                $(".attachmentinvestigations-section").show();
+            }
+
+            $("#requestid_lbl").text(extraworkrequestobj.ExtraWorkID);
+            $("#testname_lbl").text(extraworkrequestobj.TestName);
+            $("#helevels_lbl").text(extraworkrequestobj.H_ELevels);
+            $("#specialstains_lbl").text(extraworkrequestobj.SpecialStains);
+            $("#others_lbl").text(extraworkrequestobj.Others);
+            $("#immunohistochemistry_lbl").text(extraworkrequestobj.ImmunoHistoChemistry);
+            $("#requestdate_lbl").text(extraworkrequestobj.RequestCreatedDateCustom);
+            $("#requestby_lbl").text(extraworkrequestobj.RequestCreatedByName);
+            $("#status_lbl").text(extraworkrequestobj.StatusName);
+
+            $("#extraworkrequestid").val(extraworkrequestobj.ExtraWorkID);
+            $("#testid").val(extraworkrequestobj.TestID);
+            if (openaction != null) {
+                if (openaction.OpenActionStatusName == "In-Progress") {
+                    $("#inprogressby_lbl").text(openaction.OpenActionByName);
+                    $("#inprogressdate_lbl").text(openaction.OpenActionDateCustom);
+                    $("#inprogresscomments_lbl").text(openaction.OpenActionComments);
+
+                    $(".inprogressby").show();
+                    $(".inprogressdate").show();
+                    $(".inprogresscomments").show();
+                }
+                else if (openaction.OpenActionStatusName == "Completed") {
+                    $("#inprogressby_lbl").text("N/A");
+                    $("#inprogressdate_lbl").text("N/A");
+                    $("#inprogresscomments_lbl").text("N/A");
+
+                    $(".inprogressby").hide();
+                    $(".inprogressdate").hide();
+                    $(".inprogresscomments").hide();
+
+                    $("#completedby_lbl").text(openaction.OpenActionByName);
+                    $("#completeddate_lbl").text(openaction.OpenActionDateCustom);
+                    $("#completedcomments_lbl").text(openaction.OpenActionComments);
+
+                    $(".completedby").show();
+                    $(".completeddate").show();
+                    $(".completedcomments").show();
+                }
+
+                else {
+                    $("#inprogressby_lbl").text("N/A");
+                    $("#inprogressdate_lbl").text("N/A");
+                    $("#inprogresscomments_lbl").text("N/A");
+
+                    $(".inprogressby").hide();
+                    $(".inprogressdate").hide();
+                    $(".inprogresscomments").hide();
+
+                    $("#completedby_lbl").text("N/A");
+                    $("#completeddate_lbl").text("N/A");
+                    $("#completedcomments_lbl").text("N/A");
+
+                    $(".completedby").hide();
+                    $(".completeddate").hide();
+                    $(".completedcomments").hide();
+                }
+            }
+            else {
+                $("#inprogressby_lbl").text("N/A");
+                $("#inprogressdate_lbl").text("N/A");
+                $("#inprogresscomments_lbl").text("N/A");
+
+                $(".inprogressby").hide();
+                $(".inprogressdate").hide();
+                $(".inprogresscomments").hide();
+
+                $("#completedby_lbl").text("N/A");
+                $("#completeddate_lbl").text("N/A");
+                $("#completedcomments_lbl").text("N/A");
+
+                $(".completedby").hide();
+                $(".completeddate").hide();
+                $(".completedcomments").hide();
+            }
+
+            if (progressaction != null) {
+                $("#completedby_lbl").text(progressaction.ProgressActionByName);
+                $("#completeddate_lbl").text(progressaction.ProgressActionDateCustom);
+                $("#completedcomments_lbl").text(progressaction.ProgressActionComments);
+
+                $(".completedby").show();
+                $(".completeddate").show();
+                $(".completedcomments").show();
+            }
+
+            else {
+                if (openaction == null) {
+                    $("#completedby_lbl").text("N/A");
+                    $("#completeddate_lbl").text("N/A");
+                    $("#completedcomments_lbl").text("N/A");
+                    $(".completedby").hide();
+                    $(".completeddate").hide();
+                    $(".completedcomments").hide();
+                }
+                else {
+                    if (openaction.OpenActionStatusName == "In-Progress") {
+                        $("#completedby_lbl").text("N/A");
+                        $("#completeddate_lbl").text("N/A");
+                        $("#completedcomments_lbl").text("N/A");
+                        $(".completedby").hide();
+                        $(".completeddate").hide();
+                        $(".completedcomments").hide();
+                    }
+                }
+            }
+
+
+        }
+        else {
+            $("#requestid_lbl").text("N/A");
+            $("#testname_lbl").text("N/A");
+            $("#helevels_lbl").text("N/A");
+            $("#specialstains_lbl").text("N/A");
+            $("#others_lbl").text("N/A");
+            $("#immunohistochemistry_lbl").text("N/A");
+            $("#requestdate_lbl").text("N/A");
+            $("#requestby_lbl").text("N/A");
+            $("#status_lbl").text("N/A");
+
+            $("#inprogressby_lbl").text("N/A");
+            $("#inprogressdate_lbl").text("N/A");
+            $("#inprogresscomments_lbl").text("N/A");
+
+            $(".inprogressby").hide();
+            $(".inprogressdate").hide();
+            $(".inprogresscomments").hide();
+
+            $("#completedby_lbl").text("N/A");
+            $("#completeddate_lbl").text("N/A");
+            $("#completedcomments_lbl").text("N/A");
+
+            $(".completedby").hide();
+            $(".completeddate").hide();
+            $(".completedcomments").hide();
+
+
+        }
+
+
+        $("#gridarea").slideUp();
+        $("#detailarea").slideDown();
+        $("#backbtndiv").fadeIn();
+
+    },
+    function (jqXhr, textStatus, errorMessage) {
+        //For Error
+        $('.loadscreen').fadeOut();
+        WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+    });
+
+        });
+
+    });
+    
+</script>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fe701ac9b8214eadb0c00d4d933e1d36" Name="Diagram1">
+        <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_AdminDetail" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_ClientUser" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_ClientUserAttachmentDetail" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_ClientUserDetail" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_ClientUserType" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_ExtraWorkAttachment" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_ExtraWorkRequest" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_ExtraWorkRequestStatus" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_ForgetPassword" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_IncorrectPasswordAttempt" Width="1.5" PointX="8.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_Inventory" Width="1.5" PointX="2.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_InventoryRequest" Width="1.5" PointX="4.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_InventoryRequestStatus" Width="1.5" PointX="6.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_InventoryStatusType" Width="1.5" PointX="8.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_Menu" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_MenuAssignment" Width="1.5" PointX="10.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_Notification" Width="1.5" PointX="10.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_OpinionRequest" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_OpinionRequestStatus" Width="1.5" PointX="12.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_PatientDetail" Width="1.5" PointX="12.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_Role" Width="1.5" PointX="6.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_RoleMapping" Width="1.5" PointX="8.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_SectionRestriction" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_Test" Width="1.5" PointX="0.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_TestAttachment" Width="1.5" PointX="2.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_TestAttachmentType" Width="1.5" PointX="14.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_TestConclusion" Width="1.5" PointX="14.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_TestInvestigation" Width="1.5" PointX="14.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_TestReportType" Width="1.5" PointX="10.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_TestStatus" Width="1.5" PointX="16.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_TestSupplementReport" Width="1.5" PointX="16.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_HospitalDetail" Width="1.5" PointX="13.375" PointY="16.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,217 @@
+﻿
+@{
+    ViewBag.Title = "Inactive Plans";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section ScriptSection{
+}
+
+<script>
+    var currentmenu = 35;
+    var allloaded = false;
+    $(document).ready(function () {
+
+
+        MakeRequest(_Admin_Plan_GetList, "POST", {"planstatus":0}, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+    var outputdt = {};
+    if (rs.ResponseType == "Simple") {
+        var dt = rs.ResponseData.planjson;
+        outputdt = dt;
+    }
+
+    $('#plantable').on('init.dt', function () {
+        allloaded = true;
+    }).DataTable({
+        data: outputdt,
+        columns: [
+            { data: 'PlanID' },
+            { data: 'PlanName' },
+            { data: 'PlanDescription' },
+            { data: 'PlanCost' },
+            { data: 'status' },
+            { data: 'PlanID' },
+            { data: 'PlanID', className: 'editcolumn' }
+        ],
+        "columnDefs": [
+            {
+                "render": function (data, type, row) {
+                    return '<a href="/Admin/Plan?IsEdit=1&EditId='+data+'" title="Edit"><button type="button" class="btn btn-success "><i class="nav-icon i-Pen-2 "></i></button></a>';
+                },
+                "targets": 6
+            },
+            {
+                "render": function (data, type, row) {
+                    if (data == "Inactive") {
+                        return '<span class="badge badge-warning">Inactive</span>';
+                    }
+                    else {
+                        return data;
+                    }
+                },
+                "targets": 4
+            },
+            {
+                "render": function (data, type, row) {
+                    return '<button type="button" class="btn btn-info viewdetail" title="View Detail" class="viewdetail" data-id="' + data + '"><i class="nav-icon i-Magnifi-Glass1"></i></button>';
+                },
+                "targets": 5
+            }
+        ]
+    });
+
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+
+    })
+</script>
+<div class="breadcrumb">
+    <h1 class="mr-2" id="mainheading">Inactive Plans</h1>
+    <ul>
+        <li><a href="">Plan</a></li>
+        <li id="subheading">Inactive Plans</li>
+    </ul>
+</div>
+
+
+<div class="separator-breadcrumb border-top"></div>
+<div id="gridarea">
+    <div class="row mb-4">
+
+        <div class="col-md-12 mb-3">
+            <div class="card text-left">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="plantable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Plan ID #</th>
+                                    <th scope="col">Plan Name</th>
+                                    <th scope="col">Plan Description</th>
+                                    <th scope="col">Plan Cost</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">View Detail</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end of col-->
+    </div>
+</div>
+<div id="detailarea" style="display:none;">
+    <button type="button" class="btn btn-gray-300 " id="backtogridbtn"><i class="nav-icon i-Back1 "></i> Back</button>
+    <br />
+    <br />
+    <h4 id="detailtitle">Details</h4>
+    <hr>
+    <div class="row">
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Plan ID #</p>
+                <span id="planid_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Plan Cost (per month)</p>
+                <span id="plancost_lbl">N/A</span>
+            </div>
+        </div>
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Plan Name</p>
+                <span id="planname_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Plan Detail</p>
+                <span id="plandetail_lbl">N/A</span>
+            </div>
+        </div>
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Plan Description</p>
+                <span id="plandescription_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Status</p>
+                <span id="planstatus_lbl">N/A</span>
+            </div>
+        </div>
+    </div>
+    <hr>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#backtogridbtn").click(function () {
+            $("#detailarea").slideUp();
+            $("#gridarea").slideDown();
+        })
+
+        $(document).on('click', '.viewdetail', function () {
+
+            MakeRequest(_Admin_Plan_GetDetail, "POST", { "planid": $(this).attr("data-id") }, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+    var outputdt = null;
+    if (rs.ResponseType == "Simple") {
+        var dt = rs.ResponseData.planjson;
+        outputdt = dt;
+    }
+
+    if (outputdt != null) {
+        $("#planid_lbl").text(outputdt.PlanID);
+        $("#planname_lbl").text(outputdt.PlanName);
+        $("#plandescription_lbl").text(outputdt.PlanDescription);
+        $("#plandetail_lbl").text(outputdt.PlanDetail);
+        $("#plancost_lbl").text(outputdt.PlanCost);
+        $("#planstatus_lbl").text(outputdt.status);
+    }
+    else {
+        $("#planid_lbl").text("N/A");
+        $("#planname_lbl").text("N/A");
+        $("#plandescription_lbl").text("N/A");
+        $("#plandetail_lbl").text("N/A");
+        $("#plancost_lbl").text("N/A");
+        $("#planstatus_lbl").text("N/A");
+    }
+
+    $("#gridarea").slideUp();
+    $("#detailarea").slideDown();
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+
+        })
+    })
+</script>
+
+
+

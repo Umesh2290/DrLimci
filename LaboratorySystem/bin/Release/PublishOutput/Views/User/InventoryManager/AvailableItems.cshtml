@@ -1,0 +1,250 @@
+﻿
+@{
+    ViewBag.Title = "Available Inventory Items";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+@section ScriptSection{
+}
+<script>
+    var currentmenu = 8;
+    var allloaded = false;
+    $(document).ready(function () {
+
+
+        MakeRequest(_User_InventoryManager_GetList, "POST", { "status": 1 }, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+    var outputdt = {};
+    if (rs.ResponseType == "Simple") {
+        var dt = rs.ResponseData.inventoryjson;
+        outputdt = dt;
+    }
+
+    $('#inventorytable').on('init.dt', function () {
+        allloaded = true;
+    }).DataTable({
+        data: outputdt,
+        columns: [
+            { data: 'InventoryID' },
+            { data: 'ItemName' },
+            { data: 'QuantityOrdered' },
+            { data: 'QuantityLeft' },
+            { data: 'InventoryStatusCustom' },
+            { data: 'InventoryID' },
+            { data: 'InventoryID', className: 'editcolumn' }
+        ],
+        "columnDefs": [
+            {
+                "render": function (data, type, row) {
+                    var returnstring = '<a href="/User/InventoryManager?IsEdit=1&EditId=' + data + '" title="Edit"><button type="button" class="btn btn-success "><i class="nav-icon i-Pen-2 "></i></button></a>';
+                    return returnstring;
+                },
+                "targets": 6
+            },
+            {
+                "render": function (data, type, row) {
+                    if (data == "Available") {
+                        return '<span class="badge badge-success">Available</span>';
+                    }
+
+                    else if (data == "Out of Stock") {
+                        return '<span class="badge badge-warning">Out of Stock</span>';
+                    }
+                    else if (data == "Discontinued") {
+                        return '<span class="badge badge-danger">Discontinued</span>';
+                    }
+                    else {
+                        return data;
+                    }
+                },
+                "targets": 4
+            },
+            {
+                "render": function (data, type, row) {
+                    return '<button type="button" class="btn btn-info viewdetail" title="View Detail" class="viewdetail" data-id="' + data + '"><i class="nav-icon i-Magnifi-Glass1"></i></button>';
+                },
+                "targets": 5
+            }
+        ]
+    });
+
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+
+    })
+</script>
+<div class="breadcrumb">
+    <h1 class="mr-2">Avalaible Items</h1>
+    <ul>
+        <li><a href="">Inventory</a></li>
+        <li>Avalaible Items</li>
+    </ul>
+
+  
+</div>
+<div id="backbtndiv" style="display:none">
+    <div class="row" style="margin:0 0.83em 0">
+        <div class="offset-md-11"></div>
+        <div class="col-md-1">
+            <button type="button" class="btn btn-gray-300" id="backtogridbtn"><i class="nav-icon i-Back1 "></i>Back</button>
+        </div>
+    </div>
+    <br />
+    <br />
+</div>
+<div class="separator-breadcrumb border-top"></div>
+<div id="gridarea">
+    <div class="row mb-4">
+
+        <div class="col-md-12 mb-3">
+            <div class="card text-left">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="inventorytable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Inventory ID #</th>
+                                    <th scope="col">Item Name</th>
+                                    <th scope="col">Quantity Ordered</th>
+                                    <th scope="col">Quantity Left</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">View Detail</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end of col-->
+    </div>
+</div>
+<div id="detailarea" style="display: none;">
+    <h4 id="detailtitle">Details</h4>
+    <hr>
+    <div class="row">
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Inventory ID #</p>
+                <span id="inventoryid_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Item Name</p>
+                <span id="itemname_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Code</p>
+                <span id="code_lbl">N/A</span>
+            </div>
+        </div>
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Quantity Ordered</p>
+                <span id="quantityordered_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Quantity Left</p>
+                <span id="quantityleft_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Ordered History</p>
+                <span id="orderedhistory_lbl">N/A</span>
+            </div>
+        </div>
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Expiry Date</p>
+                <span id="expirydate_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Status</p>
+                <span id="inventorystatus_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Description</p>
+                <span id="description_lbl">N/A</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#backtogridbtn").click(function () {
+            $("#detailarea").slideUp();
+            $("#gridarea").slideDown();
+            $("#backbtndiv").fadeOut();
+        })
+
+
+
+        $(document).on('click', '.viewdetail', function () {
+
+            MakeRequest(_User_InventoryManager_GetDetail, "POST", { "inventoryid": $(this).attr("data-id") }, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+    var outputdt = null;
+    if (rs.ResponseType == "Simple") {
+        var dt = rs.ResponseData.inventoryjson;
+        outputdt = dt;
+    }
+
+    if (outputdt != null) {
+        $("#inventoryid_lbl").text(outputdt.InventoryID);
+        $("#itemname_lbl").text(outputdt.ItemName);
+        $("#code_lbl").text(outputdt.Code);
+        $("#description_lbl").text(outputdt.Description);
+        $("#quantityordered_lbl").text(outputdt.QuantityOrdered);
+        $("#quantityleft_lbl").text(outputdt.QuantityLeft);
+        $("#orderedhistory_lbl").text(outputdt.OrderedHistory);
+        $("#expirydate_lbl").text(outputdt.ExpiryDateCustom);
+        $("#inventorystatus_lbl").text(outputdt.StatusName);
+
+    }
+    else {
+        $("#inventoryid_lbl").text("N/A");
+        $("#itemname_lbl").text("N/A");
+        $("#code_lbl").text("N/A");
+        $("#description_lbl").text("N/A");
+        $("#quantityordered_lbl").text("N/A");
+        $("#quantityleft_lbl").text("N/A");
+        $("#orderedhistory_lbl").text("N/A");
+        $("#expirydate_lbl").text("N/A");
+        $("#inventorystatus_lbl").text("N/A");
+    }
+
+    $("#gridarea").slideUp();
+    $("#detailarea").slideDown();
+    $("#backbtndiv").fadeIn();
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+
+        })
+    })
+</script>

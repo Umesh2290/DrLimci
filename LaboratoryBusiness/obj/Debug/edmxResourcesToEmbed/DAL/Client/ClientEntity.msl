@@ -1,0 +1,505 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LabSystemClient_RajLabModelStoreContainer" CdmEntityContainer="LabSystemClient_RajLabEntities">
+    <EntitySetMapping Name="Tbl_Cl_AdminDetail">
+      <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_AdminDetail">
+        <MappingFragment StoreEntitySet="Tbl_Cl_AdminDetail">
+          <ScalarProperty Name="AdminDetailID" ColumnName="AdminDetailID" />
+          <ScalarProperty Name="ClientUserID" ColumnName="ClientUserID" />
+          <ScalarProperty Name="SystemClientID" ColumnName="SystemClientID" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Cl_ClientUser">
+      <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_ClientUser">
+        <MappingFragment StoreEntitySet="Tbl_Cl_ClientUser">
+          <ScalarProperty Name="ClientUserID" ColumnName="ClientUserID" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ProfilePic" ColumnName="ProfilePic" />
+          <ScalarProperty Name="DetailID" ColumnName="DetailID" />
+          <ScalarProperty Name="DetailType" ColumnName="DetailType" />
+          <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Cl_ClientUserAttachmentDetail">
+      <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_ClientUserAttachmentDetail">
+        <MappingFragment StoreEntitySet="Tbl_Cl_ClientUserAttachmentDetail">
+          <ScalarProperty Name="AttachmentID" ColumnName="AttachmentID" />
+          <ScalarProperty Name="AttachmentName" ColumnName="AttachmentName" />
+          <ScalarProperty Name="Link" ColumnName="Link" />
+          <ScalarProperty Name="Extension" ColumnName="Extension" />
+          <ScalarProperty Name="UserDetailID" ColumnName="UserDetailID" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Cl_ClientUserDetail">
+      <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_ClientUserDetail">
+        <MappingFragment StoreEntitySet="Tbl_Cl_ClientUserDetail">
+          <ScalarProperty Name="UserDetailID" ColumnName="UserDetailID" />
+          <ScalarProperty Name="JoiningDate" ColumnName="JoiningDate" />
+          <ScalarProperty Name="TerminationDate" ColumnName="TerminationDate" />
+          <ScalarProperty Name="TerminationReason" ColumnName="TerminationReason" />
+          <ScalarProperty Name="Qualifications" ColumnName="Qualifications" />
+          <ScalarProperty Name="TypeOfCollection" ColumnName="TypeOfCollection" />
+          <ScalarProperty Name="License" ColumnName="License" />
+          <ScalarProperty Name="IsFulltime" ColumnName="IsFulltime" />
+          <ScalarProperty Name="PdfLink" ColumnName="PdfLink" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Cl_ClientUserType">
+      <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_ClientUserType">
+        <MappingFragment StoreEntitySet="Tbl_Cl_ClientUserType">
+          <ScalarProperty Name="ClientUserTypeID" ColumnName="ClientUserTypeID" />
+          <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Cl_ExtraWorkAttachment">
+      <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_ExtraWorkAttachment">
+        <MappingFragment StoreEntitySet="Tbl_Cl_ExtraWorkAttachment">
+          <ScalarProperty Name="ExtraWorkAttachmentID" ColumnName="ExtraWorkAttachmentID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Extension" ColumnName="Extension" />
+          <ScalarProperty Name="Link" ColumnName="Link" />
+          <ScalarProperty Name="ExtraWorkID" ColumnName="ExtraWorkID" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Cl_ExtraWorkRequest">
+      <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_ExtraWorkRequest">
+        <MappingFragment StoreEntitySet="Tbl_Cl_ExtraWorkRequest">
+          <ScalarProperty Name="ExtraWorkID" ColumnName="ExtraWorkID" />
+          <ScalarProperty Name="TestID" ColumnName="TestID" />
+          <ScalarProperty Name="H_ELevels" ColumnName="H_ELevels" />
+          <ScalarProperty Name="SpecialStains" ColumnName="SpecialStains" />
+          <ScalarProperty Name="ImmunoHistoChemistry" ColumnName="ImmunoHistoChemistry" />
+          <ScalarProperty Name="Others" ColumnName="Others" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="RequestCreatedDate" ColumnName="RequestCreatedDate" />
+          <ScalarProperty Name="RequestCreatedBy" ColumnName="RequestCreatedBy" />
+          <ScalarProperty Name="NewActionDate" ColumnName="NewActionDate" />
+          <ScalarProperty Name="NewActionBy" ColumnName="NewActionBy" />
+          <ScalarProperty Name="NewActionStatusID" ColumnName="NewActionStatusID" />
+          <ScalarProperty Name="NewActionComments" ColumnName="NewActionComments" />
+          <ScalarProperty Name="PendingActionBy" ColumnName="PendingActionBy" />
+          <ScalarProperty Name="PendingActionDate" ColumnName="PendingActionDate" />
+          <ScalarProperty Name="PendingActionComments" ColumnName="PendingActionComments" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Cl_ExtraWorkRequestStatus">
+      <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_ExtraWorkRequestStatus">
+        <MappingFragment StoreEntitySet="Tbl_Cl_ExtraWorkRequestStatus">
+          <ScalarProperty Name="WorkRequestStatusID" ColumnName="WorkRequestStatusID" />
+          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Cl_ForgetPassword">
+      <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_ForgetPassword">
+        <MappingFragment StoreEntitySet="Tbl_Cl_ForgetPassword">
+          <ScalarProperty Name="ForgetPasswordID" ColumnName="ForgetPasswordID" />
+          <ScalarProperty Name="UniqueCode" ColumnName="UniqueCode" />
+          <ScalarProperty Name="ClientUserID" ColumnName="ClientUserID" />
+          <ScalarProperty Name="ExpiresInMinutes" ColumnName="ExpiresInMinutes" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Cl_IncorrectPasswordAttempt">
+      <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_IncorrectPasswordAttempt">
+        <MappingFragment StoreEntitySet="Tbl_Cl_IncorrectPasswordAttempt">
+          <ScalarProperty Name="IncorrectPasswordID" ColumnName="IncorrectPasswordID" />
+          <ScalarProperty Name="ClientUserID" ColumnName="ClientUserID" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="IsInclude" ColumnName="IsInclude" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Cl_Inventory">
+      <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_Inventory">
+        <MappingFragment StoreEntitySet="Tbl_Cl_Inventory">
+          <ScalarProperty Name="InventoryID" ColumnName="InventoryID" />
+          <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="QuantityOrdered" ColumnName="QuantityOrdered" />
+          <ScalarProperty Name="QuantityLeft" ColumnName="QuantityLeft" />
+          <ScalarProperty Name="OrderedHistory" ColumnName="OrderedHistory" />
+          <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+          <ScalarProperty Name="InventoryStatusID" ColumnName="InventoryStatusID" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Cl_InventoryRequest">
+      <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_InventoryRequest">
+        <MappingFragment StoreEntitySet="Tbl_Cl_InventoryRequest">
+          <ScalarProperty Name="InventoryRequestID" ColumnName="InventoryRequestID" />
+          <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="RequestCreatedDate" ColumnName="RequestCreatedDate" />
+          <ScalarProperty Name="RequestCreatedBy" ColumnName="RequestCreatedBy" />
+          <ScalarProperty Name="OpenActionBy" ColumnName="OpenActionBy" />
+          <ScalarProperty Name="OpenActionDate" ColumnName="OpenActionDate" />
+          <ScalarProperty Name="OpenActionStatusID" ColumnName="OpenActionStatusID" />
+          <ScalarProperty Name="OpenActionComments" ColumnName="OpenActionComments" />
+          <ScalarProperty Name="ProgressActionBy" ColumnName="ProgressActionBy" />
+          <ScalarProperty Name="ProgressActionDate" ColumnName="ProgressActionDate" />
+          <ScalarProperty Name="ProgressActionComments" ColumnName="ProgressActionComments" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Cl_InventoryRequestStatus">
+      <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_InventoryRequestStatus">
+        <MappingFragment StoreEntitySet="Tbl_Cl_InventoryRequestStatus">
+          <ScalarProperty Name="InventoryRequestStatusID" ColumnName="InventoryRequestStatusID" />
+          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Cl_InventoryStatusType">
+      <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_InventoryStatusType">
+        <MappingFragment StoreEntitySet="Tbl_Cl_InventoryStatusType">
+          <ScalarProperty Name="InventoryStatusTypeID" ColumnName="InventoryStatusTypeID" />
+          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Cl_Menu">
+      <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_Menu">
+        <MappingFragment StoreEntitySet="Tbl_Cl_Menu">
+          <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+          <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+          <ScalarProperty Name="ToolTip" ColumnName="ToolTip" />
+          <ScalarProperty Name="Link" ColumnName="Link" />
+          <ScalarProperty Name="IsViewable" ColumnName="IsViewable" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Cl_MenuAssignment">
+      <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_MenuAssignment">
+        <MappingFragment StoreEntitySet="Tbl_Cl_MenuAssignment">
+          <ScalarProperty Name="AssignmentID" ColumnName="AssignmentID" />
+          <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Cl_Notification">
+      <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_Notification">
+        <MappingFragment StoreEntitySet="Tbl_Cl_Notification">
+          <ScalarProperty Name="NotificationID" ColumnName="NotificationID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="ClickLink" ColumnName="ClickLink" />
+          <ScalarProperty Name="CreatedDatetime" ColumnName="CreatedDatetime" />
+          <ScalarProperty Name="Isviewed" ColumnName="Isviewed" />
+          <ScalarProperty Name="ViewedDatetime" ColumnName="ViewedDatetime" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Cl_OpinionRequest">
+      <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_OpinionRequest">
+        <MappingFragment StoreEntitySet="Tbl_Cl_OpinionRequest">
+          <ScalarProperty Name="OpinionRequestID" ColumnName="OpinionRequestID" />
+          <ScalarProperty Name="PatientDetails" ColumnName="PatientDetails" />
+          <ScalarProperty Name="SampleAnalysisDetails" ColumnName="SampleAnalysisDetails" />
+          <ScalarProperty Name="OpinionNeededDescription" ColumnName="OpinionNeededDescription" />
+          <ScalarProperty Name="ConsultationOpinion" ColumnName="ConsultationOpinion" />
+          <ScalarProperty Name="SystemOpinionRequestID" ColumnName="SystemOpinionRequestID" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="OpinionBy" ColumnName="OpinionBy" />
+          <ScalarProperty Name="CommentForRequester" ColumnName="CommentForRequester" />
+          <ScalarProperty Name="IsPublish" ColumnName="IsPublish" />
+          <ScalarProperty Name="RequestCreatedDate" ColumnName="RequestCreatedDate" />
+          <ScalarProperty Name="RequestCreatedBy" ColumnName="RequestCreatedBy" />
+          <ScalarProperty Name="NewActionDate" ColumnName="NewActionDate" />
+          <ScalarProperty Name="NewActionBy" ColumnName="NewActionBy" />
+          <ScalarProperty Name="NewActionStatusID" ColumnName="NewActionStatusID" />
+          <ScalarProperty Name="NewActionComments" ColumnName="NewActionComments" />
+          <ScalarProperty Name="PendingActionBy" ColumnName="PendingActionBy" />
+          <ScalarProperty Name="PendingActionDate" ColumnName="PendingActionDate" />
+          <ScalarProperty Name="PendingActionComments" ColumnName="PendingActionComments" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Cl_OpinionRequestStatus">
+      <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_OpinionRequestStatus">
+        <MappingFragment StoreEntitySet="Tbl_Cl_OpinionRequestStatus">
+          <ScalarProperty Name="OpinionRequestStatusID" ColumnName="OpinionRequestStatusID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Cl_PatientDetail">
+      <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_PatientDetail">
+        <MappingFragment StoreEntitySet="Tbl_Cl_PatientDetail">
+          <ScalarProperty Name="PatientDetailID" ColumnName="PatientDetailID" />
+          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="Streetname" ColumnName="Streetname" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="AlternateAddress" ColumnName="AlternateAddress" />
+          <ScalarProperty Name="AlternatePhoneNo" ColumnName="AlternatePhoneNo" />
+          <ScalarProperty Name="ReferingDoctor" ColumnName="ReferingDoctor" />
+          <ScalarProperty Name="ReferingHospital" ColumnName="ReferingHospital" />
+          <ScalarProperty Name="PaymentMode" ColumnName="PaymentMode" />
+          <ScalarProperty Name="Payment" ColumnName="Payment" />
+          <ScalarProperty Name="PdfLink" ColumnName="PdfLink" />
+          <ScalarProperty Name="PaymentReceiptPdfLink" ColumnName="PaymentReceiptPdfLink" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Cl_Role">
+      <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_Role">
+        <MappingFragment StoreEntitySet="Tbl_Cl_Role">
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Cl_RoleMapping">
+      <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_RoleMapping">
+        <MappingFragment StoreEntitySet="Tbl_Cl_RoleMapping">
+          <ScalarProperty Name="RoleMappingID" ColumnName="RoleMappingID" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Cl_SectionRestriction">
+      <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_SectionRestriction">
+        <MappingFragment StoreEntitySet="Tbl_Cl_SectionRestriction">
+          <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+          <ScalarProperty Name="SectionSelector" ColumnName="SectionSelector" />
+          <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Cl_Test">
+      <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_Test">
+        <MappingFragment StoreEntitySet="Tbl_Cl_Test">
+          <ScalarProperty Name="TestID" ColumnName="TestID" />
+          <ScalarProperty Name="TestName" ColumnName="TestName" />
+          <ScalarProperty Name="IsSampleRequired" ColumnName="IsSampleRequired" />
+          <ScalarProperty Name="ComplaintHistory" ColumnName="ComplaintHistory" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="PatientUserID" ColumnName="PatientUserID" />
+          <ScalarProperty Name="TestStatusID" ColumnName="TestStatusID" />
+          <ScalarProperty Name="IsSampleCollected" ColumnName="IsSampleCollected" />
+          <ScalarProperty Name="SampleLabel" ColumnName="SampleLabel" />
+          <ScalarProperty Name="SampleCode" ColumnName="SampleCode" />
+          <ScalarProperty Name="SampleType" ColumnName="SampleType" />
+          <ScalarProperty Name="IsPublish" ColumnName="IsPublish" />
+          <ScalarProperty Name="PdfLink" ColumnName="PdfLink" />
+          <ScalarProperty Name="TestCreatedDate" ColumnName="TestCreatedDate" />
+          <ScalarProperty Name="TestCreatedBy" ColumnName="TestCreatedBy" />
+          <ScalarProperty Name="SampleCollectionDate" ColumnName="SampleCollectionDate" />
+          <ScalarProperty Name="SampleCollectionBy" ColumnName="SampleCollectionBy" />
+          <ScalarProperty Name="AnalysisDate" ColumnName="AnalysisDate" />
+          <ScalarProperty Name="AnalysisBy" ColumnName="AnalysisBy" />
+          <ScalarProperty Name="ConclusionDate" ColumnName="ConclusionDate" />
+          <ScalarProperty Name="ConclusionBy" ColumnName="ConclusionBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Cl_TestAttachment">
+      <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_TestAttachment">
+        <MappingFragment StoreEntitySet="Tbl_Cl_TestAttachment">
+          <ScalarProperty Name="TestAttachmentID" ColumnName="TestAttachmentID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Extension" ColumnName="Extension" />
+          <ScalarProperty Name="Link" ColumnName="Link" />
+          <ScalarProperty Name="TestID" ColumnName="TestID" />
+          <ScalarProperty Name="AttachmentTypeID" ColumnName="AttachmentTypeID" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Cl_TestAttachmentType">
+      <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_TestAttachmentType">
+        <MappingFragment StoreEntitySet="Tbl_Cl_TestAttachmentType">
+          <ScalarProperty Name="TestAttachmentTypeID" ColumnName="TestAttachmentTypeID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Cl_TestConclusion">
+      <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_TestConclusion">
+        <MappingFragment StoreEntitySet="Tbl_Cl_TestConclusion">
+          <ScalarProperty Name="TestConclusionID" ColumnName="TestConclusionID" />
+          <ScalarProperty Name="TestReportTypeID" ColumnName="TestReportTypeID" />
+          <ScalarProperty Name="TestID" ColumnName="TestID" />
+          <ScalarProperty Name="SpecimenDetails" ColumnName="SpecimenDetails" />
+          <ScalarProperty Name="ClinicalDetails" ColumnName="ClinicalDetails" />
+          <ScalarProperty Name="Microscopy" ColumnName="Microscopy" />
+          <ScalarProperty Name="Macroscopy" ColumnName="Macroscopy" />
+          <ScalarProperty Name="Conclusion" ColumnName="Conclusion" />
+          <ScalarProperty Name="SnomedCoding" ColumnName="SnomedCoding" />
+          <ScalarProperty Name="SampleDescription" ColumnName="SampleDescription" />
+          <ScalarProperty Name="Report" ColumnName="Report" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Cl_TestInvestigation">
+      <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_TestInvestigation">
+        <MappingFragment StoreEntitySet="Tbl_Cl_TestInvestigation">
+          <ScalarProperty Name="InvestigationID" ColumnName="InvestigationID" />
+          <ScalarProperty Name="InvestigationName" ColumnName="InvestigationName" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="Range" ColumnName="Range" />
+          <ScalarProperty Name="InvestigationResult" ColumnName="InvestigationResult" />
+          <ScalarProperty Name="ExtraWorkID" ColumnName="ExtraWorkID" />
+          <ScalarProperty Name="TestID" ColumnName="TestID" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Cl_TestReportType">
+      <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_TestReportType">
+        <MappingFragment StoreEntitySet="Tbl_Cl_TestReportType">
+          <ScalarProperty Name="TestReportTypeID" ColumnName="TestReportTypeID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Cl_TestStatus">
+      <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_TestStatus">
+        <MappingFragment StoreEntitySet="Tbl_Cl_TestStatus">
+          <ScalarProperty Name="TestStatusID" ColumnName="TestStatusID" />
+          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Cl_TestSupplementReport">
+      <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_TestSupplementReport">
+        <MappingFragment StoreEntitySet="Tbl_Cl_TestSupplementReport">
+          <ScalarProperty Name="TestSupplementReportID" ColumnName="TestSupplementReportID" />
+          <ScalarProperty Name="TestReportTypeID" ColumnName="TestReportTypeID" />
+          <ScalarProperty Name="TestID" ColumnName="TestID" />
+          <ScalarProperty Name="SpecimenDetails" ColumnName="SpecimenDetails" />
+          <ScalarProperty Name="ClinicalDetails" ColumnName="ClinicalDetails" />
+          <ScalarProperty Name="Microscopy" ColumnName="Microscopy" />
+          <ScalarProperty Name="Macroscopy" ColumnName="Macroscopy" />
+          <ScalarProperty Name="SupplementReportConclusion" ColumnName="SupplementReportConclusion" />
+          <ScalarProperty Name="SnomedCoding" ColumnName="SnomedCoding" />
+          <ScalarProperty Name="SampleDescription" ColumnName="SampleDescription" />
+          <ScalarProperty Name="Report" ColumnName="Report" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Cl_HospitalDetail">
+      <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_HospitalDetail">
+        <MappingFragment StoreEntitySet="Tbl_Cl_HospitalDetail">
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
+          <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="HospitalName" ColumnName="HospitalName" />
+          <ScalarProperty Name="HospitalDetailID" ColumnName="HospitalDetailID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

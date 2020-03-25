@@ -1,0 +1,336 @@
+﻿
+@{
+    ViewBag.Title = "Active Subdomains";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section ScriptSection{
+}
+
+<script>
+    var currentmenu = 20;
+    $(document).ready(function () {
+
+
+        MakeRequest(_Admin_Subdomain_GetList, "POST", { "status": true }, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+    var outputdt = {};
+    if (rs.ResponseType == "Simple") {
+        var dt = rs.ResponseData.subdomainjson;
+        outputdt = dt;
+    }
+
+    $('#subdomaintable').DataTable({
+        data: outputdt,
+        columns: [
+            { data: 'Subdomain' },
+            { data: 'ActivatedOn' },
+            { data: 'ProviderName' },
+            { data: 'status' },
+            { data: 'ClientDetailID' }
+        ],
+        "columnDefs": [
+            {
+                "render": function (data, type, row) {
+                    if (data == "Active") {
+                        return '<span class="badge badge-success">Active</span>';
+                    }
+
+                    else if (data == "Inactive") {
+                        return '<span class="badge badge-warning">Inactive</span>';
+                    }
+                    else {
+                        return data;
+                    }
+                },
+                "targets": 3
+            },
+            {
+                "render": function (data, type, row) {
+                    return '<button type="button" class="btn btn-info viewdetail" title="View Detail" class="viewdetail" data-id="' + data + '"><i class="nav-icon i-Magnifi-Glass1"></i></button>';
+                },
+                "targets": 4
+            }
+        ]
+    });
+
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+
+    })
+</script>
+<div class="breadcrumb">
+    <h1 class="mr-2" id="mainheading">Active Subdomains</h1>
+    <ul>
+        <li><a href="">Subdomains</a></li>
+        <li id="subheading">Active Subdomains</li>
+    </ul>
+</div>
+
+
+<div class="separator-breadcrumb border-top"></div>
+<div id="gridarea">
+    <div class="row mb-4">
+
+        <div class="col-md-12 mb-3">
+            <div class="card text-left">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="subdomaintable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Subdomain</th>
+                                    <th scope="col">Activated On</th>
+                                    <th scope="col">Storage , DB Provider</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">View Detail</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end of col-->
+    </div>
+</div>
+<div id="detailarea" style="display:none;">
+    <button type="button" class="btn btn-gray-300 " id="backtogridbtn"><i class="nav-icon i-Back1 "></i> Back</button>
+    <br />
+    <br />
+    <h4 id="detailtitle">Details</h4>
+    <hr>
+    <div class="row">
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> User ID - Client ID #</p>
+                <span id="useridclientid_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Last Name</p>
+                <span id="lastname_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Email</p>
+                <span id="email_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Company name</p>
+                <span id="companyname_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Plan duration</p>
+                <span id="planduration_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Invoice #</p>
+                <span id="invoineno_lbl">N/A</span>
+            </div>
+        </div>
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> First Name</p>
+                <span id="firstname_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Mobile No</p>
+                <span id="mobileno_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Username</p>
+                <span id="username_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Subdomain</p>
+                <span id="subdomain_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> License Cost</p>
+                <span id="licensecost_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Invoice PDF</p>
+                <span id="invoicepdf_lbl">N/A</span>
+            </div>
+        </div>
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Middle Name</p>
+                <span id="middlename_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Address</p>
+                <span id="address_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Status</p>
+                <span id="status_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Plan</p>
+                <span id="plan_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Storage and DB Provider</p>
+                <span id="storageanddbprovider_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Created Date</p>
+                <span id="createddate_lbl">N/A</span>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row mb-4">
+
+        <div class="col-md-6 mb-3">
+            <div class="card text-left">
+
+                <div class="card-body">
+                    <h4 class="card-title mb-3">Configuration Parameter</h4>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Parameter Name</th>
+                                    <th scope="col">Parameter Value</th>
+                                </tr>
+                            </thead>
+                            <tbody id="parametersrow"></tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <!-- end of col-->
+        <!-- end of col-->
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#backtogridbtn").click(function () {
+            $("#detailarea").slideUp();
+            $("#gridarea").slideDown();
+        })
+
+
+        $(document).on('click', '.viewdetail', function () {
+
+            MakeRequest(_Admin_Subdomain_GetDetail, "POST", { "clientdetailid": $(this).attr("data-id") }, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+    var clientobj = null;
+    var systemuserobj = null;
+    var clientparameters = null;
+    var customformatted = null;
+    var planobj = null;
+    var standdbproviderobj = null;
+
+    if (rs.ResponseType == "Simple") {
+        clientobj = rs.ResponseData.clientobjjson;
+        systemuserobj = rs.ResponseData.systemuserobjjson;
+        clientparameters = rs.ResponseData.clientparametersjson;
+        customformatted = rs.ResponseData.customformattedjson;
+        planobj = rs.ResponseData.planobjjson;
+        standdbproviderobj = rs.ResponseData.standdbproviderobjjson;
+    }
+
+    if (systemuserobj != null) {
+        $("#useridclientid_lbl").text(systemuserobj.SystemUserID + " - " + clientobj.ClientDetailID);
+        $("#firstname_lbl").text(systemuserobj.FirstName);
+        $("#middlename_lbl").text(systemuserobj.MiddleName);
+        $("#lastname_lbl").text(systemuserobj.LastName);
+        $("#username_lbl").text(systemuserobj.Username);
+        $("#email_lbl").text(systemuserobj.Email);
+        $("#mobileno_lbl").text(systemuserobj.MobileNo);
+        $("#address_lbl").text(systemuserobj.Address);
+        $("#status_lbl").text(customformatted.status);
+
+        $("#companyname_lbl").text(clientobj.CompanyName);
+        $("#planduration_lbl").text(clientobj.PlanDuration);
+        $("#subdomain_lbl").text(clientobj.Subdomain);
+        $("#invoineno_lbl").text(clientobj.InvoiceID);
+        $("#licensecost_lbl").text(customformatted.FormattedCost);
+        $("#invoicepdf_lbl").html("<a href='" + clientobj.InvoicePDFLink + "'>Click here to download</a>");
+        $("#plan_lbl").text(planobj.PlanName);
+        $("#storageanddbprovider_lbl").text(standdbproviderobj.ProviderName);
+        $("#createddate_lbl").text(customformatted.CreatedDateFormatted);
+
+
+
+        if (clientparameters != null) {
+            $("#parametersrow").empty();
+            clientparameters.forEach(function (item, key) {
+                if (item.ParameterID == 3 || item.ParameterID == 6) {
+                    $("#parametersrow").append("<tr><td>" + item.ParameterName + "</td><td>" + "**********" + "</td></tr>");
+                } else {
+                    $("#parametersrow").append("<tr><td>" + item.ParameterName + "</td><td>" + item.ParameterValue + "</td></tr>");
+                }
+            });
+
+        }
+    }
+    else {
+        $("#useridclientid_lbl").text("N/A");
+        $("#firstname_lbl").text("N/A");
+        $("#middlename_lbl").text("N/A");
+        $("#lastname_lbl").text("N/A");
+        $("#username_lbl").text("N/A");
+        $("#email_lbl").text("N/A");
+        $("#mobileno_lbl").text("N/A");
+        $("#address_lbl").text("N/A");
+        $("#status_lbl").text("N/A");
+
+        $("#companyname_lbl").text("N/A");
+        $("#planduration_lbl").text("N/A");
+        $("#subdomain_lbl").text("N/A");
+        $("#licensecost_lbl").text("N/A");
+        $("#invoicepdf_lbl").text("N/A");
+        $("#plan_lbl").text("N/A");
+        $("#storageanddbprovider_lbl").text("N/A");
+        $("#createddate_lbl").text("N/A");
+    }
+
+    $("#gridarea").slideUp();
+    $("#detailarea").slideDown();
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+
+        })
+    })
+</script>
+
+
+
+
+
+

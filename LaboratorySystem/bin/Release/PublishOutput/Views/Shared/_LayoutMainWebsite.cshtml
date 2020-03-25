@@ -1,0 +1,287 @@
+﻿<!DOCTYPE html>
+<html lang="en" dir="">
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="theme-color" content="#3ed2a7">
+	
+    <link rel="shortcut icon" href="/Content/MainWebsite/assets/img/logo/logo.png" />
+	
+	<title> IndoUKLabs | @ViewBag.Title</title>
+
+@*	<link rel="stylesheet" href="https://use.typekit.net/scc6wwx.css">
+	<link href="https://fonts.googleapis.com/css?family=Libre+Baskerville&display=swap" rel="stylesheet">
+	
+	<link rel="stylesheet" href="~/Content/MainWebsite/assets/vendors/liquid-icon/liquid-icon.min.css" />
+	<link rel="stylesheet" href="~/Content/MainWebsite/assets/css/theme-vendors.min.css" />
+	<link rel="stylesheet" href="~/Content/MainWebsite/assets/css/theme.min.css" />
+	<link rel="stylesheet" href="~/Content/MainWebsite/assets/css/themes/creative.css" />
+    <link rel="stylesheet" href="~/Content/styles/vendor/toastr.css" />
+
+	<link rel="stylesheet" href="~/Content/MainWebsite/assets/vendors/liquid-icon/liquid-icon.min.css" />
+	<link rel="stylesheet" href="~/Content/MainWebsite/assets/vendors/font-awesome/css/font-awesome.min.css" />*@
+
+
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700" rel="stylesheet">
+	
+	<link rel="stylesheet" href="~/Content/MainWebsite/assets/vendors/liquid-icon/liquid-icon.min.css" />
+	<link rel="stylesheet" href="~/Content/MainWebsite/assets/vendors/font-awesome/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="~/Content/MainWebsite/assets/css/theme-vendors.min.css" />
+	<link rel="stylesheet" href="~/Content/MainWebsite/assets/css/theme.min.css" />
+	<link rel="stylesheet" href="~/Content/MainWebsite/assets/css/themes/creative.css" />
+	
+	<!-- Head Libs -->
+	<script async src="~/Content/MainWebsite/assets/vendors/modernizr.min.js"></script>
+    
+    <style>
+        .loadscreen {
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            left: 0;
+            right: 0;
+            margin: auto;
+            top: 0;
+            height: 100vh;
+            background: #ffffff;
+            opacity: 0.7;
+            z-index:2000;
+        }
+
+            .loadscreen .loader {
+                position: absolute;
+                top: calc(50vh - 50px);
+                left: 0;
+                right: 0;
+                margin: auto;
+            }
+
+            .loadscreen .logo {
+                display: inline-block !important;
+                width: 80px;
+                height: 80px;
+            }
+    </style>
+
+
+	
+	<!-- Head Libs -->
+    <script src="~/Scripts/js/vendor/jquery-3.3.1.min.js "></script>
+	<script async src="~/Content/MainWebsite/assets/vendors/modernizr.min.js"></script>
+    <script src="~/Content/MainWebsite/assets/js/theme-vendors.js"></script>
+    <script src="~/Content/MainWebsite/assets/js/theme.min.js"></script>
+    <script src="~/Content/MainWebsite/assets/js/liquidAjaxMailchimp.min.js"></script>
+    <script src="~/Scripts/js/vendor/toastr.min.js"></script>
+    <script src="~/Scripts/js/toastr.script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="~/Scripts/Custom/General.js"></script>
+
+</head>
+<body data-mobile-nav-trigger-alignment="right" data-mobile-nav-align="left" data-mobile-nav-style="modern" data-mobile-nav-shceme="gray" data-mobile-header-scheme="gray" data-mobile-nav-breakpoint="1199">
+	
+	<div id="wrap">
+		
+			<header class="main-header main-header-overlay" data-sticky-header="true" data-sticky-options='{ "stickyTrigger": "first-section" }'>
+			
+			<div class="mainbar-wrap">
+				<div class="megamenu-hover-bg"></div><!-- /.megamenu-hover-bg -->
+				<div class="container-fluid mainbar-container">
+					<div class="mainbar">
+						<div class="row mainbar-row align-items-lg-stretch px-4">
+							
+							<div class="col-auto pr-5">
+								<div class="navbar-header">
+									<a class="navbar-brand" href="/" rel="home">
+										<span class="navbar-brand-inner">
+											<img class="logo-dark" width="68px" height="120px" src="/Content/MainWebsite/assets/img/logo/logo.png" alt=" IndoUk Labs">
+											<img class="logo-sticky" width="68px" height="120px" src="/Content/MainWebsite/assets/img/logo/logo.png" alt=" IndoUk Labs">
+											<img class="mobile-logo-default" width="68px" height="120px" src="/Content/MainWebsite/assets/img/logo/logo.png" alt=" IndoUk Labs">
+											<img class="logo-default" width="68px" height="120px" src="/Content/MainWebsite/assets/img/logo/logo.png" alt=" IndoUk Labs">
+										</span>
+									</a>
+									<button type="button" class="navbar-toggle collapsed nav-trigger style-mobile" data-toggle="collapse" data-target="#main-header-collapse" aria-expanded="false" data-changeclassnames='{ "html": "mobile-nav-activated overflow-hidden" }'>
+										<span class="sr-only">Toggle navigation</span>
+										<span class="bars">
+											<span class="bar"></span>
+											<span class="bar"></span>
+											<span class="bar"></span>
+										</span>
+									</button>
+								</div><!-- /.navbar-header -->
+							</div><!-- /.col -->
+							
+							<div class="col">
+								
+								<div class="collapse navbar-collapse" id="main-header-collapse">
+									
+									<ul id="primary-nav" class="main-nav nav align-items-lg-stretch justify-content-lg-start" data-submenu-options='{ "toggleType":"fade", "handler":"mouse-in-out" }' data-localscroll="true">
+										
+										<li>
+											<a href="/">
+												<span class="link-icon"></span>
+												<span class="link-txt">
+													<span class="link-ext"></span>
+													<span class="txt">Home</span>
+												</span>
+											</a>
+										</li>
+										<li>
+											<a href="/Main/ContactUs">
+												<span class="link-icon"></span>
+												<span class="link-txt">
+													<span class="link-ext"></span>
+													<span class="txt">Contact Us</span>
+												</span>
+											</a>
+										</li>
+										<li>
+											<a href="/Main/Services">
+												<span class="link-icon"></span>
+												<span class="link-txt">
+													<span class="link-ext"></span>
+													<span class="txt">Services</span>
+												</span>
+											</a>
+										</li>
+									@*	<li>
+											<a href="/Main/Demo">
+												<span class="link-icon"></span>
+												<span class="link-txt">
+													<span class="link-ext"></span>
+													<span class="txt">Demo</span>
+												</span>
+											</a>
+										</li>*@
+									@*	<li>
+											<a href="/Main/Pricing">
+												<span class="link-icon"></span>
+												<span class="link-txt">
+													<span class="link-ext"></span>
+													<span class="txt">Pricing</span>
+												</span>
+											</a>
+										</li>*@
+										
+									
+								</ul><!-- /#primary-nav  -->
+								
+							</div><!-- /#main-header-collapse -->
+							
+						</div><!-- /.col -->
+						
+						<div class="col text-right">
+
+							<div class="header-module">
+
+								<a href="/Admin/Account" target="_blank" id="btnLogin" class="btn btn-default text-uppercase circle btn-bordered border-thick font-size-12 font-weight-semibold btn-white">
+									<span>
+										<span class="btn-txt">Login</span>
+									</span>
+								</a>
+
+							</div><!-- /.header-module -->
+							
+						</div><!-- /.col -->
+						
+					</div><!-- /.mainbar-row -->
+				</div><!-- /.mainbar -->
+			</div><!-- /.mainbar-container -->
+		</div><!-- /.mainbar-wrap -->
+		
+	</header><!-- /.main-header -->
+	
+		<main id="content" class="content">
+   @RenderBody()
+			
+		</main><!-- /#content.content -->
+		
+		
+	<footer class="main-footer pt-80">
+
+		<section>
+
+			<div class="container">
+				<div class="row">
+	
+					<div class="lqd-column col-md-3 col-sm-6">
+	
+						<h3 class="widget-title">Abous Us</h3>
+						<ul class="lqd-custom-menu reset-ul">
+							<li><a href="/">Home</a></li>
+							<li><a href="/Main/Demo">Demo</a></li>
+						
+						</ul>
+	
+					</div><!-- /.col-md-3 col-sm-6 -->
+	
+					<div class="lqd-column col-md-3 col-sm-6">
+	
+						<h3 class="widget-title">Pricing & Services</h3>
+						<ul class="lqd-custom-menu reset-ul">
+							<li><a href="/Main/Pricing">Pricing</a></li>
+							<li><a href="/Main/Services">Services</a></li>
+							
+						</ul>
+	
+					</div><!-- /.col-md-3 col-sm-6 -->
+
+                    <div class="lqd-column col-md-3 col-sm-6">
+
+                        <h3 class="widget-title">Contact</h3>
+                        <ul class="lqd-custom-menu reset-ul">
+                            <li><a href="/Main/ContactUs">Contact Us</a></li>
+
+                        </ul>
+                        @*<div class="ld-fancy-heading">
+                            <p>
+                                <span class="ld-fh-txt">
+                                    <strong><span style="color: #fe688b">customercare@indouklabs.com</span></strong>
+                                    <br>
+                                    <span style="color: #a7a9b8">For any question or concern</span>
+                                </span>
+                            </p>
+                        </div>*@
+
+                    </div><!-- /.col-md-3 col-sm-6 -->
+	
+	
+				</div><!-- /.row -->
+			</div><!-- /.container -->
+
+		</section>
+
+		<section class="bt-fade-white-015 pt-90 pb-90">
+			<div class="container">
+				<div class="row">
+	
+					<div class="col-md-3"><figure class="mb-40">
+							<img width="75px" height="130px" src="/Content/MainWebsite/assets/img/logo/logo.png" alt="Logo">
+						</figure></div><div class="col-md-3">
+						<p>© Copyright 2020 IndoUk Labs, Inc. All rights reserved.</p></div><div class="col-md-3">
+
+						<p>customercare@indouklabs.com.</p>
+</div>
+	
+						
+	
+					</div><!-- /.col-md-6 -->
+	
+				</div><!-- /.row -->
+			</div><!-- /.container -->
+		</section>
+		
+	</footer><!-- /.main-footer -->
+	
+</div><!-- /#wrap -->
+
+
+    <div class="loadscreen" style="display:none">
+        <div class="loader">
+            <img src="~/Content/images/logo.png" class="logo mb-3" alt="">
+            <div class="loader-bubble loader-bubble-primary d-block"></div>
+        </div>
+    </div>
+</body>
+</html>

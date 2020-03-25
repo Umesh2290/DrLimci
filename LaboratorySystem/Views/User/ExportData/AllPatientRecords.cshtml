@@ -1,0 +1,367 @@
+﻿
+@{
+    ViewBag.Title = "All Patient Records";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+<script>
+    var currentmenu = 24;
+</script>
+<div class="breadcrumb">
+    <h1 class="mr-2">All Patient Records</h1>
+    <ul>
+        <li><a href="">Export Data</a></li>
+        <li>All Patient Records</li>
+    </ul>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+
+
+        MakeRequest(_User_ExportData_GetAllPatientRecords, "POST", null, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For SuccessF
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+    var outputdt = {};
+    if (rs.ResponseType == "Simple") {
+        var dt = rs.ResponseData.patientuserjson;
+        outputdt = dt;
+    }
+
+    $('#clientpaymenttable').DataTable({
+        data: outputdt,
+        columns: [
+            { data: 'PatientDetailID' },
+            { data: 'FullName' },
+            { data: 'Streetname' },
+  { data: 'CreatedDate' },
+            { data: 'Payment' }, 
+            { data: 'PdfLink' },
+            { data: 'PatientDetailID' }
+        ],
+        "columnDefs": [
+{
+    "render": function (data, type, row) {
+        return ConvertDate(row["CreatedDate"]);
+    }
+},
+               
+    
+            {
+                "render": function (data, type, row) {
+                    return "<input type='checkbox' class='form-check downloadcheckbox' value='" + row["PatientDetailID"] + "' /><a href='" + row["PdfLink"] + "' target='_blank'>Click here to download</a>";
+                },
+                "targets": 5
+            },
+           
+            {
+                "render": function (data, type, row) {
+                    return '<button type="button" class="btn btn-info viewdetail" title="View Detail" class="viewdetail" data-id="' + row.ClientUserID + '"><i class="nav-icon i-Magnifi-Glass1"></i></button>';
+                },
+                "targets": 6
+            }
+        ]
+    });
+
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+
+    })
+</script>
+<div id="backbtndiv" style="display:none">
+    <div class="row" style="margin:0 0.83em 0">
+        <div class="offset-md-11"></div>
+        <div class="col-md-1">
+            <button type="button" class="btn btn-gray-300" id="backtogridbtn"><i class="nav-icon i-Back1 "></i>Back</button>
+        </div>
+    </div>
+    <br />
+    <br />
+</div>
+
+<div id="gridarea">
+    <div class="row mb-4">
+
+        <div class="col-md-12 mb-3">
+            <div class="card text-left">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="clientpaymenttable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID #</th>
+                                    <th scope="col">Patient Name</th>
+                                    <th scope="col">Street Name</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Payment</th>
+                                    <th scope="col">PDF Link<br /><a href="#" id="alldowloadlink">Download Selected</a><input type="checkbox" class="form-check alldownloadpdf" /></th>
+                                    <th scope="col">View Detail</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end of col-->
+    </div>
+</div>
+
+
+<div class="separator-breadcrumb border-top"></div>
+<div id="detailarea" style="display: none;">
+    <h4 id="detailtitle">Details</h4>
+    <hr>
+    <div class="row">
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Patient ID #</p>
+                <span id="patientid_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Last Name</p>
+                <span id="lastname_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Email</p>
+                <span id="email_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Registration Date</p>
+                <span id="registrationDate_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Payment</p>
+                <span id="payment_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Payment Mode</p>
+                <span id="paymentmode_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Refering Doctor</p>
+                <span id="referingdoctor_lbl">N/A</span>
+            </div>
+            
+        </div>
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>First Name</p>
+                <span id="firstname_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Mobile No</p>
+                <span id="mobileno_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Username</p>
+                <span id="username_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Gender</p>
+                <span id="gender_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Street name</p>
+                <span id="streetname_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>City</p>
+                <span id="city_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Patient PDF</p>
+                <span id="patientpdf_lbl">N/A</span>
+            </div>
+        </div>
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Middle Name</p>
+                <span id="middlename_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Address</p>
+                <span id="address_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Status</p>
+                <span id="status_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Alternate Phone no</p>
+                <span id="alternatephoneno_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Alternate Address</p>
+                <span id="alternateaddress_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Age</p>
+                <span id="age_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Payment Receipt PDF</p>
+                <span id="paymentreceiptpdf_lbl">N/A</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#backtogridbtn").click(function () {
+            $("#detailarea").slideUp();
+            $("#gridarea").slideDown();
+            $("#backbtndiv").fadeOut();
+        })
+
+
+        $(document).on('change', '.alldownloadpdf', function () {
+            $(".downloadcheckbox").prop('checked', $(this).prop('checked'));
+        });
+
+
+        $(document).on('change', '.downloadcheckbox', function () {
+            var allcheckboxcount = 0;
+            var allcheckboxcheckedcount = 0;
+            $('.downloadcheckbox').each(function (i, obj) {
+                allcheckboxcount++;
+                if ($(obj).prop('checked')) {
+                    allcheckboxcheckedcount++;
+                }
+            });
+
+            if (allcheckboxcount == allcheckboxcheckedcount) {
+                $(".alldownloadpdf").prop('checked', true);
+            }
+
+            else {
+                $(".alldownloadpdf").prop('checked', false);
+            }
+        })
+
+        $("#alldowloadlink").click(function () {
+            var totalids = "";
+            $('.downloadcheckbox').each(function (i, obj) {
+                if ($(obj).prop('checked')) {
+                    totalids += $(obj).val() + ",";
+                }
+            });
+
+            totalids = totalids.replace(/,\s*$/, "");
+            if (totalids == '') {
+                swal.fire({ title: "Error", icon: "error", html: "Select atleast one patient pdf to download !" });
+                return;
+            }
+            var origin = window.location.origin;
+            var win = window.open(origin + '/' + _User_ExportData_DownloadAllPatientRecords + '?qr=' + totalids, '_blank');
+            console.log(win);
+            if (win) {
+                //Browser has allowed it to be opened
+                win.focus();
+            } else {
+                //Browser has blocked it
+                alert('Please allow popups for this website');
+            }
+        })
+
+        $(document).on('click', '.viewdetail', function () {
+
+            MakeRequest(_User_ExportData_GetDetail, "POST", { "clientdetailid": $(this).attr("data-id") }, "json",
+    function (jqXHR, settings) {
+        //For Before Send
+        $('.loadscreen').fadeIn();
+    },
+    function (data, status, xhr) {
+        //For Success
+        $('.loadscreen').fadeOut();
+        var rs = WebResponse(data);
+        var outputdt = null;
+        if (rs.ResponseType == "Simple") {
+            var dt = rs.ResponseData.patientuserjson;
+            outputdt = dt;
+        }
+
+        if (outputdt != null) {
+            $("#patientid_lbl").text(outputdt.ClientUserID);
+            $("#firstname_lbl").text(outputdt.FirstName);
+            $("#middlename_lbl").text(outputdt.MiddleName);
+            $("#lastname_lbl").text(outputdt.LastName);
+            $("#username_lbl").text(outputdt.Username);
+            $("#email_lbl").text(outputdt.Email);
+            $("#mobileno_lbl").text(outputdt.MobileNo);
+            $("#address_lbl").text(outputdt.Address);
+            $("#status_lbl").text(outputdt.Status);
+            $("#registrationDate_lbl").text(outputdt.CreatedDateCustom);
+
+            $("#payment_lbl").text(outputdt.Payment);
+            $("#paymentmode_lbl").text(outputdt.PaymentMode);
+            $("#referingdoctor_lbl").text(outputdt.ReferingDoctor);
+            $("#gender_lbl").text(outputdt.Sex);
+            $("#streetname_lbl").text(outputdt.Streetname);
+            $("#city_lbl").text(outputdt.City);
+            $("#patientpdf_lbl").html("<a href=\"" + outputdt.PdfLink + "\" target=\"_blank\">Download Patient PDF</a>");
+            $("#alternatephoneno_lbl").text(outputdt.AlternatePhoneNo);
+            $("#alternateaddress_lbl").text(outputdt.AlternateAddress);
+            $("#age_lbl").text(outputdt.Age)
+            $("#paymentreceiptpdf_lbl").html("<a href=\"" + outputdt.PaymentReceiptPdfLink + "\" target=\"_blank\">Download Payment Receipt</a>")
+
+        }
+        else {
+            $("#employeeid_lbl").text("N/A");
+            $("#firstname_lbl").text("N/A");
+            $("#middlename_lbl").text("N/A");
+            $("#lastname_lbl").text("N/A");
+            $("#username_lbl").text("N/A");
+            $("#email_lbl").text("N/A");
+            $("#mobileno_lbl").text("N/A");
+            $("#address_lbl").text("N/A");
+            $("#status_lbl").text("N/A");
+            $("#registrationDate_lbl").text("N/A");
+            $("#payment_lbl").text("N/A");
+            $("#paymentmode_lbl").text("N/A");
+            $("#referingdoctor_lbl").text("N/A");
+            $("#gender_lbl").text("N/A");
+            $("#streetname_lbl").text("N/A");
+            $("#city_lbl").text("N/A");
+            $("#patientpdf_lbl").html("N/A");
+            $("#alternatephoneno_lbl").text("N/A");
+            $("#alternateaddress_lbl").text("N/A");
+            $("#age_lbl").text("N/A")
+            $("#paymentreceiptpdf_lbl").text("N/A")
+        }
+
+        $("#gridarea").slideUp();
+        $("#detailarea").slideDown();
+        $("#backbtndiv").fadeIn();
+
+    },
+    function (jqXhr, textStatus, errorMessage) {
+        //For Error
+        $('.loadscreen').fadeOut();
+        WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+    });
+
+        });
+    })
+
+</script>
+
+
+
+

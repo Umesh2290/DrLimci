@@ -1,0 +1,505 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LabSystemClient_RajLabModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Tbl_Cl_AdminDetail">
+    <Key>
+      <PropertyRef Name="AdminDetailID" />
+    </Key>
+    <Property Name="AdminDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClientUserID" Type="Int32" />
+    <Property Name="SystemClientID" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_ClientUser">
+    <Key>
+      <PropertyRef Name="ClientUserID" />
+    </Key>
+    <Property Name="ClientUserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="MobileNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="ProfilePic" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="DetailID" Type="Int32" />
+    <Property Name="DetailType" Type="Int32" />
+    <Property Name="IsBlock" Type="Boolean" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_ClientUserAttachmentDetail">
+    <Key>
+      <PropertyRef Name="AttachmentID" />
+    </Key>
+    <Property Name="AttachmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AttachmentName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Link" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Extension" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UserDetailID" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_ClientUserDetail">
+    <Key>
+      <PropertyRef Name="UserDetailID" />
+    </Key>
+    <Property Name="UserDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="JoiningDate" Type="DateTime" Precision="0" />
+    <Property Name="TerminationDate" Type="DateTime" Precision="0" />
+    <Property Name="TerminationReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Qualifications" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="TypeOfCollection" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="License" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="IsFulltime" Type="Boolean" />
+    <Property Name="PdfLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_ClientUserType">
+    <Key>
+      <PropertyRef Name="ClientUserTypeID" />
+    </Key>
+    <Property Name="ClientUserTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_ExtraWorkAttachment">
+    <Key>
+      <PropertyRef Name="ExtraWorkAttachmentID" />
+    </Key>
+    <Property Name="ExtraWorkAttachmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Extension" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Link" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ExtraWorkID" Type="Int32" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_ExtraWorkRequest">
+    <Key>
+      <PropertyRef Name="ExtraWorkID" />
+    </Key>
+    <Property Name="ExtraWorkID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TestID" Type="Int32" Nullable="false" />
+    <Property Name="H_ELevels" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="SpecialStains" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ImmunoHistoChemistry" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Others" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="StatusID" Type="Int32" />
+    <Property Name="RequestCreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="RequestCreatedBy" Type="Int32" />
+    <Property Name="NewActionDate" Type="DateTime" Precision="3" />
+    <Property Name="NewActionBy" Type="Int32" />
+    <Property Name="NewActionStatusID" Type="Int32" />
+    <Property Name="NewActionComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="PendingActionBy" Type="Int32" />
+    <Property Name="PendingActionDate" Type="DateTime" Precision="3" />
+    <Property Name="PendingActionComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_ExtraWorkRequestStatus">
+    <Key>
+      <PropertyRef Name="WorkRequestStatusID" />
+    </Key>
+    <Property Name="WorkRequestStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StatusName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_ForgetPassword">
+    <Key>
+      <PropertyRef Name="ForgetPasswordID" />
+    </Key>
+    <Property Name="ForgetPasswordID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UniqueCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ClientUserID" Type="Int32" />
+    <Property Name="ExpiresInMinutes" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_IncorrectPasswordAttempt">
+    <Key>
+      <PropertyRef Name="IncorrectPasswordID" />
+    </Key>
+    <Property Name="IncorrectPasswordID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClientUserID" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="IsInclude" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_Inventory">
+    <Key>
+      <PropertyRef Name="InventoryID" />
+    </Key>
+    <Property Name="InventoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ItemName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="QuantityOrdered" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="QuantityLeft" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="OrderedHistory" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ExpiryDate" Type="DateTime" Precision="0" />
+    <Property Name="InventoryStatusID" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_InventoryRequest">
+    <Key>
+      <PropertyRef Name="InventoryRequestID" />
+    </Key>
+    <Property Name="InventoryRequestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ItemName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Quantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="StatusID" Type="Int32" />
+    <Property Name="RequestCreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="RequestCreatedBy" Type="Int32" />
+    <Property Name="OpenActionBy" Type="Int32" />
+    <Property Name="OpenActionDate" Type="DateTime" Precision="3" />
+    <Property Name="OpenActionStatusID" Type="Int32" />
+    <Property Name="OpenActionComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ProgressActionBy" Type="Int32" />
+    <Property Name="ProgressActionDate" Type="DateTime" Precision="3" />
+    <Property Name="ProgressActionComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_InventoryRequestStatus">
+    <Key>
+      <PropertyRef Name="InventoryRequestStatusID" />
+    </Key>
+    <Property Name="InventoryRequestStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StatusName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_InventoryStatusType">
+    <Key>
+      <PropertyRef Name="InventoryStatusTypeID" />
+    </Key>
+    <Property Name="InventoryStatusTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StatusName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_Menu">
+    <Key>
+      <PropertyRef Name="MenuID" />
+    </Key>
+    <Property Name="MenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MenuName" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Name="ParentID" Type="Int32" />
+    <Property Name="Icon" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Name="ToolTip" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Link" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Name="IsViewable" Type="Boolean" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_MenuAssignment">
+    <Key>
+      <PropertyRef Name="AssignmentID" />
+    </Key>
+    <Property Name="AssignmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MenuID" Type="Int32" />
+    <Property Name="RoleID" Type="Int32" />
+    <Property Name="EmployeeID" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_Notification">
+    <Key>
+      <PropertyRef Name="NotificationID" />
+    </Key>
+    <Property Name="NotificationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Icon" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Type" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Name="ClickLink" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDatetime" Type="DateTime" Precision="3" />
+    <Property Name="Isviewed" Type="Boolean" />
+    <Property Name="ViewedDatetime" Type="DateTime" Precision="3" />
+    <Property Name="EmployeeID" Type="Int32" />
+    <Property Name="CreatedBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_OpinionRequest">
+    <Key>
+      <PropertyRef Name="OpinionRequestID" />
+    </Key>
+    <Property Name="OpinionRequestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PatientDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="SampleAnalysisDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="OpinionNeededDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ConsultationOpinion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="SystemOpinionRequestID" Type="Int32" />
+    <Property Name="StatusID" Type="Int32" />
+    <Property Name="OpinionBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CommentForRequester" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="IsPublish" Type="Boolean" />
+    <Property Name="RequestCreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="RequestCreatedBy" Type="Int32" />
+    <Property Name="NewActionDate" Type="DateTime" Precision="3" />
+    <Property Name="NewActionBy" Type="Int32" />
+    <Property Name="NewActionStatusID" Type="Int32" />
+    <Property Name="NewActionComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="PendingActionBy" Type="Int32" />
+    <Property Name="PendingActionDate" Type="DateTime" Precision="3" />
+    <Property Name="PendingActionComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_OpinionRequestStatus">
+    <Key>
+      <PropertyRef Name="OpinionRequestStatusID" />
+    </Key>
+    <Property Name="OpinionRequestStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_PatientDetail">
+    <Key>
+      <PropertyRef Name="PatientDetailID" />
+    </Key>
+    <Property Name="PatientDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MiddleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Age" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Sex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Streetname" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="AlternateAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="AlternatePhoneNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ReferingDoctor" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="ReferingHospital" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="PaymentMode" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Payment" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="PdfLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="PaymentReceiptPdfLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_Role">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_RoleMapping">
+    <Key>
+      <PropertyRef Name="RoleMappingID" />
+    </Key>
+    <Property Name="RoleMappingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleID" Type="Int32" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="IsDefault" Type="Boolean" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_SectionRestriction">
+    <Key>
+      <PropertyRef Name="SectionID" />
+    </Key>
+    <Property Name="SectionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SectionSelector" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="MenuID" Type="Int32" />
+    <Property Name="EmployeeID" Type="Int32" />
+    <Property Name="RoleID" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_Test">
+    <Key>
+      <PropertyRef Name="TestID" />
+    </Key>
+    <Property Name="TestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TestName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="IsSampleRequired" Type="Boolean" />
+    <Property Name="ComplaintHistory" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="PatientUserID" Type="Int32" />
+    <Property Name="TestStatusID" Type="Int32" />
+    <Property Name="IsSampleCollected" Type="Boolean" />
+    <Property Name="SampleLabel" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="SampleCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="SampleType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="IsPublish" Type="Boolean" />
+    <Property Name="PdfLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="TestCreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="TestCreatedBy" Type="Int32" />
+    <Property Name="SampleCollectionDate" Type="DateTime" Precision="3" />
+    <Property Name="SampleCollectionBy" Type="Int32" />
+    <Property Name="AnalysisDate" Type="DateTime" Precision="3" />
+    <Property Name="AnalysisBy" Type="Int32" />
+    <Property Name="ConclusionDate" Type="DateTime" Precision="3" />
+    <Property Name="ConclusionBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_TestAttachment">
+    <Key>
+      <PropertyRef Name="TestAttachmentID" />
+    </Key>
+    <Property Name="TestAttachmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Extension" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Link" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="TestID" Type="Int32" />
+    <Property Name="AttachmentTypeID" Type="Int32" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_TestAttachmentType">
+    <Key>
+      <PropertyRef Name="TestAttachmentTypeID" />
+    </Key>
+    <Property Name="TestAttachmentTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_TestConclusion">
+    <Key>
+      <PropertyRef Name="TestConclusionID" />
+    </Key>
+    <Property Name="TestConclusionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TestReportTypeID" Type="Int32" />
+    <Property Name="TestID" Type="Int32" />
+    <Property Name="SpecimenDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ClinicalDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Microscopy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Macroscopy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Conclusion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="SnomedCoding" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="SampleDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Report" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_TestInvestigation">
+    <Key>
+      <PropertyRef Name="InvestigationID" />
+    </Key>
+    <Property Name="InvestigationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="InvestigationName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Range" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="InvestigationResult" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ExtraWorkID" Type="Int32" />
+    <Property Name="TestID" Type="Int32" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_TestReportType">
+    <Key>
+      <PropertyRef Name="TestReportTypeID" />
+    </Key>
+    <Property Name="TestReportTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_TestStatus">
+    <Key>
+      <PropertyRef Name="TestStatusID" />
+    </Key>
+    <Property Name="TestStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StatusName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_TestSupplementReport">
+    <Key>
+      <PropertyRef Name="TestSupplementReportID" />
+    </Key>
+    <Property Name="TestSupplementReportID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TestReportTypeID" Type="Int32" />
+    <Property Name="TestID" Type="Int32" />
+    <Property Name="SpecimenDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ClinicalDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Microscopy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Macroscopy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="SupplementReportConclusion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="SnomedCoding" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="SampleDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Report" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityContainer Name="LabSystemClient_RajLabEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Tbl_Cl_AdminDetail" EntityType="Self.Tbl_Cl_AdminDetail" />
+    <EntitySet Name="Tbl_Cl_ClientUser" EntityType="Self.Tbl_Cl_ClientUser" />
+    <EntitySet Name="Tbl_Cl_ClientUserAttachmentDetail" EntityType="Self.Tbl_Cl_ClientUserAttachmentDetail" />
+    <EntitySet Name="Tbl_Cl_ClientUserDetail" EntityType="Self.Tbl_Cl_ClientUserDetail" />
+    <EntitySet Name="Tbl_Cl_ClientUserType" EntityType="Self.Tbl_Cl_ClientUserType" />
+    <EntitySet Name="Tbl_Cl_ExtraWorkAttachment" EntityType="Self.Tbl_Cl_ExtraWorkAttachment" />
+    <EntitySet Name="Tbl_Cl_ExtraWorkRequest" EntityType="Self.Tbl_Cl_ExtraWorkRequest" />
+    <EntitySet Name="Tbl_Cl_ExtraWorkRequestStatus" EntityType="Self.Tbl_Cl_ExtraWorkRequestStatus" />
+    <EntitySet Name="Tbl_Cl_ForgetPassword" EntityType="Self.Tbl_Cl_ForgetPassword" />
+    <EntitySet Name="Tbl_Cl_IncorrectPasswordAttempt" EntityType="Self.Tbl_Cl_IncorrectPasswordAttempt" />
+    <EntitySet Name="Tbl_Cl_Inventory" EntityType="Self.Tbl_Cl_Inventory" />
+    <EntitySet Name="Tbl_Cl_InventoryRequest" EntityType="Self.Tbl_Cl_InventoryRequest" />
+    <EntitySet Name="Tbl_Cl_InventoryRequestStatus" EntityType="Self.Tbl_Cl_InventoryRequestStatus" />
+    <EntitySet Name="Tbl_Cl_InventoryStatusType" EntityType="Self.Tbl_Cl_InventoryStatusType" />
+    <EntitySet Name="Tbl_Cl_Menu" EntityType="Self.Tbl_Cl_Menu" />
+    <EntitySet Name="Tbl_Cl_MenuAssignment" EntityType="Self.Tbl_Cl_MenuAssignment" />
+    <EntitySet Name="Tbl_Cl_Notification" EntityType="Self.Tbl_Cl_Notification" />
+    <EntitySet Name="Tbl_Cl_OpinionRequest" EntityType="Self.Tbl_Cl_OpinionRequest" />
+    <EntitySet Name="Tbl_Cl_OpinionRequestStatus" EntityType="Self.Tbl_Cl_OpinionRequestStatus" />
+    <EntitySet Name="Tbl_Cl_PatientDetail" EntityType="Self.Tbl_Cl_PatientDetail" />
+    <EntitySet Name="Tbl_Cl_Role" EntityType="Self.Tbl_Cl_Role" />
+    <EntitySet Name="Tbl_Cl_RoleMapping" EntityType="Self.Tbl_Cl_RoleMapping" />
+    <EntitySet Name="Tbl_Cl_SectionRestriction" EntityType="Self.Tbl_Cl_SectionRestriction" />
+    <EntitySet Name="Tbl_Cl_Test" EntityType="Self.Tbl_Cl_Test" />
+    <EntitySet Name="Tbl_Cl_TestAttachment" EntityType="Self.Tbl_Cl_TestAttachment" />
+    <EntitySet Name="Tbl_Cl_TestAttachmentType" EntityType="Self.Tbl_Cl_TestAttachmentType" />
+    <EntitySet Name="Tbl_Cl_TestConclusion" EntityType="Self.Tbl_Cl_TestConclusion" />
+    <EntitySet Name="Tbl_Cl_TestInvestigation" EntityType="Self.Tbl_Cl_TestInvestigation" />
+    <EntitySet Name="Tbl_Cl_TestReportType" EntityType="Self.Tbl_Cl_TestReportType" />
+    <EntitySet Name="Tbl_Cl_TestStatus" EntityType="Self.Tbl_Cl_TestStatus" />
+    <EntitySet Name="Tbl_Cl_TestSupplementReport" EntityType="Self.Tbl_Cl_TestSupplementReport" />
+    <EntitySet Name="Tbl_Cl_HospitalDetail" EntityType="LabSystemClient_RajLabModel.Tbl_Cl_HospitalDetail" />
+  </EntityContainer>
+  <EntityType Name="Tbl_Cl_HospitalDetail">
+    <Key>
+      <PropertyRef Name="HospitalDetailID" />
+    </Key>
+    <Property Name="HospitalDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HospitalName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="FaxNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+  </EntityType>
+</Schema>

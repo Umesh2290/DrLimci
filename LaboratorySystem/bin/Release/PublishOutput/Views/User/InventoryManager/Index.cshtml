@@ -1,0 +1,265 @@
+﻿
+@{
+    ViewBag.Title = "Add or Update Inventory Items";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+<script>
+    var currentmenu = 7;
+    $(document).ready(function () {
+        var query = getUrlVars();
+        if (query["IsEdit"] != null) {
+            if (query["IsEdit"] == "1" && query["EditId"] != null) {
+                $("#mainheading").html("Update Inventory");
+                $("#subheading").html("Update Inventory");
+                $("#cardheading").html("Edit Inventory");
+                $("#cancelbtn").hide();
+                $("#saveorupdatebtn").text("Update");
+
+                $("#editid").val(query["EditId"]);
+
+                MakeRequest(_User_InventoryManager_Get, "POST", objectifyForm($("#inventoryform").serializeArray()), "json",
+    function (jqXHR, settings) {
+        //For Before Send
+        $('.loadscreen').fadeIn();
+    },
+    function (data, status, xhr) {
+        //For Success
+        $('.loadscreen').fadeOut();
+        var rs = WebResponse(data);
+        if (rs.ResponseType == "Simple") {
+            var dt_inventory = rs.ResponseData.inventoryjson;
+            var dt_custom = rs.ResponseData.customjson;
+
+            $("#itemname").val(dt_inventory.ItemName);
+            $("#itemname").attr("disabled", "disabled");
+            $("#code").val(dt_inventory.Code);
+            $("#description").val(dt_inventory.Description);
+            $("#quantityordered").val(dt_inventory.QuantityOrdered);
+            $("#quantityleft").val(dt_inventory.QuantityLeft);
+            $("#orderedhistory").val(dt_inventory.OrderedHistory);
+            $("#expirydate").val(dt_custom.ExpiryDateCustom);
+            $("#status").val(dt_inventory.InventoryStatusID);
+
+
+        }
+    },
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+            }
+        }
+
+    })
+    </script>
+@{
+    LaboratoryBusiness.Repositories.User.IInventoryStatusTypeRepository statuses = ((DBInitializer)ViewBag.currentdomaindb).InventoryStatusTypeRepository();
+    var allstatuses = statuses.GetAll().ToList();
+}
+<div class="breadcrumb">
+    <h1 class="mr-2" id="mainheading">Create Inventory</h1>
+    <ul>
+        <li><a href="">Inventory</a></li>
+        <li id="subheading">Create Inventory</li>
+    </ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+<div class="2-columns-form-layout">
+    <div class="">
+        <div class="row">
+            <div class="col-lg-12">
+                <!--begin::form 3 Horizontal-->
+                <form id="inventoryform">
+                    <!-- start card 3 Columns Horizontal Form Layout-->
+                    <div class="card ul-card__margin-25">
+                        <div class="card-header bg-transparent">
+                            <h3 class="card-title" id="cardheading">Add Inventory</h3>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label for="itemname" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Item Name:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <input type="text" class="form-control" id="itemname" name="itemname" required="required" placeholder="Enter item name">
+                                    <small id="itemnamehelpblock" class="ul-form__text form-text ">
+                                        Please enter item name
+                                    </small>
+                                </div>
+
+                                <label for="code" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Code:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <input type="text" class="form-control" id="code" name="code" required="required" placeholder="Enter code">
+                                    <small id="codehelpblock" class="ul-form__text form-text ">
+                                        Please enter code
+                                    </small>
+                                </div>
+
+                                <label for="description" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Description:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <input type="text" class="form-control" id="description" name="description" required="required" placeholder="Enter description">
+                                    <small id="descriptionhelpblock" class="ul-form__text form-text ">
+                                        Please enter description
+                                    </small>
+                                </div>
+                            </div>
+
+
+
+                            <div class="custom-separator"></div>
+
+                            <div class="form-group row">
+                                <label for="quantityordered" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Quantity Ordered:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <input type="text" class="form-control" id="quantityordered" name="quantityordered" required="required" placeholder="Enter quantity ordered">
+                                    <small id="quantityorderedhelpblock" class="ul-form__text form-text ">
+                                        Please enter quantity ordered
+                                    </small>
+                                </div>
+
+                                <label for="quantityleft" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Quantity Left:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <input type="text" class="form-control" id="quantityleft" name="quantityleft" required="required" placeholder="Enter quantity left">
+                                    <small id="quantitylefthelpblock" class="ul-form__text form-text ">
+                                        Please enter quantity left
+                                    </small>
+                                </div>
+
+                                <label for="orderedhistory" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Ordered History:</label>
+                                <div class="col-lg-3">
+                                    <textarea class="form-control" id="orderedhistory" name="orderedhistory" placeholder="Enter ordered history"></textarea>
+                                    <small id="orderedhistoryBlock" class="ul-form__text form-text ">
+                                        Please enter ordered history
+                                    </small>
+                                </div>
+
+                            </div>
+
+                            <div class="custom-separator"></div>
+
+                            <div class="form-group row">
+                                <label for="status" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Status:</label>
+                                <div class="col-lg-3">
+
+
+                                    <select class="form-control" id="status" name="status">
+                                        @{
+
+                                            foreach (var status in allstatuses)
+                                            {
+                                                <option value="@status.InventoryStatusTypeID">@status.StatusName</option>
+                                            }
+
+                                        }
+                                    </select>
+
+
+                                    <small id="statusHelpBlock" class="ul-form__text form-text ">
+                                        Please select status
+                                    </small>
+                                </div>
+
+                                <label for="expirydate" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Expiry Date:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <input type="date" class="form-control" id="expirydate" value="@DateTime.Now.ToString("yyyy-MM-dd")" name="expirydate" required="required" placeholder="Select expiry date">
+                                    <small id="expirydatehelpblock" class="ul-form__text form-text ">
+                                        Please select expiry date
+                                    </small>
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+                        <div class="card-footer">
+                            <div class="mc-footer">
+                                <div class="row text-center">
+                                    <div class="col-lg-12 ">
+                                        <button type="submit" class="btn btn-primary m-1" id="saveorupdatebtn">Save</button>
+                                        <button type="reset" class="btn btn-outline-secondary m-1" id="cancelbtn">Reset</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card 3 Columns Horizontal Form Layout-->
+                    <input type="hidden" id="editid" name="editid" value="0" />
+                </form>
+                <!-- end::form 3-->
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#saveorupdatebtn").click(function () {
+            var form = document.querySelector('#inventoryform');
+            if (form.reportValidity()) {
+
+                var _posturl = _User_InventoryManager_Create;
+                if ($("#editid").val() > 0) {
+                    _posturl = _User_InventoryManager_Update;
+                }
+                MakeRequest(_posturl, "POST", objectifyForm($("#inventoryform").serializeArray()), "json",
+                    function (jqXHR, settings) {
+                        //For Before Send
+                        $('.loadscreen').fadeIn();
+                    },
+                    function (data, status, xhr) {
+                        //For Success
+
+                        $('.loadscreen').fadeOut();
+
+                        var rs = WebResponse(data);
+                        if (rs.ResponseType == "swal-sucsess") {
+                            $("#inventoryform").trigger("reset");
+                            if (rs.ResponseData.inventorystatusjson.StatusName == "Available") {
+                                setTimeout(function () {
+                                    window.location.replace("/User/InventoryManager/AvailableItems");
+                                }, 2500);
+                            }
+                            else if (rs.ResponseData.inventorystatusjson.StatusName == "Out of Stock") {
+                                setTimeout(function () {
+                                    window.location.replace("/User/InventoryManager/OutofstockItems");
+                                }, 2500);
+                            }
+                            else {
+                                setTimeout(function () {
+                                    window.location.replace("/User/InventoryManager/DiscontinuedItems");
+                                }, 2500);
+                            }
+                        }
+                    },
+                function (jqXhr, textStatus, errorMessage) {
+                    //For Error
+                    $('.loadscreen').fadeOut();
+                    WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                });
+            }
+            return false;
+        });
+                                })
+</script>

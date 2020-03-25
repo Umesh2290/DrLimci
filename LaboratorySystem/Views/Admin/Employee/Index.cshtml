@@ -1,0 +1,329 @@
+﻿
+@{
+    ViewBag.Title = "Add or Update Employee";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script>
+    var currentmenu = 7;
+    $(document).ready(function () {
+        var query = getUrlVars();
+        if (query["IsEdit"] != null) {
+            if (query["IsEdit"] == "1" && query["EditId"] != null) {
+                $("#mainheading").html("Update Employee");
+                $("#subheading").html("Update Employee");
+                $("#cardheading").html("Edit Employee");
+                $("#cancelbtn").hide();
+                $("#saveorupdatebtn").text("Update");
+
+                $("#editid").val(query["EditId"]);
+                $("#employeeid").val(query["EditId"]);
+
+                MakeRequest(_Admin_Employee_Get, "POST", objectifyForm($("#employeeform").serializeArray()), "json",
+    function (jqXHR, settings) {
+        //For Before Send
+        $('.loadscreen').fadeIn();
+    },
+    function (data, status, xhr) {
+        //For Success
+        $('.loadscreen').fadeOut();
+        var rs = WebResponse(data);
+        if (rs.ResponseType == "Simple") {
+            var dt_systemuser = rs.ResponseData.systemuserjson;
+            var dt_assignedrolesjson = rs.ResponseData.assignedrolesjson;
+
+            $("#username").val(dt_systemuser.Username);
+            $("#username").attr("disabled", "disabled");
+            $("#firstname").val(dt_systemuser.FirstName);
+            $("#middlename").val(dt_systemuser.MiddleName);
+            $("#lastname").val(dt_systemuser.LastName);
+            $("#email").val(dt_systemuser.Email);
+            $("#mobileno").val(dt_systemuser.MobileNo);
+            $("#address").val(dt_systemuser.Address);
+            $("#status").val((dt_systemuser.IsActive==1?"true":"false"));
+
+            var editselectedvalues = "";
+            $.each(dt_assignedrolesjson, function(i,e){
+                $("#assignedrolesid_temp option[value='" + e.RoleID + "']").prop("selected", true);
+                $("#defaultrole").append("<option value='"+e.RoleID+"'>"+$("#assignedrolesid_temp option[value='" + e.RoleID + "']").text()+"</option>");
+
+                if(e.IsDefault==true) {
+                    $("#defaultrole option[value='" + e.RoleID + "']").prop("selected", true);
+                }
+                editselectedvalues+= e.RoleID+",";
+            });
+
+            $("#assignedrolesid").val(editselectedvalues.replace(/,\s*$/, ""));
+            
+        }
+    },
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+            }
+        }
+
+        @{
+            LaboratoryBusiness.Repositories.Admin.IRoleRepository role = new LaboratoryBusiness.BLL.Admin.RoleRepository();
+            var roles = role.GetAll().Where(x => x.RoleName.Equals("Employee") || x.RoleName.Equals("Admin")).ToList();
+            
+           
+        }
+
+        var obj = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(@roles));
+
+        $("#assignedrolesid_temp").change(function () {
+            $("#defaultrole").empty();
+            var selectedvalues = $(this).val();
+            selectedvalues.forEach(function(item,index) {
+                obj.forEach(function(item2,index2) {
+                    if(item2.RoleID==item) {
+                        $("#defaultrole").append("<option value='"+item2.RoleID+"'>"+item2.RoleName+"</option>");
+                    }
+                }); 
+            })
+
+            $("#assignedrolesid").val(selectedvalues.join());
+        });
+    })
+</script>
+<div class="breadcrumb">
+    <h1 class="mr-2" id="mainheading">Create Employee</h1>
+    <ul>
+        <li><a href="">Employee</a></li>
+        <li id="subheading">Create Employee</li>
+    </ul>
+</div>
+
+
+<div class="separator-breadcrumb border-top"></div>
+<div class="2-columns-form-layout">
+    <div class="">
+        <div class="row">
+            <div class="col-lg-12">
+                <!--begin::form 3 Horizontal-->
+                <form id="employeeform">
+                    <!-- start card 3 Columns Horizontal Form Layout-->
+                    <div class="card ul-card__margin-25">
+                        <div class="card-header bg-transparent">
+                            <h3 class="card-title" id="cardheading">Add Employee</h3>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label for="firstname" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    First Name:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <input type="text" class="form-control" id="firstname" name="firstname" required="required" placeholder="Enter first name">
+                                    <small id="firstnamehelpblock" class="ul-form__text form-text ">
+                                        Please enter first name
+                                    </small>
+                                </div>
+
+                                <label for="middlename" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Middle Name:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <input type="text" class="form-control" id="middlename" name="middlename"  placeholder="Enter middle name">
+                                    <small id="middlenamehelpblock" class="ul-form__text form-text ">
+                                        Please enter middle name
+                                    </small>
+                                </div>
+
+                                <label for="lastname" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Last Name:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <input type="text" class="form-control" id="lastname" name="lastname" required="required" placeholder="Enter last name">
+                                    <small id="lastnamehelpblock" class="ul-form__text form-text ">
+                                        Please enter last name
+                                    </small>
+                                </div>
+                            </div>
+
+
+
+                            <div class="custom-separator"></div>
+
+                            <div class="form-group row">
+                                <label for="email" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Email:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <input type="email" class="form-control" id="email" name="email" required="required" placeholder="Enter email">
+                                    <small id="emailhelpblock" class="ul-form__text form-text ">
+                                        Please enter email
+                                    </small>
+                                </div>
+
+                                <label for="mobileno" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Mobile No:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <input type="text" class="form-control" id="mobileno" name="mobileno" required="required" placeholder="Enter mobile no">
+                                    <small id="mobilenohelpblock" class="ul-form__text form-text ">
+                                        Please enter mobile no
+                                    </small>
+                                </div>
+
+                                <label for="address" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Address:</label>
+                                <div class="col-lg-3">
+                                    <textarea class="form-control" id="address" name="address" placeholder="Enter address"></textarea>
+                                    <small id="addressBlock" class="ul-form__text form-text ">
+                                        Please enter address
+                                    </small>
+                                </div>
+
+                            </div>
+
+                            <div class="custom-separator"></div>
+
+                            <div class="form-group row">
+                                <label for="status" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Status:</label>
+                                <div class="col-lg-3">
+
+
+                                    <select class="form-control" id="status" name="status">
+                                        <option value="true">Active</option>
+                                        <option value="false">Inactive</option>
+                                    </select>
+
+
+                                    <small id="statusHelpBlock" class="ul-form__text form-text ">
+                                        Please select status
+                                    </small>
+                                </div>
+
+                                <label for="username" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Username:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <input type="text" class="form-control" id="username" name="username" required="required" placeholder="Enter username">
+                                    <small id="usernamehelpblock" class="ul-form__text form-text ">
+                                        Please enter username (@@@HelpingClass.MainCompanyName());
+                                    </small>
+                                </div>
+
+                                <label for="assignedrolesid_temp" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Assigned Role's:</label>
+                                <div class="col-lg-3">
+                                    <select class="form-control" id="assignedrolesid_temp" name="assignedrolesid_temp" multiple>
+                                        @{
+
+                                            foreach (var currentrole in roles)
+                                            {
+                                                <option value="@currentrole.RoleID">@currentrole.RoleName</option>
+                                            }
+
+                                        }
+
+                                    </select>
+                                    <small id="assignedrolesid_tempBlock" class="ul-form__text form-text ">
+                                        Please select roles to assign
+                                    </small>
+                                </div>
+
+                            </div>
+
+                            <div class="custom-separator"></div>
+
+                            <div class="form-group row">
+                                <label for="defaultrole" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Default Role:</label>
+                                <div class="col-lg-3">
+
+
+                                    <select class="form-control" id="defaultrole" name="defaultrole">
+                                    </select>
+
+
+                                    <small id="defaultroleHelpBlock" class="ul-form__text form-text ">
+                                        Please select default role
+                                    </small>
+                                </div>
+                                </div>
+
+                            </div>
+                        <div class="card-footer">
+                            <div class="mc-footer">
+                                <div class="row text-center">
+                                    <div class="col-lg-12 ">
+                                        <button type="submit" class="btn btn-primary m-1" id="saveorupdatebtn">Save</button>
+                                        <button type="reset" class="btn btn-outline-secondary m-1" id="cancelbtn">Reset</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card 3 Columns Horizontal Form Layout-->
+                    <input type="hidden" id="editid" name="editid" value="0" />
+                    <input type="hidden" id="assignedrolesid" name="assignedrolesid" value="0" />
+                    <input type="hidden" id="employeeid" name="employeeid" value="0" />
+                </form>
+                <!-- end::form 3-->
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#saveorupdatebtn").click(function () {
+            var form = document.querySelector('#employeeform');
+            if (form.reportValidity()) {
+
+                if($("#assignedrolesid").val()=="0") {
+                    toastr.error("Kindly select atleast one role.", "Roles not assigned !");
+                    return false;
+                }
+
+                var _posturl = _Admin_Employee_Create;
+                if ($("#editid").val() > 0) {
+                    _posturl = _Admin_Employee_Update;
+                }
+                MakeRequest(_posturl, "POST", objectifyForm($("#employeeform").serializeArray()), "json",
+                    function (jqXHR, settings) {
+                        //For Before Send
+                        $('.loadscreen').fadeIn();
+                    },
+                    function (data, status, xhr) {
+                        //For Success
+
+                        $('.loadscreen').fadeOut();
+
+                        var rs = WebResponse(data);
+                        if (rs.ResponseType == "swal-sucsess") {
+                            $("#employeeform").trigger("reset");
+                            if (rs.ResponseData.systemuserjson.IsActive == true) {
+                                setTimeout(function () {
+                                    window.location.replace("/Admin/Employee/ActiveEmployees");
+                                }, 2500);
+                            }
+                            else {
+                                setTimeout(function () {
+                                    window.location.replace("/Admin/Employee/InactiveEmployees");
+                                }, 2500);
+                            }
+                        }
+                    },
+                function (jqXhr, textStatus, errorMessage) {
+                    //For Error
+                    $('.loadscreen').fadeOut();
+                    WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                });
+            }
+            return false;
+        })
+    })
+</script>
+
+
+

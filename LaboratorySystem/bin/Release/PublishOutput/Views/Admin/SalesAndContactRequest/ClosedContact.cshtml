@@ -1,0 +1,284 @@
+﻿
+@{
+    ViewBag.Title = "Closed Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section ScriptSection{
+}
+
+<script>
+    var currentmenu = 31;
+    $(document).ready(function () {
+
+
+        MakeRequest(_Admin_SalesAndContactRequest_GetList, "POST", { "typeid": 2, "statusid": 3 }, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+    var outputdt = {};
+    if (rs.ResponseType == "Simple") {
+        var dt = rs.ResponseData.subdomainjson;
+        outputdt = dt;
+    }
+
+    $('#requesttable').DataTable({
+        data: outputdt,
+        columns: [
+            { data: 'SalesAndContactQueryID' },
+            { data: 'Name' },
+            { data: 'ContactNo' },
+            { data: 'Email' },
+            { data: 'StatusName' },
+            { data: 'SalesAndContactQueryID' }
+        ],
+        "columnDefs": [
+            {
+                "render": function (data, type, row) {
+                    if (data == "Closed") {
+                        return '<span class="badge badge-info">Closed</span>';
+                    }
+                    else {
+                        return data;
+                    }
+                },
+                "targets": 4
+            },
+            {
+                "render": function (data, type, row) {
+                    return '<button type="button" class="btn btn-info viewdetail" title="View Detail" class="viewdetail" data-id="' + data + '"><i class="nav-icon i-Magnifi-Glass1"></i></button>';
+                },
+                "targets": 5
+            }
+        ]
+    });
+
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+
+    })
+</script>
+<div class="breadcrumb">
+    <h1 class="mr-2" id="mainheading">Closed Contact Requests</h1>
+    <ul>
+        <li><a href="">Requests</a></li>
+        <li id="subheading">Closed Contact Requests</li>
+    </ul>
+</div>
+
+
+<div class="separator-breadcrumb border-top"></div>
+<div id="gridarea">
+    <div class="row mb-4">
+
+        <div class="col-md-12 mb-3">
+            <div class="card text-left">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="requesttable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Request ID #</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Mobile</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">View Detail</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end of col-->
+    </div>
+</div>
+<div id="detailarea" style="display:none;">
+    <button type="button" class="btn btn-gray-300 " id="backtogridbtn"><i class="nav-icon i-Back1 "></i> Back</button>
+    <br />
+    <br />
+    <h4 id="detailtitle">Details</h4>
+    <hr>
+    <div class="row">
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Request ID #</p>
+                <span id="requestid_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Mobile No</p>
+                <span id="mobileno_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Status</p>
+                <span id="status_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> New Action Date</p>
+                <span id="newactiondate_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Pending Action Date</p>
+                <span id="pendingactiondate_lbl">N/A</span>
+            </div>
+        </div>
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Name</p>
+                <span id="name_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Subject</p>
+                <span id="subject_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Request Date</p>
+                <span id="requestdate_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> New Action Comments</p>
+                <span id="newactioncomments_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Pending Action Comments</p>
+                <span id="pendingactioncomments_lbl">N/A</span>
+            </div>
+        </div>
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Email</p>
+                <span id="email_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Description</p>
+                <span id="description_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> New Action By</p>
+                <span id="newactionby_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> New Action Status</p>
+                <span id="newactionstatus_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Pending Action By</p>
+                <span id="pendingactionby_lbl">N/A</span>
+            </div>
+        </div>
+    </div>
+    <hr>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#backtogridbtn").click(function () {
+            $("#detailarea").slideUp();
+            $("#gridarea").slideDown();
+        })
+
+
+        $(document).on('click', '.viewdetail', function () {
+
+            MakeRequest(_Admin_SalesAndContactRequest_GetDetail, "POST", { "salesandcontactqueryid": $(this).attr("data-id") }, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+    var salesandcontactobj = null;
+    var newaction = null;
+    var pendingaction = null;
+
+    if (rs.ResponseType == "Simple") {
+        salesandcontactobj = rs.ResponseData.salesandcontactobjjson[0];
+        newaction = rs.ResponseData.newactionjson;
+        pendingaction = rs.ResponseData.pendingactionjson;
+    }
+
+    if (salesandcontactobj != null) {
+        $("#requestid_lbl").text(salesandcontactobj.sc.SalesAndContactQueryID);
+        $("#mobileno_lbl").text(salesandcontactobj.sc.ContactNo);
+        $("#status_lbl").text(salesandcontactobj.StatusName);
+        $("#name_lbl").text(salesandcontactobj.sc.Name);
+        $("#subject_lbl").text(salesandcontactobj.sc.Subject);
+        $("#requestdate_lbl").text(salesandcontactobj.RequestCreatedDate);
+        $("#email_lbl").text(salesandcontactobj.sc.Email);
+        $("#description_lbl").text(salesandcontactobj.sc.Description);
+
+        $("#salesandcontactqueryid").val(salesandcontactobj.sc.SalesAndContactQueryID);
+
+        $("#newactiondate_lbl").text(newaction.NewActionDate);
+        $("#newactionby_lbl").text(newaction.NewActionBy);
+        $("#newactioncomments_lbl").text(salesandcontactobj.sc.NewActionComments);
+        $("#newactionstatus_lbl").text(newaction.NewActionStatus);
+
+        if (pendingaction != null) {
+            $("#pendingactiondate_lbl").text(pendingaction.PendingActionDate);
+            $("#pendingactionby_lbl").text(pendingaction.PendingActionBy);
+            $("#pendingactioncomments_lbl").text(salesandcontactobj.sc.PendingActionComments);
+        }
+
+        else {
+            $("#pendingactiondate_lbl").text("N/A");
+            $("#pendingactionby_lbl").text("N/A");
+            $("#pendingactioncomments_lbl").text("N/A");
+        }
+
+    }
+    else {
+        $("#requestid_lbl").text("N/A");
+        $("#mobileno_lbl").text("N/A");
+        $("#status_lbl").text("N/A");
+        $("#name_lbl").text("N/A");
+        $("#subject_lbl").text("N/A");
+        $("#requestdate_lbl").text("N/A");
+        $("#email_lbl").text("N/A");
+        $("#description_lbl").text("N/A");
+
+        $("#salesandcontactqueryid").val(0);
+
+        $("#newactiondate_lbl").text("N/A");
+        $("#newactionby_lbl").text("N/A");
+        $("#newactioncomments_lbl").text("N/A");
+        $("#newactionstatus_lbl").text("N/A");
+
+        $("#pendingactiondate_lbl").text("N/A");
+        $("#pendingactionby_lbl").text("N/A");
+        $("#pendingactioncomments_lbl").text("N/A");
+    }
+
+    $("#gridarea").slideUp();
+    $("#detailarea").slideDown();
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+
+        });
+
+    })
+</script>
+
+
+
+

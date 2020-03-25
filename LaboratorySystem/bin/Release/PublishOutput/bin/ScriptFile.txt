@@ -1,0 +1,1477 @@
+USE [master]
+GO
+
+/****** Object:  Database [@clientdb]    Script Date: 10/30/2019 4:15:19 AM ******/
+CREATE DATABASE [@clientdb]
+GO
+
+ALTER DATABASE [@clientdb] SET COMPATIBILITY_LEVEL = 120
+GO
+
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [@clientdb].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+
+ALTER DATABASE [@clientdb] SET ANSI_NULL_DEFAULT OFF 
+GO
+
+ALTER DATABASE [@clientdb] SET ANSI_NULLS OFF 
+GO
+
+ALTER DATABASE [@clientdb] SET ANSI_PADDING OFF 
+GO
+
+ALTER DATABASE [@clientdb] SET ANSI_WARNINGS OFF 
+GO
+
+ALTER DATABASE [@clientdb] SET ARITHABORT OFF 
+GO
+
+ALTER DATABASE [@clientdb] SET AUTO_CLOSE OFF 
+GO
+
+ALTER DATABASE [@clientdb] SET AUTO_SHRINK OFF 
+GO
+
+ALTER DATABASE [@clientdb] SET AUTO_UPDATE_STATISTICS ON 
+GO
+
+ALTER DATABASE [@clientdb] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+
+ALTER DATABASE [@clientdb] SET CURSOR_DEFAULT  GLOBAL 
+GO
+
+ALTER DATABASE [@clientdb] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+
+ALTER DATABASE [@clientdb] SET NUMERIC_ROUNDABORT OFF 
+GO
+
+ALTER DATABASE [@clientdb] SET QUOTED_IDENTIFIER OFF 
+GO
+
+ALTER DATABASE [@clientdb] SET RECURSIVE_TRIGGERS OFF 
+GO
+
+ALTER DATABASE [@clientdb] SET  DISABLE_BROKER 
+GO
+
+ALTER DATABASE [@clientdb] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+
+ALTER DATABASE [@clientdb] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+
+ALTER DATABASE [@clientdb] SET TRUSTWORTHY OFF 
+GO
+
+ALTER DATABASE [@clientdb] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+
+ALTER DATABASE [@clientdb] SET PARAMETERIZATION SIMPLE 
+GO
+
+ALTER DATABASE [@clientdb] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+
+ALTER DATABASE [@clientdb] SET HONOR_BROKER_PRIORITY OFF 
+GO
+
+ALTER DATABASE [@clientdb] SET RECOVERY SIMPLE 
+GO
+
+ALTER DATABASE [@clientdb] SET  MULTI_USER 
+GO
+
+ALTER DATABASE [@clientdb] SET PAGE_VERIFY CHECKSUM  
+GO
+
+ALTER DATABASE [@clientdb] SET DB_CHAINING OFF 
+GO
+
+ALTER DATABASE [@clientdb] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+
+ALTER DATABASE [@clientdb] SET TARGET_RECOVERY_TIME = 0 SECONDS 
+GO
+
+ALTER DATABASE [@clientdb] SET DELAYED_DURABILITY = DISABLED 
+GO
+
+ALTER DATABASE [@clientdb] SET  READ_WRITE 
+GO
+
+
+USE [@clientdb]
+
+/****** Object:  Table [dbo].[Tbl_Cl_AdminDetail]    Script Date: 1/22/2020 11:35:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Tbl_Cl_AdminDetail](
+	[AdminDetailID] [int] IDENTITY(1,1) NOT NULL,
+	[ClientUserID] [int] NULL,
+	[SystemClientID] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	[UpdatedBy] [int] NULL,
+ CONSTRAINT [PK_Tbl_Cl_AdminDetail] PRIMARY KEY CLUSTERED 
+(
+	[AdminDetailID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Tbl_Cl_ClientUser]    Script Date: 1/22/2020 11:35:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Tbl_Cl_ClientUser](
+	[ClientUserID] [int] IDENTITY(1,1) NOT NULL,
+	[Username] [varchar](250) NULL,
+	[Password] [varchar](max) NULL,
+	[FirstName] [varchar](max) NULL,
+	[LastName] [varchar](max) NULL,
+	[Email] [varchar](max) NULL,
+	[MobileNo] [varchar](max) NULL,
+	[Address] [varchar](max) NULL,
+	[IsActive] [bit] NULL,
+	[ProfilePic] [varchar](max) NULL,
+	[DetailID] [int] NULL,
+	[DetailType] [int] NULL,
+	[IsBlock] [bit] NULL,
+	[CreatedDate] [datetime] NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	[UpdatedBy] [int] NULL,
+ CONSTRAINT [PK_Tbl_Cl_ClientUser] PRIMARY KEY CLUSTERED 
+(
+	[ClientUserID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Tbl_Cl_ClientUserAttachmentDetail]    Script Date: 1/22/2020 11:35:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Tbl_Cl_ClientUserAttachmentDetail](
+	[AttachmentID] [int] IDENTITY(1,1) NOT NULL,
+	[AttachmentName] [varchar](max) NULL,
+	[Link] [varchar](max) NULL,
+	[Extension] [varchar](50) NULL,
+	[UserDetailID] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	[UpdatedBy] [int] NULL,
+ CONSTRAINT [PK_Tbl_Cl_ClientUserAttachmentDetail] PRIMARY KEY CLUSTERED 
+(
+	[AttachmentID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Tbl_Cl_ClientUserDetail]    Script Date: 1/22/2020 11:35:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Tbl_Cl_ClientUserDetail](
+	[UserDetailID] [int] IDENTITY(1,1) NOT NULL,
+	[JoiningDate] [date] NULL,
+	[TerminationDate] [date] NULL,
+	[TerminationReason] [varchar](max) NULL,
+	[Qualifications] [varchar](max) NULL,
+	[TypeOfCollection] [varchar](max) NULL,
+	[License] [varchar](max) NULL,
+	[IsFulltime] [bit] NULL,
+	[PdfLink] [varchar](max) NULL,
+	[CreatedDate] [datetime] NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	[UpdatedBy] [int] NULL,
+ CONSTRAINT [PK_Tbl_Cl_ClientUserDetail] PRIMARY KEY CLUSTERED 
+(
+	[UserDetailID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Tbl_Cl_ClientUserType]    Script Date: 1/22/2020 11:35:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Tbl_Cl_ClientUserType](
+	[ClientUserTypeID] [int] IDENTITY(1,1) NOT NULL,
+	[TypeName] [varchar](max) NULL,
+	[Description] [varchar](max) NULL,
+ CONSTRAINT [PK_Tbl_Cl_ClientUserType] PRIMARY KEY CLUSTERED 
+(
+	[ClientUserTypeID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Tbl_Cl_ExtraWorkAttachment]    Script Date: 1/22/2020 11:35:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Tbl_Cl_ExtraWorkAttachment](
+	[ExtraWorkAttachmentID] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](max) NULL,
+	[Extension] [varchar](250) NULL,
+	[Link] [varchar](max) NULL,
+	[ExtraWorkID] [int] NULL,
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+ CONSTRAINT [PK_Tbl_Cl_ExtraWorkAttachment] PRIMARY KEY CLUSTERED 
+(
+	[ExtraWorkAttachmentID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Tbl_Cl_ExtraWorkRequest]    Script Date: 1/22/2020 11:35:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Tbl_Cl_ExtraWorkRequest](
+	[ExtraWorkID] [int] IDENTITY(1,1) NOT NULL,
+	[TestID] [int] NOT NULL,
+	[H_ELevels] [varchar](max) NULL,
+	[SpecialStains] [varchar](max) NULL,
+	[ImmunoHistoChemistry] [varchar](max) NULL,
+	[Others] [varchar](max) NULL,
+	[StatusID] [int] NULL,
+	[RequestCreatedDate] [datetime] NULL,
+	[RequestCreatedBy] [int] NULL,
+	[NewActionDate] [datetime] NULL,
+	[NewActionBy] [int] NULL,
+	[NewActionStatusID] [int] NULL,
+	[NewActionComments] [varchar](max) NULL,
+	[PendingActionBy] [int] NULL,
+	[PendingActionDate] [datetime] NULL,
+	[PendingActionComments] [varchar](max) NULL,
+ CONSTRAINT [PK_Tbl_Cl_ExtraWork] PRIMARY KEY CLUSTERED 
+(
+	[ExtraWorkID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Tbl_Cl_ExtraWorkRequestStatus]    Script Date: 1/22/2020 11:35:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Tbl_Cl_ExtraWorkRequestStatus](
+	[WorkRequestStatusID] [int] IDENTITY(1,1) NOT NULL,
+	[StatusName] [varchar](250) NULL,
+	[Description] [varchar](max) NULL,
+ CONSTRAINT [PK_Tbl_Cl_ExtraWorkRequestStatus] PRIMARY KEY CLUSTERED 
+(
+	[WorkRequestStatusID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Tbl_Cl_ForgetPassword]    Script Date: 1/22/2020 11:35:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Tbl_Cl_ForgetPassword](
+	[ForgetPasswordID] [int] IDENTITY(1,1) NOT NULL,
+	[UniqueCode] [varchar](max) NULL,
+	[ClientUserID] [int] NULL,
+	[ExpiresInMinutes] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+ CONSTRAINT [PK_Tbl_Cl_ForgetPassword] PRIMARY KEY CLUSTERED 
+(
+	[ForgetPasswordID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Tbl_Cl_IncorrectPasswordAttempt]    Script Date: 1/22/2020 11:35:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Tbl_Cl_IncorrectPasswordAttempt](
+	[IncorrectPasswordID] [int] IDENTITY(1,1) NOT NULL,
+	[ClientUserID] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[Password] [varchar](max) NULL,
+	[IsInclude] [bit] NULL,
+ CONSTRAINT [PK_Tbl_Cl_IncorrectPasswordAttempt] PRIMARY KEY CLUSTERED 
+(
+	[IncorrectPasswordID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Tbl_Cl_Inventory]    Script Date: 1/22/2020 11:35:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Tbl_Cl_Inventory](
+	[InventoryID] [int] IDENTITY(1,1) NOT NULL,
+	[ItemName] [varchar](max) NULL,
+	[Code] [varchar](50) NULL,
+	[Description] [varchar](max) NULL,
+	[QuantityOrdered] [varchar](100) NULL,
+	[QuantityLeft] [varchar](100) NULL,
+	[OrderedHistory] [varchar](max) NULL,
+	[ExpiryDate] [date] NULL,
+	[InventoryStatusID] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	[UpdatedBy] [int] NULL,
+ CONSTRAINT [PK_Tbl_Cl_Inventory] PRIMARY KEY CLUSTERED 
+(
+	[InventoryID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Tbl_Cl_InventoryRequest]    Script Date: 1/22/2020 11:35:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Tbl_Cl_InventoryRequest](
+	[InventoryRequestID] [int] IDENTITY(1,1) NOT NULL,
+	[ItemName] [varchar](max) NULL,
+	[Description] [varchar](max) NULL,
+	[Comments] [varchar](max) NULL,
+	[Quantity] [varchar](100) NULL,
+	[StatusID] [int] NULL,
+	[RequestCreatedDate] [datetime] NULL,
+	[RequestCreatedBy] [int] NULL,
+	[OpenActionBy] [int] NULL,
+	[OpenActionDate] [datetime] NULL,
+	[OpenActionStatusID] [int] NULL,
+	[OpenActionComments] [varchar](max) NULL,
+	[ProgressActionBy] [int] NULL,
+	[ProgressActionDate] [datetime] NULL,
+	[ProgressActionComments] [varchar](max) NULL,
+ CONSTRAINT [PK_Tbl_Cl_InventoryRequest] PRIMARY KEY CLUSTERED 
+(
+	[InventoryRequestID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Tbl_Cl_InventoryRequestStatus]    Script Date: 1/22/2020 11:35:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Tbl_Cl_InventoryRequestStatus](
+	[InventoryRequestStatusID] [int] IDENTITY(1,1) NOT NULL,
+	[StatusName] [varchar](max) NULL,
+	[Description] [varchar](max) NULL,
+ CONSTRAINT [PK_Tbl_Cl_InventoryRequestStatus] PRIMARY KEY CLUSTERED 
+(
+	[InventoryRequestStatusID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Tbl_Cl_InventoryStatusType]    Script Date: 1/22/2020 11:35:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Tbl_Cl_InventoryStatusType](
+	[InventoryStatusTypeID] [int] IDENTITY(1,1) NOT NULL,
+	[StatusName] [varchar](150) NULL,
+	[Description] [varchar](max) NULL,
+	[CreatedDate] [datetime] NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	[UpdatedBy] [int] NULL,
+ CONSTRAINT [PK_Tbl_Cl_InventoryStatusType] PRIMARY KEY CLUSTERED 
+(
+	[InventoryStatusTypeID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Tbl_Cl_Menu]    Script Date: 1/22/2020 11:35:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Tbl_Cl_Menu](
+	[MenuID] [int] IDENTITY(1,1) NOT NULL,
+	[MenuName] [varchar](400) NULL,
+	[Description] [varchar](400) NULL,
+	[ParentID] [int] NULL,
+	[Icon] [varchar](400) NULL,
+	[ToolTip] [varchar](500) NULL,
+	[Link] [varchar](400) NULL,
+	[IsViewable] [bit] NULL,
+	[CreatedDate] [datetime] NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	[UpdatedBy] [int] NULL,
+ CONSTRAINT [PK_Tbl_Cl_Menu] PRIMARY KEY CLUSTERED 
+(
+	[MenuID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Tbl_Cl_MenuAssignment]    Script Date: 1/22/2020 11:35:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Tbl_Cl_MenuAssignment](
+	[AssignmentID] [int] IDENTITY(1,1) NOT NULL,
+	[MenuID] [int] NULL,
+	[RoleID] [int] NULL,
+	[EmployeeID] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	[UpdatedBy] [int] NULL,
+ CONSTRAINT [PK_Tbl_Cl_MenuAssignment] PRIMARY KEY CLUSTERED 
+(
+	[AssignmentID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Tbl_Cl_Notification]    Script Date: 1/22/2020 11:35:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Tbl_Cl_Notification](
+	[NotificationID] [int] IDENTITY(1,1) NOT NULL,
+	[Title] [varchar](400) NULL,
+	[Description] [varchar](max) NULL,
+	[Icon] [varchar](max) NULL,
+	[Type] [varchar](400) NULL,
+	[ClickLink] [varchar](400) NULL,
+	[CreatedDatetime] [datetime] NULL,
+	[Isviewed] [bit] NULL,
+	[ViewedDatetime] [datetime] NULL,
+	[EmployeeID] [int] NULL,
+	[CreatedBy] [int] NULL,
+ CONSTRAINT [PK_Tbl_Cl_Notification] PRIMARY KEY CLUSTERED 
+(
+	[NotificationID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Tbl_Cl_OpinionRequest]    Script Date: 1/22/2020 11:35:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Tbl_Cl_OpinionRequest](
+	[OpinionRequestID] [int] IDENTITY(1,1) NOT NULL,
+	[PatientDetails] [varchar](max) NULL,
+	[SampleAnalysisDetails] [varchar](max) NULL,
+	[OpinionNeededDescription] [varchar](max) NULL,
+	[ConsultationOpinion] [varchar](max) NULL,
+	[SystemOpinionRequestID] [int] NULL,
+	[StatusID] [int] NULL,
+	[OpinionBy] [varchar](max) NULL,
+	[CommentForRequester] [varchar](max) NULL,
+	[IsPublish] [bit] NULL,
+	[RequestCreatedDate] [datetime] NULL,
+	[RequestCreatedBy] [int] NULL,
+	[NewActionDate] [datetime] NULL,
+	[NewActionBy] [int] NULL,
+	[NewActionStatusID] [int] NULL,
+	[NewActionComments] [varchar](max) NULL,
+	[PendingActionBy] [int] NULL,
+	[PendingActionDate] [datetime] NULL,
+	[PendingActionComments] [varchar](max) NULL,
+ CONSTRAINT [PK_Tbl_Cl_OpinionRequest] PRIMARY KEY CLUSTERED 
+(
+	[OpinionRequestID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Tbl_Cl_OpinionRequestStatus]    Script Date: 1/22/2020 11:35:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Tbl_Cl_OpinionRequestStatus](
+	[OpinionRequestStatusID] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](250) NULL,
+	[Description] [varchar](max) NULL,
+ CONSTRAINT [PK_Tbl_Cl_OpinionRequestStatus] PRIMARY KEY CLUSTERED 
+(
+	[OpinionRequestStatusID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Tbl_Cl_PatientDetail]    Script Date: 1/22/2020 11:35:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Tbl_Cl_PatientDetail](
+	[PatientDetailID] [int] IDENTITY(1,1) NOT NULL,
+	[MiddleName] [varchar](max) NULL,
+	[Age] [varchar](50) NULL,
+	[Sex] [varchar](50) NULL,
+	[Streetname] [varchar](max) NULL,
+	[City] [varchar](max) NULL,
+	[AlternateAddress] [varchar](max) NULL,
+	[AlternatePhoneNo] [varchar](max) NULL,
+	[ReferingDoctor] [varchar](250) NULL,
+	[ReferingHospital] [varchar](max) NULL,
+	[PaymentMode] [varchar](250) NULL,
+	[Payment] [decimal](10, 2) NULL,
+	[PdfLink] [varchar](max) NULL,
+	[PaymentReceiptPdfLink] [varchar](max) NULL,
+	[CreatedDate] [datetime] NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	[UpdatedBy] [int] NULL,
+ CONSTRAINT [PK_Tbl_Cl_PatientDetail] PRIMARY KEY CLUSTERED 
+(
+	[PatientDetailID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Tbl_Cl_Role]    Script Date: 1/22/2020 11:35:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Tbl_Cl_Role](
+	[RoleID] [int] IDENTITY(1,1) NOT NULL,
+	[RoleName] [varchar](400) NULL,
+	[Description] [varchar](400) NULL,
+	[IsActive] [bit] NULL,
+	[CreatedDate] [datetime] NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	[UpdatedBy] [int] NULL,
+ CONSTRAINT [PK_Tbl_Cl_Role] PRIMARY KEY CLUSTERED 
+(
+	[RoleID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Tbl_Cl_RoleMapping]    Script Date: 1/22/2020 11:35:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Tbl_Cl_RoleMapping](
+	[RoleMappingID] [int] IDENTITY(1,1) NOT NULL,
+	[RoleID] [int] NULL,
+	[UserID] [int] NULL,
+	[IsDefault] [bit] NULL,
+	[CreatedDate] [datetime] NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	[UpdatedBy] [int] NULL,
+ CONSTRAINT [PK_Tbl_Cl_RoleMapping] PRIMARY KEY CLUSTERED 
+(
+	[RoleMappingID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Tbl_Cl_SectionRestriction]    Script Date: 1/22/2020 11:35:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Tbl_Cl_SectionRestriction](
+	[SectionID] [int] IDENTITY(1,1) NOT NULL,
+	[SectionSelector] [varchar](max) NULL,
+	[MenuID] [int] NULL,
+	[EmployeeID] [int] NULL,
+	[RoleID] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	[UpdatedBy] [int] NULL,
+ CONSTRAINT [PK_Tbl_Cl_SectionRestriction] PRIMARY KEY CLUSTERED 
+(
+	[SectionID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Tbl_Cl_Test]    Script Date: 1/22/2020 11:35:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Tbl_Cl_Test](
+	[TestID] [int] IDENTITY(1,1) NOT NULL,
+	[TestName] [varchar](max) NULL,
+	[IsSampleRequired] [bit] NULL,
+	[ComplaintHistory] [varchar](max) NULL,
+	[Description] [varchar](max) NULL,
+	[PatientUserID] [int] NULL,
+	[TestStatusID] [int] NULL,
+	[IsSampleCollected] [bit] NULL,
+	[SampleLabel] [varchar](max) NULL,
+	[SampleCode] [varchar](max) NULL,
+	[SampleType] [varchar](max) NULL,
+	[IsPublish] [bit] NULL,
+	[PdfLink] [varchar](max) NULL,
+	[TestCreatedDate] [datetime] NULL,
+	[TestCreatedBy] [int] NULL,
+	[SampleCollectionDate] [datetime] NULL,
+	[SampleCollectionBy] [int] NULL,
+	[AnalysisDate] [datetime] NULL,
+	[AnalysisBy] [int] NULL,
+	[ConclusionDate] [datetime] NULL,
+	[ConclusionBy] [int] NULL,
+ CONSTRAINT [PK_Tbl_Cl_Test] PRIMARY KEY CLUSTERED 
+(
+	[TestID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Tbl_Cl_TestAttachment]    Script Date: 1/22/2020 11:35:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Tbl_Cl_TestAttachment](
+	[TestAttachmentID] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](max) NULL,
+	[Extension] [varchar](100) NULL,
+	[Link] [varchar](max) NULL,
+	[TestID] [int] NULL,
+	[AttachmentTypeID] [int] NULL,
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+ CONSTRAINT [PK_Tbl_Cl_TestAttachment] PRIMARY KEY CLUSTERED 
+(
+	[TestAttachmentID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Tbl_Cl_TestAttachmentType]    Script Date: 1/22/2020 11:35:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Tbl_Cl_TestAttachmentType](
+	[TestAttachmentTypeID] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](250) NULL,
+	[Description] [varchar](max) NULL,
+ CONSTRAINT [PK_Tbl_Cl_TestAttachmentType] PRIMARY KEY CLUSTERED 
+(
+	[TestAttachmentTypeID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Tbl_Cl_TestConclusion]    Script Date: 1/22/2020 11:35:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Tbl_Cl_TestConclusion](
+	[TestConclusionID] [int] IDENTITY(1,1) NOT NULL,
+	[TestReportTypeID] [int] NULL,
+	[TestID] [int] NULL,
+	[SpecimenDetails] [varchar](max) NULL,
+	[ClinicalDetails] [varchar](max) NULL,
+	[Microscopy] [varchar](max) NULL,
+	[Macroscopy] [varchar](max) NULL,
+	[Conclusion] [varchar](max) NULL,
+	[SnomedCoding] [varchar](max) NULL,
+	[SampleDescription] [varchar](max) NULL,
+	[Report] [varchar](max) NULL,
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+ CONSTRAINT [PK_Tbl_Cl_TestConclusion] PRIMARY KEY CLUSTERED 
+(
+	[TestConclusionID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Tbl_Cl_TestInvestigation]    Script Date: 1/22/2020 11:35:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Tbl_Cl_TestInvestigation](
+	[InvestigationID] [int] IDENTITY(1,1) NOT NULL,
+	[InvestigationName] [varchar](max) NULL,
+	[Value] [varchar](max) NULL,
+	[Range] [varchar](max) NULL,
+	[InvestigationResult] [varchar](max) NULL,
+	[ExtraWorkID] [int] NULL,
+	[TestID] [int] NULL,
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+ CONSTRAINT [PK_Tbl_Cl_TestInvestigation] PRIMARY KEY CLUSTERED 
+(
+	[InvestigationID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Tbl_Cl_TestReportType]    Script Date: 1/22/2020 11:35:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Tbl_Cl_TestReportType](
+	[TestReportTypeID] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](max) NULL,
+	[Description] [varchar](max) NULL,
+ CONSTRAINT [PK_Tbl_Cl_TestReportType] PRIMARY KEY CLUSTERED 
+(
+	[TestReportTypeID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Tbl_Cl_TestStatus]    Script Date: 1/22/2020 11:35:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Tbl_Cl_TestStatus](
+	[TestStatusID] [int] IDENTITY(1,1) NOT NULL,
+	[StatusName] [varchar](max) NULL,
+	[Description] [varchar](max) NULL,
+ CONSTRAINT [PK_Tbl_Cl_TestStatus] PRIMARY KEY CLUSTERED 
+(
+	[TestStatusID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Tbl_Cl_TestSupplementReport]    Script Date: 1/22/2020 11:35:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Tbl_Cl_TestSupplementReport](
+	[TestSupplementReportID] [int] IDENTITY(1,1) NOT NULL,
+	[TestReportTypeID] [int] NULL,
+	[TestID] [int] NULL,
+	[SpecimenDetails] [varchar](max) NULL,
+	[ClinicalDetails] [varchar](max) NULL,
+	[Microscopy] [varchar](max) NULL,
+	[Macroscopy] [varchar](max) NULL,
+	[SupplementReportConclusion] [varchar](max) NULL,
+	[SnomedCoding] [varchar](max) NULL,
+	[SampleDescription] [varchar](max) NULL,
+	[Report] [varchar](max) NULL,
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+ CONSTRAINT [PK_Tbl_Cl_TestSupplementReport] PRIMARY KEY CLUSTERED 
+(
+	[TestSupplementReportID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+USE [master]
+GO
+ALTER DATABASE [@clientdb] SET  READ_WRITE 
+GO
+USE [@clientdb]
+GO
+SET IDENTITY_INSERT [dbo].[Tbl_Cl_ClientUserType] ON 
+
+GO
+INSERT [dbo].[Tbl_Cl_ClientUserType] ([ClientUserTypeID], [TypeName], [Description]) VALUES (1, N'Client Admin', NULL)
+GO
+INSERT [dbo].[Tbl_Cl_ClientUserType] ([ClientUserTypeID], [TypeName], [Description]) VALUES (2, N'Receptionist', NULL)
+GO
+INSERT [dbo].[Tbl_Cl_ClientUserType] ([ClientUserTypeID], [TypeName], [Description]) VALUES (3, N'Lab Technician', NULL)
+GO
+INSERT [dbo].[Tbl_Cl_ClientUserType] ([ClientUserTypeID], [TypeName], [Description]) VALUES (4, N'Clinical Laboratory Scientist', NULL)
+GO
+INSERT [dbo].[Tbl_Cl_ClientUserType] ([ClientUserTypeID], [TypeName], [Description]) VALUES (5, N'Clinical Laboratory Consultant', NULL)
+GO
+INSERT [dbo].[Tbl_Cl_ClientUserType] ([ClientUserTypeID], [TypeName], [Description]) VALUES (6, N'Head Lab Technician', NULL)
+GO
+INSERT [dbo].[Tbl_Cl_ClientUserType] ([ClientUserTypeID], [TypeName], [Description]) VALUES (7, N'Inventory Manager', NULL)
+GO
+INSERT [dbo].[Tbl_Cl_ClientUserType] ([ClientUserTypeID], [TypeName], [Description]) VALUES (8, N'Patient', NULL)
+GO
+SET IDENTITY_INSERT [dbo].[Tbl_Cl_ClientUserType] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Tbl_Cl_ExtraWorkRequestStatus] ON 
+
+GO
+INSERT [dbo].[Tbl_Cl_ExtraWorkRequestStatus] ([WorkRequestStatusID], [StatusName], [Description]) VALUES (1, N'New', NULL)
+GO
+INSERT [dbo].[Tbl_Cl_ExtraWorkRequestStatus] ([WorkRequestStatusID], [StatusName], [Description]) VALUES (2, N'In-Progress', NULL)
+GO
+INSERT [dbo].[Tbl_Cl_ExtraWorkRequestStatus] ([WorkRequestStatusID], [StatusName], [Description]) VALUES (3, N'Completed', NULL)
+GO
+INSERT [dbo].[Tbl_Cl_ExtraWorkRequestStatus] ([WorkRequestStatusID], [StatusName], [Description]) VALUES (4, N'New-Deleted', NULL)
+GO
+INSERT [dbo].[Tbl_Cl_ExtraWorkRequestStatus] ([WorkRequestStatusID], [StatusName], [Description]) VALUES (5, N'In-Progress-Deleted', NULL)
+GO
+SET IDENTITY_INSERT [dbo].[Tbl_Cl_ExtraWorkRequestStatus] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Tbl_Cl_InventoryRequestStatus] ON 
+
+GO
+INSERT [dbo].[Tbl_Cl_InventoryRequestStatus] ([InventoryRequestStatusID], [StatusName], [Description]) VALUES (1, N'Open', NULL)
+GO
+INSERT [dbo].[Tbl_Cl_InventoryRequestStatus] ([InventoryRequestStatusID], [StatusName], [Description]) VALUES (2, N'Progress', NULL)
+GO
+INSERT [dbo].[Tbl_Cl_InventoryRequestStatus] ([InventoryRequestStatusID], [StatusName], [Description]) VALUES (3, N'Rejected', NULL)
+GO
+INSERT [dbo].[Tbl_Cl_InventoryRequestStatus] ([InventoryRequestStatusID], [StatusName], [Description]) VALUES (4, N'Completed', NULL)
+GO
+INSERT [dbo].[Tbl_Cl_InventoryRequestStatus] ([InventoryRequestStatusID], [StatusName], [Description]) VALUES (5, N'Open-Deleted', NULL)
+GO
+INSERT [dbo].[Tbl_Cl_InventoryRequestStatus] ([InventoryRequestStatusID], [StatusName], [Description]) VALUES (6, N'Progress-Deleted', NULL)
+GO
+SET IDENTITY_INSERT [dbo].[Tbl_Cl_InventoryRequestStatus] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Tbl_Cl_InventoryStatusType] ON 
+
+GO
+INSERT [dbo].[Tbl_Cl_InventoryStatusType] ([InventoryStatusTypeID], [StatusName], [Description], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (1, N'Available', NULL, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_InventoryStatusType] ([InventoryStatusTypeID], [StatusName], [Description], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (2, N'Out of Stock', NULL, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_InventoryStatusType] ([InventoryStatusTypeID], [StatusName], [Description], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (3, N'Discontinued', NULL, NULL, NULL, NULL, NULL)
+GO
+SET IDENTITY_INSERT [dbo].[Tbl_Cl_InventoryStatusType] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Tbl_Cl_Menu] ON 
+
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (1, N'Dashboard', N'dashboard', NULL, N'nav-icon i-Bar-Chart', NULL, N'#', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (2, N'Employees', N'employees', NULL, N'nav-icon i-Checked-User', NULL, N'#', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (3, N'Create Employee Account', N'create-employees', 2, N'nav-icon i-Add', NULL, N'/User/Employee', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (4, N'Active Employee Accounts', N'active-employees', 2, N'nav-icon i-Check', NULL, N'/User/Employee/ActiveEmployees', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (5, N'Inactive Employee Accounts', N'inactive-employees', 2, N'nav-icon i-Close', NULL, N'/User/Employee/InactiveEmployees', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (6, N'Inventory', N'inventory-manager', NULL, N'nav-icon i-Box-Full', NULL, N'#', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (7, N'Create Inventory Items', N'inventory-manager-create', 6, N'nav-icon i-Add', NULL, N'/User/InventoryManager', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (8, N'View Inventory Items', N'inventory-manager-viewactive', 6, N'nav-icon i-Check', NULL, N'/User/InventoryManager/AvailableItems', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (9, N'Out of Stock Items', N'inventory-manager-viewoutofstock', 6, N'nav-icon i-Close', NULL, N'/User/InventoryManager/OutofstockItems', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (10, N'Discontinued Items', N'inventory-manager-viewdiscontinued', 6, N'nav-icon i-Close', NULL, N'/User/InventoryManager/DiscontinuedItems', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (11, N'Inventory Request', N'inventory-request', NULL, N'nav-icon i-Box-Full', NULL, N'#', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (12, N'Open Requests', N'inventory-request-open', 11, N'nav-icon i-Add', NULL, N'/User/InventoryRequest/OpenRequests', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (13, N'Closed Requests', N'inventory-request-closed', 11, N'nav-icon i-Check', NULL, N'/User/InventoryRequest/ClosedRequests', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (14, N'Patients', N'patients', NULL, N'nav-icon i-Clinic', NULL, N'#', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (15, N'View All Patients', N'patients-viewall', 14, N'nav-icon i-Check', NULL, N'/User/Patients/ViewAll', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (16, N'Reports', N'reports', NULL, N'nav-icon i-Folder-Search', NULL, N'#', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (17, N'All Booked Tests', N'reports-allbockedtests', 16, N'nav-icon i-Add', NULL, N'/User/Reports/AllBookedTests', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (18, N'Pending Test Reports', N'reports-pendingtests', 16, N'nav-icon i-Loading-2', NULL, N'/User/Reports/PendingTests', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (19, N'Completed Test Reports', N'reports-completedtests', 16, N'nav-icon i-Check', NULL, N'/User/Reports/CompletedTests', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (20, N'Payments', N'payments', NULL, N'nav-icon i-Money-2', NULL, N'#', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (21, N'Patient Registration Payments', N'payments-patientregistration', 20, N'nav-icon i-Mail-Money', NULL, N'/User/Payments/PatientRegistrationPayments', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (22, N'Booked Medical Test Payments', N'payments-bookedtests', 20, N'nav-icon i-Money1', NULL, N'/User/Payments/BookedTestPayments', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (23, N'Export Data', N'exportdata', NULL, N'nav-icon i-File-Search', NULL, N'#', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (24, N'Export All Patient Records', N'exportdata-patientrecords', 23, N'nav-icon i-Information', NULL, N'/User/ExportData/AllPatientRecords', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (25, N'Export All Test Records', N'exportdata-testrecords', 23, N'nav-icon i-Check', NULL, N'/User/ExportData/AllTestRecords', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (26, N'Logout', N'NonMenu', NULL, NULL, NULL, N'/User/Account/Logout', 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (27, N'MyProfile', N'NonMenu', NULL, NULL, NULL, N'/User/Account/MyProfile', 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (28, N'New Patient', N'patients-new', 14, N'nav-icon i-Add', NULL, N'/User/Patients', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (29, N'Book Medical Test', N'bookmedicaltest', NULL, N'nav-icon i-Clinic', NULL, N'#', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (30, N'New Test', N'bookmedicaltest-new', 29, N'nav-icon i-Add', NULL, N'/User/MedicalTest', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (31, N'Raise Request', N'inventory-request-raise', 11, N'nav-icon i-Folder-Search', NULL, N'/User/InventoryRequest/RaiseRequest', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (32, N'Search Completed Requests', N'bookmedicaltest-completedtest-bookmedicaltest', 29, N'nav-icon i-File-Search', NULL, N'/User/MedicalTest/Completed', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (33, N'Sample Collection Request', N'samplecollectionrequest', NULL, N'nav-icon i-Clinic', NULL, N'#', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (34, N'Open Requests', N'medicaltest-openrequests-samplecollection', 33, N'nav-icon i-Add', NULL, N'/User/MedicalTest/Open', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (35, N'Investigation', N'investigation', NULL, N'nav-icon i-Folder-Search', NULL, N'#', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (36, N'Open Requests', N'medicaltest-openrequests-investigation', 35, N'nav-icon i-Add', NULL, N'/User/MedicalTest/Open', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (37, N'Extra Work Requests', N'extraworkrequests', NULL, N'nav-icon i-Folder-Search', NULL, N'#', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (38, N'New Extra Work Request', N'extraworkrequest-new', 37, N'nav-icon i-Add', NULL, N'/User/ExtraWorkRequest/New', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (39, N'Open Requests', N'extraworkrequests-open', 37, N'nav-icon i-File-Search', NULL, N'/User/ExtraWorkRequest/Open', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (40, N'Completed Request', N'extraworkrequest-completed', 37, N'nav-icon i-Check', NULL, N'/User/ExtraWorkRequest/Completed', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (41, N'Search Request', N'extraworkrequest-search', 37, N'nav-icon i-Folder-Search', NULL, N'/User/ExtraWorkRequest/Search', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (42, N'2nd Opinion', N'2ndopinion', NULL, N'nav-icon i-Clinic', NULL, N'#', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (43, N'New Opinion Request', N'2ndopinion-new', 42, N'nav-icon i-Add', NULL, N'/User/OpinionRequest/New', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (44, N'Pending Opinion Request', N'2ndopinion-pending', 42, N'nav-icon i-Loading-2', NULL, N'/User/OpinionRequest/Pending', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (45, N'Completed Opinion Request', N'2ndopinion-completed', 42, N'nav-icon i-Check', NULL, N'/User/OpinionRequest/Completed', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (46, N'Test Report Requests', N'testopenrequest', NULL, N'nav-icon i-Folder-Search', NULL, N'#', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (47, N'Open Requests', N'medicaltest-openrequests-testopenrequest', 46, N'nav-icon i-Add', NULL, N'/User/MedicalTest/Open', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (48, N'My Reports', N'myreports', NULL, N'nav-icon i-Folder-Search', NULL, N'#', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (49, N'Pending Reports', N'myreports-pending', 48, N'nav-icon i-Loading-2', NULL, N'/User/MyReports/PendingReports', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (50, N'Completed Reports', N'myreports-completed', 48, N'nav-icon i-Check', NULL, N'/User/MyReports/CompletedReports', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (51, N'Search Completed Requests', N'bookmedicaltest-completedtest-samplecollection', 33, N'nav-icon i-File-Search', NULL, N'/User/MedicalTest/Completed', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (52, N'Search Completed Requests', N'bookmedicaltest-completedtest-investigation', 35, N'nav-icon i-File-Search', NULL, N'/User/MedicalTest/Completed', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (53, N'Search Completed Requests', N'bookmedicaltest-completedtest-testreport', 46, N'nav-icon i-File-Search', NULL, N'/User/MedicalTest/Completed', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (54, N'My Dashboard', N'dashboard-my', 1, N'nav-icon i-Bar-Chart', NULL, N'/User/Home', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (55, N'Test-NonViewable', N'Non-Menu', NULL, NULL, NULL, N'/User/MedicalTest', 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (56, N'Export All Payment Records', N'exportdata-paymentrecords', 23, N'nav-icon i-Mail-Money', NULL, N'/User/ExportData/AllPaymentRecords', 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Menu] ([MenuID], [MenuName], [Description], [ParentID], [Icon], [ToolTip], [Link], [IsViewable], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (57, N'Export All Employee Records', N'exportdata-employeerecords', 23, N'nav-icon i-Checked-User', NULL, N'/User/ExportData/AllEmployeeRecords', 1, NULL, NULL, NULL, NULL)
+GO
+SET IDENTITY_INSERT [dbo].[Tbl_Cl_Menu] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Tbl_Cl_MenuAssignment] ON 
+
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (1, 1, 1, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (2, 2, 1, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (3, 3, 1, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (4, 4, 1, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (5, 5, 1, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (6, 6, 1, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (7, 7, 1, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (8, 8, 1, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (9, 9, 1, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (10, 10, 1, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (11, 11, 1, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (12, 12, 1, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (13, 13, 1, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (14, 14, 1, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (15, 15, 1, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (16, 16, 1, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (17, 17, 1, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (18, 18, 1, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (19, 19, 1, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (20, 20, 1, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (21, 21, 1, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (22, 22, 1, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (23, 23, 1, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (24, 24, 1, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (25, 25, 1, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (26, 26, 1, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (27, 27, 1, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (28, 1, 2, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (29, 11, 2, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (30, 12, 2, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (31, 13, 2, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (32, 14, 2, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (33, 15, 2, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (34, 26, 2, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (35, 27, 2, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (36, 28, 2, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (37, 29, 2, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (38, 30, 2, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (39, 31, 2, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (40, 32, 2, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (41, 1, 3, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (42, 11, 3, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (43, 12, 3, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (44, 13, 3, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (45, 26, 3, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (46, 27, 3, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (47, 31, 3, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (48, 33, 3, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (49, 34, 3, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (50, 51, 3, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (51, 1, 4, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (52, 11, 4, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (53, 12, 4, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (54, 13, 4, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (55, 26, 4, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (56, 27, 4, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (57, 31, 4, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (58, 35, 4, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (59, 36, 4, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (60, 37, 4, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (61, 39, 4, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (62, 40, 4, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (63, 52, 4, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (64, 1, 5, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (65, 11, 5, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (66, 12, 5, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (67, 13, 5, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (68, 26, 5, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (69, 27, 5, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (70, 31, 5, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (71, 37, 5, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (72, 38, 5, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (73, 39, 5, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (74, 40, 5, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (75, 41, 5, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (76, 42, 5, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (77, 43, 5, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (78, 44, 5, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (79, 45, 5, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (80, 46, 5, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (81, 47, 5, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (82, 53, 5, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (83, 1, 7, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (84, 6, 7, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (85, 7, 7, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (86, 8, 7, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (87, 9, 7, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (88, 10, 7, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (89, 11, 7, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (90, 12, 7, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (91, 13, 7, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (92, 26, 7, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (93, 27, 7, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (95, 1, 8, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (96, 26, 8, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (97, 27, 8, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (98, 48, 8, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (99, 49, 8, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (100, 50, 8, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (101, 1, 6, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (102, 11, 6, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (103, 12, 6, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (104, 13, 6, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (105, 26, 6, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (106, 27, 6, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (107, 31, 6, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (108, 33, 6, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (109, 34, 6, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (110, 51, 6, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (111, 54, 1, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (112, 54, 2, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (113, 54, 3, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (114, 54, 4, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (115, 54, 5, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (116, 54, 6, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (117, 54, 7, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (118, 54, 8, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (119, 55, 3, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (120, 55, 4, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (121, 55, 5, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (122, 55, 1, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (123, 55, 8, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (124, 56, 1, 0, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_MenuAssignment] ([AssignmentID], [MenuID], [RoleID], [EmployeeID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (125, 57, 1, 0, NULL, NULL, NULL, NULL)
+GO
+SET IDENTITY_INSERT [dbo].[Tbl_Cl_MenuAssignment] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Tbl_Cl_OpinionRequestStatus] ON 
+
+GO
+INSERT [dbo].[Tbl_Cl_OpinionRequestStatus] ([OpinionRequestStatusID], [Name], [Description]) VALUES (1, N'New', NULL)
+GO
+INSERT [dbo].[Tbl_Cl_OpinionRequestStatus] ([OpinionRequestStatusID], [Name], [Description]) VALUES (2, N'In-Progress', NULL)
+GO
+INSERT [dbo].[Tbl_Cl_OpinionRequestStatus] ([OpinionRequestStatusID], [Name], [Description]) VALUES (3, N'Completed', NULL)
+GO
+INSERT [dbo].[Tbl_Cl_OpinionRequestStatus] ([OpinionRequestStatusID], [Name], [Description]) VALUES (4, N'New-Deleted', NULL)
+GO
+INSERT [dbo].[Tbl_Cl_OpinionRequestStatus] ([OpinionRequestStatusID], [Name], [Description]) VALUES (5, N'In-Progress-Deleted', NULL)
+GO
+INSERT [dbo].[Tbl_Cl_OpinionRequestStatus] ([OpinionRequestStatusID], [Name], [Description]) VALUES (6, N'Cancelled', NULL)
+GO
+SET IDENTITY_INSERT [dbo].[Tbl_Cl_OpinionRequestStatus] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Tbl_Cl_Role] ON 
+
+GO
+INSERT [dbo].[Tbl_Cl_Role] ([RoleID], [RoleName], [Description], [IsActive], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (1, N'Admin', NULL, 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Role] ([RoleID], [RoleName], [Description], [IsActive], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (2, N'Receptionist', NULL, 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Role] ([RoleID], [RoleName], [Description], [IsActive], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (3, N'Lab Technician', NULL, 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Role] ([RoleID], [RoleName], [Description], [IsActive], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (4, N'Clinical Laboratory Scientist', NULL, 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Role] ([RoleID], [RoleName], [Description], [IsActive], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (5, N'Clinical Laboratory Consultant', NULL, 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Role] ([RoleID], [RoleName], [Description], [IsActive], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (6, N'Head Lab Technician', NULL, 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Role] ([RoleID], [RoleName], [Description], [IsActive], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (7, N'Inventory Manager', NULL, 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_Role] ([RoleID], [RoleName], [Description], [IsActive], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (8, N'Patient', NULL, 1, NULL, NULL, NULL, NULL)
+GO
+SET IDENTITY_INSERT [dbo].[Tbl_Cl_Role] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Tbl_Cl_SectionRestriction] ON 
+
+GO
+INSERT [dbo].[Tbl_Cl_SectionRestriction] ([SectionID], [SectionSelector], [MenuID], [EmployeeID], [RoleID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (1, N'.deletedbtn-section', 12, 0, 2, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_SectionRestriction] ([SectionID], [SectionSelector], [MenuID], [EmployeeID], [RoleID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (2, N'.updatestatus-section', 12, 0, 2, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_SectionRestriction] ([SectionID], [SectionSelector], [MenuID], [EmployeeID], [RoleID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (3, N'.deletedbtn-section', 12, 0, 3, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_SectionRestriction] ([SectionID], [SectionSelector], [MenuID], [EmployeeID], [RoleID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (4, N'.updatestatus-section', 12, 0, 3, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_SectionRestriction] ([SectionID], [SectionSelector], [MenuID], [EmployeeID], [RoleID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (5, N'.deletedbtn-section', 12, 0, 4, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_SectionRestriction] ([SectionID], [SectionSelector], [MenuID], [EmployeeID], [RoleID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (6, N'.updatestatus-section', 12, 0, 4, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_SectionRestriction] ([SectionID], [SectionSelector], [MenuID], [EmployeeID], [RoleID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (7, N'.deletedbtn-section', 12, 0, 5, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_SectionRestriction] ([SectionID], [SectionSelector], [MenuID], [EmployeeID], [RoleID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (8, N'.updatestatus-section', 12, 0, 5, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_SectionRestriction] ([SectionID], [SectionSelector], [MenuID], [EmployeeID], [RoleID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (9, N'.deletedbtn-section', 12, 0, 6, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_SectionRestriction] ([SectionID], [SectionSelector], [MenuID], [EmployeeID], [RoleID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (10, N'.updatestatus-section', 12, 0, 6, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_SectionRestriction] ([SectionID], [SectionSelector], [MenuID], [EmployeeID], [RoleID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (11, N'#editbtn', 15, 0, 1, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_SectionRestriction] ([SectionID], [SectionSelector], [MenuID], [EmployeeID], [RoleID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (12, N'.deletedbtn-section', 39, 0, 5, NULL, NULL, NULL, NULL)
+GO
+INSERT [dbo].[Tbl_Cl_SectionRestriction] ([SectionID], [SectionSelector], [MenuID], [EmployeeID], [RoleID], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (13, N'.updatestatus-section', 39, 0, 5, NULL, NULL, NULL, NULL)
+GO
+SET IDENTITY_INSERT [dbo].[Tbl_Cl_SectionRestriction] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Tbl_Cl_TestAttachmentType] ON 
+
+GO
+INSERT [dbo].[Tbl_Cl_TestAttachmentType] ([TestAttachmentTypeID], [Name], [Description]) VALUES (1, N'Sample Collection', NULL)
+GO
+INSERT [dbo].[Tbl_Cl_TestAttachmentType] ([TestAttachmentTypeID], [Name], [Description]) VALUES (2, N'Analysis Detail', NULL)
+GO
+INSERT [dbo].[Tbl_Cl_TestAttachmentType] ([TestAttachmentTypeID], [Name], [Description]) VALUES (3, N'Report Conclusion', NULL)
+GO
+INSERT [dbo].[Tbl_Cl_TestAttachmentType] ([TestAttachmentTypeID], [Name], [Description]) VALUES (4, N'Supplementary Report', NULL)
+GO
+SET IDENTITY_INSERT [dbo].[Tbl_Cl_TestAttachmentType] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Tbl_Cl_TestReportType] ON 
+
+GO
+INSERT [dbo].[Tbl_Cl_TestReportType] ([TestReportTypeID], [Name], [Description]) VALUES (1, N'Histopathology', NULL)
+GO
+INSERT [dbo].[Tbl_Cl_TestReportType] ([TestReportTypeID], [Name], [Description]) VALUES (2, N'Microbiology', NULL)
+GO
+INSERT [dbo].[Tbl_Cl_TestReportType] ([TestReportTypeID], [Name], [Description]) VALUES (3, N'Biochemistry', NULL)
+GO
+INSERT [dbo].[Tbl_Cl_TestReportType] ([TestReportTypeID], [Name], [Description]) VALUES (4, N'Cytopathology', NULL)
+GO
+INSERT [dbo].[Tbl_Cl_TestReportType] ([TestReportTypeID], [Name], [Description]) VALUES (5, N'Haematology', NULL)
+GO
+SET IDENTITY_INSERT [dbo].[Tbl_Cl_TestReportType] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Tbl_Cl_TestStatus] ON 
+
+GO
+INSERT [dbo].[Tbl_Cl_TestStatus] ([TestStatusID], [StatusName], [Description]) VALUES (1, N'On Receptionist Plate', NULL)
+GO
+INSERT [dbo].[Tbl_Cl_TestStatus] ([TestStatusID], [StatusName], [Description]) VALUES (2, N'On Lab Technician Plate', NULL)
+GO
+INSERT [dbo].[Tbl_Cl_TestStatus] ([TestStatusID], [StatusName], [Description]) VALUES (3, N'On Clinical Lab Scientist Plate', NULL)
+GO
+INSERT [dbo].[Tbl_Cl_TestStatus] ([TestStatusID], [StatusName], [Description]) VALUES (4, N'On Clinical Lab Doctor Plate', NULL)
+GO
+INSERT [dbo].[Tbl_Cl_TestStatus] ([TestStatusID], [StatusName], [Description]) VALUES (5, N'Completed', NULL)
+GO
+SET IDENTITY_INSERT [dbo].[Tbl_Cl_TestStatus] OFF
+GO
+

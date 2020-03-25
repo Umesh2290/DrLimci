@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LabSystemDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Tbl_Menu">
+    <Key>
+      <PropertyRef Name="MenuID" />
+    </Key>
+    <Property Name="MenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MenuName" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Name="ParentID" Type="Int32" />
+    <Property Name="Icon" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Name="ToolTip" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Link" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Name="IsViewable" Type="Boolean" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Tbl_MenuAssignment">
+    <Key>
+      <PropertyRef Name="AssignmentID" />
+    </Key>
+    <Property Name="AssignmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MenuID" Type="Int32" />
+    <Property Name="RoleID" Type="Int32" />
+    <Property Name="EmployeeID" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Tbl_Notification">
+    <Key>
+      <PropertyRef Name="NotificationID" />
+    </Key>
+    <Property Name="NotificationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Icon" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Type" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Name="ClickLink" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDatetime" Type="DateTime" Precision="3" />
+    <Property Name="Isviewed" Type="Boolean" />
+    <Property Name="ViewedDatetime" Type="DateTime" Precision="3" />
+    <Property Name="EmployeeID" Type="Int32" />
+    <Property Name="CreatedBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Tbl_ProviderParamter">
+    <Key>
+      <PropertyRef Name="ParameterID" />
+    </Key>
+    <Property Name="ParameterID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ParameterName" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IsRequired" Type="Boolean" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Tbl_Role">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Tbl_SectionRestriction">
+    <Key>
+      <PropertyRef Name="SectionID" />
+    </Key>
+    <Property Name="SectionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SectionSelector" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="MenuID" Type="Int32" />
+    <Property Name="EmployeeID" Type="Int32" />
+    <Property Name="RoleID" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Tbl_StorageandDBProvider">
+    <Key>
+      <PropertyRef Name="ProviderID" />
+    </Key>
+    <Property Name="ProviderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProviderName" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityContainer Name="LabSystemDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Tbl_Menu" EntityType="Self.Tbl_Menu" />
+    <EntitySet Name="Tbl_MenuAssignment" EntityType="Self.Tbl_MenuAssignment" />
+    <EntitySet Name="Tbl_Notification" EntityType="Self.Tbl_Notification" />
+    <EntitySet Name="Tbl_ProviderParamter" EntityType="Self.Tbl_ProviderParamter" />
+    <EntitySet Name="Tbl_Role" EntityType="Self.Tbl_Role" />
+    <EntitySet Name="Tbl_SectionRestriction" EntityType="Self.Tbl_SectionRestriction" />
+    <EntitySet Name="Tbl_StorageandDBProvider" EntityType="Self.Tbl_StorageandDBProvider" />
+    <EntitySet Name="Tbl_RoleMapping" EntityType="LabSystemDBModel.Tbl_RoleMapping" />
+    <EntitySet Name="Tbl_SystemUser" EntityType="LabSystemDBModel.Tbl_SystemUser" />
+    <EntitySet Name="Tbl_Client" EntityType="LabSystemDBModel.Tbl_Client" />
+    <EntitySet Name="Tbl_ClientParameter" EntityType="LabSystemDBModel.Tbl_ClientParameter" />
+    <EntitySet Name="Tbl_Consultant" EntityType="LabSystemDBModel.Tbl_Consultant" />
+    <EntitySet Name="Tbl_ForgetPassword" EntityType="LabSystemDBModel.Tbl_ForgetPassword" />
+    <EntitySet Name="Tbl_IncorrectPasswordAttempt" EntityType="LabSystemDBModel.Tbl_IncorrectPasswordAttempt" />
+    <EntitySet Name="Tbl_Plan" EntityType="LabSystemDBModel.Tbl_Plan" />
+    <EntitySet Name="Tbl_ProviderParameterMapping" EntityType="LabSystemDBModel.Tbl_ProviderParameterMapping" />
+    <EntitySet Name="Tbl_SalesAndContactQuery" EntityType="LabSystemDBModel.Tbl_SalesAndContactQuery" />
+    <EntitySet Name="Tbl_SalesAndContactQueryStatus" EntityType="LabSystemDBModel.Tbl_SalesAndContactQueryStatus" />
+    <EntitySet Name="Tbl_SalesAndContactQueryType" EntityType="LabSystemDBModel.Tbl_SalesAndContactQueryType" />
+    <EntitySet Name="Tbl_SystemUserType" EntityType="LabSystemDBModel.Tbl_SystemUserType" />
+  </EntityContainer>
+  <EntityType Name="Tbl_RoleMapping">
+    <Key>
+      <PropertyRef Name="RoleMappingID" />
+    </Key>
+    <Property Name="RoleMappingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleID" Type="Int32" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="IsDefault" Type="Boolean" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Tbl_SystemUser">
+    <Key>
+      <PropertyRef Name="SystemUserID" />
+    </Key>
+    <Property Name="SystemUserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="MiddleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="MobileNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="ProfilePic" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="DetailID" Type="Int32" />
+    <Property Name="DetailType" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="IsBlock" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Tbl_Client">
+    <Key>
+      <PropertyRef Name="ClientDetailID" />
+    </Key>
+    <Property Name="ClientDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Subdomain" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="PlanID" Type="Int32" />
+    <Property Name="PlanDuration" Type="Int32" />
+    <Property Name="TotalLicenseCost" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="PriceUnit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="STandDBprovdiderID" Type="Int32" />
+    <Property Name="InvoiceID" Type="Int32" />
+    <Property Name="InvoicePDFLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="IsDBCreated" Type="Boolean" />
+    <Property Name="IsDbError" Type="Boolean" />
+    <Property Name="DBErrorDetail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="IsStorageConfigured" Type="Boolean" />
+    <Property Name="IsStorageError" Type="Boolean" />
+    <Property Name="StorageErrorDetail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="LastActionOnDB" Type="DateTime" Precision="3" />
+    <Property Name="LastActionOnStorage" Type="DateTime" Precision="3" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Tbl_ClientParameter">
+    <Key>
+      <PropertyRef Name="ClientParameterID" />
+    </Key>
+    <Property Name="ClientParameterID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ParameterID" Type="Int32" />
+    <Property Name="ParameterValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ClientDetailID" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Tbl_Consultant">
+    <Key>
+      <PropertyRef Name="ConsultantID" />
+    </Key>
+    <Property Name="ConsultantID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SpecialisationAreas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Tbl_ForgetPassword">
+    <Key>
+      <PropertyRef Name="ForgetPasswordID" />
+    </Key>
+    <Property Name="ForgetPasswordID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UniqueCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="SystemUserID" Type="Int32" />
+    <Property Name="ExpiresInMinutes" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Tbl_IncorrectPasswordAttempt">
+    <Key>
+      <PropertyRef Name="IncorrectPasswordID" />
+    </Key>
+    <Property Name="IncorrectPasswordID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SystemUserID" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="IsInclude" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Tbl_Plan">
+    <Key>
+      <PropertyRef Name="PlanID" />
+    </Key>
+    <Property Name="PlanID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PlanName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="PlanDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="PlanDetail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="PlanCost" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="PlanStatus" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Tbl_ProviderParameterMapping">
+    <Key>
+      <PropertyRef Name="ProviderParameterMappingID" />
+    </Key>
+    <Property Name="ProviderParameterMappingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProviderID" Type="Int32" />
+    <Property Name="ParameterID" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Tbl_SalesAndContactQuery">
+    <Key>
+      <PropertyRef Name="SalesAndContactQueryID" />
+    </Key>
+    <Property Name="SalesAndContactQueryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ContactNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="TypeID" Type="Int32" />
+    <Property Name="StatusID" Type="Int32" />
+    <Property Name="RequestCreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="NewActionBy" Type="Int32" />
+    <Property Name="NewActionDate" Type="DateTime" Precision="3" />
+    <Property Name="NewActionStatusID" Type="Int32" />
+    <Property Name="NewActionComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="PendingActionBy" Type="Int32" />
+    <Property Name="PendingActionDate" Type="DateTime" Precision="3" />
+    <Property Name="PendingActionComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Tbl_SalesAndContactQueryStatus">
+    <Key>
+      <PropertyRef Name="SalesAndContactQueryStatusID" />
+    </Key>
+    <Property Name="SalesAndContactQueryStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StatusName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="StatusDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Tbl_SalesAndContactQueryType">
+    <Key>
+      <PropertyRef Name="SalesAndContactQueryTypeID" />
+    </Key>
+    <Property Name="SalesAndContactQueryTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Tbl_SystemUserType">
+    <Key>
+      <PropertyRef Name="SystemUserTypeID" />
+    </Key>
+    <Property Name="SystemUserTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+</Schema>

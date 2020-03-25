@@ -1,0 +1,124 @@
+﻿
+@{
+    ViewBag.Title = "Completed Tests";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<script>
+    var currentmenu = 19;
+    var allloaded = false;
+    var displaypanel = "gridarea";
+    $(document).ready(function () {
+
+
+        MakeRequest(_User_Reports_GetList, "POST", { "status": "Completed" }, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+    var outputdt = {};
+    if (rs.ResponseType == "Simple") {
+        var dt = rs.ResponseData.testjson;
+        outputdt = dt;
+    }
+
+    $('#testtable').on('init.dt', function () {
+        allloaded = true;
+    }).DataTable({
+        data: outputdt,
+        columns: [
+            { data: 'TestID' },
+            { data: 'TestName' },
+            { data: 'PatientName' },
+            { data: 'TestCreatedDateCustom' },
+            { data: 'IsPublish' },
+            { data: 'Status' },
+            { data: 'TestID' },
+        ],
+        "columnDefs": [
+            {
+                "render": function (data, type, row) {
+                    if (data == "Completed") {
+                        return '<span class="badge badge-success">Completed</span>';
+                    }
+
+                    else if (data == "Pending") {
+                        return '<span class="badge badge-warning">Pending</span>';
+                    }
+                    else {
+                        return data;
+                    }
+                },
+                "targets": 5
+            },
+            {
+                "render": function (data, type, row) {
+                    return '<a href="/User/MedicalTest?IsEdit=0&Rest=0&EditId=' + data + '" target="_blank" title="View Detail"><button type="button" class="btn btn-info"><i class="nav-icon i-Magnifi-Glass1"></i></button></a>';
+                },
+                "targets": 6
+            }
+        ]
+    });
+
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+
+    });
+</script>
+<div class="breadcrumb">
+    <h1 class="mr-2" id="mainheading">Completed Tests</h1>
+    <ul>
+        <li><a href="">Reports</a></li>
+        <li id="subheading">Completed Tests</li>
+    </ul>
+</div>
+
+<div id="backbtndiv" style="display:none">
+    <div class="row" style="margin:0 0.83em 0">
+        <div class="offset-md-11"></div>
+        <div class="col-md-1">
+            <button type="button" class="btn btn-gray-300" id="backtogridbtn"><i class="nav-icon i-Back1 "></i>Back</button>
+        </div>
+    </div>
+    <br />
+    <br />
+</div>
+<div class="separator-breadcrumb border-top"></div>
+<div id="gridarea" style="visibility:hidden">
+    <div class="row mb-4">
+
+        <div class="col-md-12 mb-3">
+            <div class="card text-left">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="testtable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Test ID #</th>
+                                    <th scope="col">Test Name</th>
+                                    <th scope="col">Patient Name</th>
+                                    <th scope="col">Test Created Date</th>
+                                    <th scope="col">Is Publish</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">View Detail</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end of col-->
+    </div>
+</div>   

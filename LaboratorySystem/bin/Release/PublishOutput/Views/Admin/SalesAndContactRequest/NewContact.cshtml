@@ -1,0 +1,396 @@
+﻿
+@{
+    ViewBag.Title = "New Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section ScriptSection{
+}
+
+<script>
+    var currentmenu = 29;
+    $(document).ready(function () {
+
+
+        MakeRequest(_Admin_SalesAndContactRequest_GetList, "POST", { "typeid": 2, "statusid": 1 }, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+    var outputdt = {};
+    if (rs.ResponseType == "Simple") {
+        var dt = rs.ResponseData.subdomainjson;
+        outputdt = dt;
+    }
+
+    $('#requesttable').DataTable({
+        data: outputdt,
+        columns: [
+            { data: 'SalesAndContactQueryID' },
+            { data: 'Name' },
+            { data: 'ContactNo' },
+            { data: 'Email' },
+            { data: 'StatusName' },
+            { data: 'SalesAndContactQueryID' }
+        ],
+        "columnDefs": [
+            {
+                "render": function (data, type, row) {
+                    if (data == "New") {
+                        return '<span class="badge badge-success">New</span>';
+                    }
+                    else {
+                        return data;
+                    }
+                },
+                "targets": 4
+            },
+            {
+                "render": function (data, type, row) {
+                    return '<button type="button" class="btn btn-info viewdetail" title="View Detail" class="viewdetail" data-id="' + data + '"><i class="nav-icon i-Magnifi-Glass1"></i></button>';
+                },
+                "targets": 5
+            }
+        ]
+    });
+
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+
+    })
+</script>
+<div class="breadcrumb">
+    <h1 class="mr-2" id="mainheading">New Contact Requests</h1>
+    <ul>
+        <li><a href="">Requests</a></li>
+        <li id="subheading">New Contact Requests</li>
+    </ul>
+</div>
+
+
+<div class="separator-breadcrumb border-top"></div>
+<div id="gridarea">
+    <div class="row mb-4">
+
+        <div class="col-md-12 mb-3">
+            <div class="card text-left">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="requesttable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Request ID #</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Mobile</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">View Detail</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end of col-->
+    </div>
+</div>
+<div id="detailarea" style="display:none;">
+    <button type="button" class="btn btn-gray-300 " id="backtogridbtn"><i class="nav-icon i-Back1 "></i> Back</button>
+    <br />
+    <br />
+    <h4 id="detailtitle">Details</h4>
+    <hr>
+    <button type="button" class="btn btn-danger btn-icon m-1" id="deletebtn">
+        <span class="ul-btn__icon"><i class="i-Close"></i></span>
+        <span class="ul-btn__text">Delete</span>
+    </button>
+    <hr>
+    <div class="row">
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Request ID #</p>
+                <span id="requestid_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Mobile No</p>
+                <span id="mobileno_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Status</p>
+                <span id="status_lbl">N/A</span>
+            </div>
+        </div>
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Name</p>
+                <span id="name_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Subject</p>
+                <span id="subject_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Request Date</p>
+                <span id="requestdate_lbl">N/A</span>
+            </div>
+        </div>
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Email</p>
+                <span id="email_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Description</p>
+                <span id="description_lbl">N/A</span>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <form id="updateform">
+        <div class="row">
+            <div class="col-md-4 col-6">
+                <div class="mb-4">
+                    <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Select Status :</p>
+                    <select class="form-control" id="statusid" name="statusid">
+                        <option value="2">Pending</option>
+                        <option value="3">Close</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-6">
+                <div class="mb-4">
+                    <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Enter Comments :</p>
+                    <input type="text" class="form-control" id="comments" name="comments" required="required" placeholder="Enter comments">
+                </div>
+            </div>
+
+            <div class="col-md-4 col-6">
+                <div class="mb-4">
+                    <input type="hidden" name="salesandcontactqueryid" value="0" id="salesandcontactqueryid" />
+                    <input type="hidden" name="pageid" value="1" id="pageid" />
+                    <p class="text-primary mb-1"><i class="text-16 mr-1"></i> &nbsp;</p>
+                    <button type="button" class="btn btn-success m-1" id="updatebtn">Update</button>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#backtogridbtn").click(function () {
+            $("#detailarea").slideUp();
+            $("#gridarea").slideDown();
+        })
+
+
+        $(document).on('click', '.viewdetail', function () {
+
+            MakeRequest(_Admin_SalesAndContactRequest_GetDetail, "POST", { "salesandcontactqueryid": $(this).attr("data-id") }, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+    var salesandcontactobj = null;
+    var newaction = null;
+    var pendingaction = null;
+
+    if (rs.ResponseType == "Simple") {
+        salesandcontactobj = rs.ResponseData.salesandcontactobjjson[0];
+        newaction = rs.ResponseData.newactionjson;
+        pendingaction = rs.ResponseData.pendingactionjson;
+    }
+
+    if (salesandcontactobj != null) {
+        $("#requestid_lbl").text(salesandcontactobj.sc.SalesAndContactQueryID);
+        $("#mobileno_lbl").text(salesandcontactobj.sc.ContactNo);
+        $("#status_lbl").text(salesandcontactobj.StatusName);
+        $("#name_lbl").text(salesandcontactobj.sc.Name);
+        $("#subject_lbl").text(salesandcontactobj.sc.Subject);
+        $("#requestdate_lbl").text(salesandcontactobj.RequestCreatedDate);
+        $("#email_lbl").text(salesandcontactobj.sc.Email);
+        $("#description_lbl").text(salesandcontactobj.sc.Description);
+
+        $("#salesandcontactqueryid").val(salesandcontactobj.sc.SalesAndContactQueryID);
+
+
+    }
+    else {
+        $("#requestid_lbl").text("N/A");
+        $("#mobileno_lbl").text("N/A");
+        $("#status_lbl").text("N/A");
+        $("#name_lbl").text("N/A");
+        $("#subject_lbl").text("N/A");
+        $("#requestdate_lbl").text("N/A");
+        $("#email_lbl").text("N/A");
+        $("#description_lbl").text("N/A");
+
+        $("#salesandcontactqueryid").val(0);
+    }
+
+    $("#gridarea").slideUp();
+    $("#detailarea").slideDown();
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+
+        });
+
+        $("#updatebtn").click(function () {
+            var form = document.querySelector('#updateform');
+            if (form.reportValidity()) {
+                if ($("#salesandcontactqueryid").val() == "0") {
+                    toastr.error("QueryID is empty", "Sales and contact request ID is missing !");
+                    return false;
+                }
+                var _posturl = _Admin_SalesAndContactRequest_UpdateStatus;
+
+                MakeRequest(_posturl, "POST", objectifyForm($("#updateform").serializeArray()), "json",
+                    function (jqXHR, settings) {
+                        //For Before Send
+                        $('.loadscreen').fadeIn();
+                    },
+                    function (data, status, xhr) {
+                        //For Success
+
+                        $('.loadscreen').fadeOut();
+
+                        var rs = WebResponse(data);
+                        if (rs.ResponseType == "swal-sucsess") {
+                            if (rs.ResponseData.salesandcontactjson.TypeID == 1) {
+                                if ($("#statusid").val() == 2) {
+                                    setTimeout(function () {
+                                        window.location.replace("/Admin/SalesAndContactRequest/PendingSales");
+                                    }, 2500);
+                                }
+                                else if ($("#statusid").val() == 3) {
+                                    setTimeout(function () {
+                                        window.location.replace("/Admin/SalesAndContactRequest/ClosedSales");
+                                    }, 2500);
+                                }
+                                else if ($("#statusid").val() == 4) {
+                                    setTimeout(function () {
+                                        window.location.replace("/Admin/SalesAndContactRequest/NewSales");
+                                    }, 2500);
+                                }
+                                else if ($("#statusid").val() == 5) {
+                                    setTimeout(function () {
+                                        window.location.replace("/Admin/SalesAndContactRequest/PendingSales");
+                                    }, 2500);
+                                }
+
+                            }
+                            else {
+                                if ($("#statusid").val() == 2) {
+                                    setTimeout(function () {
+                                        window.location.replace("/Admin/SalesAndContactRequest/PendingContact");
+                                    }, 2500);
+                                }
+                                else if ($("#statusid").val() == 3) {
+                                    setTimeout(function () {
+                                        window.location.replace("/Admin/SalesAndContactRequest/ClosedContact");
+                                    }, 2500);
+                                }
+                                else if ($("#statusid").val() == 4) {
+                                    setTimeout(function () {
+                                        window.location.replace("/Admin/SalesAndContactRequest/NewContact");
+                                    }, 2500);
+                                }
+                                else if ($("#statusid").val() == 5) {
+                                    setTimeout(function () {
+                                        window.location.replace("/Admin/SalesAndContactRequest/PendingContact");
+                                    }, 2500);
+                                }
+                            }
+                            $("#updateform").trigger("reset");
+                        }
+                    },
+                function (jqXhr, textStatus, errorMessage) {
+                    //For Error
+                    $('.loadscreen').fadeOut();
+                    WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                });
+            }
+            return false;
+        })
+
+        $("#deletebtn").click(function () {
+                if ($("#salesandcontactqueryid").val() == "0") {
+                    toastr.error("QueryID is empty", "Sales and contact request ID is missing !");
+                    return false;
+                }
+
+                swal.fire({
+                    title: "Are you sure?",
+                    text: "Do you want to delete this request!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, I am sure!',
+                    cancelButtonText: 'No, cancel it!',
+                    preConfirm: function () {
+                        var _posturl = _Admin_SalesAndContactRequest_UpdateStatus;
+
+                        MakeRequest(_posturl, "POST", { "salesandcontactqueryid": $("#salesandcontactqueryid").val(), "comments": "Deleted From Screen", "statusid": 4, "pageid": 1 }, "json",
+                            function (jqXHR, settings) {
+                                //For Before Send
+                                $('.loadscreen').fadeIn();
+                            },
+                            function (data, status, xhr) {
+                                //For Success
+
+                                $('.loadscreen').fadeOut();
+
+                                var rs = WebResponse(data);
+                                if (rs.ResponseType == "swal-sucsess") {
+                                    if (rs.ResponseData.salesandcontactjson.TypeID == 1) {
+                                        setTimeout(function () {
+                                            window.location.replace("/Admin/SalesAndContactRequest/NewSales");
+                                        }, 2500);
+
+                                    }
+                                    else {
+                                        setTimeout(function () {
+                                            window.location.replace("/Admin/SalesAndContactRequest/NewContact");
+                                        }, 2500);
+                                    }
+                                }
+                            },
+                        function (jqXhr, textStatus, errorMessage) {
+                            //For Error
+                            $('.loadscreen').fadeOut();
+                            WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                        });
+                    }
+                })
+
+
+            return false;
+        })
+    })
+</script>
+
+
+
+

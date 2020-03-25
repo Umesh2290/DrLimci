@@ -1,0 +1,408 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+    ViewBag.Title = "Add or Update Hospitals";
+}
+
+
+
+<script>
+    var currentmenu = 59;
+    $(document).ready(function () {
+        debugger;
+        var query = getUrlVars();
+        if (query["IsEdit"] != null) {
+            if (query["IsEdit"] == "1" && query["EditId"] != null) {
+                $("#mainheading").html("Update Hospital");
+                $("#subheading").html("Update Hospital");
+                $("#cardheading").html("Edit Hospital");
+                $("#cancelbtn").hide();
+                $("#saveorupdatebtn").text("Update");
+
+                $("#editid").val(query["EditId"]);
+                $("#hospitalid").val(query["EditId"]);
+
+                MakeRequest(_User_Hospital_Get, "POST", objectifyForm($("#hospitalform").serializeArray()), "json",
+    function (jqXHR, settings) {
+        //For Before Send
+        $('.loadscreen').fadeIn();
+    },
+    function (data, status, xhr) {
+        //For Success
+        $('.loadscreen').fadeOut();
+        var rs = WebResponse(data);
+        if (rs.ResponseType == "Simple") {
+            var dt_hospital = rs.ResponseData.hospitaldetailjson;
+            //var dt_assignedrolesjson = rs.ResponseData.assignedrolesjson;
+            //var dt_attachmentsjson = rs.ResponseData.attachmentsjson;
+            debugger
+            $("#hospitalname").val(dt_hospital.hospitalname);
+            $("#address").val(dt_hospital.address);
+            $("#city").val(dt_hospital.city);
+            $("#phoneno").val(dt_hospital.phoneno);
+            $("#faxno").val(dt_hospital.faxno);
+            
+
+            
+           
+        }
+    },
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+            }
+        }
+
+        @{
+            LaboratoryBusiness.Repositories.User.IRoleRepository role = ((DBInitializer)ViewBag.currentdomaindb).RoleRepository();
+            var roles = role.GetAll().Where(x => !(x.RoleName.Equals("Admin") || x.RoleName.Equals("Hospital"))).ToList();
+
+
+        }
+
+        
+    })
+</script>
+@{
+    LaboratoryBusiness.Repositories.User.IClientUserTypeRepository usertypes = ((DBInitializer)ViewBag.currentdomaindb).ClientUserTypeRepository();
+    var allusertypes = usertypes.GetAll().Where(x => !(x.TypeName.Equals("Client Admin") || x.TypeName.Equals("Patient"))).ToList();
+
+    LaboratoryBusiness.Repositories.User.IAdminDetailRepository admindetail = ((DBInitializer)ViewBag.currentdomaindb).AdminDetailRepository();
+    LaboratoryBusiness.POCO.User.Cl_AdminDetail _addetail = admindetail.GetAll().FirstOrDefault();
+
+    LaboratoryBusiness.Repositories.Admin.ISystemUserRepository su = new LaboratoryBusiness.BLL.Admin.SystemUserRepository();
+    LaboratoryBusiness.POCO.Admin.SystemUser supoco = su.GetByID(_addetail.SystemClientID.Value);
+
+    LaboratoryBusiness.Repositories.Admin.IClientRepository cl = new LaboratoryBusiness.BLL.Admin.ClientRepository();
+    LaboratoryBusiness.POCO.Admin.Client clpoco = cl.GetByID(supoco.DetailID.Value);
+}
+<div class="breadcrumb">
+    <h1 class="mr-2" id="mainheading">Create Hospital</h1>
+    <ul>
+        <li><a href="">Hospital</a></li>
+        <li id="subheading">Create Hospital</li>
+    </ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+<div class="2-columns-form-layout">
+    <div class="">
+        <div class="row">
+            <div class="col-lg-12">
+                <!--begin::form 3 Horizontal-->
+                <form id="hospitalform" name="hospitalform">
+                    <!-- start card 3 Columns Horizontal Form Layout-->
+                    <div class="card ul-card__margin-25">
+                        <div class="card-header bg-transparent">
+                            <h3 class="card-title" id="cardheading">Add Hospital</h3>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="form-group row">
+                                @*<label for="employeetype" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Employee Type:</label>
+                                <div class="col-lg-3">
+
+
+                                    <select class="form-control" id="employeetype" name="employeetype">
+                                        @{
+
+                                            foreach (var usertype in allusertypes)
+                                            {
+                                                <option value="@usertype.ClientUserTypeID">@usertype.TypeName</option>
+                                            }
+
+                                        }
+                                    </select>
+
+
+                                    <small id="employeetypeHelpBlock" class="ul-form__text form-text ">
+                                        Please select employee type
+                                    </small>
+                                </div>*@
+                                <label for="hospitalname" class="ul-form__label ul-form--margin col-lg-2   col-form-label ">
+                                    Hospital Name:
+                                </label>
+                                <div class="col-lg-6 ">
+                                    <input type="text" class="form-control" id="hospitalname" name="hospitalname" required="required" placeholder="Enter hospital name">
+                                    <small id="firstnamehelpblock" class="ul-form__text form-text ">
+
+
+
+                                        Please enter hospital name
+                                    </small>
+                                </div>
+
+                                @*<label for="lastname" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Last Name:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <input type="text" class="form-control" id="lastname" name="lastname" required="required" placeholder="Enter last name">
+                                    <small id="lastnamehelpblock" class="ul-form__text form-text ">
+                                        Please enter last name
+                                    </small>
+                                </div>*@
+                            </div>
+
+
+
+                            <div class="custom-separator"></div>
+
+                            <div class="form-group row">
+                                @*<label for="email" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+            Email:
+        </label>
+        <div class="col-lg-3 ">
+            <input type="email" class="form-control" id="email" name="email" required="required" placeholder="Enter email">
+            <small id="emailhelpblock" class="ul-form__text form-text ">
+                Please enter email
+            </small>
+        </div>*@
+
+                                <label for="address" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Address:</label>
+                                <div class="col-lg-3">
+                                    <textarea class="form-control" id="address" name="address" placeholder="Enter address"></textarea>
+                                    <small id="addressBlock" class="ul-form__text form-text ">
+                                        Please enter address
+                                    </small>
+                                </div>
+                                <label for="city" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    City:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <input type="text" class="form-control" id="city" name="city" required="required" placeholder="Enter city">
+                                    <small id="cityhelpblock" class="ul-form__text form-text ">
+                                        Please enter city
+                                    </small>
+                                </div>
+                               
+
+
+
+                            </div>
+
+                            <div class="custom-separator"></div>
+
+                            <div class="form-group row">
+                                <label for="mobileno" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Phone No:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <input type="text" class="form-control" id="phoneno" name="phoneno" required="required" placeholder="Enter phone no">
+                                    <small id="phonenohelpblock" class="ul-form__text form-text ">
+                                        Please enter phone no
+                                    </small>
+                                </div>
+                                <label for="faxno" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Fax No:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <input type="text" class="form-control" id="faxno" name="faxno" required="required" placeholder="Enter fax no">
+                                    <small id="faxnohelpblock" class="ul-form__text form-text ">
+                                        Please enter fax no
+                                    </small>
+                                </div>
+
+
+                                @*<label for="username" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+            Username:
+        </label>
+        <div class="col-lg-3 ">
+            <input type="text" class="form-control" id="username" name="username" required="required" placeholder="Enter username">
+            <small id="usernamehelpblock" class="ul-form__text form-text ">
+                Please enter username (@@@clpoco.CompanyName.Replace(" ", "").Trim());
+            </small>
+        </div>*@
+
+                                @*<label for="assignedrolesid_temp" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Additional Role's:</label>
+        <div class="col-lg-3">
+            <select class="form-control" id="assignedrolesid_temp" name="assignedrolesid_temp" multiple>
+                @{
+
+                    foreach (var currentrole in roles)
+                    {
+                        <option value="@currentrole.RoleID">@currentrole.RoleName</option>
+                    }
+
+                }
+
+            </select>
+            <small id="assignedrolesid_tempBlock" class="ul-form__text form-text ">
+                Please select roles to assign
+            </small>
+        </div>*@
+
+                            </div>
+
+                            <div class="custom-separator"></div>
+
+                            @*<div class="form-group row">
+                                <label for="attachmentfiles" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Attachment Files:</label>
+                                <div class="col-lg-3">
+                                    <input type="file" id="attachmentfiles" name="attachmentfiles" multiple />
+                                    <small id="attachmentfilesBlock" class="ul-form__text form-text ">
+                                        upload attachment files
+                                    </small>
+                                </div>
+
+                                <label for="joiningdate" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Joining Date:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <input type="date" class="form-control" id="joiningdate" value="@DateTime.Now.ToString("yyyy-MM-dd")" name="joiningdate" required="required" placeholder="Select joining date">
+                                    <small id="joiningdatehelpblock" class="ul-form__text form-text ">
+                                        Please select joining date
+                                    </small>
+                                </div>
+
+                                <label for="qualifications" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Qualification:</label>
+                                <div class="col-lg-3">
+                                    <textarea class="form-control" id="qualifications" name="qualifications" placeholder="Enter qualifications"></textarea>
+                                    <small id="qualificationsBlock" class="ul-form__text form-text ">
+                                        Please enter qualifications
+                                    </small>
+                                </div>
+                            </div>*@
+
+                            @*<div class="custom-separator"></div>
+
+                            <div class="form-group row">
+                                <label style="display:none" for="typeofcollection" class="ul-form__label ul-form--margin col-lg-1 col-form-label typeofcollectiondiv">Type Of Collection:</label>
+                                <div class="col-lg-3 typeofcollectiondiv" style="display:none">
+                                    <textarea class="form-control" id="typeofcollection" name="typeofcollection" placeholder="Enter type of collection"></textarea>
+                                    <small id="typeofcollectionBlock" class="ul-form__text form-text ">
+                                        Please enter type of collection
+                                    </small>
+                                </div>
+
+                                <label style="display:none" for="license" class="ul-form__label ul-form--margin col-lg-1   col-form-label licensediv">
+                                    License:
+                                </label>
+                                <div class="col-lg-3 licensediv" style="display:none">
+                                    <input type="text" class="form-control" id="license" name="license" required="required" placeholder="Enter license">
+                                    <small id="licensehelpblock" class="ul-form__text form-text ">
+                                        Please enter license
+                                    </small>
+                                </div>
+
+                                <label style="display:none" for="employementtype" class="ul-form__label ul-form--margin col-lg-1 col-form-label employementtypediv">Employement Type:</label>
+                                <div class="col-lg-3 employementtypediv" style="display:none">
+
+
+                                    <select class="form-control" id="employementtype" name="employementtype">
+                                        <option value="true">Full-time</option>
+                                        <option value="false">Part-time</option>
+                                    </select>
+
+
+                                    <small id="employementtypeHelpBlock" class="ul-form__text form-text ">
+                                        Please select employement type
+                                    </small>
+                                </div>
+
+                            </div>
+
+                            <div class="custom-separator"></div>
+
+                            <div class="form-group row">
+
+                                <label style="display:none" for="terminationdate" class="ul-form__label ul-form--margin col-lg-1   col-form-label terminationdatediv">
+                                    Termination Date:
+                                </label>
+                                <div style="display:none" class="col-lg-3 terminationdatediv">
+                                    <input type="date" class="form-control" id="terminationdate" value="@DateTime.Now.ToString("yyyy-MM-dd")" name="terminationdate" required="required" placeholder="Select termination date">
+                                    <small id="terminationdatehelpblock" class="ul-form__text form-text ">
+                                        Please select termination date
+                                    </small>
+                                </div>
+
+                                <label style="display:none" for="terminationreason" class="ul-form__label ul-form--margin col-lg-1   col-form-label terminationreasondiv">
+                                    Termination Reason:
+                                </label>
+                                <div style="display:none" class="col-lg-3 terminationreasondiv">
+                                    <textarea class="form-control" id="terminationreason" name="terminationreason" placeholder="Enter termination reason"></textarea>
+                                    <small id="terminationreasonhelpblock" class="ul-form__text form-text ">
+                                        Please enter termination reason
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="custom-separator attachmentsection" style="display:none"></div>
+                            <div class="card-header bg-transparent attachmentsection" style="display:none">
+                                <h3 class="card-title">Attachments</h3>
+                            </div>
+                            <div class="row attachmentsection" style="display:none" id="attachmentlist">
+                            </div>*@
+
+                        </div>
+                        <div class="card-footer">
+                            <div class="mc-footer">
+                                <div class="row text-center">
+                                    <div class="col-lg-12 ">
+                                        <button type="submit" class="btn btn-primary m-1" id="saveorupdatebtn">Save</button>
+                                        <button type="reset" class="btn btn-outline-secondary m-1" id="cancelbtn">Reset</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card 3 Columns Horizontal Form Layout-->
+                    <input type="hidden" id="editid" name="editid" value="0" />
+                   
+                    <input type="hidden" id="hospitalid" name="hospitalid" value="0" />
+                </form>
+                <!-- end::form 3-->
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    
+    $(document).ready(function () {
+        $("#saveorupdatebtn").click(function () {
+            debugger
+            var form = document.querySelector('#hospitalform');
+            if (form.reportValidity()) {
+                var isupdate = false;
+                
+                var _posturl = "/User/Hospital/Create";// _User_Hospital_Create;
+                if ($("#editid").val() > 0) {
+                    _posturl = _User_Hospital_Update;
+                    isupdate = true;
+                }
+                MakeRequest(_posturl, "POST", objectifyForm($("#hospitalform").serializeArray()), "json",
+                    function (jqXHR, settings) {
+                        //For Before Send
+                        $('.loadscreen').fadeIn();
+                    },
+                    function (data, status, xhr) {
+                        //For Success
+
+                        
+
+                        var rs = WebResponse(data);
+                        if (rs.ResponseType == "swal-sucsess") {
+                            $("#hospitalform").trigger("reset");
+                            setTimeout(function () {
+                                window.location.replace("/User/Hospital/GetAllHospital");
+                            }, 2500);
+                        }
+                    },
+                function (jqXhr, textStatus, errorMessage) {
+                    //For Error
+                    $('.loadscreen').fadeOut();
+                    WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                });
+            }
+            return false;
+        });
+
+        
+    })
+</script>

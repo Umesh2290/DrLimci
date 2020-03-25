@@ -1,0 +1,182 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en" dir="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>IndoUKLabs | Client Login</title>
+    <link rel="shortcut icon" href="/Content/MainWebsite/assets/img/logo/logo.png" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/styles/css/themes/lite-purple.min.css">
+    <link rel="stylesheet" href="~/Content/styles/vendor/toastr.css" />
+    <link rel="stylesheet" href="~/Content/styles/vendor/sweetalert2.min.css" />
+    <style>
+        .loadscreen {
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            left: 0;
+            right: 0;
+            margin: auto;
+            top: 0;
+            height: 100vh;
+            background: #ffffff;
+            opacity: 0.7;
+        }
+
+            .loadscreen .loader {
+                position: absolute;
+                top: calc(50vh - 50px);
+                left: 0;
+                right: 0;
+                margin: auto;
+            }
+
+            .loadscreen .logo {
+                display: inline-block !important;
+                width: 80px;
+                height: 80px;
+            }
+    </style>
+</head>
+<body class="text-left">
+    <div class="auth-layout-wrap" style="background-image: url(../../..@ViewBag.BackroundImg)">
+        <div>
+            <div class="card o-hidden" style="width: 350px;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="p-4">
+                            <div class="auth-logo text-center mb-4">
+                                <img src="@ViewBag.LogoImg" alt="">
+                            </div>
+                            <h1 class="mb-3 text-18 loginHeading">Login</h1>
+                            <form id="loginform" method="post">
+                                <div class="form-group">
+                                    <label for="username">Username or email</label>
+                                    <input id="username" name="username" class="form-control form-control-rounded" type="text" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input id="password" name="password" class="form-control form-control-rounded" type="password" required>
+                                </div>
+                                <button class="btn btn-rounded btn-primary btn-block mt-2" id="loginbtn">Login</button>
+                            </form>
+                            <form id="forgotPasswordForm" method="post" style="display: none;">
+                                <div class="form-group">
+                                    <label for="username">Username or email</label>
+                                    <input id="username" name="username" class="form-control form-control-rounded" type="text" required>
+                                </div>
+
+                                <button class="btn btn-rounded btn-primary btn-block mt-2" onclick="forgetPassword1()" id="forgetButton">Submit</button>
+                            </form>
+
+
+                            <div class="mt-3 text-center">
+                                <a href="#" id="idshowForgetPassword" class="text-muted" data-type="login"><u>Forgot Password?</u></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="loadscreen" style="display: none">
+        <div class="loader">
+            <img src="/Content/MainWebsite/assets/img/logo/logo.png" class="logo mb-3" alt="">
+            <div class="loader-bubble loader-bubble-primary d-block"></div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/js/vendor/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/js/es5/script.min.js"></script>
+    <script src="~/Scripts/js/vendor/toastr.min.js"></script>
+    <script src="~/Scripts/js/toastr.script.js"></script>
+    <script src="~/Scripts/js/vendor/sweetalert2.min.js"></script>
+    <script src="~/Scripts/js/sweetalert.script.js"></script>
+    <script src="~/Scripts/Custom/General.js"></script>
+
+    <script>
+
+
+        $(document).ready(function () {
+
+
+
+            $("#loginbtn").click(function () {
+                var form = document.querySelector('#loginform');
+                if (form.reportValidity()) {
+                    MakeRequest(_User_Account_Login, "POST", objectifyForm($("#loginform").serializeArray()), "json",
+                        function (jqXHR, settings) {
+                            //For Before Send
+                            $('.loadscreen').fadeIn();
+                        },
+                        function (data, status, xhr) {
+                            //For Success
+                            $('.loadscreen').fadeOut();
+                            WebResponse(data);
+                        },
+                    function (jqXhr, textStatus, errorMessage) {
+                        //For Error
+                        $('.loadscreen').fadeOut();
+                        WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                    });
+                }
+                return false;
+            })
+
+            $("#idshowForgetPassword").click(function (event) {
+                event.preventDefault();
+                if ($("#idshowForgetPassword").attr("data-type") == "login") {
+                    $("#idshowForgetPassword u").text("< Back to login");
+                    $("#idshowForgetPassword").attr("data-type", "forget")
+
+                    $("#loginform").slideUp();
+                    $('#forgotPasswordForm').slideDown();
+                    $(".loginHeading").text('Forget Password');
+                }
+                else if ($("#idshowForgetPassword").attr("data-type") == "forget") {
+                    $("#idshowForgetPassword u").text("Forgot Password?");
+                    $("#idshowForgetPassword").attr("data-type", "login");
+
+                    $('#forgotPasswordForm').slideUp();
+                    $("#loginform").slideDown();
+                    $(".loginHeading").text('Login');
+                }
+
+            })
+
+            $('#forgetButton').click(function () {
+
+                var form = document.querySelector('#forgotPasswordForm');
+                if (form.reportValidity()) {
+                    MakeRequest(_User_Account_ForgetPassword, "POST", objectifyForm($("#forgotPasswordForm").serializeArray()), "json",
+                        function (jqXHR, settings) {
+                            //For Before Send
+                            $('.loadscreen').fadeIn();
+                        },
+                        function (data, status, xhr) {
+                            //For Success
+                            $('.loadscreen').fadeOut();
+                            WebResponse(data);
+                        },
+                    function (jqXhr, textStatus, errorMessage) {
+                        //For Error
+                        $('.loadscreen').fadeOut();
+                        WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                    });
+
+                }
+                return false;
+            });
+        })
+    </script>
+</body>
+</html>

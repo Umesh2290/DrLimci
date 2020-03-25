@@ -1,0 +1,503 @@
+﻿
+@{
+    ViewBag.Title = "Inactive Employees";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<script>
+    var currentmenu = 5;
+    var allloaded = false;
+    var displaypanel = "gridarea";
+    $(document).ready(function () {
+
+
+        MakeRequest(_User_Employee_GetList, "POST", { "status": false }, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+    var outputdt = {};
+    if (rs.ResponseType == "Simple") {
+        var dt = rs.ResponseData.employeejson;
+        outputdt = dt;
+    }
+
+    $('#employeetable').on('init.dt', function () {
+        allloaded = true;
+    }).DataTable({
+        data: outputdt,
+        columns: [
+            { data: 'ClientUserID' },
+            { data: 'FullName' },
+            { data: 'Username' },
+            { data: 'Roles' },
+            { data: 'status' },
+            { data: 'ClientUserID' },
+            { data: 'ClientUserID', className: 'editcolumn' }
+        ],
+        "columnDefs": [
+            {
+                "render": function (data, type, row) {
+                    var returnstring = '<a href="/User/Employee?IsEdit=1&EditId=' + data + '" title="Edit"><button type="button" class="btn btn-success "><i class="nav-icon i-Pen-2 "></i></button></a>';
+                    if (row["IsBlock"] == true) {
+                        returnstring += '&nbsp;&nbsp;<i style="font-size:25px;color:red;cursor:pointer" data-id="' + row["ClientUserID"] + '" title="Unblock User" class="nav-icon i-Lock-User unblockuser"></i>';
+                    }
+                    returnstring += '&nbsp;&nbsp;<i style="font-size:25px;color:green;cursor:pointer" data-id="' + row["ClientUserID"] + '" title="Send forget password email" class="nav-icon i-Key-3 forgetpassword"></i>';
+                    return returnstring;
+                },
+                "targets": 6
+            },
+            {
+                "render": function (data, type, row) {
+                    if (data == "Active") {
+                        return '<span class="badge badge-success">Active</span>';
+                    }
+
+                    else if (data == "Inactive") {
+                        return '<span class="badge badge-warning">Inactive</span>';
+                    }
+                    else {
+                        return data;
+                    }
+                },
+                "targets": 4
+            },
+            {
+                "render": function (data, type, row) {
+                    return '<button type="button" class="btn btn-info viewdetail" title="View Detail" class="viewdetail" data-id="' + data + '"><i class="nav-icon i-Magnifi-Glass1"></i></button>';
+                },
+                "targets": 5
+            }
+        ]
+    });
+
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+
+    });
+</script>
+<div class="breadcrumb">
+    <h1 class="mr-2">Inactive Employees</h1>
+    <ul>
+        <li><a href="">Employees</a></li>
+        <li>Inactive Employees</li>
+    </ul>
+</div>
+<div id="backbtndiv" style="display:none">
+    <div class="row" style="margin:0 0.83em 0">
+        <div class="offset-md-11"></div>
+        <div class="col-md-1">
+            <button type="button" class="btn btn-gray-300" id="backtogridbtn"><i class="nav-icon i-Back1 "></i>Back</button>
+        </div>
+    </div>
+    <br />
+    <br />
+</div>
+<div class="separator-breadcrumb border-top"></div>
+<div id="gridarea" style="visibility:hidden">
+    <div class="row mb-4">
+
+        <div class="col-md-12 mb-3">
+            <div class="card text-left">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="employeetable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Employee ID #</th>
+                                    <th scope="col">Full Name</th>
+                                    <th scope="col">Username</th>
+                                    <th scope="col">Roles</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">View Detail</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end of col-->
+    </div>
+</div>
+<div id="detailarea" style="display: none;">
+    <h4 id="detailtitle">Details</h4>
+    <hr>
+    <div class="row">
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Employee ID #</p>
+                <span id="employeeid_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Last Name</p>
+                <span id="lastname_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Email</p>
+                <span id="email_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>On Boarding Date</p>
+                <span id="onBoardingDate_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Pdf Link</p>
+                <span id="pdflink_lbl">N/A</span>
+            </div>
+            <div class="mb-4 typeofcollection" style="display:none">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Type Of Collection</p>
+                <span id="typeofcollection_lbl">N/A</span>
+            </div>
+        </div>
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>First Name</p>
+                <span id="firstname_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Mobile No</p>
+                <span id="mobileno_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Username</p>
+                <span id="username_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Joining Date</p>
+                <span id="joiningdate_lbl">N/A</span>
+            </div>
+            <div class="mb-4 terminationdate" style="display:none">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Termination Date</p>
+                <span id="terminationdate_lbl">N/A</span>
+            </div>
+            <div class="mb-4 license" style="display:none">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>License</p>
+                <span id="license_lbl">N/A</span>
+            </div>
+        </div>
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Address</p>
+                <span id="address_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Status</p>
+                <span id="status_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Qualifications</p>
+                <span id="qualifications_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Employee Type</p>
+                <span id="employeetype_lbl">N/A</span>
+            </div>
+            <div class="mb-4 terminationreason" style="display:none">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Termination Reason</p>
+                <span id="terminationreason_lbl">N/A</span>
+            </div>
+            <div class="mb-4 employementtype" style="display:none">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Employement Type</p>
+                <span id="employementtype_lbl">N/A</span>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row mb-4">
+
+        <div class="col-md-6 mb-3">
+            <div class="card text-left">
+
+                <div class="card-body">
+                    <h4 class="card-title mb-3">Roles</h4>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Role Name</th>
+                                    <th scope="col">Is Default</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rolesrow"></tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <!-- end of col-->
+        <!-- end of col-->
+
+    </div>
+    <h4 class="card-title mb-3 attachmentsection" style="display:none">Attachments</h4>
+    <hr>
+    <div class="row attachmentsection" style="display:none" id="attachmentlist">
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#backtogridbtn").click(function () {
+            $("#detailarea").slideUp();
+            $("#gridarea").slideDown();
+            $("#backbtndiv").fadeOut();
+        })
+
+
+        $(document).on('click', '.unblockuser', function () {
+            var dataid = $(this).attr("data-id");
+            swal.fire({
+                title: "Are you sure?",
+                text: "Do you want to unblock this user!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: 'Yes, I am sure!',
+                cancelButtonText: 'No, cancel it!',
+                preConfirm: function () {
+                    MakeRequest(_User_Employee_UnblockEmployee, "POST", { "clientuserid": dataid }, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+
+    if (rs.ResponseType == "toastr-sucsess") {
+        setTimeout(function () {
+            window.location.replace("/User/Employee/InactiveEmployees");
+        }, 2500);
+    }
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+                }
+            })
+
+        });
+
+
+        $(document).on('click', '.viewdetail', function () {
+
+            MakeRequest(_User_Employee_GetDetail, "POST", { "employeeid": $(this).attr("data-id") }, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+    var outputdt = null;
+    var outputdt_roles = null;
+    var outputdt_attachments = null;
+    if (rs.ResponseType == "Simple") {
+        var dt = rs.ResponseData.clientuserjson;
+        var dt_roles = rs.ResponseData.assignedrolesjson;
+        var dt_attachments = rs.ResponseData.attachmentsjson;
+        outputdt = dt;
+        outputdt_roles = dt_roles;
+        outputdt_attachments = dt_attachments;
+    }
+
+    if (outputdt != null) {
+        $("#employeeid_lbl").text(outputdt.ClientUserID);
+        $("#firstname_lbl").text(outputdt.FirstName);
+        $("#lastname_lbl").text(outputdt.LastName);
+        $("#username_lbl").text(outputdt.Username);
+        $("#email_lbl").text(outputdt.Email);
+        $("#mobileno_lbl").text(outputdt.MobileNo);
+        $("#address_lbl").text(outputdt.Address);
+        $("#status_lbl").text(outputdt.status);
+
+        $("#onBoardingDate_lbl").text(outputdt.CreatedDateCustom);
+        $("#joiningdate_lbl").text(outputdt.JoiningDateCustom);
+        $("#qualifications").text(outputdt.Qualifications);
+        $("#employeetype_lbl").text(outputdt.EmployeeType);
+        $("#pdflink_lbl").html("<a href=\"" + outputdt.PdfLink + "\" target=\"_blank\">Download Employee PDF</a>");
+
+        if (outputdt.TerminationDateCustom != null) {
+            $("#terminationdate_lbl").text(outputdt.TerminationDateCustom);
+            $(".terminationdate").show();
+        }
+        else {
+            $("#terminationdate_lbl").text("N/A");
+            $(".terminationdate").hide();
+        }
+
+        if (outputdt.TerminationReason != null) {
+            $("#terminationreason_lbl").text(outputdt.TerminationReason);
+            $(".terminationreason").show();
+        }
+        else {
+            $("#terminationreason_lbl").text("N/A");
+            $(".terminationreason").hide();
+        }
+
+        if (outputdt.TypeOfCollection != null) {
+            $("#typeofcollection_lbl").text(outputdt.TypeOfCollection);
+            $(".typeofcollection").show();
+        }
+        else {
+            $("#typeofcollection_lbl").text("N/A");
+            $(".typeofcollection").hide();
+        }
+
+        if (outputdt.License != null) {
+            $("#license_lbl").text(outputdt.License);
+            $(".license").show();
+        }
+        else {
+            $("#license_lbl").text("N/A");
+            $(".license").hide();
+        }
+
+        if (outputdt.EmployementType != null) {
+            $("#employementtype_lbl").text(outputdt.EmployementType);
+            $(".employementtype").show();
+        }
+        else {
+            $("#employementtype_lbl").text("N/A");
+            $(".employementtype").hide();
+        }
+
+
+
+        if (outputdt_roles != null) {
+            $("#rolesrow").empty();
+            outputdt_roles.forEach(function (item, key) {
+                $("#rolesrow").append("<tr><td>" + item.RoleName + "</td><td>" + item.IsDefault + "</td></tr>")
+            });
+
+        }
+        var html = '';
+        if (outputdt_attachments != null) {
+
+            if (outputdt_attachments.length > 0) {
+                $.each(outputdt_attachments, function (i, e) {
+
+                    html += '<div class="col-md-2 col-4 attachmentbox">\
+                                    <div class="mb-4">\
+                                        <p class="text-primary mb-1">\
+                                        <i class="i-Download text-16 mr-1 " title="Download"></i><a href="' + e.Link + '" target="_blank"> ' + e.AttachmentName + '</a></p>\
+                                    </div>\
+                                </div>'
+                });
+                $("#attachmentlist").html(html);
+                $(".attachmentsection").show();
+            }
+            else {
+                $("#attachmentlist").html(html);
+                $(".attachmentsection").hide();
+            }
+
+        }
+        else {
+            $("#attachmentlist").html(html);
+            $(".attachmentsection").hide();
+        }
+    }
+    else {
+        $("#employeeid_lbl").text("N/A");
+        $("#firstname_lbl").text("N/A");
+        $("#middlename_lbl").text("N/A");
+        $("#lastname_lbl").text("N/A");
+        $("#username_lbl").text("N/A");
+        $("#email_lbl").text("N/A");
+        $("#mobileno_lbl").text("N/A");
+        $("#address_lbl").text("N/A");
+        $("#status_lbl").text("N/A");
+        $("#onBoardingDate_lbl").text("N/A");
+        $("#joiningdate_lbl").text("N/A");
+        $("#qualifications").text("N/A");
+        $("#employeetype_lbl").text("N/A");
+        $("#pdflink_lbl").html("N/A");
+
+        $("#terminationdate_lbl").text("N/A");
+        $(".terminationdate").hide();
+
+        $("#terminationreason_lbl").text("N/A");
+        $(".terminationreason").hide();
+
+        $("#typeofcollection_lbl").text("N/A");
+        $(".typeofcollection").hide();
+
+        $("#license_lbl").text("N/A");
+        $(".license").hide();
+
+        $("#employementtype_lbl").text("N/A");
+        $(".employementtype").hide();
+
+        $("#attachmentlist").html("");
+        $(".attachmentsection").hide();
+
+        $("#rolesrow").empty();
+    }
+
+    $("#gridarea").slideUp();
+    $("#detailarea").slideDown();
+    $("#backbtndiv").fadeIn();
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+
+        });
+
+        $(document).on('click', '.forgetpassword', function () {
+            var dataid = $(this).attr("data-id");
+            swal.fire({
+                title: "Are you sure?",
+                text: "Do you want to send forget password email to this user!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: 'Yes, I am sure!',
+                cancelButtonText: 'No, cancel it!',
+                preConfirm: function () {
+                    MakeRequest(_User_Employee_ForgetPassword, "POST", { "clientuserid": dataid }, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+
+    if (rs.ResponseType == "swal-sucsess") {
+
+    }
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+                }
+            })
+
+        });
+    })
+</script>

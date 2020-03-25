@@ -1,0 +1,641 @@
+﻿
+@{
+    ViewBag.Title = "Open Extra Work";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+<Script>
+    var currentmenu = 39;
+    var allloaded = false;
+    var displaypanel = "gridarea";
+    $(document).ready(function () {
+
+
+        MakeRequest(_User_ExtraWorkRequest_GetList, "POST", { "status": "Open" }, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+    var outputdt = {};
+    if (rs.ResponseType == "Simple") {
+        var dt = rs.ResponseData.extraworkrequestjson;
+        outputdt = dt;
+    }
+
+    $('#requesttable').on('init.dt', function () {
+        allloaded = true;
+    }).DataTable({
+        data: outputdt,
+        columns: [
+            { data: 'ExtraWorkID' },
+            { data: 'TestName' },
+            { data: 'H_ELevels' },
+            { data: 'RequestCreatedDate' },
+            { data: 'StatusCustom' },
+            { data: 'ExtraWorkID', className: 'editcolumn' }
+        ],
+        "columnDefs": [
+            {
+                "render": function (data, type, row) {
+                    if (data == "New") {
+                        return '<span class="badge badge-success">New</span>';
+                    }
+                    else if (data == "In-Progress") {
+                        return '<span class="badge badge-warning">In-Progress</span>';
+                    }
+                    else {
+                        data
+                    }
+                },
+                "targets": 4
+            },
+            {
+                "render": function (data, type, row) {
+                    return '<button type="button" class="btn btn-info viewdetail" title="View Detail" class="viewdetail" data-id="' + data + '"><i class="nav-icon i-Magnifi-Glass1"></i></button>';
+                },
+                "targets": 5
+            }
+        ]
+    });
+
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+
+    });
+</script>
+<div class="breadcrumb">
+    <h1 class="mr-20" id="mainheading">Open</h1>
+    <ul>
+        <li><a href="">Extra Work Request</a></li>
+        <li id="subheading">Open</li>
+    </ul>
+</div>
+
+<div id="backbtndiv" style="display:none">
+    <div class="row" style="margin:0 0.83em 0">
+        <div class="offset-md-11"></div>
+        <div class="col-md-1">
+            <button type="button" class="btn btn-gray-300" id="backtogridbtn"><i class="nav-icon i-Back1 "></i>Back</button>
+        </div>
+    </div>
+    <br />
+    <br />
+</div>
+<div class="separator-breadcrumb border-top"></div>
+<div id="gridarea">
+    <div class="row mb-4">
+
+        <div class="col-md-12 mb-3">
+            <div class="card text-left">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="requesttable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Request ID #</th>
+                                    <th scope="col">Test Name</th>
+                                    <th scope="col">H&E Levels</th>
+                                    <th scope="col">Request Created Date</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">View Detail</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end of col-->
+    </div>
+</div>
+<div id="detailarea" style="display:none;">
+    <h4 id="detailtitle">Details</h4>
+    <div class="deletedbtn-section">
+        <hr>
+        <button type="button" class="btn btn-danger btn-icon m-1" id="deletebtn">
+            <span class="ul-btn__icon"><i class="i-Close"></i></span>
+            <span class="ul-btn__text">Delete</span>
+        </button>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                    <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Patient Name</p>
+                    <span id="patientname_lbl">N/A</span>
+            </div>
+         </div>   
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Extra Work Request ID #</p>
+                <span id="requestid_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Test Name</p>
+                <span id="testname_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> H&E Levels</p>
+                <span id="helevels_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Special Stains</p>
+                <span id="specialstains_lbl">N/A</span>
+            </div>
+        </div>
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Immuno Histo Chemisty</p>
+                <span id="immunohistochemistry_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Others</p>
+                <span id="others_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Request Date</p>
+                <span id="requestdate_lbl">N/A</span>
+            </div>
+            <div class="mb-4 inprogressdate" style="display:none">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> In-Progress Date</p>
+                <span id="inprogressdate_lbl">N/A</span>
+            </div>
+        </div>
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Status</p>
+                <span id="status_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Request By</p>
+                <span id="requestby_lbl">N/A</span>
+            </div>
+            <div class="mb-4 inprogresscomments" style="display:none">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> In-Progress Comments</p>
+                <span id="inprogresscomments_lbl">N/A</span>
+            </div>
+            <div class="mb-4 inprogressby" style="display:none">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> In-Progress By</p>
+                <span id="inprogressby_lbl">N/A</span>
+            </div>
+        </div>
+    </div>
+    <div class="updatestatus-section">
+        <hr>
+        <form id="updateform">
+            <div class="form-group row">
+                <div class="col-md-4 col-6">
+                    <div class="mb-4">
+                        <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Select Status :</p>
+                        <select class="form-control" id="statusid" name="statusid"></select>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-6">
+                    <div class="mb-4">
+                        <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Enter Comments :</p>
+                        <input type="text" class="form-control" id="comments" name="comments" required="required" placeholder="Enter comments">
+                    </div>
+                </div>
+
+            </div>
+            <div class="custom-separator extrainvestigation-section" style="display:none"></div>
+            <div class="form-group row extrainvestigation-section" style="display:none">
+                <div class="col-md-12">
+
+                    <div class="table-borderless">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col" style="color:#70657b">Investigation Name</th>
+                                    <th scope="col" style="color:#70657b">Values</th>
+                                    <th scope="col" style="color:#70657b">Range</th>
+                                    <th scope="col" style="color:#70657b">Result</th>
+                                    <th scope="col" style="color:#70657b">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="investigationsrow">
+                                <tr class="investigationrow">
+                                    <td><input type="text" class="form-control investigationname" placeholder="Enter investigation name"></td>
+                                    <td><input type="text" class="form-control investigationvalues" placeholder="Enter values"></td>
+                                    <td><input type="text" class="form-control investigationrange" placeholder="Enter range"></td>
+                                    <td><input type="text" class="form-control investigationresult" placeholder="Enter result"></td>
+                                    <td>
+                                        <button type="button" class="btn btn-success m-1 addinvestigation">Add</button>
+                                        <i style="font-size:25px;color:red;cursor:pointer;display:none" title="Remove" class="nav-icon i-Close removeinvestigation"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <div class="custom-separator extrainvestigation-section" style="display:none"></div>
+            <div class="form-group row extrainvestigation-section" style="display:none">
+                <div class="col-md-4 col-6">
+                    <div class="mb-4">
+                        <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Attachment Files :</p>
+                        <input type="file" id="attachmentfiles_extrainvestigations" name="attachmentfiles_extrainvestigations" multiple />
+                    </div>
+                </div>
+
+            </div>
+            <div class="custom-separator"></div>
+            <div class="form-group row text-center">
+                <div class="col-md-12 ">
+                    <input type="hidden" name="extraworkrequestid" value="0" id="extraworkrequestid" />
+                    <input type="hidden" name="testid" value="0" id="testid" />
+                    <button type="submit" class="btn btn-primary m-1" id="updatebtn">Update</button>
+                    <button type="reset" class="btn btn-outline-secondary m-1" id="cancelbtn">Reset</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+<script>
+
+    function UploadFile(ExtraWorkId, formid, attachmentelementid,statusid) {
+        // Checking whether FormData is available in browser  
+        if (window.FormData !== undefined) {
+
+            var fileUpload = $(("#" + attachmentelementid)).get(0);
+            var files = fileUpload.files;
+
+            if (files.length > 0) {
+                // Create FormData object  
+                var fileData = new FormData();
+
+                // Looping over all files and add it to FormData object  
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append(files[i].name, files[i]);
+                }
+
+                // Adding one more key to FormData object  
+                fileData.append('ExtraWorkID', ExtraWorkId);
+
+                $.ajax({
+                    url: _User_ExtraWorkRequest_UploadFile,
+                    type: "POST",
+                    contentType: false, // Not to set any content header  
+                    processData: false, // Not to process data  
+                    data: fileData,
+                    success: function (result) {
+                        //swal.fire({ title: "Created Successfully !", icon: "success", html: "Employee has been created successfully<br>" });
+                        $('.loadscreen').fadeOut();
+                        $(("#" + formid)).trigger("reset");
+
+                        if (result.data.ResponseType == "swal-success") {
+                            swal.fire({ title: "Saved Successfully !", icon: "success", html: result.data.Description });
+                        }
+                        else {
+                            swal.fire({ title: "Saved Successfully !", icon: "warning", html: result.data.Description });
+                        }
+
+                        if (statusid == 2) {
+                            setTimeout(function () {
+                                window.location.replace("/User/ExtraWorkRequest/Open");
+                            }, 2500);
+                        }
+                        else if (statusid == 3) {
+                            setTimeout(function () {
+                                window.location.replace("/User/ExtraWorkRequest/Completed");
+                            }, 2500);
+                        }
+                        else {
+                            setTimeout(function () {
+                                window.location.replace("/User/ExtraWorkRequest/Open");
+                            }, 2500);
+                        }
+                    },
+                    error: function (err) {
+                        $('.loadscreen').fadeOut();
+                        $(("#" + formid)).trigger("reset");
+                        WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                        swal.fire({ title: "Saved Successfully !", icon: "success", html: "Request has been saved successfully<br>." });
+
+                        if (statusid == 2) {
+                            setTimeout(function () {
+                                window.location.replace("/User/ExtraWorkRequest/Open");
+                            }, 2500);
+                        }
+                        else if (statusid == 3) {
+                            setTimeout(function () {
+                                window.location.replace("/User/ExtraWorkRequest/Completed");
+                            }, 2500);
+                        }
+                        else {
+                            setTimeout(function () {
+                                window.location.replace("/User/ExtraWorkRequest/Open");
+                            }, 2500);
+                        }
+                    }
+                });
+            }
+            else {
+                $(("#" + formid)).trigger("reset");
+                $('.loadscreen').fadeOut();
+
+                swal.fire({ title: "Saved Successfully !", icon: "success", html: "Request has been saved successfully<br>." });
+
+                if (statusid == 2) {
+                    setTimeout(function () {
+                        window.location.replace("/User/ExtraWorkRequest/Open");
+                    }, 2500);
+                }
+                else if (statusid == 3) {
+                    setTimeout(function () {
+                        window.location.replace("/User/ExtraWorkRequest/Completed");
+                    }, 2500);
+                }
+                else {
+                    setTimeout(function () {
+                        window.location.replace("/User/ExtraWorkRequest/Open");
+                    }, 2500);
+                }
+
+            }
+        } else {
+            $(("#" + formid)).trigger("reset");
+            $('.loadscreen').fadeOut();
+            swal.fire({ title: "Not supported !", icon: "error", html: "Sorry file upload not supported in this browser." });
+
+            swal.fire({ title: "Saved Successfully !", icon: "success", html: "Request has been saved successfully<br>." });
+
+            if (statusid == 2) {
+                setTimeout(function () {
+                    window.location.replace("/User/ExtraWorkRequest/Open");
+                }, 2500);
+            }
+            else if (statusid == 3) {
+                setTimeout(function () {
+                    window.location.replace("/User/ExtraWorkRequest/Completed");
+                }, 2500);
+            }
+            else {
+                setTimeout(function () {
+                    window.location.replace("/User/ExtraWorkRequest/Open");
+                }, 2500);
+            }
+
+        }
+    }
+
+    function ShowInvestigationPanelByStatusID(statusid) {
+        $(".investigationname").val("");
+        $(".investigationvalues").val("");
+        $(".investigationrange").val("");
+        $(".investigationresult").val("");
+
+        if (statusid == 3) {
+
+            $(".extrainvestigation-section").show();
+            $(".investigationname").attr("required", "required");
+            $(".investigationvalues").attr("required", "required");
+            $(".investigationrange").attr("required", "required");
+            $(".investigationresult").attr("required", "required");
+        }
+        else {
+            $(".extrainvestigation-section").hide();
+            $(".investigationname").removeAttr("required");
+            $(".investigationvalues").removeAttr("required");
+            $(".investigationrange").removeAttr("required");
+            $(".investigationresult").removeAttr("required");
+        }
+    }
+
+    $(document).ready(function () {
+        $(document).on("click", ".removeinvestigation", function () {
+            $(this).parent().parent().remove();
+        });
+
+        $("#backtogridbtn").click(function () {
+            $("#detailarea").slideUp();
+            $("#gridarea").slideDown();
+            $("#backbtndiv").fadeOut();
+        });
+
+        $(document).on("click", ".addinvestigation", function () {
+            var html = "<tr class='investigationrow'>\
+                                                                    <td><input type='text' class='form-control investigationname' required='required' placeholder='Enter investigation name'></td>\
+                                                                    <td><input type='text' class='form-control investigationvalues' required='required' placeholder='Enter values'></td>\
+                                                                    <td><input type='text' class='form-control investigationrange' required='required' placeholder='Enter range'></td>\
+                                                                    <td><input type='text' class='form-control investigationresult' required='required' placeholder='Enter result'></td>\
+                                                                    <td><button type='button' class='btn btn-success m-1 addinvestigation'>Add</button>\
+                                                                    <i style='font-size:25px;color:red;cursor:pointer;display:none' title='Remove' class='nav-icon i-Close removeinvestigation'></i>\
+                                                                    </td>\
+                                                                 </tr>";
+            $(".addinvestigation").remove();
+            $(".removeinvestigation").show();
+            $("#investigationsrow").append(html);
+        });
+
+        $("#statusid").change(function () {
+            ShowInvestigationPanelByStatusID($(this).val());
+        });
+
+        $(document).on('click', '.viewdetail', function () {
+
+            MakeRequest(_User_ExtraWorkRequest_GetDetail, "POST", { "extraworkrequestid": $(this).attr("data-id") }, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+    var extraworkrequestobj = null;
+    var openaction = null;
+    var progressaction = null;
+
+    if (rs.ResponseType == "Simple") {
+        extraworkrequestobj = rs.ResponseData.extraworkrequestobjjson;
+        openaction = rs.ResponseData.openactionjson;
+        progressaction = rs.ResponseData.progressactionjson;
+    }
+
+    if (extraworkrequestobj != null) {
+
+        var optionhtml = "";
+        $.each(rs.ResponseData.extraworkrequeststatusesjson, function (key, value) {
+            optionhtml += "<option value=\"" + value.WorkRequestStatusID + "\">" + value.StatusName + "</option>"
+        });
+
+        $("#statusid").html(optionhtml);
+
+        $("#patientname_lbl").text(extraworkrequestobj.PatientName);
+        $("#requestid_lbl").text(extraworkrequestobj.ExtraWorkID);
+        $("#testname_lbl").text(extraworkrequestobj.TestName);
+        $("#helevels_lbl").text(extraworkrequestobj.H_ELevels);
+        $("#specialstains_lbl").text(extraworkrequestobj.SpecialStains);
+        $("#others_lbl").text(extraworkrequestobj.Others);
+        $("#immunohistochemistry_lbl").text(extraworkrequestobj.ImmunoHistoChemistry);
+        $("#requestdate_lbl").text(extraworkrequestobj.RequestCreatedDateCustom);
+        $("#requestby_lbl").text(extraworkrequestobj.RequestCreatedByName);
+        $("#status_lbl").text(extraworkrequestobj.StatusName);
+
+        $("#extraworkrequestid").val(extraworkrequestobj.ExtraWorkID);
+        $("#testid").val(extraworkrequestobj.TestID);
+        if (openaction != null) {
+            $("#inprogressby_lbl").text(openaction.OpenActionByName);
+            $("#inprogressdate_lbl").text(openaction.OpenActionDateCustom);
+            $("#inprogresscomments_lbl").text(openaction.OpenActionComments);
+
+            $(".inprogressby").show();
+            $(".inprogressdate").show();
+            $(".inprogresscomments").show();
+        }
+        else {
+            $("#inprogressby_lbl").text("N/A");
+            $("#inprogressdate_lbl").text("N/A");
+            $("#inprogresscomments_lbl").text("N/A");
+
+            $(".inprogressby").hide();
+            $(".inprogressdate").hide();
+            $(".inprogresscomments").hide();
+        }
+
+
+    }
+    else {
+        $("#patientname_lbl").text("N/A");
+        $("#requestid_lbl").text("N/A");
+        $("#testname_lbl").text("N/A");
+        $("#helevels_lbl").text("N/A");
+        $("#specialstains_lbl").text("N/A");
+        $("#others_lbl").text("N/A");
+        $("#immunohistochemistry_lbl").text("N/A");
+        $("#requestdate_lbl").text("N/A");
+        $("#requestby_lbl").text("N/A");
+        $("#status_lbl").text("N/A");
+
+        $("#inprogressby_lbl").text("N/A");
+        $("#inprogressdate_lbl").text("N/A");
+        $("#inprogresscomments_lbl").text("N/A");
+
+        $(".inprogressby").hide();
+        $(".inprogressdate").hide();
+        $(".inprogresscomments").hide();
+
+        $("#extraworkrequestid").val(0);
+
+    }
+
+    ShowInvestigationPanelByStatusID($("#statusid").val());
+
+    $("#gridarea").slideUp();
+    $("#detailarea").slideDown();
+    $("#backbtndiv").fadeIn();
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+
+        });
+
+        $("#deletebtn").click(function () {
+            if ($("#extraworkrequestid").val() == "0") {
+                toastr.error("QueryID is empty", "Extrawork request ID is missing !");
+                return false;
+            }
+
+            swal.fire({
+                title: "Are you sure?",
+                text: "Do you want to delete this request!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: 'Yes, I am sure!',
+                cancelButtonText: 'No, cancel it!',
+                preConfirm: function () {
+                    var _posturl = _User_ExtraWorkRequest_UpdateStatus;
+                    var a = [];
+                    MakeRequest(_posturl, "POST", { "extraworkrequestid": $("#extraworkrequestid").val(), "comments": "Deleted From Screen", "statusid": -100, "testinvestigations": {} }, "json",
+                        function (jqXHR, settings) {
+                            //For Before Send
+                            $('.loadscreen').fadeIn();
+                        },
+                        function (data, status, xhr) {
+                            //For Success
+
+                            $('.loadscreen').fadeOut();
+
+                            var rs = WebResponse(data);
+                            if (rs.ResponseType == "Simple") {
+                                swal.fire({ title: "Deleted Successfully !", icon: "success", html: "Request has been deleted successfully !.<br>" });
+                                setTimeout(function () {
+                                    window.location.replace("/User/ExtraWorkRequest/Open");
+                                }, 2500);
+                            }
+                        },
+                    function (jqXhr, textStatus, errorMessage) {
+                        //For Error
+                        $('.loadscreen').fadeOut();
+                        WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                    });
+                }
+            })
+
+
+            return false;
+        });
+
+        $("#updatebtn").click(function () {
+            var form = document.querySelector('#updateform');
+            if (form.reportValidity()) {
+                if ($("#extraworkrequestid").val() == "0") {
+                    toastr.error("QueryID is empty", "Extrawork request ID is missing !");
+                    return false;
+                }
+                var _posturl = _User_ExtraWorkRequest_UpdateStatus;
+                var a = [];
+                $(".investigationrow").each(function (i, obj) {
+
+                    a[i] = {
+                        "InvestigationName": $(this).find(".investigationname").val(), "InvestigationValues": $(this).find(".investigationvalues").val(),
+                        "InvestigationRange": $(this).find(".investigationrange").val(), "InvestigationResult": $(this).find(".investigationresult").val()
+                    }
+                });
+
+                MakeRequest(_posturl, "POST", objectifyFormwithExtraData($("#updateform").serializeArray(), { "key": "testinvestigations", "value": a }), "json",
+                    function (jqXHR, settings) {
+                        //For Before Send
+                        $('.loadscreen').fadeIn();
+                    },
+                    function (data, status, xhr) {
+                        //For Success
+
+                        $('.loadscreen').fadeOut();
+
+                        var rs = WebResponse(data);
+                        if (rs.ResponseType == "Simple")
+                        {
+                            UploadFile(rs.ResponseData.extraworkrequestjson.ExtraWorkID, "updateform", "attachmentfiles_extrainvestigations",$("#statusid").val());
+                        }
+                    },
+                function (jqXhr, textStatus, errorMessage) {
+                    //For Error
+                    $('.loadscreen').fadeOut();
+                    WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                });
+            }
+            return false;
+        });
+    });
+</script>

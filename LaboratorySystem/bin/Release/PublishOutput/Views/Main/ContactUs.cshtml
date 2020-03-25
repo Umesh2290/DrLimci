@@ -1,0 +1,135 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutMainWebsite.cshtml";
+    ViewBag.Title = "Contact Us";
+}
+
+<script>
+    $(document).ready(function () {
+        $("#btnLogin").removeClass("btn-white");
+    });
+</script>
+			
+			<section class="vc_row pt-100 pb-100">
+				<div class="container">
+					<div class="row">
+
+						<div class="lqd-column col-md-12 px-4 pt-45 pb-30 bg-white box-shadow-1">
+
+							<div class="row d-flex flex-wrap align-items-center">
+
+								<div class="lqd-column col-md-6 col-md-offset-1">
+
+									<header class="fancy-title">
+										<h2>Drop us a line</h2>
+										<p>Thank you for reaching out. We will be in touch as soon as possible
+Do you have any innovative ideas or thoughts that you would like to share with us? Maybe you'd like to find out how you can get involved? 
+</p>
+<br />
+
+                              <p>  We warmly welcome you to get in touch and look forward to hearing from you.</p>     
+
+									</header><!-- /.fancy-title -->
+
+								</div><!-- /.lqd-column col-md-6 col-md-offset-1 -->
+
+								<div class="lqd-column col-md-4 hidden-sm hidden-xs text-right">
+
+									<div class="iconbox text-right iconbox-xl iconbox-icon-animating" data-animate-icon="true" data-plugin-options="{&quot;resetOnHover&quot;:true,&quot;color&quot;:&quot;rgb(216, 219, 226)&quot;,&quot;hoverColor&quot;:&quot;rgb(0, 0, 0)&quot;}">
+										<div class="iconbox-icon-wrap">
+											<span class="iconbox-icon-container">
+												<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px" height="64px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve"><style>#undefined:hover .iconbox-icon-container defs stop:first-child{stop-color:rgb(0, 0, 0);}#undefined:hover .iconbox-icon-container defs stop:last-child{stop-color:rgb(0, 0, 0);}</style><defs xmlns="http://www.w3.org/2000/svg"><linearGradient gradientUnits="userSpaceOnUse" id="grad523578" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="rgb(216, 219, 226)"></stop><stop offset="100%" stop-color="rgb(216, 219, 226)"></stop></linearGradient></defs> <path stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" d="M1,30L63,1L23,41Z" stroke="url(#grad523578)" fill="none" style="stroke-dasharray: 150, 152; stroke-dashoffset: 0;"></path> <path stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" d="M34,63L63,1L23,41Z" stroke="url(#grad523578)" fill="none" style="stroke-dasharray: 150, 152; stroke-dashoffset: 0;"></path> </svg>
+											</span>
+										</div><!-- /.iconbox-icon-wrap -->
+									</div><!-- /.iconbox -->
+								</div><!-- /.lqd-column col-md-4 hidden-sm hidden-xs -->
+
+							</div><!-- /.row -->
+
+							<div class="row">
+
+								<div class="lqd-column col-md-10 col-md-offset-1">
+
+									<div class="contact-form contact-form-inputs-underlined contact-form-button-circle">
+										<form id="contactusform">
+											<div class="row d-flex flex-wrap">
+												<div class="lqd-column col-md-6 mb-20">
+                                                    <div class="lh-25 mb-30">
+                                                        <input type="radio" name="TypeID" aria-required="true" aria-invalid="false" value="1" required> Sales
+                                                        &nbsp;&nbsp;&nbsp;
+                                                        <input type="radio" name="TypeID" aria-required="true" aria-invalid="false" value="2" required> Contact
+                                                    </div>
+													<input class="lh-25 mb-30" type="text" name="Name" aria-required="true" aria-invalid="false" placeholder="Your Name" required="">
+													<input class="lh-25 mb-30" type="email" name="Email" aria-required="true" aria-invalid="false" placeholder="Your email address" required="">
+													<input class="lh-25 mb-30" type="tel" name="ContactNo" aria-required="true" aria-invalid="false" placeholder="Mobile no" required="">
+													<input class="lh-25 mb-30" type="text" name="Subject" aria-required="true" aria-invalid="false" placeholder="Subject" required="">
+												</div><!-- /.col-md-6 -->
+												<div class="lqd-column col-md-6 mb-20">
+													<textarea cols="10" rows="6" name="Description" aria-required="true" aria-invalid="false" placeholder="Message" required=""></textarea>
+												</div><!-- /.col-md-12 -->
+												<div class="lqd-column col-md-6">
+													<p class="font-size-16 opacity-07"><em>To find out more about the project, or to see how you can help, please contact.</em></p>
+<p class="font-size-16 opacity-07"><em>Email: contact@inoduklabs.com</em></p>
+<p class="font-size-16 opacity-07"><em>customercare@inoduklabs.com</em></p>
+<p class="font-size-16 opacity-07"><em>sales@inoduklabs.com</em></p>
+<p class="font-size-16 opacity-07"><em>Disclaimer: IndoUKLabs and the services offered herein are part of IndoUK</em></p>
+
+												</div><!-- /.col-md-6 -->
+												<div class="lqd-column col-md-6 text-md-right">
+
+
+													<button type="submit" id="saveorupdatebtn"  class="font-size-13 ltr-sp-1 font-weight-bold">Send</button>
+												</div><!-- /.col-md-6 -->
+											</div><!-- /.row -->
+										</form>
+										<div class="contact-form-result hidden"></div><!-- /.contact-form-result -->
+									</div><!-- /.contact-form -->
+
+								</div><!-- /.col-md-10 col-md-offset-1 -->
+
+							</div><!-- /.row -->
+
+						</div><!-- /.lqd-column col-md-12 -->
+
+					</div><!-- /.row -->
+				</div><!-- /.container -->
+			</section>
+
+		
+
+<script>
+    $(document).ready(function () {
+      
+        $("#saveorupdatebtn").click(function () {
+
+            var form = document.querySelector('#contactusform');
+            console.log(objectifyForm($("#contactusform").serializeArray()))
+            if (form.reportValidity()) {
+                var _posturl = _Main_ContactUs_NewRequest;
+                
+                MakeRequest(_posturl, "POST", objectifyForm($("#contactusform").serializeArray()), "json",
+                    function (jqXHR, settings) {
+                        //For Before Send
+                        $('.loadscreen').fadeIn();
+                    },
+                    function (data, status, xhr) {
+                        //For Success
+
+                        $('.loadscreen').fadeOut();
+
+                        var rs = WebResponse(data);
+                        if (rs.ResponseType == "swal-sucsess") {
+                            $("#contactusform").trigger("reset");
+                        }
+                    },
+                function (jqXhr, textStatus, errorMessage) {
+                    //For Error
+                    $('.loadscreen').fadeOut();
+                    WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                });
+            }
+            return false;
+        })
+    })
+</script>	
+	

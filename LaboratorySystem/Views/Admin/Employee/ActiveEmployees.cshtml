@@ -1,0 +1,332 @@
+﻿@{
+    ViewBag.Title = "Active Employees";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section ScriptSection{
+}
+
+<script>
+    var currentmenu = 8;
+    var allloaded = false;
+    $(document).ready(function () {
+
+
+        MakeRequest(_Admin_Employee_GetList, "POST", { "status": true }, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+    var outputdt = {};
+    if (rs.ResponseType == "Simple") {
+        var dt = rs.ResponseData.employeejson;
+        outputdt = dt;
+    }
+
+    $('#employeetable').on('init.dt', function () {
+        allloaded = true;
+    }).DataTable({
+        data: outputdt,
+        columns: [
+            { data: 'SystemUserID' },
+            { data: 'FirstName' },
+            { data: 'Username' },
+            { data: 'Roles' },
+            { data: 'status' },
+            { data: 'SystemUserID' },
+            { data: 'SystemUserID', className: 'editcolumn' }
+        ],
+        "columnDefs": [
+            {
+                "render": function (data, type, row) {
+                    var returnstring = '<a href="/Admin/Employee?IsEdit=1&EditId=' + data + '" title="Edit"><button type="button" class="btn btn-success "><i class="nav-icon i-Pen-2 "></i></button></a>';
+                    if (row["IsBlock"] == true) {
+                        returnstring += '&nbsp;&nbsp;<i style="font-size:25px;color:red;cursor:pointer" data-id="' + row["SystemUserID"] + '" title="Unblock User" class="nav-icon i-Lock-User unblockuser"></i>';
+                    }
+                    return returnstring;
+                },
+                "targets": 6
+            },
+            {
+                "render": function (data, type, row) {
+                    return data + " " + row["MiddleName"] + " " + row["LastName"]
+                },
+                "targets": 1
+            },
+            {
+                "render": function (data, type, row) {
+                    if (data == "Active") {
+                        return '<span class="badge badge-success">Active</span>';
+                    }
+
+                    else if (data == "Inactive") {
+                        return '<span class="badge badge-warning">Inactive</span>';
+                    }
+                    else {
+                        return data;
+                    }
+                },
+                "targets": 4
+            },
+            {
+                "render": function (data, type, row) {
+                    return '<button type="button" class="btn btn-info viewdetail" title="View Detail" class="viewdetail" data-id="' + data + '"><i class="nav-icon i-Magnifi-Glass1"></i></button>';
+                },
+                "targets": 5
+            }
+        ]
+    });
+
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+
+    })
+</script>
+<div class="breadcrumb">
+    <h1 class="mr-2" id="mainheading">Active Employees</h1>
+    <ul>
+        <li><a href="">Employees</a></li>
+        <li id="subheading">Active Employees</li>
+    </ul>
+</div>
+
+
+<div class="separator-breadcrumb border-top"></div>
+<div id="gridarea">
+    <div class="row mb-4">
+
+        <div class="col-md-12 mb-3">
+            <div class="card text-left">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="employeetable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Employee ID #</th>
+                                    <th scope="col">Full Name</th>
+                                    <th scope="col">Username</th>
+                                    <th scope="col">Roles</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">View Detail</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end of col-->
+    </div>
+</div>
+<div id="detailarea" style="display: none;">
+    <button type="button" class="btn btn-gray-300 " id="backtogridbtn"><i class="nav-icon i-Back1 "></i>Back</button>
+    <br />
+    <br />
+    <h4 id="detailtitle">Details</h4>
+    <hr>
+    <div class="row">
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Employee ID #</p>
+                <span id="employeeid_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Last Name</p>
+                <span id="lastname_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Email</p>
+                <span id="email_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>On Boarding Date</p>
+                <span id="onBoardingDate_lbl">N/A</span>
+            </div>
+        </div>
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>First Name</p>
+                <span id="firstname_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Mobile No</p>
+                <span id="mobileno_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Username</p>
+                <span id="username_lbl">N/A</span>
+            </div>
+        </div>
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Middle Name</p>
+                <span id="middlename_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Address</p>
+                <span id="address_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Status</p>
+                <span id="status_lbl">N/A</span>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row mb-4">
+
+        <div class="col-md-6 mb-3">
+            <div class="card text-left">
+
+                <div class="card-body">
+                    <h4 class="card-title mb-3">Roles</h4>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Role Name</th>
+                                    <th scope="col">Is Default</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rolesrow">
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <!-- end of col-->
+        <!-- end of col-->
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#backtogridbtn").click(function () {
+            $("#detailarea").slideUp();
+            $("#gridarea").slideDown();
+        })
+
+
+        $(document).on('click', '.unblockuser', function () {
+            var dataid = $(this).attr("data-id");
+            swal.fire({
+                title: "Are you sure?",
+                text: "Do you want to unblock this user!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: 'Yes, I am sure!',
+                cancelButtonText: 'No, cancel it!',
+                preConfirm: function () {
+                    MakeRequest(_Admin_Employee_UnblockEmployee, "POST", { "systemuserid": dataid }, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+
+    if (rs.ResponseType == "toastr-sucsess") {
+        setTimeout(function () {
+            window.location.replace("/Admin/Employee/ActiveEmployees");
+        }, 2500);
+    }
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+                }
+            })
+
+        });
+
+
+        $(document).on('click', '.viewdetail', function () {
+
+            MakeRequest(_Admin_Employee_GetDetail, "POST", { "systemuserid": $(this).attr("data-id") }, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+    var outputdt = null;
+    var outputdt_roles = null;
+    if (rs.ResponseType == "Simple") {
+        var dt = rs.ResponseData.employeejson;
+        var dt_roles = rs.ResponseData.assignedrolesjson;
+        outputdt = dt;
+        outputdt_roles = dt_roles;
+    }
+
+    if (outputdt != null) {
+        $("#employeeid_lbl").text(outputdt.SystemUserID);
+        $("#firstname_lbl").text(outputdt.FirstName);
+        $("#middlename_lbl").text(outputdt.MiddleName);
+        $("#lastname_lbl").text(outputdt.LastName);
+        $("#username_lbl").text(outputdt.Username);
+        $("#email_lbl").text(outputdt.Email);
+        $("#mobileno_lbl").text(outputdt.MobileNo);
+        $("#address_lbl").text(outputdt.Address);
+        $("#status_lbl").text(outputdt.status);
+
+        $("#onBoardingDate_lbl").text(ConvertDate(outputdt.CreatedDate));
+
+        if (outputdt_roles != null) {
+            $("#rolesrow").empty();
+            outputdt_roles.forEach(function (item, key) {
+                $("#rolesrow").append("<tr><td>" + item.RoleName + "</td><td>" + item.IsDefault + "</td></tr>")
+            });
+
+        }
+    }
+    else {
+        $("#employeeid_lbl").text("N/A");
+        $("#firstname_lbl").text("N/A");
+        $("#middlename_lbl").text("N/A");
+        $("#lastname_lbl").text("N/A");
+        $("#username_lbl").text("N/A");
+        $("#email_lbl").text("N/A");
+        $("#mobileno_lbl").text("N/A");
+        $("#address_lbl").text("N/A");
+        $("#status_lbl").text("N/A");
+        $("#onBoardingDate_lbl").text("N/A");
+    }
+
+    $("#gridarea").slideUp();
+    $("#detailarea").slideDown();
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+
+        })
+    })
+</script>
+
+

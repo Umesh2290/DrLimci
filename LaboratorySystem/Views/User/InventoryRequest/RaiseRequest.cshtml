@@ -1,0 +1,147 @@
+﻿
+@{
+    ViewBag.Title = "Raise Inventory Request";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+<script>
+    var currentmenu = 31;
+</script>
+<div class="breadcrumb">
+    <h1 class="mr-2" id="mainheading">Raise Request</h1>
+    <ul>
+        <li><a href="">Inventory</a></li>
+        <li id="subheading">Raise Request</li>
+    </ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+<div class="2-columns-form-layout">
+    <div class="">
+        <div class="row">
+            <div class="col-lg-12">
+                <!--begin::form 3 Horizontal-->
+                <form id="inventoryrequestform">
+                    <!-- start card 3 Columns Horizontal Form Layout-->
+                    <div class="card ul-card__margin-25">
+                        <div class="card-header bg-transparent">
+                            <h3 class="card-title" id="cardheading">Raise Inventory Request</h3>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label for="itemname" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Item Name:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <input type="text" class="form-control" id="itemname" name="itemname" required="required" placeholder="Enter item name">
+                                    <small id="itemnamehelpblock" class="ul-form__text form-text ">
+                                        Please enter item name
+                                    </small>
+                                </div>
+
+
+                                <label for="description" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Description:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <input type="text" class="form-control" id="description" name="description" required="required" placeholder="Enter description">
+                                    <small id="descriptionhelpblock" class="ul-form__text form-text ">
+                                        Please enter description
+                                    </small>
+                                </div>
+
+                                <label for="quantity" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Quantity:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <input type="text" class="form-control" id="quantity" name="quantity" required="required" placeholder="Enter quantity">
+                                    <small id="quantityhelpblock" class="ul-form__text form-text ">
+                                        Please enter quantity
+                                    </small>
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="custom-separator"></div>
+
+                            <div class="form-group row">
+                                
+
+                                <label for="comments" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Comments:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <input type="text" class="form-control" id="comments" name="comments" required="required" placeholder="Enter comments">
+                                    <small id="commentshelpblock" class="ul-form__text form-text ">
+                                        Please enter comments
+                                    </small>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="card-footer">
+                            <div class="mc-footer">
+                                <div class="row text-center">
+                                    <div class="col-lg-12 ">
+                                        <button type="submit" class="btn btn-primary m-1" id="saveorupdatebtn">Request</button>
+                                        <button type="reset" class="btn btn-outline-secondary m-1" id="cancelbtn">Reset</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card 3 Columns Horizontal Form Layout-->
+                </form>
+                <!-- end::form 3-->
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#saveorupdatebtn").click(function () {
+            var form = document.querySelector('#inventoryrequestform');
+            if (form.reportValidity()) {
+
+                var _posturl = _User_InventoryRequest_RaiseCreate;
+
+                MakeRequest(_posturl, "POST", objectifyForm($("#inventoryrequestform").serializeArray()), "json",
+                    function (jqXHR, settings) {
+                        //For Before Send
+                        $('.loadscreen').fadeIn();
+                    },
+                    function (data, status, xhr) {
+                        //For Success
+
+                        $('.loadscreen').fadeOut();
+
+                        var rs = WebResponse(data);
+                        if (rs.ResponseType == "swal-sucsess") {
+                            $("#inventoryrequestform").trigger("reset");
+                                setTimeout(function () {
+                                    window.location.replace("/User/InventoryRequest/OpenRequests");
+                                }, 2500);
+                        }
+                    },
+                function (jqXhr, textStatus, errorMessage) {
+                    //For Error
+                    $('.loadscreen').fadeOut();
+                    WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                });
+            }
+            return false;
+        })
+    })
+</script>

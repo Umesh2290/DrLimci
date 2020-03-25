@@ -1,0 +1,400 @@
+﻿
+@{
+    ViewBag.Title = "View All Patients";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+<script>
+    var currentmenu = 15;
+    var allloaded = false;
+    var displaypanel = "gridarea";
+    $(document).ready(function () {
+
+
+        MakeRequest(_User_Patients_GetList, "POST", { "status": "All" }, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+    var outputdt = {};
+    if (rs.ResponseType == "Simple") {
+        var dt = rs.ResponseData.patientjson;
+        outputdt = dt;
+    }
+
+    $('#patienttable').on('init.dt', function () {
+        allloaded = true;
+    }).DataTable({
+        data: outputdt,
+        columns: [
+            { data: 'ClientUserID' },
+            { data: 'FullName' },
+            { data: 'Username' },
+            { data: 'Sex' },
+            { data: 'Status' },
+            { data: 'ClientUserID' },
+            { data: 'ClientUserID', className: 'editcolumn' }
+        ],
+        "columnDefs": [
+            {
+                "render": function (data, type, row) {
+                    var returnstring = '<a id="editbtn" href="/User/Patients?IsEdit=1&EditId=' + data + '" title="Edit"><button type="button" class="btn btn-success "><i class="nav-icon i-Pen-2 "></i></button></a>';
+                    if (row["IsBlock"] == true) {
+                        returnstring += '&nbsp;&nbsp;<i style="font-size:25px;color:red;cursor:pointer" data-id="' + row["ClientUserID"] + '" title="Unblock User" class="nav-icon i-Lock-User unblockuser"></i>';
+                    }
+                    returnstring += '&nbsp;&nbsp;<i style="font-size:25px;color:green;cursor:pointer" data-id="' + row["ClientUserID"] + '" title="Send forget password email" class="nav-icon i-Key-3 forgetpassword"></i>';
+                    return returnstring;
+                },
+                "targets": 6
+            },
+            {
+                "render": function (data, type, row) {
+                    return data
+                },
+                "targets": 1
+            },
+            {
+                "render": function (data, type, row) {
+                    if (data == "Active") {
+                        return '<span class="badge badge-success">Active</span>';
+                    }
+
+                    else if (data == "Inactive") {
+                        return '<span class="badge badge-warning">Inactive</span>';
+                    }
+                    else {
+                        return data;
+                    }
+                },
+                "targets": 4
+            },
+            {
+                "render": function (data, type, row) {
+                    return '<button type="button" class="btn btn-info viewdetail" title="View Detail" class="viewdetail" data-id="' + data + '"><i class="nav-icon i-Magnifi-Glass1"></i></button>';
+                },
+                "targets": 5
+            }
+        ]
+    });
+
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+
+    })
+</script>
+<div class="breadcrumb">
+    <h1 class="mr-2" id="mainheading">View All</h1>
+    <ul>
+        <li><a href="">Patient</a></li>
+        <li id="subheading">View All</li>
+    </ul>
+</div>
+<div id="backbtndiv" style="display:none">
+    <div class="row" style="margin:0 0.83em 0">
+        <div class="offset-md-11"></div>
+        <div class="col-md-1">
+            <button type="button" class="btn btn-gray-300" id="backtogridbtn"><i class="nav-icon i-Back1 "></i>Back</button>
+        </div>
+    </div>
+    <br />
+    <br />
+</div>
+<div class="separator-breadcrumb border-top"></div>
+<div id="gridarea" style="visibility:hidden">
+    <div class="row mb-4">
+
+        <div class="col-md-12 mb-3">
+            <div class="card text-left">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="patienttable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Patient ID #</th>
+                                    <th scope="col">Full Name</th>
+                                    <th scope="col">Username</th>
+                                    <th scope="col">Gender</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">View Detail</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end of col-->
+    </div>
+</div>
+<div id="detailarea" style="display: none;">
+    <h4 id="detailtitle">Details</h4>
+    <hr>
+    <div class="row">
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Patient ID #</p>
+                <span id="patientid_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Last Name</p>
+                <span id="lastname_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Email</p>
+                <span id="email_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Registration Date</p>
+                <span id="registrationDate_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Payment</p>
+                <span id="payment_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Payment Mode</p>
+                <span id="paymentmode_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Refering Doctor</p>
+                <span id="referingdoctor_lbl">N/A</span>
+            </div>
+            
+        </div>
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>First Name</p>
+                <span id="firstname_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Mobile No</p>
+                <span id="mobileno_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Username</p>
+                <span id="username_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Gender</p>
+                <span id="gender_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Street name</p>
+                <span id="streetname_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>City</p>
+                <span id="city_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Patient PDF</p>
+                <span id="patientpdf_lbl">N/A</span>
+            </div>
+        </div>
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Middle Name</p>
+                <span id="middlename_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Address</p>
+                <span id="address_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Status</p>
+                <span id="status_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Alternate Phone no</p>
+                <span id="alternatephoneno_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Alternate Address</p>
+                <span id="alternateaddress_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Age</p>
+                <span id="age_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Payment Receipt PDF</p>
+                <span id="paymentreceiptpdf_lbl">N/A</span>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#backtogridbtn").click(function () {
+            $("#detailarea").slideUp();
+            $("#gridarea").slideDown();
+            $("#backbtndiv").fadeOut();
+        })
+
+
+        $(document).on('click', '.unblockuser', function () {
+            var dataid = $(this).attr("data-id");
+            swal.fire({
+                title: "Are you sure?",
+                text: "Do you want to unblock this user!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: 'Yes, I am sure!',
+                cancelButtonText: 'No, cancel it!',
+                preConfirm: function () {
+                    MakeRequest(_User_Patients_UnblockPatient, "POST", { "clientuserid": dataid }, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+
+    if (rs.ResponseType == "toastr-sucsess") {
+        setTimeout(function () {
+            window.location.replace("/User/Patients/ViewAll");
+        }, 2500);
+    }
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+                }
+            })
+
+        });
+
+
+        $(document).on('click', '.viewdetail', function () {
+
+            MakeRequest(_User_Patients_GetDetail, "POST", { "clientdetailid": $(this).attr("data-id") }, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+    var outputdt = null;
+    if (rs.ResponseType == "Simple") {
+        var dt = rs.ResponseData.patientuserjson;
+        outputdt = dt;
+    }
+
+    if (outputdt != null) {
+        $("#patientid_lbl").text(outputdt.ClientUserID);
+        $("#firstname_lbl").text(outputdt.FirstName);
+        $("#middlename_lbl").text(outputdt.MiddleName);
+        $("#lastname_lbl").text(outputdt.LastName);
+        $("#username_lbl").text(outputdt.Username);
+        $("#email_lbl").text(outputdt.Email);
+        $("#mobileno_lbl").text(outputdt.MobileNo);
+        $("#address_lbl").text(outputdt.Address);
+        $("#status_lbl").text(outputdt.Status);
+        $("#registrationDate_lbl").text(outputdt.CreatedDateCustom);
+
+        $("#payment_lbl").text(outputdt.Payment);
+        $("#paymentmode_lbl").text(outputdt.PaymentMode);
+        $("#referingdoctor_lbl").text(outputdt.ReferingDoctor);
+        $("#gender_lbl").text(outputdt.Sex);
+        $("#streetname_lbl").text(outputdt.Streetname);
+        $("#city_lbl").text(outputdt.City);
+        $("#patientpdf_lbl").html("<a href=\"" + outputdt.PdfLink + "\" target=\"_blank\">Download Patient PDF</a>");
+        $("#alternatephoneno_lbl").text(outputdt.AlternatePhoneNo);
+        $("#alternateaddress_lbl").text(outputdt.AlternateAddress);
+        $("#age_lbl").text(outputdt.Age)
+        $("#paymentreceiptpdf_lbl").html("<a href=\"" + outputdt.PaymentReceiptPdfLink + "\" target=\"_blank\">Download Payment Receipt</a>")
+
+    }
+    else {
+        $("#employeeid_lbl").text("N/A");
+        $("#firstname_lbl").text("N/A");
+        $("#middlename_lbl").text("N/A");
+        $("#lastname_lbl").text("N/A");
+        $("#username_lbl").text("N/A");
+        $("#email_lbl").text("N/A");
+        $("#mobileno_lbl").text("N/A");
+        $("#address_lbl").text("N/A");
+        $("#status_lbl").text("N/A");
+        $("#registrationDate_lbl").text("N/A");
+        $("#payment_lbl").text("N/A");
+        $("#paymentmode_lbl").text("N/A");
+        $("#referingdoctor_lbl").text("N/A");
+        $("#gender_lbl").text("N/A");
+        $("#streetname_lbl").text("N/A");
+        $("#city_lbl").text("N/A");
+        $("#patientpdf_lbl").html("N/A");
+        $("#alternatephoneno_lbl").text("N/A");
+        $("#alternateaddress_lbl").text("N/A");
+        $("#age_lbl").text("N/A")
+        $("#paymentreceiptpdf_lbl").text("N/A")
+    }
+
+    $("#gridarea").slideUp();
+    $("#detailarea").slideDown();
+    $("#backbtndiv").fadeIn();
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+
+        });
+
+        $(document).on('click', '.forgetpassword', function () {
+            var dataid = $(this).attr("data-id");
+            swal.fire({
+                title: "Are you sure?",
+                text: "Do you want to send forget password email to this user!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: 'Yes, I am sure!',
+                cancelButtonText: 'No, cancel it!',
+                preConfirm: function () {
+                    MakeRequest(_User_Patients_ForgetPassword, "POST", { "clientuserid": dataid }, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+
+    if (rs.ResponseType == "swal-sucsess") {
+       
+    }
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+                }
+            })
+
+        });
+    })
+</script>

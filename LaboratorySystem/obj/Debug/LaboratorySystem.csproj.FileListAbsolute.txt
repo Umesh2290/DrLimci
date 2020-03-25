@@ -1,0 +1,187 @@
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\LaboratorySystem.dll.config
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\LaboratorySystem.dll
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\LaboratorySystem.pdb
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\Antlr3.Runtime.dll
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\EntityFramework.dll
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\EntityFramework.SqlServer.dll
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\LaboratoryBusiness.dll
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\Microsoft.Owin.dll
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\Microsoft.Owin.Security.dll
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\Newtonsoft.Json.dll
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\NReco.PdfGenerator.dll
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\Owin.dll
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\ProxyApi.dll
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\System.IO.Compression.dll
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\System.IO.Compression.FileSystem.dll
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\System.Net.Http.Formatting.dll
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\System.Web.Helpers.dll
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\System.Web.Http.dll
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\System.Web.Http.WebHost.dll
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\System.Web.Mvc.dll
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\System.Web.Optimization.dll
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\System.Web.Razor.dll
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\System.Web.WebPages.Deployment.dll
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\System.Web.WebPages.dll
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\System.Web.WebPages.Razor.dll
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\WebGrease.dll
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\LaboratoryBusiness.pdb
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\EntityFramework.xml
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\EntityFramework.SqlServer.xml
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\Microsoft.AspNet.SignalR.Core.pdb
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\Microsoft.AspNet.SignalR.SystemWeb.pdb
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\Microsoft.Owin.xml
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\Microsoft.Owin.Security.xml
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\NewtonJSONError.pdb
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\NReco.PdfGenerator.xml
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\System.Net.Http.Formatting.xml
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\System.Web.Http.xml
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\System.Web.Http.WebHost.xml
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\System.Web.Helpers.xml
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\System.Web.Mvc.xml
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\System.Web.Optimization.xml
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\System.Web.Razor.xml
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\System.Web.WebPages.xml
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\System.Web.WebPages.Deployment.xml
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\System.Web.WebPages.Razor.xml
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\Antlr3.Runtime.pdb
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\bin\Newtonsoft.Json.xml
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\obj\Debug\LaboratorySystem.csprojResolveAssemblyReference.cache
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\obj\Debug\LaboratorySystem.dll
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratorySystem\obj\Debug\LaboratorySystem.pdb
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\LaboratorySystem.dll.config
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\LaboratorySystem.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\LaboratorySystem.pdb
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\Antlr3.Runtime.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\EntityFramework.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\EntityFramework.SqlServer.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\LaboratoryBusiness.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\Microsoft.AspNet.SignalR.Core.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\Microsoft.Owin.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\Microsoft.Owin.Security.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\Microsoft.SqlServer.ConnectionInfo.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\Microsoft.SqlServer.Management.Sdk.Sfc.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\Microsoft.SqlServer.Smo.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\Microsoft.Web.Infrastructure.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\Newtonsoft.Json.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\NReco.PdfGenerator.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\Owin.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\ProxyApi.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\System.IO.Compression.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\System.IO.Compression.FileSystem.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\System.Net.Http.Formatting.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\System.Web.Helpers.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\System.Web.Http.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\System.Web.Http.WebHost.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\System.Web.Mvc.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\System.Web.Optimization.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\System.Web.Razor.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\System.Web.WebPages.Deployment.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\System.Web.WebPages.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\System.Web.WebPages.Razor.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\WebGrease.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\Microsoft.SqlServer.SqlEnum.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\Microsoft.SqlServer.Dmf.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\Microsoft.SqlServer.ServiceBrokerEnum.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\LaboratoryBusiness.pdb
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\LaboratoryBusiness.dll.config
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\EntityFramework.xml
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\EntityFramework.SqlServer.xml
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\Microsoft.AspNet.SignalR.Core.pdb
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\Microsoft.AspNet.SignalR.Core.xml
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\Microsoft.AspNet.SignalR.SystemWeb.pdb
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\Microsoft.Owin.xml
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\Microsoft.Owin.Host.SystemWeb.xml
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\Microsoft.Owin.Security.xml
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\NReco.PdfGenerator.xml
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\System.Net.Http.Formatting.xml
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\System.Web.Http.xml
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\System.Web.Http.WebHost.xml
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\System.Web.Helpers.xml
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\System.Web.Mvc.xml
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\System.Web.Optimization.xml
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\System.Web.Razor.xml
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\System.Web.WebPages.xml
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\System.Web.WebPages.Deployment.xml
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\System.Web.WebPages.Razor.xml
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\Antlr3.Runtime.pdb
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\bin\Newtonsoft.Json.xml
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\obj\Debug\LaboratorySystem.csprojAssemblyReference.cache
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\obj\Debug\LaboratorySystem.csproj.CoreCompileInputs.cache
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\obj\Debug\LaboratorySystem.csproj.CopyComplete
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\obj\Debug\LaboratorySystem.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratorySystem\obj\Debug\LaboratorySystem.pdb
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\LaboratorySystem.dll.config
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\LaboratorySystem.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\LaboratorySystem.pdb
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\Antlr3.Runtime.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\EntityFramework.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\EntityFramework.SqlServer.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\LaboratoryBusiness.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\Microsoft.AspNet.SignalR.Core.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\Microsoft.Owin.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\Microsoft.Owin.Security.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\Microsoft.SqlServer.ConnectionInfo.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\Microsoft.SqlServer.Management.Sdk.Sfc.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\Microsoft.SqlServer.Smo.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\Microsoft.Web.Infrastructure.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\Newtonsoft.Json.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\NReco.PdfGenerator.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\Owin.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\ProxyApi.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\System.IO.Compression.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\System.IO.Compression.FileSystem.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\System.Net.Http.Formatting.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\System.Web.Helpers.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\System.Web.Http.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\System.Web.Http.WebHost.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\System.Web.Mvc.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\System.Web.Optimization.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\System.Web.Razor.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\System.Web.WebPages.Deployment.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\System.Web.WebPages.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\System.Web.WebPages.Razor.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\WebGrease.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\Microsoft.SqlServer.SqlEnum.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\Microsoft.SqlServer.Dmf.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\Microsoft.SqlServer.ServiceBrokerEnum.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\LaboratoryBusiness.pdb
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\LaboratoryBusiness.dll.config
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\EntityFramework.xml
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\EntityFramework.SqlServer.xml
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\Microsoft.AspNet.SignalR.Core.pdb
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\Microsoft.AspNet.SignalR.Core.xml
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\Microsoft.AspNet.SignalR.SystemWeb.pdb
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\Microsoft.Owin.xml
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\Microsoft.Owin.Host.SystemWeb.xml
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\Microsoft.Owin.Security.xml
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\NReco.PdfGenerator.xml
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\System.Net.Http.Formatting.xml
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\System.Web.Http.xml
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\System.Web.Http.WebHost.xml
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\System.Web.Helpers.xml
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\System.Web.Mvc.xml
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\System.Web.Optimization.xml
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\System.Web.Razor.xml
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\System.Web.WebPages.xml
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\System.Web.WebPages.Deployment.xml
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\System.Web.WebPages.Razor.xml
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\Antlr3.Runtime.pdb
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\bin\Newtonsoft.Json.xml
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\obj\Debug\LaboratorySystem.csprojAssemblyReference.cache
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\obj\Debug\LaboratorySystem.csproj.CoreCompileInputs.cache
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\obj\Debug\LaboratorySystem.csproj.CopyComplete
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\obj\Debug\LaboratorySystem.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratorySystem\obj\Debug\LaboratorySystem.pdb

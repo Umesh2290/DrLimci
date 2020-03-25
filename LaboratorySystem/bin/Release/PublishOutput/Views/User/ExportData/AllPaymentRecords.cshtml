@@ -1,0 +1,172 @@
+﻿
+@{
+    ViewBag.Title = "All Payment Records";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<script>
+    var currentmenu = 56;
+
+    $(document).ready(function () {
+
+
+        MakeRequest(_User_ExportData_GetAllPatientRecords, "POST", null, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For SuccessF
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+    var outputdt = {};
+    if (rs.ResponseType == "Simple") {
+        var dt = rs.ResponseData.patientuserjson;
+        outputdt = dt;
+    }
+
+    $('#clientpaymenttable').DataTable({
+        data: outputdt,
+        columns: [
+            { data: 'PatientDetailID' },
+            { data: 'FullName' },
+  { data: 'CreatedDate' },
+            { data: 'Payment' }, 
+            { data: 'PaymentReceiptPdfLink' }
+        ],
+        "columnDefs": [
+{
+    "render": function (data, type, row) {
+        return ConvertDate(row["CreatedDate"]);
+    }
+},
+               
+    
+            {
+                "render": function (data, type, row) {
+                    return "<input type='checkbox' class='form-check downloadcheckbox' value='" + row["PatientDetailID"] + "' /><a href='" + row["PaymentReceiptPdfLink"] + "' target='_blank'>Click here to download</a>";
+                },
+                "targets": 4
+            }
+        ]
+    });
+
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+
+    })
+</script>
+<div class="breadcrumb">
+    <h1 class="mr-2">All Payment Records</h1>
+    <ul>
+        <li><a href="">Export Data</a></li>
+        <li>All Payment Records</li>
+    </ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+<div id="gridarea">
+    <div class="row mb-4">
+
+        <div class="col-md-12 mb-3">
+            <div class="card text-left">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="clientpaymenttable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID #</th>
+                                    <th scope="col">Patient Name</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Payment</th>
+                                    <th scope="col">PDF Link<br /><a href="#" id="alldowloadlink">Download Selected</a><input type="checkbox" class="form-check alldownloadpdf" /></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end of col-->
+    </div>
+</div>
+
+<div id="backbtndiv" style="display:none">
+    <div class="row" style="margin:0 0.83em 0">
+        <div class="offset-md-11"></div>
+        <div class="col-md-1">
+            <button type="button" class="btn btn-gray-300" id="backtogridbtn"><i class="nav-icon i-Back1 "></i>Back</button>
+        </div>
+    </div>
+    <br />
+    <br />
+</div>
+<script>
+    $(document).ready(function () {
+        $("#backtogridbtn").click(function () {
+            $("#detailarea").slideUp();
+            $("#gridarea").slideDown();
+        })
+
+
+        $(document).on('change', '.alldownloadpdf', function () {
+            $(".downloadcheckbox").prop('checked', $(this).prop('checked'));
+        });
+
+
+        $(document).on('change', '.downloadcheckbox', function () {
+            var allcheckboxcount = 0;
+            var allcheckboxcheckedcount = 0;
+            $('.downloadcheckbox').each(function (i, obj) {
+                allcheckboxcount++;
+                if ($(obj).prop('checked')) {
+                    allcheckboxcheckedcount++;
+                }
+            });
+
+            if (allcheckboxcount == allcheckboxcheckedcount) {
+                $(".alldownloadpdf").prop('checked', true);
+            }
+
+            else {
+                $(".alldownloadpdf").prop('checked', false);
+            }
+        })
+
+        $("#alldowloadlink").click(function () {
+            debugger
+            var totalids = "";
+            $('.downloadcheckbox').each(function (i, obj) {
+                if ($(obj).prop('checked')) {
+                    totalids += $(obj).val() + ",";
+                }
+            });
+
+            totalids = totalids.replace(/,\s*$/, "");
+            if (totalids == '') {
+                swal.fire({ title: "Error", icon: "error", html: "Select atleast one payment invoice to download !" });
+                return;
+            }
+            var origin = window.location.origin;
+            var win = window.open(origin + '/' + _User_ExportData_DownloadAllPaymentRecords + '?qr=' + totalids, '_blank');
+            console.log(win);
+            if (win) {
+                //Browser has allowed it to be opened
+                win.focus();
+            } else {
+                //Browser has blocked it
+                alert('Please allow popups for this website');
+            }
+        })
+
+    })
+
+</script>
+

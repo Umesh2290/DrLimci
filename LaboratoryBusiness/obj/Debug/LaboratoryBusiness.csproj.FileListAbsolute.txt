@@ -1,0 +1,34 @@
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratoryBusiness\bin\Debug\LaboratoryBusiness.dll.config
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratoryBusiness\bin\Debug\LaboratoryBusiness.dll
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratoryBusiness\bin\Debug\LaboratoryBusiness.pdb
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratoryBusiness\bin\Debug\EntityFramework.dll
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratoryBusiness\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratoryBusiness\bin\Debug\EntityFramework.xml
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratoryBusiness\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratoryBusiness\obj\Debug\LaboratoryBusiness.csprojResolveAssemblyReference.cache
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratoryBusiness\obj\Debug\LaboratoryBusiness.dll
+C:\Users\muhammad.ahmedraza\Desktop\LaboratorySystem\LaboratoryBusiness\obj\Debug\LaboratoryBusiness.pdb
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratoryBusiness\bin\Debug\LaboratoryBusiness.dll.config
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratoryBusiness\bin\Debug\LaboratoryBusiness.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratoryBusiness\bin\Debug\LaboratoryBusiness.pdb
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratoryBusiness\bin\Debug\EntityFramework.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratoryBusiness\bin\Debug\EntityFramework.SqlServer.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratoryBusiness\bin\Debug\EntityFramework.xml
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratoryBusiness\bin\Debug\EntityFramework.SqlServer.xml
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratoryBusiness\obj\Debug\LaboratoryBusiness.csproj.CoreCompileInputs.cache
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratoryBusiness\obj\Debug\LaboratoryBusiness.csproj.CopyComplete
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratoryBusiness\obj\Debug\LaboratoryBusiness.dll
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratoryBusiness\obj\Debug\LaboratoryBusiness.pdb
+D:\Client Projects\Limci\LaboratorySystem 1603202000\LaboratorySystem\LaboratoryBusiness\obj\Debug\LaboratoryBusiness.csprojAssemblyReference.cache
+D:\Client Projects\Limci\LaboratorySystem\LaboratoryBusiness\bin\Debug\LaboratoryBusiness.dll.config
+D:\Client Projects\Limci\LaboratorySystem\LaboratoryBusiness\bin\Debug\LaboratoryBusiness.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratoryBusiness\bin\Debug\LaboratoryBusiness.pdb
+D:\Client Projects\Limci\LaboratorySystem\LaboratoryBusiness\bin\Debug\EntityFramework.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratoryBusiness\bin\Debug\EntityFramework.SqlServer.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratoryBusiness\bin\Debug\EntityFramework.xml
+D:\Client Projects\Limci\LaboratorySystem\LaboratoryBusiness\bin\Debug\EntityFramework.SqlServer.xml
+D:\Client Projects\Limci\LaboratorySystem\LaboratoryBusiness\obj\Debug\LaboratoryBusiness.csprojAssemblyReference.cache
+D:\Client Projects\Limci\LaboratorySystem\LaboratoryBusiness\obj\Debug\LaboratoryBusiness.csproj.CoreCompileInputs.cache
+D:\Client Projects\Limci\LaboratorySystem\LaboratoryBusiness\obj\Debug\LaboratoryBusiness.csproj.CopyComplete
+D:\Client Projects\Limci\LaboratorySystem\LaboratoryBusiness\obj\Debug\LaboratoryBusiness.dll
+D:\Client Projects\Limci\LaboratorySystem\LaboratoryBusiness\obj\Debug\LaboratoryBusiness.pdb

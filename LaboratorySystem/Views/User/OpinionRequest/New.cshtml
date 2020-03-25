@@ -1,0 +1,128 @@
+﻿
+@{
+    ViewBag.Title = "New Opinion Request";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<script>
+    var currentmenu = 43;
+</script>
+<div class="breadcrumb">
+    <h1 class="mr-2" id="mainheading">New</h1>
+    <ul>
+        <li><a href="">Opinion Request</a></li>
+        <li id="subheading">New</li>
+    </ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+<div class="2-columns-form-layout">
+    <div class="">
+        <div class="row">
+            <div class="col-lg-12">
+                <!--begin::form 3 Horizontal-->
+                <form id="opinionrequestform">
+                    <!-- start card 3 Columns Horizontal Form Layout-->
+                    <div class="card ul-card__margin-25">
+                        <div class="card-header bg-transparent">
+                            <h3 class="card-title" id="cardheading">New Opinion Request</h3>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label for="patientdetails" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Patient Details:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <textarea class="form-control" id="patientdetails" name="patientdetails" required="required" placeholder="Enter patient details"></textarea>
+                                    <small id="patientdetailshelpblock" class="ul-form__text form-text ">
+                                        Please enter patient details
+                                    </small>
+                                </div>
+
+
+                                <label for="sampleanalysisdetails" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Sample Analysis Details:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <textarea class="form-control" id="sampleanalysisdetails" name="sampleanalysisdetails" required="required" placeholder="Enter sample analysis details"></textarea>
+                                    <small id="sampleanalysisdetailshelpblock" class="ul-form__text form-text ">
+                                        Please enter sample analysis details
+                                    </small>
+</div>
+
+                                <label for="opinionneededdescription" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Opinion Needed Description:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <textarea class="form-control" id="opinionneededdescription" name="opinionneededdescription" required="required" placeholder="Enter opinion needed description"></textarea>
+                                        <small id="opinionneededdescriptionhelpblock" class="ul-form__text form-text ">
+                                            Please enter opinion needed description
+                                        </small>
+</div>
+
+                            </div>
+
+
+                        </div>
+                        <div class="card-footer">
+                            <div class="mc-footer">
+                                <div class="row text-center">
+                                    <div class="col-lg-12 ">
+                                        <button type="submit" class="btn btn-primary m-1" id="saveorupdatebtn">Request</button>
+                                        <button type="reset" class="btn btn-outline-secondary m-1" id="cancelbtn">Reset</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card 3 Columns Horizontal Form Layout-->
+                </form>
+                <!-- end::form 3-->
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#saveorupdatebtn").click(function () {
+            var form = document.querySelector('#opinionrequestform');
+            if (form.reportValidity()) {
+
+                var _posturl = _User_OpinionRequest_CreateNew;
+
+                MakeRequest(_posturl, "POST", objectifyForm($("#opinionrequestform").serializeArray()), "json",
+                    function (jqXHR, settings) {
+                        //For Before Send
+                        $('.loadscreen').fadeIn();
+                    },
+                    function (data, status, xhr) {
+                        //For Success
+
+                        $('.loadscreen').fadeOut();
+
+                        var rs = WebResponse(data);
+                        if (rs.ResponseType == "swal-sucsess") {
+                            $("#opinionrequestform").trigger("reset");
+                            setTimeout(function () {
+                                window.location.replace("/User/OpinionRequest/Pending");
+                            }, 2500);
+                        }
+                    },
+                function (jqXhr, textStatus, errorMessage) {
+                    //For Error
+                    $('.loadscreen').fadeOut();
+                    WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                });
+            }
+            return false;
+        })
+    })
+</script>

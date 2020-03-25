@@ -1,0 +1,1545 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="LabSystemClient_RajLabModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Tbl_Cl_AdminDetail">
+          <Key>
+            <PropertyRef Name="AdminDetailID" />
+          </Key>
+          <Property Name="AdminDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientUserID" Type="int" />
+          <Property Name="SystemClientID" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_ClientUser">
+          <Key>
+            <PropertyRef Name="ClientUserID" />
+          </Key>
+          <Property Name="ClientUserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="250" />
+          <Property Name="Password" Type="varchar(max)" />
+          <Property Name="FirstName" Type="varchar(max)" />
+          <Property Name="LastName" Type="varchar(max)" />
+          <Property Name="Email" Type="varchar(max)" />
+          <Property Name="MobileNo" Type="varchar(max)" />
+          <Property Name="Address" Type="varchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="ProfilePic" Type="varchar(max)" />
+          <Property Name="DetailID" Type="int" />
+          <Property Name="DetailType" Type="int" />
+          <Property Name="IsBlock" Type="bit" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_ClientUserAttachmentDetail">
+          <Key>
+            <PropertyRef Name="AttachmentID" />
+          </Key>
+          <Property Name="AttachmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AttachmentName" Type="varchar(max)" />
+          <Property Name="Link" Type="varchar(max)" />
+          <Property Name="Extension" Type="varchar" MaxLength="50" />
+          <Property Name="UserDetailID" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_ClientUserDetail">
+          <Key>
+            <PropertyRef Name="UserDetailID" />
+          </Key>
+          <Property Name="UserDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="JoiningDate" Type="date" />
+          <Property Name="TerminationDate" Type="date" />
+          <Property Name="TerminationReason" Type="varchar(max)" />
+          <Property Name="Qualifications" Type="varchar(max)" />
+          <Property Name="TypeOfCollection" Type="varchar(max)" />
+          <Property Name="License" Type="varchar(max)" />
+          <Property Name="IsFulltime" Type="bit" />
+          <Property Name="PdfLink" Type="varchar(max)" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_ClientUserType">
+          <Key>
+            <PropertyRef Name="ClientUserTypeID" />
+          </Key>
+          <Property Name="ClientUserTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeName" Type="varchar(max)" />
+          <Property Name="Description" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_ExtraWorkAttachment">
+          <Key>
+            <PropertyRef Name="ExtraWorkAttachmentID" />
+          </Key>
+          <Property Name="ExtraWorkAttachmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar(max)" />
+          <Property Name="Extension" Type="varchar" MaxLength="250" />
+          <Property Name="Link" Type="varchar(max)" />
+          <Property Name="ExtraWorkID" Type="int" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_ExtraWorkRequest">
+          <Key>
+            <PropertyRef Name="ExtraWorkID" />
+          </Key>
+          <Property Name="ExtraWorkID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TestID" Type="int" Nullable="false" />
+          <Property Name="H_ELevels" Type="varchar(max)" />
+          <Property Name="SpecialStains" Type="varchar(max)" />
+          <Property Name="ImmunoHistoChemistry" Type="varchar(max)" />
+          <Property Name="Others" Type="varchar(max)" />
+          <Property Name="StatusID" Type="int" />
+          <Property Name="RequestCreatedDate" Type="datetime" />
+          <Property Name="RequestCreatedBy" Type="int" />
+          <Property Name="NewActionDate" Type="datetime" />
+          <Property Name="NewActionBy" Type="int" />
+          <Property Name="NewActionStatusID" Type="int" />
+          <Property Name="NewActionComments" Type="varchar(max)" />
+          <Property Name="PendingActionBy" Type="int" />
+          <Property Name="PendingActionDate" Type="datetime" />
+          <Property Name="PendingActionComments" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_ExtraWorkRequestStatus">
+          <Key>
+            <PropertyRef Name="WorkRequestStatusID" />
+          </Key>
+          <Property Name="WorkRequestStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StatusName" Type="varchar" MaxLength="250" />
+          <Property Name="Description" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_ForgetPassword">
+          <Key>
+            <PropertyRef Name="ForgetPasswordID" />
+          </Key>
+          <Property Name="ForgetPasswordID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UniqueCode" Type="varchar(max)" />
+          <Property Name="ClientUserID" Type="int" />
+          <Property Name="ExpiresInMinutes" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_HospitalDetail">
+          <Key>
+            <PropertyRef Name="HospitalDetailID" />
+          </Key>
+          <Property Name="HospitalDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HospitalName" Type="varchar(max)" />
+          <Property Name="Address" Type="varchar(max)" />
+          <Property Name="City" Type="varchar(max)" />
+          <Property Name="PhoneNo" Type="varchar(max)" />
+          <Property Name="FaxNo" Type="varchar(max)" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_IncorrectPasswordAttempt">
+          <Key>
+            <PropertyRef Name="IncorrectPasswordID" />
+          </Key>
+          <Property Name="IncorrectPasswordID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientUserID" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="Password" Type="varchar(max)" />
+          <Property Name="IsInclude" Type="bit" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_Inventory">
+          <Key>
+            <PropertyRef Name="InventoryID" />
+          </Key>
+          <Property Name="InventoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemName" Type="varchar(max)" />
+          <Property Name="Code" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="QuantityOrdered" Type="varchar" MaxLength="100" />
+          <Property Name="QuantityLeft" Type="varchar" MaxLength="100" />
+          <Property Name="OrderedHistory" Type="varchar(max)" />
+          <Property Name="ExpiryDate" Type="date" />
+          <Property Name="InventoryStatusID" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_InventoryRequest">
+          <Key>
+            <PropertyRef Name="InventoryRequestID" />
+          </Key>
+          <Property Name="InventoryRequestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemName" Type="varchar(max)" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="Comments" Type="varchar(max)" />
+          <Property Name="Quantity" Type="varchar" MaxLength="100" />
+          <Property Name="StatusID" Type="int" />
+          <Property Name="RequestCreatedDate" Type="datetime" />
+          <Property Name="RequestCreatedBy" Type="int" />
+          <Property Name="OpenActionBy" Type="int" />
+          <Property Name="OpenActionDate" Type="datetime" />
+          <Property Name="OpenActionStatusID" Type="int" />
+          <Property Name="OpenActionComments" Type="varchar(max)" />
+          <Property Name="ProgressActionBy" Type="int" />
+          <Property Name="ProgressActionDate" Type="datetime" />
+          <Property Name="ProgressActionComments" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_InventoryRequestStatus">
+          <Key>
+            <PropertyRef Name="InventoryRequestStatusID" />
+          </Key>
+          <Property Name="InventoryRequestStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StatusName" Type="varchar(max)" />
+          <Property Name="Description" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_InventoryStatusType">
+          <Key>
+            <PropertyRef Name="InventoryStatusTypeID" />
+          </Key>
+          <Property Name="InventoryStatusTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StatusName" Type="varchar" MaxLength="150" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_Menu">
+          <Key>
+            <PropertyRef Name="MenuID" />
+          </Key>
+          <Property Name="MenuID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MenuName" Type="varchar" MaxLength="400" />
+          <Property Name="Description" Type="varchar" MaxLength="400" />
+          <Property Name="ParentID" Type="int" />
+          <Property Name="Icon" Type="varchar" MaxLength="400" />
+          <Property Name="ToolTip" Type="varchar" MaxLength="500" />
+          <Property Name="Link" Type="varchar" MaxLength="400" />
+          <Property Name="IsViewable" Type="bit" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_MenuAssignment">
+          <Key>
+            <PropertyRef Name="AssignmentID" />
+          </Key>
+          <Property Name="AssignmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MenuID" Type="int" />
+          <Property Name="RoleID" Type="int" />
+          <Property Name="EmployeeID" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_Notification">
+          <Key>
+            <PropertyRef Name="NotificationID" />
+          </Key>
+          <Property Name="NotificationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="400" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="Icon" Type="varchar(max)" />
+          <Property Name="Type" Type="varchar" MaxLength="400" />
+          <Property Name="ClickLink" Type="varchar" MaxLength="400" />
+          <Property Name="CreatedDatetime" Type="datetime" />
+          <Property Name="Isviewed" Type="bit" />
+          <Property Name="ViewedDatetime" Type="datetime" />
+          <Property Name="EmployeeID" Type="int" />
+          <Property Name="CreatedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_OpinionRequest">
+          <Key>
+            <PropertyRef Name="OpinionRequestID" />
+          </Key>
+          <Property Name="OpinionRequestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PatientDetails" Type="varchar(max)" />
+          <Property Name="SampleAnalysisDetails" Type="varchar(max)" />
+          <Property Name="OpinionNeededDescription" Type="varchar(max)" />
+          <Property Name="ConsultationOpinion" Type="varchar(max)" />
+          <Property Name="SystemOpinionRequestID" Type="int" />
+          <Property Name="StatusID" Type="int" />
+          <Property Name="OpinionBy" Type="varchar(max)" />
+          <Property Name="CommentForRequester" Type="varchar(max)" />
+          <Property Name="IsPublish" Type="bit" />
+          <Property Name="RequestCreatedDate" Type="datetime" />
+          <Property Name="RequestCreatedBy" Type="int" />
+          <Property Name="NewActionDate" Type="datetime" />
+          <Property Name="NewActionBy" Type="int" />
+          <Property Name="NewActionStatusID" Type="int" />
+          <Property Name="NewActionComments" Type="varchar(max)" />
+          <Property Name="PendingActionBy" Type="int" />
+          <Property Name="PendingActionDate" Type="datetime" />
+          <Property Name="PendingActionComments" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_OpinionRequestStatus">
+          <Key>
+            <PropertyRef Name="OpinionRequestStatusID" />
+          </Key>
+          <Property Name="OpinionRequestStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="250" />
+          <Property Name="Description" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_PatientDetail">
+          <Key>
+            <PropertyRef Name="PatientDetailID" />
+          </Key>
+          <Property Name="PatientDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MiddleName" Type="varchar(max)" />
+          <Property Name="Age" Type="varchar" MaxLength="50" />
+          <Property Name="Sex" Type="varchar" MaxLength="50" />
+          <Property Name="Streetname" Type="varchar(max)" />
+          <Property Name="City" Type="varchar(max)" />
+          <Property Name="AlternateAddress" Type="varchar(max)" />
+          <Property Name="AlternatePhoneNo" Type="varchar(max)" />
+          <Property Name="ReferingDoctor" Type="varchar" MaxLength="250" />
+          <Property Name="ReferingHospital" Type="varchar(max)" />
+          <Property Name="PaymentMode" Type="varchar" MaxLength="250" />
+          <Property Name="Payment" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="PdfLink" Type="varchar(max)" />
+          <Property Name="PaymentReceiptPdfLink" Type="varchar(max)" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="varchar" MaxLength="400" />
+          <Property Name="Description" Type="varchar" MaxLength="400" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_RoleMapping">
+          <Key>
+            <PropertyRef Name="RoleMappingID" />
+          </Key>
+          <Property Name="RoleMappingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleID" Type="int" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="IsDefault" Type="bit" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_SectionRestriction">
+          <Key>
+            <PropertyRef Name="SectionID" />
+          </Key>
+          <Property Name="SectionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SectionSelector" Type="varchar(max)" />
+          <Property Name="MenuID" Type="int" />
+          <Property Name="EmployeeID" Type="int" />
+          <Property Name="RoleID" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_Test">
+          <Key>
+            <PropertyRef Name="TestID" />
+          </Key>
+          <Property Name="TestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TestName" Type="varchar(max)" />
+          <Property Name="IsSampleRequired" Type="bit" />
+          <Property Name="ComplaintHistory" Type="varchar(max)" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="PatientUserID" Type="int" />
+          <Property Name="TestStatusID" Type="int" />
+          <Property Name="IsSampleCollected" Type="bit" />
+          <Property Name="SampleLabel" Type="varchar(max)" />
+          <Property Name="SampleCode" Type="varchar(max)" />
+          <Property Name="SampleType" Type="varchar(max)" />
+          <Property Name="IsPublish" Type="bit" />
+          <Property Name="PdfLink" Type="varchar(max)" />
+          <Property Name="TestCreatedDate" Type="datetime" />
+          <Property Name="TestCreatedBy" Type="int" />
+          <Property Name="SampleCollectionDate" Type="datetime" />
+          <Property Name="SampleCollectionBy" Type="int" />
+          <Property Name="AnalysisDate" Type="datetime" />
+          <Property Name="AnalysisBy" Type="int" />
+          <Property Name="ConclusionDate" Type="datetime" />
+          <Property Name="ConclusionBy" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_TestAttachment">
+          <Key>
+            <PropertyRef Name="TestAttachmentID" />
+          </Key>
+          <Property Name="TestAttachmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar(max)" />
+          <Property Name="Extension" Type="varchar" MaxLength="100" />
+          <Property Name="Link" Type="varchar(max)" />
+          <Property Name="TestID" Type="int" />
+          <Property Name="AttachmentTypeID" Type="int" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_TestAttachmentType">
+          <Key>
+            <PropertyRef Name="TestAttachmentTypeID" />
+          </Key>
+          <Property Name="TestAttachmentTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="250" />
+          <Property Name="Description" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_TestConclusion">
+          <Key>
+            <PropertyRef Name="TestConclusionID" />
+          </Key>
+          <Property Name="TestConclusionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TestReportTypeID" Type="int" />
+          <Property Name="TestID" Type="int" />
+          <Property Name="SpecimenDetails" Type="varchar(max)" />
+          <Property Name="ClinicalDetails" Type="varchar(max)" />
+          <Property Name="Microscopy" Type="varchar(max)" />
+          <Property Name="Macroscopy" Type="varchar(max)" />
+          <Property Name="Conclusion" Type="varchar(max)" />
+          <Property Name="SnomedCoding" Type="varchar(max)" />
+          <Property Name="SampleDescription" Type="varchar(max)" />
+          <Property Name="Report" Type="varchar(max)" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_TestInvestigation">
+          <Key>
+            <PropertyRef Name="InvestigationID" />
+          </Key>
+          <Property Name="InvestigationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InvestigationName" Type="varchar(max)" />
+          <Property Name="Value" Type="varchar(max)" />
+          <Property Name="Range" Type="varchar(max)" />
+          <Property Name="InvestigationResult" Type="varchar(max)" />
+          <Property Name="ExtraWorkID" Type="int" />
+          <Property Name="TestID" Type="int" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_TestReportType">
+          <Key>
+            <PropertyRef Name="TestReportTypeID" />
+          </Key>
+          <Property Name="TestReportTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar(max)" />
+          <Property Name="Description" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_TestStatus">
+          <Key>
+            <PropertyRef Name="TestStatusID" />
+          </Key>
+          <Property Name="TestStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StatusName" Type="varchar(max)" />
+          <Property Name="Description" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_TestSupplementReport">
+          <Key>
+            <PropertyRef Name="TestSupplementReportID" />
+          </Key>
+          <Property Name="TestSupplementReportID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TestReportTypeID" Type="int" />
+          <Property Name="TestID" Type="int" />
+          <Property Name="SpecimenDetails" Type="varchar(max)" />
+          <Property Name="ClinicalDetails" Type="varchar(max)" />
+          <Property Name="Microscopy" Type="varchar(max)" />
+          <Property Name="Macroscopy" Type="varchar(max)" />
+          <Property Name="SupplementReportConclusion" Type="varchar(max)" />
+          <Property Name="SnomedCoding" Type="varchar(max)" />
+          <Property Name="SampleDescription" Type="varchar(max)" />
+          <Property Name="Report" Type="varchar(max)" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityContainer Name="LabSystemClient_RajLabModelStoreContainer">
+          <EntitySet Name="Tbl_Cl_AdminDetail" EntityType="Self.Tbl_Cl_AdminDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_ClientUser" EntityType="Self.Tbl_Cl_ClientUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_ClientUserAttachmentDetail" EntityType="Self.Tbl_Cl_ClientUserAttachmentDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_ClientUserDetail" EntityType="Self.Tbl_Cl_ClientUserDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_ClientUserType" EntityType="Self.Tbl_Cl_ClientUserType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_ExtraWorkAttachment" EntityType="Self.Tbl_Cl_ExtraWorkAttachment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_ExtraWorkRequest" EntityType="Self.Tbl_Cl_ExtraWorkRequest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_ExtraWorkRequestStatus" EntityType="Self.Tbl_Cl_ExtraWorkRequestStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_ForgetPassword" EntityType="Self.Tbl_Cl_ForgetPassword" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_HospitalDetail" EntityType="Self.Tbl_Cl_HospitalDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_IncorrectPasswordAttempt" EntityType="Self.Tbl_Cl_IncorrectPasswordAttempt" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_Inventory" EntityType="Self.Tbl_Cl_Inventory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_InventoryRequest" EntityType="Self.Tbl_Cl_InventoryRequest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_InventoryRequestStatus" EntityType="Self.Tbl_Cl_InventoryRequestStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_InventoryStatusType" EntityType="Self.Tbl_Cl_InventoryStatusType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_Menu" EntityType="Self.Tbl_Cl_Menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_MenuAssignment" EntityType="Self.Tbl_Cl_MenuAssignment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_Notification" EntityType="Self.Tbl_Cl_Notification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_OpinionRequest" EntityType="Self.Tbl_Cl_OpinionRequest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_OpinionRequestStatus" EntityType="Self.Tbl_Cl_OpinionRequestStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_PatientDetail" EntityType="Self.Tbl_Cl_PatientDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_Role" EntityType="Self.Tbl_Cl_Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_RoleMapping" EntityType="Self.Tbl_Cl_RoleMapping" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_SectionRestriction" EntityType="Self.Tbl_Cl_SectionRestriction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_Test" EntityType="Self.Tbl_Cl_Test" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_TestAttachment" EntityType="Self.Tbl_Cl_TestAttachment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_TestAttachmentType" EntityType="Self.Tbl_Cl_TestAttachmentType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_TestConclusion" EntityType="Self.Tbl_Cl_TestConclusion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_TestInvestigation" EntityType="Self.Tbl_Cl_TestInvestigation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_TestReportType" EntityType="Self.Tbl_Cl_TestReportType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_TestStatus" EntityType="Self.Tbl_Cl_TestStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_TestSupplementReport" EntityType="Self.Tbl_Cl_TestSupplementReport" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LabSystemClient_RajLabModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Tbl_Cl_AdminDetail">
+          <Key>
+            <PropertyRef Name="AdminDetailID" />
+          </Key>
+          <Property Name="AdminDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientUserID" Type="Int32" />
+          <Property Name="SystemClientID" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_ClientUser">
+          <Key>
+            <PropertyRef Name="ClientUserID" />
+          </Key>
+          <Property Name="ClientUserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MobileNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="ProfilePic" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DetailID" Type="Int32" />
+          <Property Name="DetailType" Type="Int32" />
+          <Property Name="IsBlock" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_ClientUserAttachmentDetail">
+          <Key>
+            <PropertyRef Name="AttachmentID" />
+          </Key>
+          <Property Name="AttachmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AttachmentName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Link" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Extension" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserDetailID" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_ClientUserDetail">
+          <Key>
+            <PropertyRef Name="UserDetailID" />
+          </Key>
+          <Property Name="UserDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JoiningDate" Type="DateTime" Precision="0" />
+          <Property Name="TerminationDate" Type="DateTime" Precision="0" />
+          <Property Name="TerminationReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Qualifications" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TypeOfCollection" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="License" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsFulltime" Type="Boolean" />
+          <Property Name="PdfLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_ClientUserType">
+          <Key>
+            <PropertyRef Name="ClientUserTypeID" />
+          </Key>
+          <Property Name="ClientUserTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_ExtraWorkAttachment">
+          <Key>
+            <PropertyRef Name="ExtraWorkAttachmentID" />
+          </Key>
+          <Property Name="ExtraWorkAttachmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Extension" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Link" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ExtraWorkID" Type="Int32" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_ExtraWorkRequest">
+          <Key>
+            <PropertyRef Name="ExtraWorkID" />
+          </Key>
+          <Property Name="ExtraWorkID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TestID" Type="Int32" Nullable="false" />
+          <Property Name="H_ELevels" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SpecialStains" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ImmunoHistoChemistry" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Others" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="StatusID" Type="Int32" />
+          <Property Name="RequestCreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="RequestCreatedBy" Type="Int32" />
+          <Property Name="NewActionDate" Type="DateTime" Precision="3" />
+          <Property Name="NewActionBy" Type="Int32" />
+          <Property Name="NewActionStatusID" Type="Int32" />
+          <Property Name="NewActionComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PendingActionBy" Type="Int32" />
+          <Property Name="PendingActionDate" Type="DateTime" Precision="3" />
+          <Property Name="PendingActionComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_ExtraWorkRequestStatus">
+          <Key>
+            <PropertyRef Name="WorkRequestStatusID" />
+          </Key>
+          <Property Name="WorkRequestStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_ForgetPassword">
+          <Key>
+            <PropertyRef Name="ForgetPasswordID" />
+          </Key>
+          <Property Name="ForgetPasswordID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UniqueCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ClientUserID" Type="Int32" />
+          <Property Name="ExpiresInMinutes" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_IncorrectPasswordAttempt">
+          <Key>
+            <PropertyRef Name="IncorrectPasswordID" />
+          </Key>
+          <Property Name="IncorrectPasswordID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientUserID" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsInclude" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_Inventory">
+          <Key>
+            <PropertyRef Name="InventoryID" />
+          </Key>
+          <Property Name="InventoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="QuantityOrdered" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="QuantityLeft" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="OrderedHistory" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ExpiryDate" Type="DateTime" Precision="0" />
+          <Property Name="InventoryStatusID" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_InventoryRequest">
+          <Key>
+            <PropertyRef Name="InventoryRequestID" />
+          </Key>
+          <Property Name="InventoryRequestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StatusID" Type="Int32" />
+          <Property Name="RequestCreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="RequestCreatedBy" Type="Int32" />
+          <Property Name="OpenActionBy" Type="Int32" />
+          <Property Name="OpenActionDate" Type="DateTime" Precision="3" />
+          <Property Name="OpenActionStatusID" Type="Int32" />
+          <Property Name="OpenActionComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProgressActionBy" Type="Int32" />
+          <Property Name="ProgressActionDate" Type="DateTime" Precision="3" />
+          <Property Name="ProgressActionComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_InventoryRequestStatus">
+          <Key>
+            <PropertyRef Name="InventoryRequestStatusID" />
+          </Key>
+          <Property Name="InventoryRequestStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_InventoryStatusType">
+          <Key>
+            <PropertyRef Name="InventoryStatusTypeID" />
+          </Key>
+          <Property Name="InventoryStatusTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_Menu">
+          <Key>
+            <PropertyRef Name="MenuID" />
+          </Key>
+          <Property Name="MenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuName" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="ParentID" Type="Int32" />
+          <Property Name="Icon" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="ToolTip" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Link" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="IsViewable" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_MenuAssignment">
+          <Key>
+            <PropertyRef Name="AssignmentID" />
+          </Key>
+          <Property Name="AssignmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuID" Type="Int32" />
+          <Property Name="RoleID" Type="Int32" />
+          <Property Name="EmployeeID" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_Notification">
+          <Key>
+            <PropertyRef Name="NotificationID" />
+          </Key>
+          <Property Name="NotificationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Icon" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="ClickLink" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDatetime" Type="DateTime" Precision="3" />
+          <Property Name="Isviewed" Type="Boolean" />
+          <Property Name="ViewedDatetime" Type="DateTime" Precision="3" />
+          <Property Name="EmployeeID" Type="Int32" />
+          <Property Name="CreatedBy" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_OpinionRequest">
+          <Key>
+            <PropertyRef Name="OpinionRequestID" />
+          </Key>
+          <Property Name="OpinionRequestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PatientDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SampleAnalysisDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="OpinionNeededDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ConsultationOpinion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SystemOpinionRequestID" Type="Int32" />
+          <Property Name="StatusID" Type="Int32" />
+          <Property Name="OpinionBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CommentForRequester" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsPublish" Type="Boolean" />
+          <Property Name="RequestCreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="RequestCreatedBy" Type="Int32" />
+          <Property Name="NewActionDate" Type="DateTime" Precision="3" />
+          <Property Name="NewActionBy" Type="Int32" />
+          <Property Name="NewActionStatusID" Type="Int32" />
+          <Property Name="NewActionComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PendingActionBy" Type="Int32" />
+          <Property Name="PendingActionDate" Type="DateTime" Precision="3" />
+          <Property Name="PendingActionComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_OpinionRequestStatus">
+          <Key>
+            <PropertyRef Name="OpinionRequestStatusID" />
+          </Key>
+          <Property Name="OpinionRequestStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_PatientDetail">
+          <Key>
+            <PropertyRef Name="PatientDetailID" />
+          </Key>
+          <Property Name="PatientDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MiddleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Age" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Streetname" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AlternateAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AlternatePhoneNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ReferingDoctor" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ReferingHospital" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PaymentMode" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Payment" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="PdfLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PaymentReceiptPdfLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_RoleMapping">
+          <Key>
+            <PropertyRef Name="RoleMappingID" />
+          </Key>
+          <Property Name="RoleMappingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleID" Type="Int32" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="IsDefault" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_SectionRestriction">
+          <Key>
+            <PropertyRef Name="SectionID" />
+          </Key>
+          <Property Name="SectionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SectionSelector" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MenuID" Type="Int32" />
+          <Property Name="EmployeeID" Type="Int32" />
+          <Property Name="RoleID" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_Test">
+          <Key>
+            <PropertyRef Name="TestID" />
+          </Key>
+          <Property Name="TestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TestName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsSampleRequired" Type="Boolean" />
+          <Property Name="ComplaintHistory" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PatientUserID" Type="Int32" />
+          <Property Name="TestStatusID" Type="Int32" />
+          <Property Name="IsSampleCollected" Type="Boolean" />
+          <Property Name="SampleLabel" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SampleCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SampleType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsPublish" Type="Boolean" />
+          <Property Name="PdfLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TestCreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="TestCreatedBy" Type="Int32" />
+          <Property Name="SampleCollectionDate" Type="DateTime" Precision="3" />
+          <Property Name="SampleCollectionBy" Type="Int32" />
+          <Property Name="AnalysisDate" Type="DateTime" Precision="3" />
+          <Property Name="AnalysisBy" Type="Int32" />
+          <Property Name="ConclusionDate" Type="DateTime" Precision="3" />
+          <Property Name="ConclusionBy" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_TestAttachment">
+          <Key>
+            <PropertyRef Name="TestAttachmentID" />
+          </Key>
+          <Property Name="TestAttachmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Extension" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Link" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TestID" Type="Int32" />
+          <Property Name="AttachmentTypeID" Type="Int32" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_TestAttachmentType">
+          <Key>
+            <PropertyRef Name="TestAttachmentTypeID" />
+          </Key>
+          <Property Name="TestAttachmentTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_TestConclusion">
+          <Key>
+            <PropertyRef Name="TestConclusionID" />
+          </Key>
+          <Property Name="TestConclusionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TestReportTypeID" Type="Int32" />
+          <Property Name="TestID" Type="Int32" />
+          <Property Name="SpecimenDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ClinicalDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Microscopy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Macroscopy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Conclusion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SnomedCoding" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SampleDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Report" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_TestInvestigation">
+          <Key>
+            <PropertyRef Name="InvestigationID" />
+          </Key>
+          <Property Name="InvestigationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InvestigationName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Range" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="InvestigationResult" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ExtraWorkID" Type="Int32" />
+          <Property Name="TestID" Type="Int32" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_TestReportType">
+          <Key>
+            <PropertyRef Name="TestReportTypeID" />
+          </Key>
+          <Property Name="TestReportTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_TestStatus">
+          <Key>
+            <PropertyRef Name="TestStatusID" />
+          </Key>
+          <Property Name="TestStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_TestSupplementReport">
+          <Key>
+            <PropertyRef Name="TestSupplementReportID" />
+          </Key>
+          <Property Name="TestSupplementReportID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TestReportTypeID" Type="Int32" />
+          <Property Name="TestID" Type="Int32" />
+          <Property Name="SpecimenDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ClinicalDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Microscopy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Macroscopy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SupplementReportConclusion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SnomedCoding" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SampleDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Report" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityContainer Name="LabSystemClient_RajLabEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Tbl_Cl_AdminDetail" EntityType="Self.Tbl_Cl_AdminDetail" />
+          <EntitySet Name="Tbl_Cl_ClientUser" EntityType="Self.Tbl_Cl_ClientUser" />
+          <EntitySet Name="Tbl_Cl_ClientUserAttachmentDetail" EntityType="Self.Tbl_Cl_ClientUserAttachmentDetail" />
+          <EntitySet Name="Tbl_Cl_ClientUserDetail" EntityType="Self.Tbl_Cl_ClientUserDetail" />
+          <EntitySet Name="Tbl_Cl_ClientUserType" EntityType="Self.Tbl_Cl_ClientUserType" />
+          <EntitySet Name="Tbl_Cl_ExtraWorkAttachment" EntityType="Self.Tbl_Cl_ExtraWorkAttachment" />
+          <EntitySet Name="Tbl_Cl_ExtraWorkRequest" EntityType="Self.Tbl_Cl_ExtraWorkRequest" />
+          <EntitySet Name="Tbl_Cl_ExtraWorkRequestStatus" EntityType="Self.Tbl_Cl_ExtraWorkRequestStatus" />
+          <EntitySet Name="Tbl_Cl_ForgetPassword" EntityType="Self.Tbl_Cl_ForgetPassword" />
+          <EntitySet Name="Tbl_Cl_IncorrectPasswordAttempt" EntityType="Self.Tbl_Cl_IncorrectPasswordAttempt" />
+          <EntitySet Name="Tbl_Cl_Inventory" EntityType="Self.Tbl_Cl_Inventory" />
+          <EntitySet Name="Tbl_Cl_InventoryRequest" EntityType="Self.Tbl_Cl_InventoryRequest" />
+          <EntitySet Name="Tbl_Cl_InventoryRequestStatus" EntityType="Self.Tbl_Cl_InventoryRequestStatus" />
+          <EntitySet Name="Tbl_Cl_InventoryStatusType" EntityType="Self.Tbl_Cl_InventoryStatusType" />
+          <EntitySet Name="Tbl_Cl_Menu" EntityType="Self.Tbl_Cl_Menu" />
+          <EntitySet Name="Tbl_Cl_MenuAssignment" EntityType="Self.Tbl_Cl_MenuAssignment" />
+          <EntitySet Name="Tbl_Cl_Notification" EntityType="Self.Tbl_Cl_Notification" />
+          <EntitySet Name="Tbl_Cl_OpinionRequest" EntityType="Self.Tbl_Cl_OpinionRequest" />
+          <EntitySet Name="Tbl_Cl_OpinionRequestStatus" EntityType="Self.Tbl_Cl_OpinionRequestStatus" />
+          <EntitySet Name="Tbl_Cl_PatientDetail" EntityType="Self.Tbl_Cl_PatientDetail" />
+          <EntitySet Name="Tbl_Cl_Role" EntityType="Self.Tbl_Cl_Role" />
+          <EntitySet Name="Tbl_Cl_RoleMapping" EntityType="Self.Tbl_Cl_RoleMapping" />
+          <EntitySet Name="Tbl_Cl_SectionRestriction" EntityType="Self.Tbl_Cl_SectionRestriction" />
+          <EntitySet Name="Tbl_Cl_Test" EntityType="Self.Tbl_Cl_Test" />
+          <EntitySet Name="Tbl_Cl_TestAttachment" EntityType="Self.Tbl_Cl_TestAttachment" />
+          <EntitySet Name="Tbl_Cl_TestAttachmentType" EntityType="Self.Tbl_Cl_TestAttachmentType" />
+          <EntitySet Name="Tbl_Cl_TestConclusion" EntityType="Self.Tbl_Cl_TestConclusion" />
+          <EntitySet Name="Tbl_Cl_TestInvestigation" EntityType="Self.Tbl_Cl_TestInvestigation" />
+          <EntitySet Name="Tbl_Cl_TestReportType" EntityType="Self.Tbl_Cl_TestReportType" />
+          <EntitySet Name="Tbl_Cl_TestStatus" EntityType="Self.Tbl_Cl_TestStatus" />
+          <EntitySet Name="Tbl_Cl_TestSupplementReport" EntityType="Self.Tbl_Cl_TestSupplementReport" />
+          <EntitySet Name="Tbl_Cl_HospitalDetail" EntityType="LabSystemClient_RajLabModel.Tbl_Cl_HospitalDetail" />
+        </EntityContainer>
+        <EntityType Name="Tbl_Cl_HospitalDetail">
+          <Key>
+            <PropertyRef Name="HospitalDetailID" />
+          </Key>
+          <Property Name="HospitalDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HospitalName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FaxNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LabSystemClient_RajLabModelStoreContainer" CdmEntityContainer="LabSystemClient_RajLabEntities">
+          <EntitySetMapping Name="Tbl_Cl_AdminDetail">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_AdminDetail">
+              <MappingFragment StoreEntitySet="Tbl_Cl_AdminDetail">
+                <ScalarProperty Name="AdminDetailID" ColumnName="AdminDetailID" />
+                <ScalarProperty Name="ClientUserID" ColumnName="ClientUserID" />
+                <ScalarProperty Name="SystemClientID" ColumnName="SystemClientID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cl_ClientUser">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_ClientUser">
+              <MappingFragment StoreEntitySet="Tbl_Cl_ClientUser">
+                <ScalarProperty Name="ClientUserID" ColumnName="ClientUserID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ProfilePic" ColumnName="ProfilePic" />
+                <ScalarProperty Name="DetailID" ColumnName="DetailID" />
+                <ScalarProperty Name="DetailType" ColumnName="DetailType" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cl_ClientUserAttachmentDetail">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_ClientUserAttachmentDetail">
+              <MappingFragment StoreEntitySet="Tbl_Cl_ClientUserAttachmentDetail">
+                <ScalarProperty Name="AttachmentID" ColumnName="AttachmentID" />
+                <ScalarProperty Name="AttachmentName" ColumnName="AttachmentName" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="Extension" ColumnName="Extension" />
+                <ScalarProperty Name="UserDetailID" ColumnName="UserDetailID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cl_ClientUserDetail">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_ClientUserDetail">
+              <MappingFragment StoreEntitySet="Tbl_Cl_ClientUserDetail">
+                <ScalarProperty Name="UserDetailID" ColumnName="UserDetailID" />
+                <ScalarProperty Name="JoiningDate" ColumnName="JoiningDate" />
+                <ScalarProperty Name="TerminationDate" ColumnName="TerminationDate" />
+                <ScalarProperty Name="TerminationReason" ColumnName="TerminationReason" />
+                <ScalarProperty Name="Qualifications" ColumnName="Qualifications" />
+                <ScalarProperty Name="TypeOfCollection" ColumnName="TypeOfCollection" />
+                <ScalarProperty Name="License" ColumnName="License" />
+                <ScalarProperty Name="IsFulltime" ColumnName="IsFulltime" />
+                <ScalarProperty Name="PdfLink" ColumnName="PdfLink" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cl_ClientUserType">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_ClientUserType">
+              <MappingFragment StoreEntitySet="Tbl_Cl_ClientUserType">
+                <ScalarProperty Name="ClientUserTypeID" ColumnName="ClientUserTypeID" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cl_ExtraWorkAttachment">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_ExtraWorkAttachment">
+              <MappingFragment StoreEntitySet="Tbl_Cl_ExtraWorkAttachment">
+                <ScalarProperty Name="ExtraWorkAttachmentID" ColumnName="ExtraWorkAttachmentID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Extension" ColumnName="Extension" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="ExtraWorkID" ColumnName="ExtraWorkID" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cl_ExtraWorkRequest">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_ExtraWorkRequest">
+              <MappingFragment StoreEntitySet="Tbl_Cl_ExtraWorkRequest">
+                <ScalarProperty Name="ExtraWorkID" ColumnName="ExtraWorkID" />
+                <ScalarProperty Name="TestID" ColumnName="TestID" />
+                <ScalarProperty Name="H_ELevels" ColumnName="H_ELevels" />
+                <ScalarProperty Name="SpecialStains" ColumnName="SpecialStains" />
+                <ScalarProperty Name="ImmunoHistoChemistry" ColumnName="ImmunoHistoChemistry" />
+                <ScalarProperty Name="Others" ColumnName="Others" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="RequestCreatedDate" ColumnName="RequestCreatedDate" />
+                <ScalarProperty Name="RequestCreatedBy" ColumnName="RequestCreatedBy" />
+                <ScalarProperty Name="NewActionDate" ColumnName="NewActionDate" />
+                <ScalarProperty Name="NewActionBy" ColumnName="NewActionBy" />
+                <ScalarProperty Name="NewActionStatusID" ColumnName="NewActionStatusID" />
+                <ScalarProperty Name="NewActionComments" ColumnName="NewActionComments" />
+                <ScalarProperty Name="PendingActionBy" ColumnName="PendingActionBy" />
+                <ScalarProperty Name="PendingActionDate" ColumnName="PendingActionDate" />
+                <ScalarProperty Name="PendingActionComments" ColumnName="PendingActionComments" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cl_ExtraWorkRequestStatus">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_ExtraWorkRequestStatus">
+              <MappingFragment StoreEntitySet="Tbl_Cl_ExtraWorkRequestStatus">
+                <ScalarProperty Name="WorkRequestStatusID" ColumnName="WorkRequestStatusID" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cl_ForgetPassword">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_ForgetPassword">
+              <MappingFragment StoreEntitySet="Tbl_Cl_ForgetPassword">
+                <ScalarProperty Name="ForgetPasswordID" ColumnName="ForgetPasswordID" />
+                <ScalarProperty Name="UniqueCode" ColumnName="UniqueCode" />
+                <ScalarProperty Name="ClientUserID" ColumnName="ClientUserID" />
+                <ScalarProperty Name="ExpiresInMinutes" ColumnName="ExpiresInMinutes" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cl_IncorrectPasswordAttempt">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_IncorrectPasswordAttempt">
+              <MappingFragment StoreEntitySet="Tbl_Cl_IncorrectPasswordAttempt">
+                <ScalarProperty Name="IncorrectPasswordID" ColumnName="IncorrectPasswordID" />
+                <ScalarProperty Name="ClientUserID" ColumnName="ClientUserID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IsInclude" ColumnName="IsInclude" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cl_Inventory">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_Inventory">
+              <MappingFragment StoreEntitySet="Tbl_Cl_Inventory">
+                <ScalarProperty Name="InventoryID" ColumnName="InventoryID" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="QuantityOrdered" ColumnName="QuantityOrdered" />
+                <ScalarProperty Name="QuantityLeft" ColumnName="QuantityLeft" />
+                <ScalarProperty Name="OrderedHistory" ColumnName="OrderedHistory" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="InventoryStatusID" ColumnName="InventoryStatusID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cl_InventoryRequest">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_InventoryRequest">
+              <MappingFragment StoreEntitySet="Tbl_Cl_InventoryRequest">
+                <ScalarProperty Name="InventoryRequestID" ColumnName="InventoryRequestID" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="RequestCreatedDate" ColumnName="RequestCreatedDate" />
+                <ScalarProperty Name="RequestCreatedBy" ColumnName="RequestCreatedBy" />
+                <ScalarProperty Name="OpenActionBy" ColumnName="OpenActionBy" />
+                <ScalarProperty Name="OpenActionDate" ColumnName="OpenActionDate" />
+                <ScalarProperty Name="OpenActionStatusID" ColumnName="OpenActionStatusID" />
+                <ScalarProperty Name="OpenActionComments" ColumnName="OpenActionComments" />
+                <ScalarProperty Name="ProgressActionBy" ColumnName="ProgressActionBy" />
+                <ScalarProperty Name="ProgressActionDate" ColumnName="ProgressActionDate" />
+                <ScalarProperty Name="ProgressActionComments" ColumnName="ProgressActionComments" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cl_InventoryRequestStatus">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_InventoryRequestStatus">
+              <MappingFragment StoreEntitySet="Tbl_Cl_InventoryRequestStatus">
+                <ScalarProperty Name="InventoryRequestStatusID" ColumnName="InventoryRequestStatusID" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cl_InventoryStatusType">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_InventoryStatusType">
+              <MappingFragment StoreEntitySet="Tbl_Cl_InventoryStatusType">
+                <ScalarProperty Name="InventoryStatusTypeID" ColumnName="InventoryStatusTypeID" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cl_Menu">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_Menu">
+              <MappingFragment StoreEntitySet="Tbl_Cl_Menu">
+                <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+                <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="ToolTip" ColumnName="ToolTip" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="IsViewable" ColumnName="IsViewable" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cl_MenuAssignment">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_MenuAssignment">
+              <MappingFragment StoreEntitySet="Tbl_Cl_MenuAssignment">
+                <ScalarProperty Name="AssignmentID" ColumnName="AssignmentID" />
+                <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cl_Notification">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_Notification">
+              <MappingFragment StoreEntitySet="Tbl_Cl_Notification">
+                <ScalarProperty Name="NotificationID" ColumnName="NotificationID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ClickLink" ColumnName="ClickLink" />
+                <ScalarProperty Name="CreatedDatetime" ColumnName="CreatedDatetime" />
+                <ScalarProperty Name="Isviewed" ColumnName="Isviewed" />
+                <ScalarProperty Name="ViewedDatetime" ColumnName="ViewedDatetime" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cl_OpinionRequest">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_OpinionRequest">
+              <MappingFragment StoreEntitySet="Tbl_Cl_OpinionRequest">
+                <ScalarProperty Name="OpinionRequestID" ColumnName="OpinionRequestID" />
+                <ScalarProperty Name="PatientDetails" ColumnName="PatientDetails" />
+                <ScalarProperty Name="SampleAnalysisDetails" ColumnName="SampleAnalysisDetails" />
+                <ScalarProperty Name="OpinionNeededDescription" ColumnName="OpinionNeededDescription" />
+                <ScalarProperty Name="ConsultationOpinion" ColumnName="ConsultationOpinion" />
+                <ScalarProperty Name="SystemOpinionRequestID" ColumnName="SystemOpinionRequestID" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="OpinionBy" ColumnName="OpinionBy" />
+                <ScalarProperty Name="CommentForRequester" ColumnName="CommentForRequester" />
+                <ScalarProperty Name="IsPublish" ColumnName="IsPublish" />
+                <ScalarProperty Name="RequestCreatedDate" ColumnName="RequestCreatedDate" />
+                <ScalarProperty Name="RequestCreatedBy" ColumnName="RequestCreatedBy" />
+                <ScalarProperty Name="NewActionDate" ColumnName="NewActionDate" />
+                <ScalarProperty Name="NewActionBy" ColumnName="NewActionBy" />
+                <ScalarProperty Name="NewActionStatusID" ColumnName="NewActionStatusID" />
+                <ScalarProperty Name="NewActionComments" ColumnName="NewActionComments" />
+                <ScalarProperty Name="PendingActionBy" ColumnName="PendingActionBy" />
+                <ScalarProperty Name="PendingActionDate" ColumnName="PendingActionDate" />
+                <ScalarProperty Name="PendingActionComments" ColumnName="PendingActionComments" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cl_OpinionRequestStatus">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_OpinionRequestStatus">
+              <MappingFragment StoreEntitySet="Tbl_Cl_OpinionRequestStatus">
+                <ScalarProperty Name="OpinionRequestStatusID" ColumnName="OpinionRequestStatusID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cl_PatientDetail">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_PatientDetail">
+              <MappingFragment StoreEntitySet="Tbl_Cl_PatientDetail">
+                <ScalarProperty Name="PatientDetailID" ColumnName="PatientDetailID" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Streetname" ColumnName="Streetname" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="AlternateAddress" ColumnName="AlternateAddress" />
+                <ScalarProperty Name="AlternatePhoneNo" ColumnName="AlternatePhoneNo" />
+                <ScalarProperty Name="ReferingDoctor" ColumnName="ReferingDoctor" />
+                <ScalarProperty Name="ReferingHospital" ColumnName="ReferingHospital" />
+                <ScalarProperty Name="PaymentMode" ColumnName="PaymentMode" />
+                <ScalarProperty Name="Payment" ColumnName="Payment" />
+                <ScalarProperty Name="PdfLink" ColumnName="PdfLink" />
+                <ScalarProperty Name="PaymentReceiptPdfLink" ColumnName="PaymentReceiptPdfLink" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cl_Role">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_Role">
+              <MappingFragment StoreEntitySet="Tbl_Cl_Role">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cl_RoleMapping">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_RoleMapping">
+              <MappingFragment StoreEntitySet="Tbl_Cl_RoleMapping">
+                <ScalarProperty Name="RoleMappingID" ColumnName="RoleMappingID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cl_SectionRestriction">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_SectionRestriction">
+              <MappingFragment StoreEntitySet="Tbl_Cl_SectionRestriction">
+                <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+                <ScalarProperty Name="SectionSelector" ColumnName="SectionSelector" />
+                <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cl_Test">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_Test">
+              <MappingFragment StoreEntitySet="Tbl_Cl_Test">
+                <ScalarProperty Name="TestID" ColumnName="TestID" />
+                <ScalarProperty Name="TestName" ColumnName="TestName" />
+                <ScalarProperty Name="IsSampleRequired" ColumnName="IsSampleRequired" />
+                <ScalarProperty Name="ComplaintHistory" ColumnName="ComplaintHistory" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PatientUserID" ColumnName="PatientUserID" />
+                <ScalarProperty Name="TestStatusID" ColumnName="TestStatusID" />
+                <ScalarProperty Name="IsSampleCollected" ColumnName="IsSampleCollected" />
+                <ScalarProperty Name="SampleLabel" ColumnName="SampleLabel" />
+                <ScalarProperty Name="SampleCode" ColumnName="SampleCode" />
+                <ScalarProperty Name="SampleType" ColumnName="SampleType" />
+                <ScalarProperty Name="IsPublish" ColumnName="IsPublish" />
+                <ScalarProperty Name="PdfLink" ColumnName="PdfLink" />
+                <ScalarProperty Name="TestCreatedDate" ColumnName="TestCreatedDate" />
+                <ScalarProperty Name="TestCreatedBy" ColumnName="TestCreatedBy" />
+                <ScalarProperty Name="SampleCollectionDate" ColumnName="SampleCollectionDate" />
+                <ScalarProperty Name="SampleCollectionBy" ColumnName="SampleCollectionBy" />
+                <ScalarProperty Name="AnalysisDate" ColumnName="AnalysisDate" />
+                <ScalarProperty Name="AnalysisBy" ColumnName="AnalysisBy" />
+                <ScalarProperty Name="ConclusionDate" ColumnName="ConclusionDate" />
+                <ScalarProperty Name="ConclusionBy" ColumnName="ConclusionBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cl_TestAttachment">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_TestAttachment">
+              <MappingFragment StoreEntitySet="Tbl_Cl_TestAttachment">
+                <ScalarProperty Name="TestAttachmentID" ColumnName="TestAttachmentID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Extension" ColumnName="Extension" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="TestID" ColumnName="TestID" />
+                <ScalarProperty Name="AttachmentTypeID" ColumnName="AttachmentTypeID" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cl_TestAttachmentType">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_TestAttachmentType">
+              <MappingFragment StoreEntitySet="Tbl_Cl_TestAttachmentType">
+                <ScalarProperty Name="TestAttachmentTypeID" ColumnName="TestAttachmentTypeID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cl_TestConclusion">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_TestConclusion">
+              <MappingFragment StoreEntitySet="Tbl_Cl_TestConclusion">
+                <ScalarProperty Name="TestConclusionID" ColumnName="TestConclusionID" />
+                <ScalarProperty Name="TestReportTypeID" ColumnName="TestReportTypeID" />
+                <ScalarProperty Name="TestID" ColumnName="TestID" />
+                <ScalarProperty Name="SpecimenDetails" ColumnName="SpecimenDetails" />
+                <ScalarProperty Name="ClinicalDetails" ColumnName="ClinicalDetails" />
+                <ScalarProperty Name="Microscopy" ColumnName="Microscopy" />
+                <ScalarProperty Name="Macroscopy" ColumnName="Macroscopy" />
+                <ScalarProperty Name="Conclusion" ColumnName="Conclusion" />
+                <ScalarProperty Name="SnomedCoding" ColumnName="SnomedCoding" />
+                <ScalarProperty Name="SampleDescription" ColumnName="SampleDescription" />
+                <ScalarProperty Name="Report" ColumnName="Report" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cl_TestInvestigation">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_TestInvestigation">
+              <MappingFragment StoreEntitySet="Tbl_Cl_TestInvestigation">
+                <ScalarProperty Name="InvestigationID" ColumnName="InvestigationID" />
+                <ScalarProperty Name="InvestigationName" ColumnName="InvestigationName" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Range" ColumnName="Range" />
+                <ScalarProperty Name="InvestigationResult" ColumnName="InvestigationResult" />
+                <ScalarProperty Name="ExtraWorkID" ColumnName="ExtraWorkID" />
+                <ScalarProperty Name="TestID" ColumnName="TestID" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cl_TestReportType">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_TestReportType">
+              <MappingFragment StoreEntitySet="Tbl_Cl_TestReportType">
+                <ScalarProperty Name="TestReportTypeID" ColumnName="TestReportTypeID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cl_TestStatus">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_TestStatus">
+              <MappingFragment StoreEntitySet="Tbl_Cl_TestStatus">
+                <ScalarProperty Name="TestStatusID" ColumnName="TestStatusID" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cl_TestSupplementReport">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_TestSupplementReport">
+              <MappingFragment StoreEntitySet="Tbl_Cl_TestSupplementReport">
+                <ScalarProperty Name="TestSupplementReportID" ColumnName="TestSupplementReportID" />
+                <ScalarProperty Name="TestReportTypeID" ColumnName="TestReportTypeID" />
+                <ScalarProperty Name="TestID" ColumnName="TestID" />
+                <ScalarProperty Name="SpecimenDetails" ColumnName="SpecimenDetails" />
+                <ScalarProperty Name="ClinicalDetails" ColumnName="ClinicalDetails" />
+                <ScalarProperty Name="Microscopy" ColumnName="Microscopy" />
+                <ScalarProperty Name="Macroscopy" ColumnName="Macroscopy" />
+                <ScalarProperty Name="SupplementReportConclusion" ColumnName="SupplementReportConclusion" />
+                <ScalarProperty Name="SnomedCoding" ColumnName="SnomedCoding" />
+                <ScalarProperty Name="SampleDescription" ColumnName="SampleDescription" />
+                <ScalarProperty Name="Report" ColumnName="Report" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cl_HospitalDetail">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_HospitalDetail">
+              <MappingFragment StoreEntitySet="Tbl_Cl_HospitalDetail">
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="HospitalName" ColumnName="HospitalName" />
+                <ScalarProperty Name="HospitalDetailID" ColumnName="HospitalDetailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

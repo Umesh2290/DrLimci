@@ -1,0 +1,497 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "My Dashbaord";
+}
+<script>
+    var currentmenu = 1;
+</script>
+<div class="breadcrumb">
+    <h1 class="mr-2">My Dashboard</h1>
+    <ul>
+        <li><a href="">Dashboard</a></li>
+        <li>My Dashboard</li>
+    </ul>
+</div>
+
+
+@{
+
+    if (@ViewBag.RoleIDForDashboard == 1 || @ViewBag.RoleIDForDashboard == 2 || @ViewBag.RoleIDForDashboard == 3)
+    {
+        <div class="row">
+
+            <div class=" col-md-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="card-title">Sub Domains Trends by Month</div>
+                        <div id="basicLine-chart"></div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class=" col-md-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="card-title">Client Trends by Month</div>
+                        <div id="clientDetails"></div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    }
+
+
+
+
+
+
+    if (@ViewBag.RoleIDForDashboard == 1 || @ViewBag.RoleIDForDashboard == 2 || @ViewBag.RoleIDForDashboard == 3)
+    {
+        <div class="row">
+
+            <div class=" col-md-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="card-title">Active/Inactive Clients</div>
+                        <div id="activeInactiveClients"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class=" col-md-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="card-title">Contact Requests</div>
+                        <div id="contactRequests"></div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    }
+
+    if (@ViewBag.RoleIDForDashboard == 1 || @ViewBag.RoleIDForDashboard == 2 || @ViewBag.RoleIDForDashboard == 3 || @ViewBag.RoleIDForDashboard == 4)
+    {
+        <div class="row">
+
+
+            <div class=" col-md-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="card-title">2nd Opinion Requests</div>
+                        <div id="NewPendingClosed"></div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    }
+}
+
+<script src="~/Scripts/js/vendor/perfect-scrollbar.min.js"></script>
+
+<script src="~/Scripts/js/vendor/apexcharts.min.js"></script>
+@*   
+<script src="~/Scripts/js/es5/apexChart.script.min.js"></script>
+*@
+<script>
+
+    function ConvertDate(data) {
+        var date = new Date(parseInt(data.substr(6)));
+        var month = date.getMonth() + 1;
+        return (month.length > 1 ? month : "" + month) + "/" + date.getDate() + "/" + date.getFullYear();
+    }
+
+</script>
+
+<script>
+
+    $(document).ready(function () {
+
+
+        function RenderChart(chartData) {
+
+
+            var dates = [];
+            var payments = [];
+            for (var i = 0; i < chartData.length; i++) {
+                dates.push(chartData[i][0].ActivatedOn);
+                payments.push(chartData[i].length);
+            }
+
+
+            var options = {
+                series: [{
+                    name: "Sub Domains",
+                    data: payments
+                }],
+                chart: {
+                    height: 350,
+                    type: 'line',
+                    zoom: {
+                        enabled: false
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'straight'
+                },
+                title: {
+                    text: 'Sub Domains Trends by Month',
+                    align: 'left'
+                },
+                grid: {
+                    row: {
+                        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                        opacity: 0.5
+                    },
+                },
+                xaxis: {
+                    categories: dates,
+                }
+            };
+
+            var chart = new ApexCharts(document.querySelector("#basicLine-chart"), options);
+            chart.render();
+        }
+        function RenderChartClients(chartData) {
+
+            var dates = [];
+            var payments = [];
+            for (var i = 0; i < chartData.length; i++) {
+                dates.push(chartData[i][0].CreatedDate);
+                payments.push(chartData[i].length);
+            }
+
+
+            var options = {
+                series: [{
+                    name: "Clients",
+                    data: payments
+                }],
+                chart: {
+                    height: 350,
+                    type: 'line',
+                    zoom: {
+                        enabled: false
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'straight'
+                },
+                title: {
+                    text: 'Clients Trends by Month',
+                    align: 'left'
+                },
+                grid: {
+                    row: {
+                        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                        opacity: 0.5
+                    },
+                },
+                xaxis: {
+                    categories: dates,
+                }
+            };
+
+            var chart = new ApexCharts(document.querySelector("#clientDetails"), options);
+            chart.render();
+        }
+        function RenderChartActiveInActiveClients(chartdata) {
+            
+
+            var data = [];
+            data.push(chartdata.activeClients);
+            data.push(chartdata.returnList2);
+            var options = {
+                series: data,
+                chart: {
+                    width: 380,
+                    type: 'pie',
+                },
+                labels: ['Active Clients', 'InActive Clients'],
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: 200
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }]
+            };
+
+            var chart = new ApexCharts(document.querySelector("#activeInactiveClients"), options);
+            chart.render();
+
+        }
+
+        function RenderChartContactRequest(chartdata) {
+            var options = {
+                series: [{
+                    data: chartdata
+                }],
+                chart: {
+                    type: 'bar',
+                    height: 350
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                xaxis: {
+                    categories: ['Contact Query', 'Sales Request'
+                    ],
+                }
+            };
+
+            var chart = new ApexCharts(document.querySelector("#contactRequests"), options);
+            chart.render();
+
+        }
+
+        function RenderChartNewPendingClosed(chartdata) {
+debugger
+            var NewQueryLength = [];
+            var PendingQueryLength = [];
+            var ClosedQueryLength = [];
+
+            var dates = [];
+
+            if (chartdata.ResponseData.createdDates != null) {
+                for (var i = 0; i < chartdata.ResponseData.createdDates.length; i++) {
+                    dates.push(chartdata.ResponseData.createdDates[i].CreatedDate);
+                }
+            }
+
+            if (chartdata.ResponseData.newRequest != null) {
+                for (var j = 0 ; j < chartdata.ResponseData.newRequest.length; j++) {
+
+                    NewQueryLength.push(chartdata.ResponseData.newRequest[j].length);
+                }
+            }
+
+
+            if (chartdata.ResponseData.pendingRequest != null) {
+                for (var k = 0 ; k < chartdata.ResponseData.pendingRequest.length; k++) {
+
+                    PendingQueryLength.push(chartdata.ResponseData.pendingRequest[k].length);
+
+                }
+            }
+
+            if (chartdata.ResponseData.closedRequest != null) {
+                for (var m = 0 ; m < chartdata.ResponseData.closedRequest.length; m++) {
+
+                    ClosedQueryLength.push(chartdata.ResponseData.closedRequest[m].length);
+                }
+            }
+
+
+            var options = {
+
+    series: [{
+        data: NewQueryLength
+    }, {
+        data: PendingQueryLength
+    }, {
+        data: ClosedQueryLength
+    }],
+    chart: {
+        type: 'bar',
+        height: 430
+    },
+    plotOptions: {
+        bar: {
+            horizontal: false,
+            dataLabels: {
+                position: 'top',
+            },
+        }
+    },
+    dataLabels: {
+        enabled: true,
+        offsetX: -6,
+        style: {
+            fontSize: '12px',
+            colors: ['#fff']
+        }
+    },
+
+    legend: {
+     
+        formatter: function (seriesName, opts) {
+            if(seriesName=='series-1')
+                return ["New"]
+            if (seriesName == 'series-2')
+                return ["Pending"]
+            if (seriesName == 'series-3')
+                    return ["Closed"]
+        }
+    },
+    stroke: {
+        show: true,
+        width: 1,
+        colors: ['#fff']
+    },
+    xaxis: {
+        categories: dates,
+    },
+
+
+};
+
+            var chart = new ApexCharts(document.querySelector("#NewPendingClosed"), options);
+            chart.render();
+        }
+
+
+
+        MakeRequest(Admin_Home_Domain_Graph, "GET", { "status": true }, "json",
+            function (jqXHR, settings) {
+                //For Before Send
+                $('.loadscreen').fadeIn();
+            },
+            function (data, status, xhr) {
+                //For Success
+
+                $('.loadscreen').fadeOut();
+
+                var rs = WebResponse(data);
+                RenderChart(rs.ResponseData.subdomainjson);
+                console.log(rs);
+
+
+            },
+        function (jqXhr, textStatus, errorMessage) {
+            //For Error
+            $('.loadscreen').fadeOut();
+            WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+        });
+
+
+        MakeRequest(Admin_Home_Client_Graph, "GET", { "status": true }, "json",
+                       function (jqXHR, settings) {
+                           //For Before Send
+                           $('.loadscreen').fadeIn();
+                       },
+                       function (data, status, xhr) {
+                           //For Success
+
+                           $('.loadscreen').fadeOut();
+
+                           var rs = WebResponse(data);
+                           RenderChartClients(rs.ResponseData.clientjson);
+                           console.log(rs);
+
+
+                       },
+                   function (jqXhr, textStatus, errorMessage) {
+                       //For Error
+                       $('.loadscreen').fadeOut();
+                       WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                   });
+
+        MakeRequest(Admin_Home_ActiveInActiveClient_Graph, "GET", { "status": true }, "json",
+                              function (jqXHR, settings) {
+                                  //For Before Send
+                                  $('.loadscreen').fadeIn();
+                              },
+                              function (data, status, xhr) {
+                                  //For Success
+
+                                  $('.loadscreen').fadeOut();
+
+                                  var rs = WebResponse(data);
+
+RenderChartActiveInActiveClients(rs.ResponseData);
+                                  console.log(rs);
+
+
+                              },
+                          function (jqXhr, textStatus, errorMessage) {
+                              //For Error
+                              $('.loadscreen').fadeOut();
+                              WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                          });
+
+        MakeRequest(Admin_Home_ContactRequest_Graph, "GET", { "status": true }, "json",
+                                    function (jqXHR, settings) {
+                                        //For Before Send
+                                        $('.loadscreen').fadeIn();
+                                    },
+                                    function (data, status, xhr) {
+                                        //For Success
+
+                                        $('.loadscreen').fadeOut();
+
+                                        var rs = WebResponse(data);
+
+RenderChartContactRequest(rs.ResponseData.contactjson);
+                                        console.log(rs);
+
+
+                                    },
+                                function (jqXhr, textStatus, errorMessage) {
+                                    //For Error
+                                    $('.loadscreen').fadeOut();
+                                    WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                                });
+
+        MakeRequest(Admin_Home_NewPendingClosed_Graph, "GET", { "status": true }, "json",
+                                           function (jqXHR, settings) {
+                                               //For Before Send
+                                               $('.loadscreen').fadeIn();
+                                           },
+                                           function (data, status, xhr) {
+                                               //For Success
+
+                                               $('.loadscreen').fadeOut(); 
+
+                                               var rs = WebResponse(data);
+                                               
+                                               RenderChartNewPendingClosed(rs);
+                                               console.log(rs);
+
+
+                                           },
+                                       function (jqXhr, textStatus, errorMessage) {
+                                           //For Error
+                                           $('.loadscreen').fadeOut();
+                                           WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                                       });
+
+
+
+
+
+
+    });
+
+ 
+    
+
+
+
+</script>
+

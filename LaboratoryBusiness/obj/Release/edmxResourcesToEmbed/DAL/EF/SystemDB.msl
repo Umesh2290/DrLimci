@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LabSystemDBModelStoreContainer" CdmEntityContainer="LabSystemDBEntities">
+    <EntitySetMapping Name="Tbl_Menu">
+      <EntityTypeMapping TypeName="LabSystemDBModel.Tbl_Menu">
+        <MappingFragment StoreEntitySet="Tbl_Menu">
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+          <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+          <ScalarProperty Name="ToolTip" ColumnName="ToolTip" />
+          <ScalarProperty Name="Link" ColumnName="Link" />
+          <ScalarProperty Name="IsViewable" ColumnName="IsViewable" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_MenuAssignment">
+      <EntityTypeMapping TypeName="LabSystemDBModel.Tbl_MenuAssignment">
+        <MappingFragment StoreEntitySet="Tbl_MenuAssignment">
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="AssignmentID" ColumnName="AssignmentID" />
+          <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Notification">
+      <EntityTypeMapping TypeName="LabSystemDBModel.Tbl_Notification">
+        <MappingFragment StoreEntitySet="Tbl_Notification">
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="NotificationID" ColumnName="NotificationID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="ClickLink" ColumnName="ClickLink" />
+          <ScalarProperty Name="CreatedDatetime" ColumnName="CreatedDatetime" />
+          <ScalarProperty Name="Isviewed" ColumnName="Isviewed" />
+          <ScalarProperty Name="ViewedDatetime" ColumnName="ViewedDatetime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_ProviderParamter">
+      <EntityTypeMapping TypeName="LabSystemDBModel.Tbl_ProviderParamter">
+        <MappingFragment StoreEntitySet="Tbl_ProviderParamter">
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ParameterID" ColumnName="ParameterID" />
+          <ScalarProperty Name="ParameterName" ColumnName="ParameterName" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="IsRequired" ColumnName="IsRequired" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Role">
+      <EntityTypeMapping TypeName="LabSystemDBModel.Tbl_Role">
+        <MappingFragment StoreEntitySet="Tbl_Role">
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_SectionRestriction">
+      <EntityTypeMapping TypeName="LabSystemDBModel.Tbl_SectionRestriction">
+        <MappingFragment StoreEntitySet="Tbl_SectionRestriction">
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+          <ScalarProperty Name="SectionSelector" ColumnName="SectionSelector" />
+          <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_StorageandDBProvider">
+      <EntityTypeMapping TypeName="LabSystemDBModel.Tbl_StorageandDBProvider">
+        <MappingFragment StoreEntitySet="Tbl_StorageandDBProvider">
+          <ScalarProperty Name="ProviderID" ColumnName="ProviderID" />
+          <ScalarProperty Name="ProviderName" ColumnName="ProviderName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_RoleMapping">
+      <EntityTypeMapping TypeName="LabSystemDBModel.Tbl_RoleMapping">
+        <MappingFragment StoreEntitySet="Tbl_RoleMapping">
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="RoleMappingID" ColumnName="RoleMappingID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_SystemUser">
+      <EntityTypeMapping TypeName="LabSystemDBModel.Tbl_SystemUser">
+        <MappingFragment StoreEntitySet="Tbl_SystemUser">
+          <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="DetailType" ColumnName="DetailType" />
+          <ScalarProperty Name="DetailID" ColumnName="DetailID" />
+          <ScalarProperty Name="ProfilePic" ColumnName="ProfilePic" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="SystemUserID" ColumnName="SystemUserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Client">
+      <EntityTypeMapping TypeName="LabSystemDBModel.Tbl_Client">
+        <MappingFragment StoreEntitySet="Tbl_Client">
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="LastActionOnStorage" ColumnName="LastActionOnStorage" />
+          <ScalarProperty Name="LastActionOnDB" ColumnName="LastActionOnDB" />
+          <ScalarProperty Name="StorageErrorDetail" ColumnName="StorageErrorDetail" />
+          <ScalarProperty Name="IsStorageError" ColumnName="IsStorageError" />
+          <ScalarProperty Name="IsStorageConfigured" ColumnName="IsStorageConfigured" />
+          <ScalarProperty Name="DBErrorDetail" ColumnName="DBErrorDetail" />
+          <ScalarProperty Name="IsDbError" ColumnName="IsDbError" />
+          <ScalarProperty Name="IsDBCreated" ColumnName="IsDBCreated" />
+          <ScalarProperty Name="InvoicePDFLink" ColumnName="InvoicePDFLink" />
+          <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+          <ScalarProperty Name="STandDBprovdiderID" ColumnName="STandDBprovdiderID" />
+          <ScalarProperty Name="PriceUnit" ColumnName="PriceUnit" />
+          <ScalarProperty Name="TotalLicenseCost" ColumnName="TotalLicenseCost" />
+          <ScalarProperty Name="PlanDuration" ColumnName="PlanDuration" />
+          <ScalarProperty Name="PlanID" ColumnName="PlanID" />
+          <ScalarProperty Name="Subdomain" ColumnName="Subdomain" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="ClientDetailID" ColumnName="ClientDetailID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_ClientParameter">
+      <EntityTypeMapping TypeName="LabSystemDBModel.Tbl_ClientParameter">
+        <MappingFragment StoreEntitySet="Tbl_ClientParameter">
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ClientDetailID" ColumnName="ClientDetailID" />
+          <ScalarProperty Name="ParameterValue" ColumnName="ParameterValue" />
+          <ScalarProperty Name="ParameterID" ColumnName="ParameterID" />
+          <ScalarProperty Name="ClientParameterID" ColumnName="ClientParameterID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Consultant">
+      <EntityTypeMapping TypeName="LabSystemDBModel.Tbl_Consultant">
+        <MappingFragment StoreEntitySet="Tbl_Consultant">
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="SpecialisationAreas" ColumnName="SpecialisationAreas" />
+          <ScalarProperty Name="ConsultantID" ColumnName="ConsultantID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_ForgetPassword">
+      <EntityTypeMapping TypeName="LabSystemDBModel.Tbl_ForgetPassword">
+        <MappingFragment StoreEntitySet="Tbl_ForgetPassword">
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ExpiresInMinutes" ColumnName="ExpiresInMinutes" />
+          <ScalarProperty Name="SystemUserID" ColumnName="SystemUserID" />
+          <ScalarProperty Name="UniqueCode" ColumnName="UniqueCode" />
+          <ScalarProperty Name="ForgetPasswordID" ColumnName="ForgetPasswordID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_IncorrectPasswordAttempt">
+      <EntityTypeMapping TypeName="LabSystemDBModel.Tbl_IncorrectPasswordAttempt">
+        <MappingFragment StoreEntitySet="Tbl_IncorrectPasswordAttempt">
+          <ScalarProperty Name="IsInclude" ColumnName="IsInclude" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="SystemUserID" ColumnName="SystemUserID" />
+          <ScalarProperty Name="IncorrectPasswordID" ColumnName="IncorrectPasswordID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Plan">
+      <EntityTypeMapping TypeName="LabSystemDBModel.Tbl_Plan">
+        <MappingFragment StoreEntitySet="Tbl_Plan">
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="PlanStatus" ColumnName="PlanStatus" />
+          <ScalarProperty Name="PlanCost" ColumnName="PlanCost" />
+          <ScalarProperty Name="PlanDetail" ColumnName="PlanDetail" />
+          <ScalarProperty Name="PlanDescription" ColumnName="PlanDescription" />
+          <ScalarProperty Name="PlanName" ColumnName="PlanName" />
+          <ScalarProperty Name="PlanID" ColumnName="PlanID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_ProviderParameterMapping">
+      <EntityTypeMapping TypeName="LabSystemDBModel.Tbl_ProviderParameterMapping">
+        <MappingFragment StoreEntitySet="Tbl_ProviderParameterMapping">
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ParameterID" ColumnName="ParameterID" />
+          <ScalarProperty Name="ProviderID" ColumnName="ProviderID" />
+          <ScalarProperty Name="ProviderParameterMappingID" ColumnName="ProviderParameterMappingID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_SalesAndContactQuery">
+      <EntityTypeMapping TypeName="LabSystemDBModel.Tbl_SalesAndContactQuery">
+        <MappingFragment StoreEntitySet="Tbl_SalesAndContactQuery">
+          <ScalarProperty Name="PendingActionComments" ColumnName="PendingActionComments" />
+          <ScalarProperty Name="PendingActionDate" ColumnName="PendingActionDate" />
+          <ScalarProperty Name="PendingActionBy" ColumnName="PendingActionBy" />
+          <ScalarProperty Name="NewActionComments" ColumnName="NewActionComments" />
+          <ScalarProperty Name="NewActionStatusID" ColumnName="NewActionStatusID" />
+          <ScalarProperty Name="NewActionDate" ColumnName="NewActionDate" />
+          <ScalarProperty Name="NewActionBy" ColumnName="NewActionBy" />
+          <ScalarProperty Name="RequestCreatedDate" ColumnName="RequestCreatedDate" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="SalesAndContactQueryID" ColumnName="SalesAndContactQueryID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_SalesAndContactQueryStatus">
+      <EntityTypeMapping TypeName="LabSystemDBModel.Tbl_SalesAndContactQueryStatus">
+        <MappingFragment StoreEntitySet="Tbl_SalesAndContactQueryStatus">
+          <ScalarProperty Name="StatusDescription" ColumnName="StatusDescription" />
+          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+          <ScalarProperty Name="SalesAndContactQueryStatusID" ColumnName="SalesAndContactQueryStatusID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_SalesAndContactQueryType">
+      <EntityTypeMapping TypeName="LabSystemDBModel.Tbl_SalesAndContactQueryType">
+        <MappingFragment StoreEntitySet="Tbl_SalesAndContactQueryType">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+          <ScalarProperty Name="SalesAndContactQueryTypeID" ColumnName="SalesAndContactQueryTypeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_SystemUserType">
+      <EntityTypeMapping TypeName="LabSystemDBModel.Tbl_SystemUserType">
+        <MappingFragment StoreEntitySet="Tbl_SystemUserType">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+          <ScalarProperty Name="SystemUserTypeID" ColumnName="SystemUserTypeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

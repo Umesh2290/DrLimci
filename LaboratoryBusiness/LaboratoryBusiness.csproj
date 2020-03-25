@@ -1,0 +1,464 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C2EF8C17-49FB-4114-9C50-B602148011B7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LaboratoryBusiness</RootNamespace>
+    <AssemblyName>LaboratoryBusiness</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BLL\Admin\ClientParameterRepository.cs" />
+    <Compile Include="BLL\Admin\ClientRepository.cs" />
+    <Compile Include="BLL\Admin\ConsultantRepository.cs" />
+    <Compile Include="BLL\Admin\ForgetPasswordRepository.cs" />
+    <Compile Include="BLL\Admin\IncorrectPasswordAttemptRepository.cs" />
+    <Compile Include="BLL\Admin\MenuAssignmentRepository.cs" />
+    <Compile Include="BLL\Admin\MenuRepository.cs" />
+    <Compile Include="BLL\Admin\NotificationRepository.cs" />
+    <Compile Include="BLL\Admin\OpinionRequestRepository.cs" />
+    <Compile Include="BLL\Admin\OpinionRequestStatusRepository.cs" />
+    <Compile Include="BLL\Admin\PlanRepository.cs" />
+    <Compile Include="BLL\Admin\ProviderParameterMappingRepository.cs" />
+    <Compile Include="BLL\Admin\ProviderParamterRepository.cs" />
+    <Compile Include="BLL\Admin\RoleMappingRepository.cs" />
+    <Compile Include="BLL\Admin\RoleRepository.cs" />
+    <Compile Include="BLL\Admin\SalesAndContactQueryRepository.cs" />
+    <Compile Include="BLL\Admin\SalesAndContactQueryStatusRepository.cs" />
+    <Compile Include="BLL\Admin\SalesAndContactQueryTypeRepository.cs" />
+    <Compile Include="BLL\Admin\SectionRestrictionRepository.cs" />
+    <Compile Include="BLL\Admin\StorageandDBProviderRepository.cs" />
+    <Compile Include="BLL\Admin\SystemUserRepository.cs" />
+    <Compile Include="BLL\Admin\SystemUserTypeRepository.cs" />
+    <Compile Include="BLL\User\AdminDetailRepository.cs" />
+    <Compile Include="BLL\User\ClientUserAttachmentDetailRepository.cs" />
+    <Compile Include="BLL\User\ClientUserDetail.cs" />
+    <Compile Include="BLL\User\ClientUserRepository.cs" />
+    <Compile Include="BLL\User\ClientUserTypeRepository.cs" />
+    <Compile Include="BLL\User\ExtraWorkAttachmentRepository.cs" />
+    <Compile Include="BLL\User\ExtraWorkRequestRepository.cs" />
+    <Compile Include="BLL\User\ExtraWorkRequestStatusRepository.cs" />
+    <Compile Include="BLL\User\ForgetPasswordRepository.cs" />
+    <Compile Include="BLL\User\HospitalDetailRepository.cs" />
+    <Compile Include="BLL\User\IncorrectPasswordAttemptRepository.cs" />
+    <Compile Include="BLL\User\InventoryRepository.cs" />
+    <Compile Include="BLL\User\InventoryRequestRepository.cs" />
+    <Compile Include="BLL\User\InventoryRequestStatusRepository.cs" />
+    <Compile Include="BLL\User\InventoryStatusTypeRepository.cs" />
+    <Compile Include="BLL\User\MenuAssignmentRepository.cs" />
+    <Compile Include="BLL\User\MenuRepository.cs" />
+    <Compile Include="BLL\User\NotificationRepository.cs" />
+    <Compile Include="BLL\User\OpinionRequestRepository.cs" />
+    <Compile Include="BLL\User\OpinionRequestStatusRepository.cs" />
+    <Compile Include="BLL\User\PatientDetailRepository.cs" />
+    <Compile Include="BLL\User\RoleMappingRepository.cs" />
+    <Compile Include="BLL\User\RoleRepository.cs" />
+    <Compile Include="BLL\User\SectionRestrictionRepository.cs" />
+    <Compile Include="BLL\User\TestAttachmentRepository.cs" />
+    <Compile Include="BLL\User\TestAttachmentTypeRepository.cs" />
+    <Compile Include="BLL\User\TestConclusionRepository.cs" />
+    <Compile Include="BLL\User\TestInvestigationRepository.cs" />
+    <Compile Include="BLL\User\TestReportTypeRepository.cs" />
+    <Compile Include="BLL\User\TestRepository.cs" />
+    <Compile Include="BLL\User\TestStatusRepository.cs" />
+    <Compile Include="BLL\User\TestSupplementReportRepository.cs" />
+    <Compile Include="DAL\Client\ClientEntity.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ClientEntity.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\ClientEntity.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\ClientEntity.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ClientEntity.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\DynamicConnectionString\ClientEntity_DCS.cs" />
+    <Compile Include="DAL\Client\Tbl_Cl_AdminDetail.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_ClientUser.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_ClientUserAttachmentDetail.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_ClientUserDetail.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_ClientUserType.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_ExtraWorkAttachment.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_ExtraWorkRequest.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_ExtraWorkRequestStatus.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_ForgetPassword.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_HospitalDetail.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_IncorrectPasswordAttempt.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_Inventory.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_InventoryRequest.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_InventoryRequestStatus.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_InventoryStatusType.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_Menu.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_MenuAssignment.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_Notification.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_OpinionRequest.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_OpinionRequestStatus.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_PatientDetail.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_Role.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_RoleMapping.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_SectionRestriction.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_Test.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_TestAttachment.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_TestAttachmentType.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_TestConclusion.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_TestInvestigation.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_TestReportType.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_TestStatus.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_TestSupplementReport.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\EF\SystemDB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SystemDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\EF\SystemDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SystemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\EF\SystemDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SystemDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\EF\Tbl_Client.cs">
+      <DependentUpon>SystemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\EF\Tbl_ClientParameter.cs">
+      <DependentUpon>SystemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\EF\Tbl_Consultant.cs">
+      <DependentUpon>SystemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\EF\Tbl_ForgetPassword.cs">
+      <DependentUpon>SystemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\EF\Tbl_IncorrectPasswordAttempt.cs">
+      <DependentUpon>SystemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\EF\Tbl_Menu.cs">
+      <DependentUpon>SystemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\EF\Tbl_MenuAssignment.cs">
+      <DependentUpon>SystemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\EF\Tbl_Notification.cs">
+      <DependentUpon>SystemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\EF\Tbl_OpinionRequest.cs">
+      <DependentUpon>SystemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\EF\Tbl_OpinionRequestStatus.cs">
+      <DependentUpon>SystemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\EF\Tbl_Plan.cs">
+      <DependentUpon>SystemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\EF\Tbl_ProviderParameterMapping.cs">
+      <DependentUpon>SystemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\EF\Tbl_ProviderParamter.cs">
+      <DependentUpon>SystemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\EF\Tbl_Role.cs">
+      <DependentUpon>SystemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\EF\Tbl_RoleMapping.cs">
+      <DependentUpon>SystemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\EF\Tbl_SalesAndContactQuery.cs">
+      <DependentUpon>SystemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\EF\Tbl_SalesAndContactQueryStatus.cs">
+      <DependentUpon>SystemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\EF\Tbl_SalesAndContactQueryType.cs">
+      <DependentUpon>SystemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\EF\Tbl_SectionRestriction.cs">
+      <DependentUpon>SystemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\EF\Tbl_StorageandDBProvider.cs">
+      <DependentUpon>SystemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\EF\Tbl_SystemUser.cs">
+      <DependentUpon>SystemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\EF\Tbl_SystemUserType.cs">
+      <DependentUpon>SystemDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POCO\Admin\Client.cs" />
+    <Compile Include="POCO\Admin\ClientParameter.cs" />
+    <Compile Include="POCO\Admin\Consultant.cs" />
+    <Compile Include="POCO\Admin\ForgetPassword.cs" />
+    <Compile Include="POCO\Admin\IncorrectPasswordAttempt.cs" />
+    <Compile Include="POCO\Admin\Menu.cs" />
+    <Compile Include="POCO\Admin\MenuAssignment.cs" />
+    <Compile Include="POCO\Admin\Notification.cs" />
+    <Compile Include="POCO\Admin\OpinionRequest.cs" />
+    <Compile Include="POCO\Admin\OpinionRequestStatus.cs" />
+    <Compile Include="POCO\Admin\Plan.cs" />
+    <Compile Include="POCO\Admin\ProviderParameterMapping.cs" />
+    <Compile Include="POCO\Admin\ProviderParamter.cs" />
+    <Compile Include="POCO\Admin\Role.cs" />
+    <Compile Include="POCO\Admin\RoleMapping.cs" />
+    <Compile Include="POCO\Admin\SalesAndContactQuery.cs" />
+    <Compile Include="POCO\Admin\SalesAndContactQueryStatus.cs" />
+    <Compile Include="POCO\Admin\SalesAndContactQueryType.cs" />
+    <Compile Include="POCO\Admin\SectionRestriction.cs" />
+    <Compile Include="POCO\Admin\StorageandDBProvider.cs" />
+    <Compile Include="POCO\Admin\SystemUser.cs" />
+    <Compile Include="POCO\Admin\SystemUserType.cs" />
+    <Compile Include="POCO\User\AdminDetail.cs" />
+    <Compile Include="POCO\User\ClientUser.cs" />
+    <Compile Include="POCO\User\ClientUserAttachmentDetail.cs" />
+    <Compile Include="POCO\User\ClientUserDetail.cs" />
+    <Compile Include="POCO\User\ClientUserType.cs" />
+    <Compile Include="POCO\User\HospitalDetail.cs" />
+    <Compile Include="POCO\User\ExtraWorkAttachment.cs" />
+    <Compile Include="POCO\User\ExtraWorkRequest.cs" />
+    <Compile Include="POCO\User\ExtraWorkRequestStatus.cs" />
+    <Compile Include="POCO\User\ForgetPassword.cs" />
+    <Compile Include="POCO\User\IncorrectPasswordAttempt.cs" />
+    <Compile Include="POCO\User\Inventory.cs" />
+    <Compile Include="POCO\User\InventoryRequest.cs" />
+    <Compile Include="POCO\User\InventoryRequestStatus.cs" />
+    <Compile Include="POCO\User\InventoryStatusType.cs" />
+    <Compile Include="POCO\User\Menu.cs" />
+    <Compile Include="POCO\User\MenuAssignment.cs" />
+    <Compile Include="POCO\User\Notification.cs" />
+    <Compile Include="POCO\User\OpinionRequestStatus.cs" />
+    <Compile Include="POCO\User\PatientDetail.cs" />
+    <Compile Include="POCO\User\Role.cs" />
+    <Compile Include="POCO\User\RoleMapping.cs" />
+    <Compile Include="POCO\User\SectionRestriction.cs" />
+    <Compile Include="POCO\User\OpinionRequest.cs" />
+    <Compile Include="POCO\User\Test.cs" />
+    <Compile Include="POCO\User\TestAttachment.cs" />
+    <Compile Include="POCO\User\TestAttachmentType.cs" />
+    <Compile Include="POCO\User\TestConclusion.cs" />
+    <Compile Include="POCO\User\TestInvestigation.cs" />
+    <Compile Include="POCO\User\TestReportType.cs" />
+    <Compile Include="POCO\User\TestStatus.cs" />
+    <Compile Include="POCO\User\TestSupplementReport.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Admin\IClientParameterRepository.cs" />
+    <Compile Include="Repositories\Admin\IClientRepository.cs" />
+    <Compile Include="Repositories\Admin\IConsultantRepository.cs" />
+    <Compile Include="Repositories\Admin\IForgetPasswordRepository.cs" />
+    <Compile Include="Repositories\Admin\IIncorrectPasswordAttemptRepository.cs" />
+    <Compile Include="Repositories\Admin\IMenuAssignmentRepository.cs" />
+    <Compile Include="Repositories\Admin\IMenuRepository.cs" />
+    <Compile Include="Repositories\Admin\INotificationRepository.cs" />
+    <Compile Include="Repositories\Admin\IOpinionRequestRepository.cs" />
+    <Compile Include="Repositories\Admin\IOpinionRequestStatusRepository.cs" />
+    <Compile Include="Repositories\Admin\IPlanRepository.cs" />
+    <Compile Include="Repositories\Admin\IProviderParameterMappingRepository.cs" />
+    <Compile Include="Repositories\Admin\IProviderParamterRepository.cs" />
+    <Compile Include="Repositories\Admin\IRoleMappingRepository.cs" />
+    <Compile Include="Repositories\Admin\IRoleRepository.cs" />
+    <Compile Include="Repositories\Admin\ISalesAndContactQueryRepository.cs" />
+    <Compile Include="Repositories\Admin\ISalesAndContactQueryStatusRepository.cs" />
+    <Compile Include="Repositories\Admin\ISalesAndContactQueryTypeRepository.cs" />
+    <Compile Include="Repositories\Admin\ISectionRestrictionRepository.cs" />
+    <Compile Include="Repositories\Admin\IStorageandDBProviderRepository.cs" />
+    <Compile Include="Repositories\Admin\ISystemUserRepository.cs" />
+    <Compile Include="Repositories\Admin\ISystemUserTypeRepository.cs" />
+    <Compile Include="Repositories\User\IAdminDetailRepository.cs" />
+    <Compile Include="Repositories\User\IClientUserAttachmentDetail.cs" />
+    <Compile Include="Repositories\User\IClientUserDetail.cs" />
+    <Compile Include="Repositories\User\IClientUserRepository.cs" />
+    <Compile Include="Repositories\User\IClientUserTypeRepository.cs" />
+    <Compile Include="Repositories\User\IExtraWorkAttachment.cs" />
+    <Compile Include="Repositories\User\IExtraWorkRequest.cs" />
+    <Compile Include="Repositories\User\IExtraWorkRequestStatus.cs" />
+    <Compile Include="Repositories\User\IForgetPasswordRepository.cs" />
+    <Compile Include="Repositories\User\IHospitalDetail.cs" />
+    <Compile Include="Repositories\User\IIncorrectPasswordAttemptRepository.cs" />
+    <Compile Include="Repositories\User\IInventory.cs" />
+    <Compile Include="Repositories\User\IInventoryRequest.cs" />
+    <Compile Include="Repositories\User\IInventoryRequestStatus.cs" />
+    <Compile Include="Repositories\User\IInventoryStatusType.cs" />
+    <Compile Include="Repositories\User\IMenuAssignmentRepository.cs" />
+    <Compile Include="Repositories\User\IMenuRepository.cs" />
+    <Compile Include="Repositories\User\INotificationRepository.cs" />
+    <Compile Include="Repositories\User\IOpinionRequest.cs" />
+    <Compile Include="Repositories\User\IOpinionRequestStatus.cs" />
+    <Compile Include="Repositories\User\IPatientDetail.cs" />
+    <Compile Include="Repositories\User\IRoleMappingRepository.cs" />
+    <Compile Include="Repositories\User\IRoleRepository.cs" />
+    <Compile Include="Repositories\User\ISectionRestrictionRepository.cs" />
+    <Compile Include="Repositories\User\ITest.cs" />
+    <Compile Include="Repositories\User\ITestAttachment.cs" />
+    <Compile Include="Repositories\User\ITestAttachmentType.cs" />
+    <Compile Include="Repositories\User\ITestConclusion.cs" />
+    <Compile Include="Repositories\User\ITestInvestigation.cs" />
+    <Compile Include="Repositories\User\ITestReportType.cs" />
+    <Compile Include="Repositories\User\ITestStatus.cs" />
+    <Compile Include="Repositories\User\ITestSupplementReportRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <EntityDeploy Include="DAL\EF\SystemDB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SystemDB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <EntityDeploy Include="DAL\Client\ClientEntity.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ClientEntity.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DAL\Client\ClientEntity.edmx.diagram">
+      <DependentUpon>ClientEntity.edmx</DependentUpon>
+    </None>
+    <None Include="DAL\EF\SystemDB.edmx.diagram">
+      <DependentUpon>SystemDB.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BLL\Main\" />
+    <Folder Include="POCO\Main\" />
+    <Folder Include="Repositories\Main\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DAL\Client\ClientEntity.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ClientEntity.edmx</DependentUpon>
+      <LastGenOutput>ClientEntity.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DAL\Client\ClientEntity.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ClientEntity.edmx</DependentUpon>
+      <LastGenOutput>ClientEntity.cs</LastGenOutput>
+    </Content>
+    <Content Include="DAL\EF\SystemDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SystemDB.edmx</DependentUpon>
+      <LastGenOutput>SystemDB.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DAL\EF\SystemDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SystemDB.edmx</DependentUpon>
+      <LastGenOutput>SystemDB.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

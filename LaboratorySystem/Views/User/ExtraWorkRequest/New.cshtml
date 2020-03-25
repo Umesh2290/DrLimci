@@ -1,0 +1,357 @@
+﻿
+@{
+    ViewBag.Title = "New Extra Work";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+    <Script>
+    var currentmenu = 38;
+</script>
+<div class="breadcrumb">
+    <h1 class="mr-2" id="mainheading">New</h1>
+    <ul>
+        <li><a href="">Extra Work Request</a></li>
+        <li id="subheading">New</li>
+    </ul>
+</div>
+@{
+    LaboratoryBusiness.Repositories.User.ITestRepository testrepo = ((DBInitializer)ViewBag.currentdomaindb).TestRepository();
+    LaboratoryBusiness.Repositories.User.ITestStatusRepositories teststatusrepo = ((DBInitializer)ViewBag.currentdomaindb).TestStatusRepositories();
+
+    int labconsultstatusid = teststatusrepo.GetAll().Where(x => x.StatusName.Equals("On Clinical Lab Doctor Plate")).FirstOrDefault().TestStatusID;
+
+    var eligibletests = (from ts in testrepo.GetAll()
+                         where (ts.TestStatusID.HasValue ? ts.TestStatusID.Value : 0) == labconsultstatusid && !(ts.IsPublish.HasValue ? ts.IsPublish.Value : false)
+                         select new {
+                             Name = ts.TestID.ToString()+" - "+ts.TestName,
+                             Value = ts.TestID.ToString()
+                         }).ToList();
+
+}
+<div>
+    <form id="testddlform">
+        <div class="form-group row ">
+            <label for="ddltest" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                Test:
+            </label>
+            <div class="col-lg-3 ">
+                <select class="form-control select2test" required="required" name="testid" id="testid">
+                    <option value="0">--Select--</option>
+                    @foreach (var test in eligibletests)
+                    {
+                        <option value="@test.Value">@test.Name</option>
+                    }
+                </select>
+                <small id="testhelpblock" class="ul-form__text form-text ">
+                    Please select test
+                </small>
+            </div>
+        </div>
+    </form>
+    <hr />
+    <div class="row" id="testpanel" style="display:none;margin-left:0">
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Test ID #</p>
+                <span id="testid_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Test Name</p>
+                <span id="testname_lbl">N/A</span>
+            </div>
+        </div>
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Patient Name</p>
+                <span id="patientname_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Is Sample Collected</p>
+                <span id="issamplecollected_lbl">N/A</span>
+            </div>
+        </div>
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Complaint History</p>
+                <span id="complainthistory_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Test Created Date</p>
+                <span id="testcreateddate_lbl">N/A</span>
+            </div>
+        </div>
+    </div>
+    <hr />
+
+    <form id="newrequestform" style="display:none">
+        <div class="card ul-card__margin-25">
+            <div class="card-body">
+                <div class="form-group row">
+                    <label for="helevels" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                        H&E Levels:
+                    </label>
+                    <div class="col-lg-3 ">
+                        <input type="text" class="form-control" id="helevels" name="helevels" required="required" placeholder="Enter h&e levels">
+                        <small id="helevelshelpblock" class="ul-form__text form-text ">
+                            Please enter h&e levels
+                        </small>
+                    </div>
+
+                    <label for="specialstains" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                        Special Stains:
+                    </label>
+                    <div class="col-lg-3 ">
+                        <input type="text" class="form-control" id="specialstains" name="specialstains" required="required" placeholder="Enter special stains">
+                        <small id="specialstainshelpblock" class="ul-form__text form-text ">
+                            Please enter special stains
+                        </small>
+                    </div>
+
+                    <label for="immunohistochemistry" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Immuno Histo Chemisty:</label>
+                    <div class="col-lg-3">
+                        <textarea class="form-control" id="immunohistochemistry" name="immunohistochemistry" placeholder="Enter immunohisto chemistry"></textarea>
+                        <small id="immunohistochemistryBlock" class="ul-form__text form-text ">
+                            Please enter immunohisto chemistry
+                        </small>
+                    </div>
+                </div>
+                <div class="custom-separator"></div>
+                <div class="form-group row">
+
+                    <label for="others" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Others:</label>
+                    <div class="col-lg-3">
+                        <textarea class="form-control" id="others" name="others" placeholder="Enter others"></textarea>
+                        <small id="othersBlock" class="ul-form__text form-text ">
+                            Please enter others
+                        </small>
+                    </div>
+
+                    <label for="attachmentfiles_request" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Attachment Files:</label>
+                    <div class="col-lg-3">
+                        <input type="file" id="attachmentfiles_request" name="attachmentfiles_request" multiple />
+                        <small id="attachmentfiles_requestBlock" class="ul-form__text form-text ">
+                            upload attachment files
+                        </small>
+                    </div>
+
+                </div>
+                <input type="hidden" value="0" name="testid" id="testid_inner" />
+            </div>
+            <div class="card-footer">
+                <div class="mc-footer">
+                    <div class="row text-center">
+                        <div class="col-lg-12 ">
+                            <button type="submit" class="btn btn-primary m-1" id="savebtnrequest">Request</button>
+                            <button type="reset" class="btn btn-outline-secondary m-1" id="cancelbtn">Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    function UploadFile(ExtraWorkId, formid, attachmentelementid) {
+        // Checking whether FormData is available in browser  
+        if (window.FormData !== undefined) {
+
+            var fileUpload = $(("#" + attachmentelementid)).get(0);
+            var files = fileUpload.files;
+
+            if (files.length > 0) {
+                // Create FormData object  
+                var fileData = new FormData();
+
+                // Looping over all files and add it to FormData object  
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append(files[i].name, files[i]);
+                }
+
+                // Adding one more key to FormData object  
+                fileData.append('ExtraWorkID', ExtraWorkId);
+
+                $.ajax({
+                    url: _User_ExtraWorkRequest_UploadFile,
+                    type: "POST",
+                    contentType: false, // Not to set any content header  
+                    processData: false, // Not to process data  
+                    data: fileData,
+                    success: function (result) {
+                        //swal.fire({ title: "Created Successfully !", icon: "success", html: "Employee has been created successfully<br>" });
+                        $('.loadscreen').fadeOut();
+                        $(("#" + formid)).trigger("reset");
+
+                        if (result.data.ResponseType == "swal-success") {
+                            swal.fire({ title: result.data.Title, icon: "success", html: result.data.Description });
+                        }
+                        else {
+                            swal.fire({ title: result.data.Title, icon: "warning", html: result.data.Description });
+                        }
+
+                            setTimeout(function () {
+                                window.location.replace("/User/ExtraWorkRequest/Open");
+                            }, 2500);
+                    },
+                    error: function (err) {
+                        $('.loadscreen').fadeOut();
+                        $(("#" + formid)).trigger("reset");
+                        WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                        swal.fire({ title: "Requested Successfully !", icon: "success", html: "Request has been saved successfully<br>." });
+
+                       setTimeout(function () {
+                           window.location.replace("/User/ExtraWorkRequest/Open");
+                       }, 2500);
+                    }
+                });
+            }
+            else {
+                $(("#" + formid)).trigger("reset");
+                $('.loadscreen').fadeOut();
+
+                swal.fire({ title: "Requested Successfully !", icon: "success", html: "Request has been saved successfully<br>." });
+
+                setTimeout(function () {
+                    window.location.replace("/User/ExtraWorkRequest/Open");
+                }, 2500);
+
+            }
+        } else {
+            $(("#" + formid)).trigger("reset");
+            $('.loadscreen').fadeOut();
+            swal.fire({ title: "Not supported !", icon: "error", html: "Sorry file upload not supported in this browser." });
+
+            swal.fire({ title: "Requested Successfully !", icon: "success", html: "Request has been saved successfully<br>." });
+
+            setTimeout(function () {
+                window.location.replace("/User/ExtraWorkRequest/Open");
+            }, 2500);
+
+        }
+    }
+
+
+    $(document).ready(function () {
+        $('.select2test').select2();
+
+
+        $("#testid").change(function () {
+            var ddlvalue = $(this).val();
+            $("#testid_inner").val(ddlvalue);
+            if (ddlvalue != 0) {
+                MakeRequest(_User_ExtraWorkRequest_GetTestDetail, "POST", { "testid": ddlvalue }, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+    var outputdt = null;
+    if (rs.ResponseType == "Simple") {
+        var dt = rs.ResponseData.testjson;
+        outputdt = dt;
+    }
+
+    if (outputdt != null) {
+        $("#testid_lbl").text(outputdt.TestID);
+        $("#testname_lbl").text(outputdt.TestName);
+        $("#patientname_lbl").text(outputdt.PatientName);
+        $("#issamplecollected_lbl").text(outputdt.IsSampleCollected);
+        $("#complainthistory_lbl").text(outputdt.ComplaintHistory);
+        $("#testcreateddate_lbl").text(outputdt.TestCreatedDate);
+        $("#testpanel").show();
+        $("#newrequestform").show();
+
+
+    }
+    else {
+        $("#testpanel").hide();
+        $("#newrequestform").hide();
+        $("#testid_lbl").text("N/A");
+        $("#testname_lbl").text("N/A");
+        $("#patientname_lbl").text("N/A");
+        $("#issamplecollected_lbl").text("N/A");
+        $("#complainthistory_lbl").text("N/A");
+        $("#testcreateddate_lbl").text("N/A");
+
+        $("#helevels").val("");
+        $("#specialstains").val("");
+        $("#immunohistochemistry").val("");
+        $("#others").text("");
+    }
+
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+            }
+            else {
+                $("#testpanel").hide();
+                $("#newrequestform").hide();
+                $("#testid_lbl").text("N/A");
+                $("#testname_lbl").text("N/A");
+                $("#patientname_lbl").text("N/A");
+                $("#issamplecollected_lbl").text("N/A");
+                $("#complainthistory_lbl").text("N/A");
+                $("#testcreateddate_lbl").text("N/A");
+
+                $("#helevels").val("");
+                $("#specialstains").val("");
+                $("#immunohistochemistry").val("");
+                $("#others").text("");
+            }
+        });
+
+        $("#savebtnrequest").click(function () {
+            var form = document.querySelector('#newrequestform');
+            if (form.reportValidity()) {
+
+
+                swal.fire({
+                    title: "Are you sure?",
+                    text: "Once saved after that you won't be able to edit!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, I am sure!',
+                    cancelButtonText: 'No, cancel it!',
+                    preConfirm: function () {
+                        var _posturl = _User_ExtraWorkRequest_AddExtraWorkRequest;
+
+                        MakeRequest(_posturl, "POST", objectifyForm($("#newrequestform").serializeArray()), "json",
+                            function (jqXHR, settings) {
+                                //For Before Send
+                                $('.loadscreen').fadeIn();
+                            },
+                            function (data, status, xhr) {
+                                //For Success
+
+                                $('.loadscreen').fadeOut();
+
+                                var rs = WebResponse(data);
+                                if (rs.ResponseType == "Simple") {
+                                    UploadFile(rs.ResponseData.extraworkjson.ExtraWorkID, "newrequestform", "attachmentfiles_request");
+                                }
+                            },
+                        function (jqXhr, textStatus, errorMessage) {
+                            //For Error
+                            $('.loadscreen').fadeOut();
+                            WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                        });
+                    }
+                })
+
+
+
+            }
+            return false;
+        });
+
+    });
+</script>
+
+
+

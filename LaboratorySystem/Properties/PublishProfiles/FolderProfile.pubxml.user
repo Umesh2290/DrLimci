@@ -1,0 +1,1979 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_NewBackgroundProfile>True</_NewBackgroundProfile>
+    <_PublishTargetUrl>F:\main developement projects\Laboratory-Management-System-SubDomain\LaboratorySystem\LaboratorySystem\bin\Release\PublishOutput</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/Antlr3.Runtime.dll">
+      <publishTime>10/25/2019 02:20:02</publishTime>
+    </File>
+    <File Include="bin/Antlr3.Runtime.pdb">
+      <publishTime>10/25/2019 02:20:02</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>10/25/2019 02:20:40</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.SqlServer.dll">
+      <publishTime>10/25/2019 02:20:40</publishTime>
+    </File>
+    <File Include="bin/LaboratoryBusiness.dll">
+      <publishTime>10/25/2019 03:53:15</publishTime>
+    </File>
+    <File Include="bin/LaboratoryBusiness.dll.config">
+      <publishTime>10/25/2019 03:31:11</publishTime>
+    </File>
+    <File Include="bin/LaboratoryBusiness.pdb">
+      <publishTime>10/25/2019 03:53:15</publishTime>
+    </File>
+    <File Include="bin/LaboratorySystem.dll">
+      <publishTime>10/25/2019 04:27:36</publishTime>
+    </File>
+    <File Include="bin/LaboratorySystem.pdb">
+      <publishTime>10/25/2019 04:27:36</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.SignalR.Core.dll">
+      <publishTime>10/25/2019 02:20:40</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.SignalR.Core.pdb">
+      <publishTime>10/25/2019 02:20:40</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.SignalR.SystemWeb.dll">
+      <publishTime>10/25/2019 02:20:40</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.SignalR.SystemWeb.pdb">
+      <publishTime>10/25/2019 02:20:40</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.dll">
+      <publishTime>10/25/2019 02:20:43</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Host.SystemWeb.dll">
+      <publishTime>10/25/2019 02:20:45</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.dll">
+      <publishTime>10/25/2019 02:20:45</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>10/25/2019 02:20:45</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>10/25/2019 02:20:45</publishTime>
+    </File>
+    <File Include="bin/Owin.dll">
+      <publishTime>10/25/2019 02:20:46</publishTime>
+    </File>
+    <File Include="bin/ProxyApi.dll">
+      <publishTime>10/25/2019 02:20:46</publishTime>
+    </File>
+    <File Include="bin/System.IO.Compression.dll">
+      <publishTime>09/26/2012 03:16:08</publishTime>
+    </File>
+    <File Include="bin/System.IO.Compression.FileSystem.dll">
+      <publishTime>09/26/2012 03:16:08</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.Formatting.dll">
+      <publishTime>11/28/2018 13:00:36</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>10/25/2019 02:20:43</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.dll">
+      <publishTime>11/28/2018 13:01:00</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.WebHost.dll">
+      <publishTime>11/28/2018 13:02:56</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>10/25/2019 02:20:40</publishTime>
+    </File>
+    <File Include="bin/System.Web.Optimization.dll">
+      <publishTime>10/25/2019 02:20:40</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>10/25/2019 02:20:40</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>10/25/2019 02:20:43</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>10/25/2019 02:20:43</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>10/25/2019 02:20:43</publishTime>
+    </File>
+    <File Include="bin/WebGrease.dll">
+      <publishTime>10/25/2019 02:20:46</publishTime>
+    </File>
+    <File Include="Content/fonts/iconsmind/iconsmind.css">
+      <publishTime>10/25/2019 02:19:39</publishTime>
+    </File>
+    <File Include="Content/fonts/iconsmind/iconsmind.eot">
+      <publishTime>10/25/2019 02:19:39</publishTime>
+    </File>
+    <File Include="Content/fonts/iconsmind/iconsmind.svg">
+      <publishTime>10/25/2019 02:19:39</publishTime>
+    </File>
+    <File Include="Content/fonts/iconsmind/iconsmind.ttf">
+      <publishTime>10/25/2019 02:19:39</publishTime>
+    </File>
+    <File Include="Content/fonts/iconsmind/iconsmind.woff">
+      <publishTime>10/25/2019 02:19:39</publishTime>
+    </File>
+    <File Include="Content/images/.DS_Store">
+      <publishTime>10/25/2019 02:19:39</publishTime>
+    </File>
+    <File Include="Content/images/Angular_Icon.png">
+      <publishTime>10/25/2019 02:19:39</publishTime>
+    </File>
+    <File Include="Content/images/bg-1.png">
+      <publishTime>10/25/2019 02:19:39</publishTime>
+    </File>
+    <File Include="Content/images/bootstrap-logo.png">
+      <publishTime>10/25/2019 02:19:39</publishTime>
+    </File>
+    <File Include="Content/images/checkmark.svg">
+      <publishTime>10/25/2019 02:19:39</publishTime>
+    </File>
+    <File Include="Content/images/close.svg">
+      <publishTime>10/25/2019 02:19:39</publishTime>
+    </File>
+    <File Include="Content/images/danger.svg">
+      <publishTime>10/25/2019 02:19:39</publishTime>
+    </File>
+    <File Include="Content/images/faces/1.jpg">
+      <publishTime>10/25/2019 02:19:39</publishTime>
+    </File>
+    <File Include="Content/images/faces/10.jpg">
+      <publishTime>10/25/2019 02:19:39</publishTime>
+    </File>
+    <File Include="Content/images/faces/12.jpg">
+      <publishTime>10/25/2019 02:19:39</publishTime>
+    </File>
+    <File Include="Content/images/faces/13.jpg">
+      <publishTime>10/25/2019 02:19:39</publishTime>
+    </File>
+    <File Include="Content/images/faces/15.jpg">
+      <publishTime>10/25/2019 02:19:39</publishTime>
+    </File>
+    <File Include="Content/images/faces/16.jpg">
+      <publishTime>10/25/2019 02:19:39</publishTime>
+    </File>
+    <File Include="Content/images/faces/17.jpg">
+      <publishTime>10/25/2019 02:19:39</publishTime>
+    </File>
+    <File Include="Content/images/faces/2.jpg">
+      <publishTime>10/25/2019 02:19:39</publishTime>
+    </File>
+    <File Include="Content/images/faces/3.jpg">
+      <publishTime>10/25/2019 02:19:39</publishTime>
+    </File>
+    <File Include="Content/images/faces/4.jpg">
+      <publishTime>10/25/2019 02:19:39</publishTime>
+    </File>
+    <File Include="Content/images/faces/5.jpg">
+      <publishTime>10/25/2019 02:19:39</publishTime>
+    </File>
+    <File Include="Content/images/faces/9.jpg">
+      <publishTime>10/25/2019 02:19:39</publishTime>
+    </File>
+    <File Include="Content/images/gull-large-sidebar.png">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/Html_Icon.png">
+      <publishTime>10/25/2019 02:19:39</publishTime>
+    </File>
+    <File Include="Content/images/info.svg">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/laravel-logo.png">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/logo-text.png">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/logo.png">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/mac_book.jpg">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/master-card.png">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/page-bg-bottom.png">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/paypal.png">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/photo-long-1.jpg">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/photo-long-2.jpg">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/photo-long-3.jpg">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/photo-long-4.jpg">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/photo-wide-1.jpg">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/photo-wide-2.jpg">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/photo-wide-3.jpg">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/photo-wide-4.jpg">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/photo-wide-5.jpeg">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/products/cloud-346710_1280.png">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/products/headphone-1.jpg">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/products/headphone-2.jpg">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/products/headphone-3.jpg">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/products/headphone-4.jpg">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/products/iphone-1.jpg">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/products/iphone-2.jpg">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/products/speaker-1.jpg">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/products/speaker-2.jpg">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/products/watch-1.jpg">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/products/watch-2.jpg">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/products/weather-2.jpg">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/products/weather.jpg">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/ps.png">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/Sass_icon.png">
+      <publishTime>10/25/2019 02:19:39</publishTime>
+    </File>
+    <File Include="Content/images/screenshots/dashboard.v1.png">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/screenshots/dashboard.v2.png">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/images/visa.png">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/styles/.DS_Store">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/styles/css/.DS_Store">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/styles/css/bootstrap-rtl.css">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/styles/css/bootstrap-rtl.min.css">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/styles/css/globals/views/collapsible.css">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/styles/css/globals/views/collapsible.min.css">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/styles/css/globals/views/line-tab.css">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/styles/css/globals/views/line-tab.min.css">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/styles/css/themes/dark-purple.css">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/styles/css/themes/dark-purple.min.css">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/css/themes/lite-blue.css">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/css/themes/lite-blue.min.css">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/css/themes/lite-purple.css">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/css/themes/lite-purple.min.css">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/.DS_Store">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.css">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/animate.css">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/animate.css.map">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/animate.min.css">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/animate.min.css.map">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/animate.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_attention-seekers/attention-seekers.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_attention-seekers/_bounce.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_attention-seekers/_flash.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_attention-seekers/_jello.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_attention-seekers/_pulse.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_attention-seekers/_rubberBand.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_attention-seekers/_shake.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_attention-seekers/_swing.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_attention-seekers/_tada.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_attention-seekers/_wobble.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_bouncing-entrances/bouncing-entrances.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_bouncing-entrances/_bounceIn.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_bouncing-entrances/_bounceInDown.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_bouncing-entrances/_bounceInLeft.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_bouncing-entrances/_bounceInRight.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_bouncing-entrances/_bounceInUp.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_bouncing-exits/bouncing-exits.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_bouncing-exits/_bounceOut.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_bouncing-exits/_bounceOutDown.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_bouncing-exits/_bounceOutLeft.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_bouncing-exits/_bounceOutRight.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_bouncing-exits/_bounceOutUp.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_fading-entrances/fading-entrances.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_fading-entrances/_fadeIn.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_fading-entrances/_fadeInDown.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_fading-entrances/_fadeInDownBig.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_fading-entrances/_fadeInLeft.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_fading-entrances/_fadeInLeftBig.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_fading-entrances/_fadeInRight.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_fading-entrances/_fadeInRightBig.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_fading-entrances/_fadeInUp.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_fading-entrances/_fadeInUpBig.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_fading-exits/fading-exits.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_fading-exits/_fadeOut.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_fading-exits/_fadeOutDown.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_fading-exits/_fadeOutDownBig.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_fading-exits/_fadeOutLeft.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_fading-exits/_fadeOutLeftBig.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_fading-exits/_fadeOutRight.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_fading-exits/_fadeOutRightBig.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_fading-exits/_fadeOutUp.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_fading-exits/_fadeOutUpBig.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_flippers/flippers.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_flippers/_flip.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_flippers/_flipInX.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_flippers/_flipInY.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_flippers/_flipOutX.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_flippers/_flipOutY.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_lightspeed/lightspeed.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_lightspeed/_lightSpeedIn.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_lightspeed/_lightSpeedOut.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_properties.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_rotating-entrances/rotating-entrances.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_rotating-entrances/_rotateIn.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_rotating-entrances/_rotateInDownLeft.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_rotating-entrances/_rotateInDownRight.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_rotating-entrances/_rotateInUpLeft.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_rotating-entrances/_rotateInUpRight.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_rotating-exits/rotating-exits.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_rotating-exits/_rotateOut.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_rotating-exits/_rotateOutDownLeft.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_rotating-exits/_rotateOutDownRight.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_rotating-exits/_rotateOutUpLeft.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_rotating-exits/_rotateOutUpRight.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_sliding-entrances/sliding-entrances.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_sliding-entrances/_slideInDown.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_sliding-entrances/_slideInLeft.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_sliding-entrances/_slideInRight.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_sliding-entrances/_slideInUp.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_sliding-exits/sliding-exits.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_sliding-exits/_slideOutDown.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_sliding-exits/_slideOutLeft.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_sliding-exits/_slideOutRight.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_sliding-exits/_slideOutUp.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_specials/specials.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_specials/_hinge.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_specials/_rollIn.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_specials/_rollOut.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_zooming-entrances/zooming-entrances.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_zooming-entrances/_zoomIn.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_zooming-entrances/_zoomInDown.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_zooming-entrances/_zoomInLeft.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_zooming-entrances/_zoomInRight.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_zooming-entrances/_zoomInUp.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_zooming-exits/zooming-exits.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_zooming-exits/_zoomOut.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_zooming-exits/_zoomOutDown.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_zooming-exits/_zoomOutLeft.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_zooming-exits/_zoomOutRight.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/animate.scss/_zooming-exits/_zoomOutUp.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/apexcharts.css">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/.DS_Store">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/bootstrap-grid.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/bootstrap-reboot.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/bootstrap.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/mixins/_alert.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/mixins/_background-variant.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/mixins/_badge.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/mixins/_border-radius.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/mixins/_box-shadow.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/mixins/_breakpoints.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/mixins/_buttons.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/mixins/_caret.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/mixins/_clearfix.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/mixins/_float.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/mixins/_forms.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/mixins/_gradients.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/mixins/_grid-framework.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/mixins/_grid.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/mixins/_hover.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/mixins/_image.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/mixins/_list-group.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/mixins/_lists.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/mixins/_nav-divider.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/mixins/_navbar-align.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/mixins/_pagination.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/mixins/_reset-text.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/mixins/_resize.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/mixins/_screen-reader.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/mixins/_size.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/mixins/_table-row.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/mixins/_text-emphasis.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/mixins/_text-hide.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/mixins/_text-truncate.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/mixins/_transition.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/mixins/_visibility.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/utilities/_align.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/utilities/_background.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/utilities/_borders.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/utilities/_clearfix.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/utilities/_display.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/utilities/_embed.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/utilities/_flex.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/utilities/_float.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/utilities/_position.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/utilities/_screenreaders.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/utilities/_sizing.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/utilities/_spacing.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/utilities/_text.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/utilities/_visibility.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_alert.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_badge.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_breadcrumb.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_button-group.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_buttons.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_card.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_carousel.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_close.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_code.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_custom-forms.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_dropdown.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_forms.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_functions.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_grid.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_images.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_input-group.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_jumbotron.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_list-group.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_media.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_mixins.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_modal.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_nav.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_navbar.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_pagination.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_popover.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_print.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_progress.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_reboot.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_root.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_tables.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_tooltip.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_transitions.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_type.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_utilities.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap-rtl/_variables.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/.babelrc.js">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/.browserslistrc">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/.DS_Store">
+      <publishTime>10/25/2019 02:19:40</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/.editorconfig">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/.eslintignore">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/.eslintrc.json">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/.gitattributes">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/.github/CONTRIBUTING.md">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/.github/ISSUE_TEMPLATE/bug.md">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/.github/ISSUE_TEMPLATE/bug_report.md">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/.github/ISSUE_TEMPLATE/feature.md">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/.github/ISSUE_TEMPLATE/feature_request.md">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/.github/SUPPORT.md">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/.gitignore">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/.stylelintignore">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/.stylelintrc">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/.travis.yml">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/bootstrap-grid.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/bootstrap-reboot.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/bootstrap.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/mixins/_alert.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/mixins/_background-variant.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/mixins/_badge.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/mixins/_border-radius.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/mixins/_box-shadow.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/mixins/_breakpoints.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/mixins/_buttons.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/mixins/_caret.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/mixins/_clearfix.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/mixins/_float.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/mixins/_forms.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/mixins/_gradients.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/mixins/_grid-framework.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/mixins/_grid.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/mixins/_hover.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/mixins/_image.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/mixins/_list-group.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/mixins/_lists.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/mixins/_nav-divider.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/mixins/_pagination.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/mixins/_reset-text.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/mixins/_resize.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/mixins/_screen-reader.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/mixins/_size.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/mixins/_table-row.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/mixins/_text-emphasis.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/mixins/_text-hide.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/mixins/_text-truncate.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/mixins/_transition.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/mixins/_visibility.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/utilities/_align.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/utilities/_background.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/utilities/_borders.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/utilities/_clearfix.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/utilities/_display.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/utilities/_embed.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/utilities/_flex.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/utilities/_float.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/utilities/_position.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/utilities/_screenreaders.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/utilities/_shadows.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/utilities/_sizing.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/utilities/_spacing.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/utilities/_text.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/utilities/_visibility.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_alert.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_badge.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_breadcrumb.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_button-group.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_buttons.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_card.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_carousel.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_close.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_code.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_custom-forms.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_dropdown.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_forms.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_functions.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_grid.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_images.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_input-group.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_jumbotron.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_list-group.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_media.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_mixins.scss">
+      <publishTime>10/25/2019 02:19:41</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_modal.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_nav.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_navbar.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_pagination.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_popover.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_print.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_progress.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_reboot.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_root.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_tables.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_toasts.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_tooltip.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_transitions.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_type.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_utilities.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/bootstrap/_variables.scss">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/calendar/datepiker.min.css">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/calendar/fullcalendar.min.css">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/calendar/fullcalendar.print.min.css">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/cropper.min.css">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/datatables.min.css">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/dropzone.min.css">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/hopscotch.css">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/ladda-themeless.min.css">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/nuslider.min.css">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/perfect-scrollbar.css">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/pickadate/classic.css">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/pickadate/classic.date.css">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/pickadate/classic.time.css">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/pickadate/default.css">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/pickadate/default.date.css">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/pickadate/default.time.css">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/pickadate/rtl.css">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/quill.bubble.css">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/quill.snow.css">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/smart.wizard/smart_wizard.css">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/smart.wizard/smart_wizard.min.css">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/smart.wizard/smart_wizard_theme_arrows.css">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/smart.wizard/smart_wizard_theme_arrows.min.css">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/smart.wizard/smart_wizard_theme_circles.css">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/smart.wizard/smart_wizard_theme_circles.min.css">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/smart.wizard/smart_wizard_theme_dots.css">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/smart.wizard/smart_wizard_theme_dots.min.css">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/sweetalert2.min.css">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/toastr.css">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="Content/styles/vendor/toastr.min.css">
+      <publishTime>10/25/2019 02:19:42</publishTime>
+    </File>
+    <File Include="favicon.ico">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.eot">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.svg">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.ttf">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.woff">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="ImportantNote/Notes.html">
+      <publishTime>10/25/2019 03:38:46</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>10/25/2019 03:40:35</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/Custom/General.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.min.map">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/jquery.signalR-2.4.1.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/jquery.signalR-2.4.1.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.unobtrusive.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.unobtrusive.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/.DS_Store">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/apexAreaChart.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/apexBarChart.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/apexBubbleChart.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/apexCandleStickChart.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/apexChart.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/apexcharts.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/apexColumnChart.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/apexMixChart.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/apexPieDonutChart.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/apexRadarChart.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/apexRadialBarChart.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/apexScatterChart.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/apexSparklineChart.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/calendar.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/card.metrics.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/carousel.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/chartjs.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/cropper.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/customizer.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/dashboard.v1.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/dashboard.v2.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/dashboard.v3.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/dashboard.v4.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/datatables.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/dropzone.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/echart.options.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/echarts.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/apexAreaChart.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/apexAreaChart.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/apexBarChart.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/apexBarChart.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/apexBubbleChart.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/apexBubbleChart.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/apexCandleStickChart.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/apexCandleStickChart.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/apexChart.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/apexChart.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/apexcharts.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/apexcharts.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/apexColumnChart.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/apexColumnChart.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/apexMixChart.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/apexMixChart.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/apexPieDonutChart.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/apexPieDonutChart.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/apexRadarChart.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/apexRadarChart.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/apexRadialBarChart.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/apexRadialBarChart.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/apexScatterChart.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/apexScatterChart.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/apexSparklineChart.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/apexSparklineChart.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/calendar.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/calendar.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/card.metrics.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/card.metrics.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/carousel.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/carousel.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/chartjs.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/chartjs.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/core.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/cropper.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/cropper.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/customizer.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/customizer.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/dashboard.v1.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/dashboard.v1.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/dashboard.v2.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/dashboard.v2.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/dashboard.v3.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/dashboard.v3.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/dashboard.v4.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/dashboard.v4.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/datatables.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/datatables.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/dropzone.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/dropzone.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/echart.options.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/echart.options.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/echarts.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/echarts.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/form.basic.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/form.basic.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/form.validation.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/form.validation.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/gull.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/gull.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/gull.ui.kits.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/gull.ui.kits.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/hopscotch.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/hopscotch.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/invoice.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/invoice.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/ladda.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/ladda.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/landing.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/landing.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/modal.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/modal.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/nuslider.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/nuslider.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/quill.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/quill.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/sidebar-horizontal.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/sidebar-horizontal.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/sidebar.compact.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/sidebar.compact.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/sidebar.large.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/sidebar.large.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/sidebar.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/sidebar.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/smart.wizard.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/smart.wizard.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/sweetalert.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/sweetalert.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/tagging.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/tagging.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/task-manager-list.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/task-manager-list.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/task-manager.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/task-manager.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/toastr.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/toastr.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/toastuicharts.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/toastuicharts.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/todo.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/todo.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/tooltip.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/tooltip.script.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/widget-list.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/widget-list.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/widgets-statistics.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/es5/widgets-statistics.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/form.basic.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/form.validation.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/hopscotch.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/invoice.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/ladda.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/landing.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/modal.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/nuslider.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/quill.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/sidebar-horizontal.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/sidebar.compact.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/sidebar.large.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/sidebar.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/smart.wizard.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/sweetalert.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/tagging.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/task-manager-list.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/task-manager.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/toastr.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/toastuicharts.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/todo.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/tooltip.script.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/.DS_Store">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/apexcharts.dataseries.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/apexcharts.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/bootstrap.bundle.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/bootstrap.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/bootstrap.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/calendar/datepicker.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/calendar/fullcalendar.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/calendar/jquery-ui.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/calendar/moment.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/cropper.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/datatables.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/dropzone.min.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/echarts.min.js">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/feather.min.js">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/hopscotch.min.js">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/jquery-3.3.1.min.js">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/jquery.smartWizard.min.js">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/ladda.js">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/nuslider.min.js">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/parsley.js">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/perfect-scrollbar.min.js">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/pickadate/.DS_Store">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/pickadate/legacy.js">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/pickadate/picker.date.js">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/pickadate/picker.js">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/pickadate/picker.time.js">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/pickadate/themes/classic.css">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/pickadate/themes/classic.date.css">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/pickadate/themes/classic.time.css">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/pickadate/themes/default.css">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/pickadate/themes/default.date.css">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/pickadate/themes/default.time.css">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/pickadate/themes/rtl.css">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/popper.min.js">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/quill.min.js">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/spin.min.js">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/sweetalert2.min.js">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/tagging.min.js">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Scripts/js/vendor/toastr.min.js">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Scripts/js/widget-list.js">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Scripts/js/widgets-statistics.js">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Scripts/modernizr-2.6.2.js">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Scripts/respond.js">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Scripts/respond.min.js">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Scripts/_references.js">
+      <publishTime>10/25/2019 02:19:44</publishTime>
+    </File>
+    <File Include="Views/Admin/Account/Index.cshtml">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Views/Admin/Home/Index.cshtml">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Views/Main/Index.cshtml">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Views/Shared/Error.cshtml">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout.cshtml">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Views/Web.config">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Views/_ViewStart.cshtml">
+      <publishTime>10/25/2019 02:19:45</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>10/25/2019 04:27:38</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

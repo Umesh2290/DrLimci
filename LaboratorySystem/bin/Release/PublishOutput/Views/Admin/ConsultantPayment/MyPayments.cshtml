@@ -1,0 +1,104 @@
+﻿
+@{
+    ViewBag.Title = "My Payments";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    var currentmenu = 40;
+    $(document).ready(function () {
+
+
+        MakeRequest(_Admin_ConsultantPayment_GetList, "POST", null, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+    var outputdt = {};
+    if (rs.ResponseType == "Simple") {
+        var dt = rs.ResponseData.consultantpaymentjson;
+        outputdt = dt;
+    }
+
+    $('#consultantpaymenttable').DataTable({
+        data: outputdt,
+        columns: [
+            { data: 'OpinionRequestID' },
+            { data: 'Payment' },
+            { data: 'CompletionDate' },
+            { data: 'StatusCustom' },
+            { data: 'PaymentReceiptPdfLink' },
+        ],
+        "columnDefs": [
+            {
+                "render": function (data, type, row) {
+                    return "<a href='" + row["PaymentReceiptPdfLink"] + "' target='_blank'>Click here to download</a>";
+                },
+                "targets": 4
+            },
+            {
+                "render": function (data, type, row) {
+                    if (data == "Completed") {
+                        return '<span class="badge badge-success">Completed</span>';
+                    }
+                    else {
+                        return data;
+                    }
+                },
+                "targets": 3
+            }
+        ]
+    });
+
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+
+    })
+</script>
+<div class="breadcrumb">
+    <h1 class="mr-2" id="mainheading">My Payments</h1>
+    <ul>
+        <li><a href="">Payment</a></li>
+        <li id="subheading">My Payments</li>
+    </ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+<div id="gridarea">
+    <div class="row mb-4">
+
+        <div class="col-md-12 mb-3">
+            <div class="card text-left">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="consultantpaymenttable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Opinion Request ID #</th>
+                                    <th scope="col">Payment</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">PDF Link</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end of col-->
+    </div>
+</div>
+
+

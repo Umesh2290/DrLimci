@@ -1,0 +1,894 @@
+﻿@{
+    ViewBag.Title = "My Dashboard";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<script>
+    var currentmenu = 1;
+</script>
+<div class="breadcrumb">
+    <h1 class="mr-2">My Dashboard</h1>
+    <ul>
+        <li><a href="">Dashboard</a></li>
+        <li>My Dashboard</li>
+    </ul>
+</div>
+
+@{
+if(@ViewBag.RoleIDForDashboard==2||@ViewBag.RoleIDForDashboard==1){
+<div class="row">
+    <div class=" col-md-6">
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="card-title">Patient Registration Trends by Month</div>
+                <div id="PatientRegistration"></div>
+            </div>
+        </div>
+
+    </div>
+    <div class=" col-md-6">
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="card-title">Medical Test Registration Trends by Month</div>
+                <div id="MedicalTestRegistration"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+}
+
+
+if(@ViewBag.RoleIDForDashboard==4||@ViewBag.RoleIDForDashboard==1||@ViewBag.RoleIDForDashboard==5){
+<div class="row">
+    <div class=" col-md-6">
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="card-title">Extra Work Requests Trends by Month</div>
+                <div id="ExtraWorkRequests"></div>
+            </div>
+        </div>
+
+    </div>
+    <div class=" col-md-6">
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="card-title">Test Report Requests Trends by Month</div>
+                <div id="TestReportRequests"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+}
+
+
+if(@ViewBag.RoleIDForDashboard==7||@ViewBag.RoleIDForDashboard==1){
+<div class="row">
+
+    <div class=" col-md-6">
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="card-title">Inventory Stock Trends by Month</div>
+                <div id="Inventory"></div>
+            </div>
+        </div>
+
+    </div>
+    <div class=" col-md-6">
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="card-title">Inventory Requests Trends by Month</div>
+                <div id="InventoryRequests"></div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+
+if(@ViewBag.RoleIDForDashboard==1){
+    <div class="row">
+   
+    <div class=" col-md-6">
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="card-title">Second Opinion Request Trends by Month</div>
+                <div id="SecondOpinionRequest"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+}
+
+
+if(@ViewBag.RoleIDForDashboard==8||@ViewBag.RoleIDForDashboard==1){
+<div class="row">
+    <div class=" col-md-6">
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="card-title">Reports For Patient Trends by Month</div>
+                <div id="ReportsForPatient"></div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+}
+
+if(@ViewBag.RoleIDForDashboard==3||@ViewBag.RoleIDForDashboard==1){
+<div class="row">
+     <div class=" col-md-6">
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="card-title">Sample Collection Request Trends by Month</div>
+                <div id="SampleCollectionRequest"></div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+}
+
+}
+<script>
+
+    function ConvertDate(data) {
+        var date = new Date(parseInt(data.substr(6)));
+        var month = date.getMonth() + 1;
+        return (month.length > 1 ? month : "" + month) + "/" + date.getDate() + "/" + date.getFullYear();
+    }
+
+</script>
+<script src="~/Scripts/js/vendor/perfect-scrollbar.min.js"></script>
+
+<script src="~/Scripts/js/vendor/apexcharts.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+
+
+        function RenderChart(chartData) {
+
+
+            var dates = [];
+            var payments = [];
+            for (var i = 0; i < chartData.length; i++) {
+                dates.push(chartData[i][0].CreatedDate);
+                payments.push(chartData[i].length);
+            }
+
+
+            var options = {
+                series: [{
+                    name: "Patient Registration",
+                    data: payments
+                }],
+                chart: {
+                    height: 350,
+                    type: 'line',
+                    zoom: {
+                        enabled: false
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'straight'
+                },
+                title: {
+                    text: 'Patient Registration Trends by Month',
+                    align: 'left'
+                },
+                grid: {
+                    row: {
+                        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                        opacity: 0.5
+                    },
+                },
+                xaxis: {
+                    categories: dates,
+                }
+            };
+
+            var chart = new ApexCharts(document.querySelector("#PatientRegistration"), options);
+            chart.render();
+        }
+        function MedicalTestRegistration(chartData) {
+
+
+            var dates = [];
+            var payments = [];
+            for (var i = 0; i < chartData.length; i++) {
+                dates.push(chartData[i][0].TestCreatedDateCustom);
+                payments.push(chartData[i].length);
+            }
+
+
+            var options = {
+                series: [{
+                    name: "Medical Test Registration",
+                    data: payments
+                }],
+                chart: {
+                    height: 350,
+                    type: 'line',
+                    zoom: {
+                        enabled: false
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'straight'
+                },
+                title: {
+                    text: 'Medical Test Registration Trends by Month',
+                    align: 'left'
+                },
+                grid: {
+                    row: {
+                        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                        opacity: 0.5
+                    },
+                },
+                xaxis: {
+                    categories: dates,
+                }
+            };
+
+            var chart = new ApexCharts(document.querySelector("#MedicalTestRegistration"), options);
+            chart.render();
+        }
+        function SampleCollectionRequest(chartData) {
+
+
+            var dates = [];
+            var payments = [];
+            for (var i = 0; i < chartData.length; i++) {
+                dates.push(ConvertDate(chartData[i][0].TestCreatedDate));
+                payments.push(chartData[i].length);
+            }
+
+
+            var options = {
+                series: [{
+                    name: "Sample Collection Request Registration",
+                    data: payments
+                }],
+                chart: {
+                    height: 350,
+                    type: 'line',
+                    zoom: {
+                        enabled: false
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'straight'
+                },
+                title: {
+                    text: 'Sample Collection Request Trends by Month',
+                    align: 'left'
+                },
+                grid: {
+                    row: {
+                        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                        opacity: 0.5
+                    },
+                },
+                xaxis: {
+                    categories: dates,
+                }
+            };
+
+            var chart = new ApexCharts(document.querySelector("#SampleCollectionRequest"), options);
+            chart.render();
+        }
+        function TestReportRequests(chartData) {
+
+            debugger
+            var dates = [];
+            var payments = [];
+            for (var i = 0; i < chartData.length; i++) {
+                dates.push(ConvertDate(chartData[i][0].CreatedDate));
+                payments.push(chartData[i].length);
+            }
+
+
+            var options = {
+                series: [{
+                    name: "Test Report Requests Registration",
+                    data: payments
+                }],
+                chart: {
+                    height: 350,
+                    type: 'line',
+                    zoom: {
+                        enabled: false
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'straight'
+                },
+                title: {
+                    text: 'Test Report Requests Trends by Month',
+                    align: 'left'
+                },
+                grid: {
+                    row: {
+                        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                        opacity: 0.5
+                    },
+                },
+                xaxis: {
+                    categories: dates,
+                }
+            };
+
+            var chart = new ApexCharts(document.querySelector("#TestReportRequests"), options);
+            chart.render();
+        }
+
+        function ExtraWorkRequests(chartData) {
+
+            debugger
+            var dates = [];
+            var payments = [];
+            for (var i = 0; i < chartData.length; i++) {
+                dates.push(ConvertDate(chartData[i][0].RequestCreatedDate));
+                payments.push(chartData[i].length);
+            }
+
+
+            var options = {
+                series: [{
+                    name: "Extra Work Requests",
+                    data: payments
+                }],
+                chart: {
+                    height: 350,
+                    type: 'line',
+                    zoom: {
+                        enabled: false
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'straight'
+                },
+                title: {
+                    text: 'Extra Work Requests Trends by Month',
+                    align: 'left'
+                },
+                grid: {
+                    row: {
+                        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                        opacity: 0.5
+                    },
+                },
+                xaxis: {
+                    categories: dates,
+                }
+            };
+
+            var chart = new ApexCharts(document.querySelector("#ExtraWorkRequests"), options);
+            chart.render();
+        }
+
+        function Inventory(chartdata) {
+            debugger
+
+            var data = [];
+            data.push(chartdata.inventoryjson);
+            data.push(chartdata.returnlist2);
+            var options = {
+                series: data,
+                chart: {
+                    width: 380,
+                    type: 'pie',
+                },
+                labels: ['Inventory out of Stock', 'Inventory in stock'],
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: 200
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }]
+            };
+
+            var chart = new ApexCharts(document.querySelector("#Inventory"), options);
+            chart.render();
+
+        }
+        function InventoryRequests(chartdata) {
+            var options = {
+                series: [{
+                    data: chartdata
+                }],
+                chart: {
+                    type: 'bar',
+                    height: 350
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                xaxis: {
+                    categories: ['Open Request', 'Closed Request'
+                    ],
+                }
+            };
+
+            var chart = new ApexCharts(document.querySelector("#InventoryRequests"), options);
+            chart.render();
+
+        }
+        function ReportsForPatient(chartdata) {
+
+            var data = [];
+            data.push(chartdata.testjson);
+            data.push(chartdata.result2);
+            var options = {
+                series: data,
+                chart: {
+                    width: 380,
+                    type: 'pie',
+                },
+                labels: ['Completed', 'Pending'],
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: 200
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }]
+            };
+
+            var chart = new ApexCharts(document.querySelector("#ReportsForPatient"), options);
+            chart.render();
+        }
+
+        function RenderChartClients(chartData) {
+
+            var dates = [];
+            var payments = [];
+            for (var i = 0; i < chartData.length; i++) {
+                dates.push(chartData[i][0].CreatedDate);
+                payments.push(chartData[i].length);
+            }
+
+
+            var options = {
+                series: [{
+                    name: "Clients",
+                    data: payments
+                }],
+                chart: {
+                    height: 350,
+                    type: 'line',
+                    zoom: {
+                        enabled: false
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'straight'
+                },
+                title: {
+                    text: 'Clients Trends by Month',
+                    align: 'left'
+                },
+                grid: {
+                    row: {
+                        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                        opacity: 0.5
+                    },
+                },
+                xaxis: {
+                    categories: dates,
+                }
+            };
+
+            var chart = new ApexCharts(document.querySelector("#clientDetails"), options);
+            chart.render();
+        }
+        function RenderChartActiveInActiveClients(chartdata) {
+
+
+            var data = [];
+            data.push(chartdata.activeClients);
+            data.push(chartdata.returnList2);
+            var options = {
+                series: data,
+                chart: {
+                    width: 380,
+                    type: 'pie',
+                },
+                labels: ['Active Clients', 'InActive Clients'],
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: 200
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }]
+            };
+
+            var chart = new ApexCharts(document.querySelector("#activeInactiveClients"), options);
+            chart.render();
+
+        }
+
+        function RenderChartContactRequest(chartdata) {
+            var options = {
+                series: [{
+                    data: chartdata
+                }],
+                chart: {
+                    type: 'bar',
+                    height: 350
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                xaxis: {
+                    categories: ['Contact Query', 'Sales Request'
+                    ],
+                }
+            };
+
+            var chart = new ApexCharts(document.querySelector("#contactRequests"), options);
+            chart.render();
+
+        }
+
+        function SecondOpinionRequest(chartdata) {
+            debugger
+            var NewQueryLength = [];
+            var PendingQueryLength = [];
+            var ClosedQueryLength = [];
+
+            var dates = [];
+
+            if (chartdata.createdDates != null) {
+                for (var i = 0; i < chartdata.createdDates.length; i++) {
+                    dates.push(chartdata.createdDates[i].CreatedDate);
+                }
+            }
+
+            if (chartdata.newRequest != null) {
+                for (var j = 0 ; j < chartdata.newRequest.length; j++) {
+
+                    NewQueryLength.push(chartdata.newRequest[j].length);
+                }
+            }
+
+
+            if (chartdata.pendingRequest != null) {
+                for (var k = 0 ; k < chartdata.pendingRequest.length; k++) {
+
+                    PendingQueryLength.push(chartdata.pendingRequest[k].length);
+
+                }
+            }
+
+            if (chartdata.closedRequest != null) {
+                for (var m = 0 ; m < chartdata.closedRequest.length; m++) {
+
+                    ClosedQueryLength.push(chartdata.closedRequest[m].length);
+                }
+            }
+
+
+            var options = {
+
+                series: [{
+                    data: NewQueryLength
+                }, {
+                    data: PendingQueryLength
+                }, {
+                    data: ClosedQueryLength
+                }],
+                chart: {
+                    type: 'bar',
+                    height: 430
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        dataLabels: {
+                            position: 'top',
+                        },
+                    }
+                },
+                dataLabels: {
+                    enabled: true,
+                    offsetX: -6,
+                    style: {
+                        fontSize: '12px',
+                        colors: ['#fff']
+                    }
+                },
+
+                legend: {
+
+                    formatter: function (seriesName, opts) {
+                        if (seriesName == 'series-1')
+                            return ["New"]
+                        if (seriesName == 'series-2')
+                            return ["Pending"]
+                        if (seriesName == 'series-3')
+                            return ["Closed"]
+                    }
+                },
+                stroke: {
+                    show: true,
+                    width: 1,
+                    colors: ['#fff']
+                },
+                xaxis: {
+                    categories: dates,
+                },
+
+
+            };
+
+            var chart = new ApexCharts(document.querySelector("#SecondOpinionRequest"), options);
+            chart.render();
+        }
+
+
+
+        MakeRequest("/User/Home/PatientRegistration", "GET", { "status": "All" }, "json",
+            function (jqXHR, settings) {
+                //For Before Send
+                $('.loadscreen').fadeIn();
+            },
+            function (data, status, xhr) {
+                //For Success
+
+                $('.loadscreen').fadeOut();
+
+                var rs = WebResponse(data);
+                RenderChart(rs.ResponseData.patientjson);
+                console.log(rs);
+
+
+            },
+        function (jqXhr, textStatus, errorMessage) {
+            //For Error
+            $('.loadscreen').fadeOut();
+            WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+        });
+
+
+        MakeRequest("/User/Home/MedicalTestRegistration", "GET", { "status": "All" }, "json",
+            function (jqXHR, settings) {
+                //For Before Send
+                $('.loadscreen').fadeIn();
+            },
+            function (data, status, xhr) {
+                //For Success
+
+                $('.loadscreen').fadeOut();
+
+                var rs = WebResponse(data);
+                MedicalTestRegistration(rs.ResponseData.testjson);
+                console.log(rs);
+
+
+            },
+        function (jqXhr, textStatus, errorMessage) {
+            //For Error
+            $('.loadscreen').fadeOut();
+            WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+        });
+
+        MakeRequest("/User/Home/SampleCollectionRequest", "GET", { "status": "All" }, "json",
+                function (jqXHR, settings) {
+                    //For Before Send
+                    $('.loadscreen').fadeIn();
+                },
+                function (data, status, xhr) {
+                    //For Success
+
+                    $('.loadscreen').fadeOut();
+
+                    var rs = WebResponse(data);
+                    SampleCollectionRequest(rs.ResponseData.samplecollection);
+                    console.log(rs);
+
+
+                },
+            function (jqXhr, textStatus, errorMessage) {
+                //For Error
+                $('.loadscreen').fadeOut();
+                WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+            });
+
+        MakeRequest("/User/Home/TestReportRequests", "GET", { "status": "All" }, "json",
+                    function (jqXHR, settings) {
+                        //For Before Send
+                        $('.loadscreen').fadeIn();
+                    },
+                    function (data, status, xhr) {
+                        //For Success
+
+                        $('.loadscreen').fadeOut();
+
+                        var rs = WebResponse(data);
+                        TestReportRequests(rs.ResponseData.testinvestigation);
+                        console.log(rs);
+
+
+                    },
+                function (jqXhr, textStatus, errorMessage) {
+                    //For Error
+                    $('.loadscreen').fadeOut();
+                    WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                });
+
+
+        MakeRequest("/User/Home/ExtraWorkRequests", "GET", { "status": "All" }, "json",
+                    function (jqXHR, settings) {
+                        //For Before Send
+                        $('.loadscreen').fadeIn();
+                    },
+                    function (data, status, xhr) {
+                        //For Success
+
+                        $('.loadscreen').fadeOut();
+
+                        var rs = WebResponse(data);
+                        ExtraWorkRequests(rs.ResponseData.extraworkdata);
+                        console.log(rs);
+
+
+                    },
+                function (jqXhr, textStatus, errorMessage) {
+                    //For Error
+                    $('.loadscreen').fadeOut();
+                    WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                });
+
+
+        MakeRequest("/User/Home/Inventory", "GET", { "status": "All" }, "json",
+                    function (jqXHR, settings) {
+                        //For Before Send
+                        $('.loadscreen').fadeIn();
+                    },
+                    function (data, status, xhr) {
+                        //For Success
+
+                        $('.loadscreen').fadeOut();
+
+                        var rs = WebResponse(data);
+                        Inventory(rs.ResponseData);
+                        console.log(rs);
+
+
+                    },
+                function (jqXhr, textStatus, errorMessage) {
+                    //For Error
+                    $('.loadscreen').fadeOut();
+                    WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                });
+
+        MakeRequest("/User/Home/InventoryRequests", "GET", { "status": "All" }, "json",
+                         function (jqXHR, settings) {
+                             //For Before Send
+                             $('.loadscreen').fadeIn();
+                         },
+                         function (data, status, xhr) {
+                             //For Success
+
+                             $('.loadscreen').fadeOut();
+
+                             var rs = WebResponse(data);
+                             InventoryRequests(rs.ResponseData.inventoryrequestjson);
+                             console.log(rs);
+
+
+                         },
+                     function (jqXhr, textStatus, errorMessage) {
+                         //For Error
+                         $('.loadscreen').fadeOut();
+                         WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                     });
+
+
+        MakeRequest("/User/Home/SecondOpinionRequest", "GET", { "status": "All" }, "json",
+                                function (jqXHR, settings) {
+                                    //For Before Send
+                                    $('.loadscreen').fadeIn();
+                                },
+                                function (data, status, xhr) {
+                                    //For Success
+
+                                    $('.loadscreen').fadeOut();
+
+                                    var rs = WebResponse(data);
+                                    SecondOpinionRequest(rs.ResponseData);
+                                    console.log(rs);
+
+
+                                },
+                            function (jqXhr, textStatus, errorMessage) {
+                                //For Error
+                                $('.loadscreen').fadeOut();
+                                WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                            });
+
+        MakeRequest("/User/Home/ReportsForPatient", "GET", { "status": "All" }, "json",
+                                     function (jqXHR, settings) {
+                                         //For Before Send
+                                         $('.loadscreen').fadeIn();
+                                     },
+                                     function (data, status, xhr) {
+                                         //For Success
+
+                                         $('.loadscreen').fadeOut();
+
+                                         var rs = WebResponse(data);
+                                         ReportsForPatient(rs.ResponseData);
+                                         console.log(rs);
+
+
+                                     },
+                                 function (jqXhr, textStatus, errorMessage) {
+                                     //For Error
+                                     $('.loadscreen').fadeOut();
+                                     WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                                 });
+
+
+
+
+
+
+    });
+
+
+
+
+
+
+</script>
+

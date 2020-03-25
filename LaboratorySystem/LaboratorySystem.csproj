@@ -1,0 +1,1342 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{35B25773-BE03-4D37-B4B3-019128AEBCC9}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LaboratorySystem</RootNamespace>
+    <AssemblyName>LaboratorySystem</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>d64c848a</NuGetPackageImportStamp>
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.4.1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.4.1\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.SqlServer.Management.Sdk.Sfc, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.SqlServer.Smo, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="NewtonJSONError, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\NewtonJSONError.dll</HintPath>
+    </Reference>
+    <Reference Include="NReco.PdfGenerator">
+      <HintPath>..\packages\NReco.PdfGenerator.1.1.15\lib\net20\NReco.PdfGenerator.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="ProxyApi">
+      <HintPath>..\packages\ProxyApi.0.1.19.24601\lib\net40\ProxyApi.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=__MvcPagesVersion__, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.2\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Admin\ChangePasswordController.cs" />
+    <Compile Include="Controllers\Admin\ClientController.cs" />
+    <Compile Include="Controllers\Admin\ConsultantController.cs" />
+    <Compile Include="Controllers\Admin\ConsultantPaymentController.cs" />
+    <Compile Include="Controllers\Admin\ConsultantRequestController.cs" />
+    <Compile Include="Controllers\Admin\EmployeeController.cs" />
+    <Compile Include="Controllers\Admin\ErrorController.cs" />
+    <Compile Include="Controllers\Admin\OpinionRequestController.cs" />
+    <Compile Include="Controllers\Admin\PaymentController.cs" />
+    <Compile Include="Controllers\Admin\PlanController.cs" />
+    <Compile Include="Controllers\Admin\SalesAndContactRequestController.cs" />
+    <Compile Include="Controllers\Admin\SubdomainController.cs" />
+    <Compile Include="Controllers\User\AccountController.cs" />
+    <Compile Include="Controllers\User\HospitalController.cs" />
+    <Compile Include="Controllers\User\InventoryRequestController.cs" />
+    <Compile Include="Controllers\User\EmployeeController.cs" />
+    <Compile Include="Controllers\User\ErrorController.cs" />
+    <Compile Include="Controllers\User\ExportDataController.cs" />
+    <Compile Include="Controllers\User\ExtraWorkRequestController.cs" />
+    <Compile Include="Controllers\User\HomeController.cs" />
+    <Compile Include="Controllers\User\InventoryManagerController.cs" />
+    <Compile Include="Controllers\User\MedicalTestController.cs" />
+    <Compile Include="Controllers\User\MyReportsController.cs" />
+    <Compile Include="Controllers\User\OpinionRequestController.cs" />
+    <Compile Include="Controllers\User\PatientsController.cs" />
+    <Compile Include="Controllers\User\PaymentsController.cs" />
+    <Compile Include="Controllers\User\ReportsController.cs" />
+    <Compile Include="HelperClasses\EmailManager.cs" />
+    <Compile Include="HelperClasses\FileManager.cs" />
+    <Compile Include="HelperClasses\HtmlRendering.cs" />
+    <Compile Include="HelperClasses\NotificationManager.cs" />
+    <Compile Include="HelperClasses\PdfCreator.cs" />
+    <Compile Include="HelperClasses\ZipManager.cs" />
+    <Compile Include="HelperClasses\PdfManager.cs" />
+    <Compile Include="Hubs\RealTimeHub.cs" />
+    <Compile Include="MainClasses\Client.cs" />
+    <Compile Include="MainClasses\ClientInitializer\DBInitializer.cs" />
+    <Compile Include="MainClasses\ClientInitializer\FileInitializer.cs" />
+    <Compile Include="MainClasses\Cl_Role.cs" />
+    <Compile Include="MainClasses\Cl_SectionRestriction.cs" />
+    <Compile Include="MainClasses\Role.cs" />
+    <Compile Include="MainClasses\SectionRestriction.cs" />
+    <Compile Include="MainClasses\Signalr\RealTimeBroadcaster.cs" />
+    <Compile Include="Models\ExtraWorkRequest.cs" />
+    <Compile Include="Models\TestSupplementReport.cs" />
+    <Compile Include="SessionRelatedClasses\ClientAuthorizeMember.cs" />
+    <Compile Include="SessionRelatedClasses\ClientNonAuthorizeMember.cs" />
+    <Compile Include="MainClasses\ClientUser.cs" />
+    <Compile Include="SessionRelatedClasses\ClientUserSessionContext.cs" />
+    <Compile Include="Controllers\Admin\AccountController.cs" />
+    <Compile Include="Controllers\Admin\HomeController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Main\MainController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="HelpingClass.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RedirectController.cs" />
+    <Compile Include="SessionRelatedClasses\MySession.cs" />
+    <Compile Include="SessionRelatedClasses\NonSubDomain.cs" />
+    <Compile Include="SessionRelatedClasses\SystemAuthorizeMember.cs" />
+    <Compile Include="SessionRelatedClasses\SystemNonAuthorizeMember.cs" />
+    <Compile Include="MainClasses\SystemUser.cs" />
+    <Compile Include="SessionRelatedClasses\SystemUserSessionContext.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\ClientParameter.cs" />
+    <Compile Include="ViewModels\TestInvestigation.cs" />
+    <Compile Include="WebJSResponse.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ClientsData\RajLab\EmployeeUploadedFiles\index25122019090953.html" />
+    <Content Include="ClientsData\RajLab\EmployeeUploadedFiles\Screenshot %281%2925122019032259.png" />
+    <Content Include="ClientsData\RajLab\EmployeeUploadedFiles\Screenshot %283%2925122019032325.png" />
+    <Content Include="ClientsData\RajLab\EmployeeUploadedFiles\Screenshot %286%2925122019032335.png" />
+    <Content Include="ClientsData\RajLab\EmployeeUploadedFiles\Screenshot %288%2925122019054315.png" />
+    <Content Include="ClientsData\RajLab\ProfileImages\Screenshot %281%2904122019042359.png" />
+    <Content Include="ClientsData\RajLab\ProfileImages\Screenshot %2812%2904122019031706.png" />
+    <Content Include="ClientsData\RajLab\ProfileImages\Screenshot %2844%2904122019030149.png" />
+    <Content Include="ClientsData\RajLab\TestFolder\TestUploadFile.txt" />
+    <Content Include="ClientsData\TahaLTD\TestFolder\TestUploadFile.txt" />
+    <Content Include="ClientsData\Tahapvt\TestFolder\TestUploadFile.txt" />
+    <Content Include="Content\fonts\iconsmind\iconsmind.css" />
+    <Content Include="Content\fonts\iconsmind\iconsmind.svg" />
+    <Content Include="Content\images\Angular_Icon.png" />
+    <Content Include="Content\images\bg-1.png" />
+    <Content Include="Content\images\bootstrap-logo.png" />
+    <Content Include="Content\images\checkmark.svg" />
+    <Content Include="Content\images\close.svg" />
+    <Content Include="Content\images\danger.svg" />
+    <Content Include="Content\images\faces\1.jpg" />
+    <Content Include="Content\images\faces\10.jpg" />
+    <Content Include="Content\images\faces\12.jpg" />
+    <Content Include="Content\images\faces\13.jpg" />
+    <Content Include="Content\images\faces\15.jpg" />
+    <Content Include="Content\images\faces\16.jpg" />
+    <Content Include="Content\images\faces\17.jpg" />
+    <Content Include="Content\images\faces\2.jpg" />
+    <Content Include="Content\images\faces\3.jpg" />
+    <Content Include="Content\images\faces\4.jpg" />
+    <Content Include="Content\images\faces\5.jpg" />
+    <Content Include="Content\images\faces\9.jpg" />
+    <Content Include="Content\images\gull-large-sidebar.png" />
+    <Content Include="Content\images\Html_Icon.png" />
+    <Content Include="Content\images\info.svg" />
+    <Content Include="Content\images\laravel-logo.png" />
+    <Content Include="Content\images\logo-text.png" />
+    <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\mac_book.jpg" />
+    <Content Include="Content\images\master-card.png" />
+    <Content Include="Content\images\page-bg-bottom.png" />
+    <Content Include="Content\images\paypal.png" />
+    <Content Include="Content\images\photo-long-1.jpg" />
+    <Content Include="Content\images\photo-long-2.jpg" />
+    <Content Include="Content\images\photo-long-3.jpg" />
+    <Content Include="Content\images\photo-long-4.jpg" />
+    <Content Include="Content\images\photo-wide-1.jpg" />
+    <Content Include="Content\images\photo-wide-2.jpg" />
+    <Content Include="Content\images\photo-wide-3.jpg" />
+    <Content Include="Content\images\photo-wide-4.jpg" />
+    <Content Include="Content\images\photo-wide-5.jpeg" />
+    <Content Include="Content\images\products\cloud-346710_1280.png" />
+    <Content Include="Content\images\products\headphone-1.jpg" />
+    <Content Include="Content\images\products\headphone-2.jpg" />
+    <Content Include="Content\images\products\headphone-3.jpg" />
+    <Content Include="Content\images\products\headphone-4.jpg" />
+    <Content Include="Content\images\products\iphone-1.jpg" />
+    <Content Include="Content\images\products\iphone-2.jpg" />
+    <Content Include="Content\images\products\speaker-1.jpg" />
+    <Content Include="Content\images\products\speaker-2.jpg" />
+    <Content Include="Content\images\products\watch-1.jpg" />
+    <Content Include="Content\images\products\watch-2.jpg" />
+    <Content Include="Content\images\products\weather-2.jpg" />
+    <Content Include="Content\images\products\weather.jpg" />
+    <Content Include="Content\images\ps.png" />
+    <Content Include="Content\images\Sass_icon.png" />
+    <Content Include="Content\images\screenshots\dashboard.v1.png" />
+    <Content Include="Content\images\screenshots\dashboard.v2.png" />
+    <Content Include="Content\images\visa.png" />
+    <Content Include="Content\ProfileImages\tahajamali\Screenshot %2846%29.png" />
+    <Content Include="Content\styles\css\bootstrap-rtl.css" />
+    <Content Include="Content\styles\css\bootstrap-rtl.min.css" />
+    <Content Include="Content\styles\css\globals\views\collapsible.css" />
+    <Content Include="Content\styles\css\globals\views\collapsible.min.css" />
+    <Content Include="Content\styles\css\globals\views\line-tab.css" />
+    <Content Include="Content\styles\css\globals\views\line-tab.min.css" />
+    <Content Include="Content\styles\css\themes\dark-purple.css" />
+    <Content Include="Content\styles\css\themes\dark-purple.min.css" />
+    <Content Include="Content\styles\css\themes\lite-blue.css" />
+    <Content Include="Content\styles\css\themes\lite-blue.min.css" />
+    <Content Include="Content\styles\css\themes\lite-purple.css" />
+    <Content Include="Content\styles\css\themes\lite-purple.min.css" />
+    <Content Include="Content\styles\vendor\animate.css" />
+    <Content Include="Content\styles\vendor\animate.scss\animate.css" />
+    <Content Include="Content\styles\vendor\animate.scss\animate.min.css" />
+    <Content Include="Content\styles\vendor\apexcharts.css" />
+    <Content Include="Content\styles\vendor\bootstrap\.babelrc.js" />
+    <Content Include="Content\styles\vendor\bootstrap\.gitattributes" />
+    <Content Include="Content\styles\vendor\bootstrap\.gitignore" />
+    <Content Include="Content\styles\vendor\calendar\datepiker.min.css" />
+    <Content Include="Content\styles\vendor\calendar\fullcalendar.min.css" />
+    <Content Include="Content\styles\vendor\calendar\fullcalendar.print.min.css" />
+    <Content Include="Content\styles\vendor\cropper.min.css" />
+    <Content Include="Content\styles\vendor\datatables.min.css" />
+    <Content Include="Content\styles\vendor\dropzone.min.css" />
+    <Content Include="Content\styles\vendor\hopscotch.css" />
+    <Content Include="Content\styles\vendor\ladda-themeless.min.css" />
+    <Content Include="Content\styles\vendor\nuslider.min.css" />
+    <Content Include="Content\styles\vendor\perfect-scrollbar.css" />
+    <Content Include="Content\styles\vendor\pickadate\classic.css" />
+    <Content Include="Content\styles\vendor\pickadate\classic.date.css" />
+    <Content Include="Content\styles\vendor\pickadate\classic.time.css" />
+    <Content Include="Content\styles\vendor\pickadate\default.css" />
+    <Content Include="Content\styles\vendor\pickadate\default.date.css" />
+    <Content Include="Content\styles\vendor\pickadate\default.time.css" />
+    <Content Include="Content\styles\vendor\pickadate\rtl.css" />
+    <Content Include="Content\styles\vendor\quill.bubble.css" />
+    <Content Include="Content\styles\vendor\quill.snow.css" />
+    <Content Include="Content\styles\vendor\smart.wizard\smart_wizard.css" />
+    <Content Include="Content\styles\vendor\smart.wizard\smart_wizard.min.css" />
+    <Content Include="Content\styles\vendor\smart.wizard\smart_wizard_theme_arrows.css" />
+    <Content Include="Content\styles\vendor\smart.wizard\smart_wizard_theme_arrows.min.css" />
+    <Content Include="Content\styles\vendor\smart.wizard\smart_wizard_theme_circles.css" />
+    <Content Include="Content\styles\vendor\smart.wizard\smart_wizard_theme_circles.min.css" />
+    <Content Include="Content\styles\vendor\smart.wizard\smart_wizard_theme_dots.css" />
+    <Content Include="Content\styles\vendor\smart.wizard\smart_wizard_theme_dots.min.css" />
+    <Content Include="Content\styles\vendor\sweetalert2.min.css" />
+    <Content Include="Content\styles\vendor\toastr.css" />
+    <Content Include="Content\styles\vendor\toastr.min.css" />
+    <Content Include="Content\vendor\animate.css" />
+    <Content Include="Content\vendor\animate.scss\animate.css" />
+    <Content Include="Content\vendor\animate.scss\animate.min.css" />
+    <Content Include="Content\vendor\apexcharts.css" />
+    <Content Include="Content\vendor\bootstrap\.babelrc.js" />
+    <Content Include="Content\vendor\calendar\datepiker.min.css" />
+    <Content Include="Content\vendor\calendar\fullcalendar.min.css" />
+    <Content Include="Content\vendor\calendar\fullcalendar.print.min.css" />
+    <Content Include="Content\vendor\cropper.min.css" />
+    <Content Include="Content\vendor\datatables.min.css" />
+    <Content Include="Content\vendor\dropzone.min.css" />
+    <Content Include="Content\vendor\hopscotch.css" />
+    <Content Include="Content\vendor\ladda-themeless.min.css" />
+    <Content Include="Content\vendor\nuslider.min.css" />
+    <Content Include="Content\vendor\perfect-scrollbar.css" />
+    <Content Include="Content\vendor\pickadate\classic.css" />
+    <Content Include="Content\vendor\pickadate\classic.date.css" />
+    <Content Include="Content\vendor\pickadate\classic.time.css" />
+    <Content Include="Content\vendor\pickadate\default.css" />
+    <Content Include="Content\vendor\pickadate\default.date.css" />
+    <Content Include="Content\vendor\pickadate\default.time.css" />
+    <Content Include="Content\vendor\pickadate\rtl.css" />
+    <Content Include="Content\vendor\quill.bubble.css" />
+    <Content Include="Content\vendor\quill.snow.css" />
+    <Content Include="Content\vendor\smart.wizard\smart_wizard.css" />
+    <Content Include="Content\vendor\smart.wizard\smart_wizard.min.css" />
+    <Content Include="Content\vendor\smart.wizard\smart_wizard_theme_arrows.css" />
+    <Content Include="Content\vendor\smart.wizard\smart_wizard_theme_arrows.min.css" />
+    <Content Include="Content\vendor\smart.wizard\smart_wizard_theme_circles.css" />
+    <Content Include="Content\vendor\smart.wizard\smart_wizard_theme_circles.min.css" />
+    <Content Include="Content\vendor\smart.wizard\smart_wizard_theme_dots.css" />
+    <Content Include="Content\vendor\smart.wizard\smart_wizard_theme_dots.min.css" />
+    <Content Include="Content\vendor\sweetalert2.min.css" />
+    <Content Include="Content\vendor\toastr.css" />
+    <Content Include="Content\vendor\toastr.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="ImportantNote\Notes.html" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\fonts\iconsmind\iconsmind.eot" />
+    <Content Include="Content\fonts\iconsmind\iconsmind.ttf" />
+    <Content Include="Content\fonts\iconsmind\iconsmind.woff" />
+    <Content Include="Content\styles\vendor\animate.scss\animate.css.map" />
+    <Content Include="Content\styles\vendor\animate.scss\animate.min.css.map" />
+    <Content Include="Content\styles\vendor\animate.scss\animate.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_attention-seekers\attention-seekers.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_attention-seekers\_bounce.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_attention-seekers\_flash.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_attention-seekers\_jello.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_attention-seekers\_pulse.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_attention-seekers\_rubberBand.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_attention-seekers\_shake.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_attention-seekers\_swing.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_attention-seekers\_tada.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_attention-seekers\_wobble.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_bouncing-entrances\bouncing-entrances.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_bouncing-entrances\_bounceIn.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_bouncing-entrances\_bounceInDown.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_bouncing-entrances\_bounceInLeft.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_bouncing-entrances\_bounceInRight.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_bouncing-entrances\_bounceInUp.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_bouncing-exits\bouncing-exits.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_bouncing-exits\_bounceOut.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_bouncing-exits\_bounceOutDown.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_bouncing-exits\_bounceOutLeft.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_bouncing-exits\_bounceOutRight.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_bouncing-exits\_bounceOutUp.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_fading-entrances\fading-entrances.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_fading-entrances\_fadeIn.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_fading-entrances\_fadeInDown.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_fading-entrances\_fadeInDownBig.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_fading-entrances\_fadeInLeft.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_fading-entrances\_fadeInLeftBig.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_fading-entrances\_fadeInRight.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_fading-entrances\_fadeInRightBig.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_fading-entrances\_fadeInUp.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_fading-entrances\_fadeInUpBig.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_fading-exits\fading-exits.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_fading-exits\_fadeOut.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_fading-exits\_fadeOutDown.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_fading-exits\_fadeOutDownBig.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_fading-exits\_fadeOutLeft.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_fading-exits\_fadeOutLeftBig.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_fading-exits\_fadeOutRight.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_fading-exits\_fadeOutRightBig.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_fading-exits\_fadeOutUp.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_fading-exits\_fadeOutUpBig.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_flippers\flippers.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_flippers\_flip.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_flippers\_flipInX.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_flippers\_flipInY.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_flippers\_flipOutX.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_flippers\_flipOutY.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_lightspeed\lightspeed.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_lightspeed\_lightSpeedIn.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_lightspeed\_lightSpeedOut.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_properties.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_rotating-entrances\rotating-entrances.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_rotating-entrances\_rotateIn.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_rotating-entrances\_rotateInDownLeft.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_rotating-entrances\_rotateInDownRight.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_rotating-entrances\_rotateInUpLeft.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_rotating-entrances\_rotateInUpRight.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_rotating-exits\rotating-exits.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_rotating-exits\_rotateOut.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_rotating-exits\_rotateOutDownLeft.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_rotating-exits\_rotateOutDownRight.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_rotating-exits\_rotateOutUpLeft.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_rotating-exits\_rotateOutUpRight.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_sliding-entrances\sliding-entrances.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_sliding-entrances\_slideInDown.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_sliding-entrances\_slideInLeft.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_sliding-entrances\_slideInRight.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_sliding-entrances\_slideInUp.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_sliding-exits\sliding-exits.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_sliding-exits\_slideOutDown.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_sliding-exits\_slideOutLeft.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_sliding-exits\_slideOutRight.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_sliding-exits\_slideOutUp.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_specials\specials.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_specials\_hinge.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_specials\_rollIn.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_specials\_rollOut.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_zooming-entrances\zooming-entrances.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_zooming-entrances\_zoomIn.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_zooming-entrances\_zoomInDown.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_zooming-entrances\_zoomInLeft.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_zooming-entrances\_zoomInRight.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_zooming-entrances\_zoomInUp.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_zooming-exits\zooming-exits.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_zooming-exits\_zoomOut.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_zooming-exits\_zoomOutDown.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_zooming-exits\_zoomOutLeft.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_zooming-exits\_zoomOutRight.scss" />
+    <Content Include="Content\styles\vendor\animate.scss\_zooming-exits\_zoomOutUp.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\bootstrap-grid.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\bootstrap-reboot.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\bootstrap.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\mixins\_alert.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\mixins\_background-variant.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\mixins\_badge.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\mixins\_border-radius.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\mixins\_box-shadow.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\mixins\_breakpoints.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\mixins\_buttons.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\mixins\_caret.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\mixins\_clearfix.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\mixins\_float.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\mixins\_forms.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\mixins\_gradients.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\mixins\_grid-framework.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\mixins\_grid.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\mixins\_hover.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\mixins\_image.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\mixins\_list-group.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\mixins\_lists.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\mixins\_nav-divider.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\mixins\_navbar-align.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\mixins\_pagination.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\mixins\_reset-text.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\mixins\_resize.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\mixins\_screen-reader.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\mixins\_size.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\mixins\_table-row.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\mixins\_text-emphasis.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\mixins\_text-hide.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\mixins\_text-truncate.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\mixins\_transition.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\mixins\_visibility.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\utilities\_align.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\utilities\_background.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\utilities\_borders.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\utilities\_clearfix.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\utilities\_display.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\utilities\_embed.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\utilities\_flex.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\utilities\_float.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\utilities\_position.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\utilities\_screenreaders.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\utilities\_sizing.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\utilities\_spacing.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\utilities\_text.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\utilities\_visibility.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_alert.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_badge.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_breadcrumb.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_button-group.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_buttons.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_card.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_carousel.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_close.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_code.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_custom-forms.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_dropdown.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_forms.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_functions.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_grid.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_images.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_input-group.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_jumbotron.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_list-group.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_media.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_mixins.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_modal.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_nav.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_navbar.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_pagination.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_popover.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_print.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_progress.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_reboot.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_root.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_tables.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_tooltip.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_transitions.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_type.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_utilities.scss" />
+    <Content Include="Content\styles\vendor\bootstrap-rtl\_variables.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\.browserslistrc" />
+    <Content Include="Content\styles\vendor\bootstrap\.editorconfig" />
+    <Content Include="Content\styles\vendor\bootstrap\.eslintignore" />
+    <Content Include="Content\styles\vendor\bootstrap\.eslintrc.json" />
+    <Content Include="Content\styles\vendor\bootstrap\.github\CONTRIBUTING.md" />
+    <Content Include="Content\styles\vendor\bootstrap\.github\ISSUE_TEMPLATE\bug.md" />
+    <Content Include="Content\styles\vendor\bootstrap\.github\ISSUE_TEMPLATE\bug_report.md" />
+    <Content Include="Content\styles\vendor\bootstrap\.github\ISSUE_TEMPLATE\feature.md" />
+    <Content Include="Content\styles\vendor\bootstrap\.github\ISSUE_TEMPLATE\feature_request.md" />
+    <Content Include="Content\styles\vendor\bootstrap\.github\SUPPORT.md" />
+    <Content Include="Content\styles\vendor\bootstrap\.stylelintignore" />
+    <Content Include="Content\styles\vendor\bootstrap\.stylelintrc" />
+    <Content Include="Content\styles\vendor\bootstrap\.travis.yml" />
+    <Content Include="Content\styles\vendor\bootstrap\bootstrap-grid.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\bootstrap-reboot.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\bootstrap.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\mixins\_alert.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\mixins\_background-variant.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\mixins\_badge.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\mixins\_border-radius.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\mixins\_box-shadow.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\mixins\_breakpoints.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\mixins\_buttons.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\mixins\_caret.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\mixins\_clearfix.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\mixins\_float.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\mixins\_forms.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\mixins\_gradients.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\mixins\_grid-framework.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\mixins\_grid.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\mixins\_hover.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\mixins\_image.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\mixins\_list-group.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\mixins\_lists.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\mixins\_nav-divider.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\mixins\_pagination.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\mixins\_reset-text.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\mixins\_resize.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\mixins\_screen-reader.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\mixins\_size.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\mixins\_table-row.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\mixins\_text-emphasis.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\mixins\_text-hide.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\mixins\_text-truncate.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\mixins\_transition.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\mixins\_visibility.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\utilities\_align.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\utilities\_background.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\utilities\_borders.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\utilities\_clearfix.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\utilities\_display.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\utilities\_embed.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\utilities\_flex.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\utilities\_float.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\utilities\_position.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\utilities\_screenreaders.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\utilities\_shadows.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\utilities\_sizing.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\utilities\_spacing.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\utilities\_text.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\utilities\_visibility.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_alert.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_badge.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_breadcrumb.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_button-group.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_buttons.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_card.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_carousel.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_close.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_code.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_custom-forms.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_dropdown.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_forms.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_functions.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_grid.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_images.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_input-group.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_jumbotron.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_list-group.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_media.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_mixins.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_modal.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_nav.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_navbar.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_pagination.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_popover.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_print.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_progress.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_reboot.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_root.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_tables.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_toasts.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_tooltip.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_transitions.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_type.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_utilities.scss" />
+    <Content Include="Content\styles\vendor\bootstrap\_variables.scss" />
+    <Content Include="Content\Pdf_Files\new.pdf" />
+    <Content Include="Content\vendor\animate.scss\animate.css.map" />
+    <Content Include="Content\vendor\animate.scss\animate.min.css.map" />
+    <Content Include="Content\vendor\animate.scss\animate.scss" />
+    <Content Include="Content\vendor\animate.scss\_attention-seekers\attention-seekers.scss" />
+    <Content Include="Content\vendor\animate.scss\_attention-seekers\_bounce.scss" />
+    <Content Include="Content\vendor\animate.scss\_attention-seekers\_flash.scss" />
+    <Content Include="Content\vendor\animate.scss\_attention-seekers\_jello.scss" />
+    <Content Include="Content\vendor\animate.scss\_attention-seekers\_pulse.scss" />
+    <Content Include="Content\vendor\animate.scss\_attention-seekers\_rubberBand.scss" />
+    <Content Include="Content\vendor\animate.scss\_attention-seekers\_shake.scss" />
+    <Content Include="Content\vendor\animate.scss\_attention-seekers\_swing.scss" />
+    <Content Include="Content\vendor\animate.scss\_attention-seekers\_tada.scss" />
+    <Content Include="Content\vendor\animate.scss\_attention-seekers\_wobble.scss" />
+    <Content Include="Content\vendor\animate.scss\_bouncing-entrances\bouncing-entrances.scss" />
+    <Content Include="Content\vendor\animate.scss\_bouncing-entrances\_bounceIn.scss" />
+    <Content Include="Content\vendor\animate.scss\_bouncing-entrances\_bounceInDown.scss" />
+    <Content Include="Content\vendor\animate.scss\_bouncing-entrances\_bounceInLeft.scss" />
+    <Content Include="Content\vendor\animate.scss\_bouncing-entrances\_bounceInRight.scss" />
+    <Content Include="Content\vendor\animate.scss\_bouncing-entrances\_bounceInUp.scss" />
+    <Content Include="Content\vendor\animate.scss\_bouncing-exits\bouncing-exits.scss" />
+    <Content Include="Content\vendor\animate.scss\_bouncing-exits\_bounceOut.scss" />
+    <Content Include="Content\vendor\animate.scss\_bouncing-exits\_bounceOutDown.scss" />
+    <Content Include="Content\vendor\animate.scss\_bouncing-exits\_bounceOutLeft.scss" />
+    <Content Include="Content\vendor\animate.scss\_bouncing-exits\_bounceOutRight.scss" />
+    <Content Include="Content\vendor\animate.scss\_bouncing-exits\_bounceOutUp.scss" />
+    <Content Include="Content\vendor\animate.scss\_fading-entrances\fading-entrances.scss" />
+    <Content Include="Content\vendor\animate.scss\_fading-entrances\_fadeIn.scss" />
+    <Content Include="Content\vendor\animate.scss\_fading-entrances\_fadeInDown.scss" />
+    <Content Include="Content\vendor\animate.scss\_fading-entrances\_fadeInDownBig.scss" />
+    <Content Include="Content\vendor\animate.scss\_fading-entrances\_fadeInLeft.scss" />
+    <Content Include="Content\vendor\animate.scss\_fading-entrances\_fadeInLeftBig.scss" />
+    <Content Include="Content\vendor\animate.scss\_fading-entrances\_fadeInRight.scss" />
+    <Content Include="Content\vendor\animate.scss\_fading-entrances\_fadeInRightBig.scss" />
+    <Content Include="Content\vendor\animate.scss\_fading-entrances\_fadeInUp.scss" />
+    <Content Include="Content\vendor\animate.scss\_fading-entrances\_fadeInUpBig.scss" />
+    <Content Include="Content\vendor\animate.scss\_fading-exits\fading-exits.scss" />
+    <Content Include="Content\vendor\animate.scss\_fading-exits\_fadeOut.scss" />
+    <Content Include="Content\vendor\animate.scss\_fading-exits\_fadeOutDown.scss" />
+    <Content Include="Content\vendor\animate.scss\_fading-exits\_fadeOutDownBig.scss" />
+    <Content Include="Content\vendor\animate.scss\_fading-exits\_fadeOutLeft.scss" />
+    <Content Include="Content\vendor\animate.scss\_fading-exits\_fadeOutLeftBig.scss" />
+    <Content Include="Content\vendor\animate.scss\_fading-exits\_fadeOutRight.scss" />
+    <Content Include="Content\vendor\animate.scss\_fading-exits\_fadeOutRightBig.scss" />
+    <Content Include="Content\vendor\animate.scss\_fading-exits\_fadeOutUp.scss" />
+    <Content Include="Content\vendor\animate.scss\_fading-exits\_fadeOutUpBig.scss" />
+    <Content Include="Content\vendor\animate.scss\_flippers\flippers.scss" />
+    <Content Include="Content\vendor\animate.scss\_flippers\_flip.scss" />
+    <Content Include="Content\vendor\animate.scss\_flippers\_flipInX.scss" />
+    <Content Include="Content\vendor\animate.scss\_flippers\_flipInY.scss" />
+    <Content Include="Content\vendor\animate.scss\_flippers\_flipOutX.scss" />
+    <Content Include="Content\vendor\animate.scss\_flippers\_flipOutY.scss" />
+    <Content Include="Content\vendor\animate.scss\_lightspeed\lightspeed.scss" />
+    <Content Include="Content\vendor\animate.scss\_lightspeed\_lightSpeedIn.scss" />
+    <Content Include="Content\vendor\animate.scss\_lightspeed\_lightSpeedOut.scss" />
+    <Content Include="Content\vendor\animate.scss\_properties.scss" />
+    <Content Include="Content\vendor\animate.scss\_rotating-entrances\rotating-entrances.scss" />
+    <Content Include="Content\vendor\animate.scss\_rotating-entrances\_rotateIn.scss" />
+    <Content Include="Content\vendor\animate.scss\_rotating-entrances\_rotateInDownLeft.scss" />
+    <Content Include="Content\vendor\animate.scss\_rotating-entrances\_rotateInDownRight.scss" />
+    <Content Include="Content\vendor\animate.scss\_rotating-entrances\_rotateInUpLeft.scss" />
+    <Content Include="Content\vendor\animate.scss\_rotating-entrances\_rotateInUpRight.scss" />
+    <Content Include="Content\vendor\animate.scss\_rotating-exits\rotating-exits.scss" />
+    <Content Include="Content\vendor\animate.scss\_rotating-exits\_rotateOut.scss" />
+    <Content Include="Content\vendor\animate.scss\_rotating-exits\_rotateOutDownLeft.scss" />
+    <Content Include="Content\vendor\animate.scss\_rotating-exits\_rotateOutDownRight.scss" />
+    <Content Include="Content\vendor\animate.scss\_rotating-exits\_rotateOutUpLeft.scss" />
+    <Content Include="Content\vendor\animate.scss\_rotating-exits\_rotateOutUpRight.scss" />
+    <Content Include="Content\vendor\animate.scss\_sliding-entrances\sliding-entrances.scss" />
+    <Content Include="Content\vendor\animate.scss\_sliding-entrances\_slideInDown.scss" />
+    <Content Include="Content\vendor\animate.scss\_sliding-entrances\_slideInLeft.scss" />
+    <Content Include="Content\vendor\animate.scss\_sliding-entrances\_slideInRight.scss" />
+    <Content Include="Content\vendor\animate.scss\_sliding-entrances\_slideInUp.scss" />
+    <Content Include="Content\vendor\animate.scss\_sliding-exits\sliding-exits.scss" />
+    <Content Include="Content\vendor\animate.scss\_sliding-exits\_slideOutDown.scss" />
+    <Content Include="Content\vendor\animate.scss\_sliding-exits\_slideOutLeft.scss" />
+    <Content Include="Content\vendor\animate.scss\_sliding-exits\_slideOutRight.scss" />
+    <Content Include="Content\vendor\animate.scss\_sliding-exits\_slideOutUp.scss" />
+    <Content Include="Content\vendor\animate.scss\_specials\specials.scss" />
+    <Content Include="Content\vendor\animate.scss\_specials\_hinge.scss" />
+    <Content Include="Content\vendor\animate.scss\_specials\_rollIn.scss" />
+    <Content Include="Content\vendor\animate.scss\_specials\_rollOut.scss" />
+    <Content Include="Content\vendor\animate.scss\_zooming-entrances\zooming-entrances.scss" />
+    <Content Include="Content\vendor\animate.scss\_zooming-entrances\_zoomIn.scss" />
+    <Content Include="Content\vendor\animate.scss\_zooming-entrances\_zoomInDown.scss" />
+    <Content Include="Content\vendor\animate.scss\_zooming-entrances\_zoomInLeft.scss" />
+    <Content Include="Content\vendor\animate.scss\_zooming-entrances\_zoomInRight.scss" />
+    <Content Include="Content\vendor\animate.scss\_zooming-entrances\_zoomInUp.scss" />
+    <Content Include="Content\vendor\animate.scss\_zooming-exits\zooming-exits.scss" />
+    <Content Include="Content\vendor\animate.scss\_zooming-exits\_zoomOut.scss" />
+    <Content Include="Content\vendor\animate.scss\_zooming-exits\_zoomOutDown.scss" />
+    <Content Include="Content\vendor\animate.scss\_zooming-exits\_zoomOutLeft.scss" />
+    <Content Include="Content\vendor\animate.scss\_zooming-exits\_zoomOutRight.scss" />
+    <Content Include="Content\vendor\animate.scss\_zooming-exits\_zoomOutUp.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\bootstrap-grid.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\bootstrap-reboot.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\bootstrap.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\mixins\_alert.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\mixins\_background-variant.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\mixins\_badge.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\mixins\_border-radius.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\mixins\_box-shadow.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\mixins\_breakpoints.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\mixins\_buttons.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\mixins\_caret.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\mixins\_clearfix.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\mixins\_float.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\mixins\_forms.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\mixins\_gradients.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\mixins\_grid-framework.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\mixins\_grid.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\mixins\_hover.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\mixins\_image.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\mixins\_list-group.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\mixins\_lists.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\mixins\_nav-divider.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\mixins\_navbar-align.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\mixins\_pagination.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\mixins\_reset-text.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\mixins\_resize.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\mixins\_screen-reader.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\mixins\_size.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\mixins\_table-row.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\mixins\_text-emphasis.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\mixins\_text-hide.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\mixins\_text-truncate.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\mixins\_transition.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\mixins\_visibility.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\utilities\_align.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\utilities\_background.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\utilities\_borders.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\utilities\_clearfix.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\utilities\_display.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\utilities\_embed.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\utilities\_flex.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\utilities\_float.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\utilities\_position.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\utilities\_screenreaders.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\utilities\_sizing.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\utilities\_spacing.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\utilities\_text.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\utilities\_visibility.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_alert.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_badge.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_breadcrumb.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_button-group.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_buttons.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_card.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_carousel.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_close.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_code.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_custom-forms.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_dropdown.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_forms.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_functions.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_grid.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_images.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_input-group.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_jumbotron.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_list-group.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_media.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_mixins.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_modal.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_nav.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_navbar.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_pagination.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_popover.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_print.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_progress.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_reboot.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_root.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_tables.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_tooltip.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_transitions.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_type.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_utilities.scss" />
+    <Content Include="Content\vendor\bootstrap-rtl\_variables.scss" />
+    <Content Include="Content\vendor\bootstrap\.browserslistrc" />
+    <Content Include="Content\vendor\bootstrap\.editorconfig" />
+    <Content Include="Content\vendor\bootstrap\.eslintignore" />
+    <Content Include="Content\vendor\bootstrap\.eslintrc.json" />
+    <Content Include="Content\vendor\bootstrap\.gitattributes" />
+    <Content Include="Content\vendor\bootstrap\.github\CONTRIBUTING.md" />
+    <Content Include="Content\vendor\bootstrap\.github\ISSUE_TEMPLATE\bug.md" />
+    <Content Include="Content\vendor\bootstrap\.github\ISSUE_TEMPLATE\bug_report.md" />
+    <Content Include="Content\vendor\bootstrap\.github\ISSUE_TEMPLATE\feature.md" />
+    <Content Include="Content\vendor\bootstrap\.github\ISSUE_TEMPLATE\feature_request.md" />
+    <Content Include="Content\vendor\bootstrap\.github\SUPPORT.md" />
+    <Content Include="Content\vendor\bootstrap\.gitignore" />
+    <Content Include="Content\vendor\bootstrap\.stylelintignore" />
+    <Content Include="Content\vendor\bootstrap\.stylelintrc" />
+    <Content Include="Content\vendor\bootstrap\.travis.yml" />
+    <Content Include="Content\vendor\bootstrap\bootstrap-grid.scss" />
+    <Content Include="Content\vendor\bootstrap\bootstrap-reboot.scss" />
+    <Content Include="Content\vendor\bootstrap\bootstrap.scss" />
+    <Content Include="Content\vendor\bootstrap\mixins\_alert.scss" />
+    <Content Include="Content\vendor\bootstrap\mixins\_background-variant.scss" />
+    <Content Include="Content\vendor\bootstrap\mixins\_badge.scss" />
+    <Content Include="Content\vendor\bootstrap\mixins\_border-radius.scss" />
+    <Content Include="Content\vendor\bootstrap\mixins\_box-shadow.scss" />
+    <Content Include="Content\vendor\bootstrap\mixins\_breakpoints.scss" />
+    <Content Include="Content\vendor\bootstrap\mixins\_buttons.scss" />
+    <Content Include="Content\vendor\bootstrap\mixins\_caret.scss" />
+    <Content Include="Content\vendor\bootstrap\mixins\_clearfix.scss" />
+    <Content Include="Content\vendor\bootstrap\mixins\_float.scss" />
+    <Content Include="Content\vendor\bootstrap\mixins\_forms.scss" />
+    <Content Include="Content\vendor\bootstrap\mixins\_gradients.scss" />
+    <Content Include="Content\vendor\bootstrap\mixins\_grid-framework.scss" />
+    <Content Include="Content\vendor\bootstrap\mixins\_grid.scss" />
+    <Content Include="Content\vendor\bootstrap\mixins\_hover.scss" />
+    <Content Include="Content\vendor\bootstrap\mixins\_image.scss" />
+    <Content Include="Content\vendor\bootstrap\mixins\_list-group.scss" />
+    <Content Include="Content\vendor\bootstrap\mixins\_lists.scss" />
+    <Content Include="Content\vendor\bootstrap\mixins\_nav-divider.scss" />
+    <Content Include="Content\vendor\bootstrap\mixins\_pagination.scss" />
+    <Content Include="Content\vendor\bootstrap\mixins\_reset-text.scss" />
+    <Content Include="Content\vendor\bootstrap\mixins\_resize.scss" />
+    <Content Include="Content\vendor\bootstrap\mixins\_screen-reader.scss" />
+    <Content Include="Content\vendor\bootstrap\mixins\_size.scss" />
+    <Content Include="Content\vendor\bootstrap\mixins\_table-row.scss" />
+    <Content Include="Content\vendor\bootstrap\mixins\_text-emphasis.scss" />
+    <Content Include="Content\vendor\bootstrap\mixins\_text-hide.scss" />
+    <Content Include="Content\vendor\bootstrap\mixins\_text-truncate.scss" />
+    <Content Include="Content\vendor\bootstrap\mixins\_transition.scss" />
+    <Content Include="Content\vendor\bootstrap\mixins\_visibility.scss" />
+    <Content Include="Content\vendor\bootstrap\utilities\_align.scss" />
+    <Content Include="Content\vendor\bootstrap\utilities\_background.scss" />
+    <Content Include="Content\vendor\bootstrap\utilities\_borders.scss" />
+    <Content Include="Content\vendor\bootstrap\utilities\_clearfix.scss" />
+    <Content Include="Content\vendor\bootstrap\utilities\_display.scss" />
+    <Content Include="Content\vendor\bootstrap\utilities\_embed.scss" />
+    <Content Include="Content\vendor\bootstrap\utilities\_flex.scss" />
+    <Content Include="Content\vendor\bootstrap\utilities\_float.scss" />
+    <Content Include="Content\vendor\bootstrap\utilities\_position.scss" />
+    <Content Include="Content\vendor\bootstrap\utilities\_screenreaders.scss" />
+    <Content Include="Content\vendor\bootstrap\utilities\_shadows.scss" />
+    <Content Include="Content\vendor\bootstrap\utilities\_sizing.scss" />
+    <Content Include="Content\vendor\bootstrap\utilities\_spacing.scss" />
+    <Content Include="Content\vendor\bootstrap\utilities\_text.scss" />
+    <Content Include="Content\vendor\bootstrap\utilities\_visibility.scss" />
+    <Content Include="Content\vendor\bootstrap\_alert.scss" />
+    <Content Include="Content\vendor\bootstrap\_badge.scss" />
+    <Content Include="Content\vendor\bootstrap\_breadcrumb.scss" />
+    <Content Include="Content\vendor\bootstrap\_button-group.scss" />
+    <Content Include="Content\vendor\bootstrap\_buttons.scss" />
+    <Content Include="Content\vendor\bootstrap\_card.scss" />
+    <Content Include="Content\vendor\bootstrap\_carousel.scss" />
+    <Content Include="Content\vendor\bootstrap\_close.scss" />
+    <Content Include="Content\vendor\bootstrap\_code.scss" />
+    <Content Include="Content\vendor\bootstrap\_custom-forms.scss" />
+    <Content Include="Content\vendor\bootstrap\_dropdown.scss" />
+    <Content Include="Content\vendor\bootstrap\_forms.scss" />
+    <Content Include="Content\vendor\bootstrap\_functions.scss" />
+    <Content Include="Content\vendor\bootstrap\_grid.scss" />
+    <Content Include="Content\vendor\bootstrap\_images.scss" />
+    <Content Include="Content\vendor\bootstrap\_input-group.scss" />
+    <Content Include="Content\vendor\bootstrap\_jumbotron.scss" />
+    <Content Include="Content\vendor\bootstrap\_list-group.scss" />
+    <Content Include="Content\vendor\bootstrap\_media.scss" />
+    <Content Include="Content\vendor\bootstrap\_mixins.scss" />
+    <Content Include="Content\vendor\bootstrap\_modal.scss" />
+    <Content Include="Content\vendor\bootstrap\_nav.scss" />
+    <Content Include="Content\vendor\bootstrap\_navbar.scss" />
+    <Content Include="Content\vendor\bootstrap\_pagination.scss" />
+    <Content Include="Content\vendor\bootstrap\_popover.scss" />
+    <Content Include="Content\vendor\bootstrap\_print.scss" />
+    <Content Include="Content\vendor\bootstrap\_progress.scss" />
+    <Content Include="Content\vendor\bootstrap\_reboot.scss" />
+    <Content Include="Content\vendor\bootstrap\_root.scss" />
+    <Content Include="Content\vendor\bootstrap\_tables.scss" />
+    <Content Include="Content\vendor\bootstrap\_toasts.scss" />
+    <Content Include="Content\vendor\bootstrap\_tooltip.scss" />
+    <Content Include="Content\vendor\bootstrap\_transitions.scss" />
+    <Content Include="Content\vendor\bootstrap\_type.scss" />
+    <Content Include="Content\vendor\bootstrap\_utilities.scss" />
+    <Content Include="Content\vendor\bootstrap\_variables.scss" />
+    <Content Include="ClientsData\Kamalltd\Invoice.pdf" />
+    <Content Include="ClientsData\RajLab\EmployeeFiles\EmployeeDetail_011_122520190319AM.pdf" />
+    <Content Include="ClientsData\RajLab\EmployeeUploadedFiles\BackupAccountDB25122019083924.bak" />
+    <Content Include="ClientsData\RajLab\PatientFiles\PatientDetail_009_121520191327PM.pdf" />
+    <Content Include="ClientsData\RajLab\PatientFiles\Receipt\PatientReceipt_009_121520191327PM.pdf" />
+    <Content Include="ClientsData\TahaC\Invoice.pdf" />
+    <Content Include="ClientsData\TahaLLC\Invoice.pdf" />
+    <Content Include="ClientsData\TahaLTD2\Invoice.pdf" />
+    <Content Include="ClientsData\TahaLTD3\Invoice.pdf" />
+    <Content Include="ClientsData\TahaLTD\Invoice.pdf" />
+    <Content Include="ClientsData\TahaLTD\PersonalFiles\Invoice.pdf" />
+    <Content Include="ClientsData\TahaPvtLimited\Invoice.pdf" />
+    <Content Include="ClientsData\Tahapvt\Invoice.pdf" />
+    <Content Include="ClientsData\Tahapvt\PersonalFiles\Invoice.pdf" />
+    <Content Include="ClientsData\TahaTest\Invoice.pdf" />
+    <Content Include="ClientsData\TJPVTLTD\Invoice.pdf" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\lab.pubxml" />
+    <None Include="Properties\PublishProfiles\laboratory.pubxml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Custom\General.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.1.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.1.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\js\apexAreaChart.script.js" />
+    <Content Include="Scripts\js\apexBarChart.script.js" />
+    <Content Include="Scripts\js\apexBubbleChart.script.js" />
+    <Content Include="Scripts\js\apexCandleStickChart.script.js" />
+    <Content Include="Scripts\js\apexChart.script.js" />
+    <Content Include="Scripts\js\apexcharts.js" />
+    <Content Include="Scripts\js\apexColumnChart.script.js" />
+    <Content Include="Scripts\js\apexMixChart.script.js" />
+    <Content Include="Scripts\js\apexPieDonutChart.script.js" />
+    <Content Include="Scripts\js\apexRadarChart.script.js" />
+    <Content Include="Scripts\js\apexRadialBarChart.script.js" />
+    <Content Include="Scripts\js\apexScatterChart.script.js" />
+    <Content Include="Scripts\js\apexSparklineChart.script.js" />
+    <Content Include="Scripts\js\calendar.script.js" />
+    <Content Include="Scripts\js\card.metrics.script.js" />
+    <Content Include="Scripts\js\carousel.script.js" />
+    <Content Include="Scripts\js\chartjs.script.js" />
+    <Content Include="Scripts\js\cropper.script.js" />
+    <Content Include="Scripts\js\customizer.script.js" />
+    <Content Include="Scripts\js\dashboard.v1.script.js" />
+    <Content Include="Scripts\js\dashboard.v2.script.js" />
+    <Content Include="Scripts\js\dashboard.v3.script.js" />
+    <Content Include="Scripts\js\dashboard.v4.script.js" />
+    <Content Include="Scripts\js\datatables.script.js" />
+    <Content Include="Scripts\js\dropzone.script.js" />
+    <Content Include="Scripts\js\echart.options.js" />
+    <Content Include="Scripts\js\echarts.script.js" />
+    <Content Include="Scripts\js\es5\apexAreaChart.script.js" />
+    <Content Include="Scripts\js\es5\apexAreaChart.script.min.js" />
+    <Content Include="Scripts\js\es5\apexBarChart.script.js" />
+    <Content Include="Scripts\js\es5\apexBarChart.script.min.js" />
+    <Content Include="Scripts\js\es5\apexBubbleChart.script.js" />
+    <Content Include="Scripts\js\es5\apexBubbleChart.script.min.js" />
+    <Content Include="Scripts\js\es5\apexCandleStickChart.script.js" />
+    <Content Include="Scripts\js\es5\apexCandleStickChart.script.min.js" />
+    <Content Include="Scripts\js\es5\apexChart.script.js" />
+    <Content Include="Scripts\js\es5\apexChart.script.min.js" />
+    <Content Include="Scripts\js\es5\apexcharts.js" />
+    <Content Include="Scripts\js\es5\apexcharts.min.js" />
+    <Content Include="Scripts\js\es5\apexColumnChart.script.js" />
+    <Content Include="Scripts\js\es5\apexColumnChart.script.min.js" />
+    <Content Include="Scripts\js\es5\apexMixChart.script.js" />
+    <Content Include="Scripts\js\es5\apexMixChart.script.min.js" />
+    <Content Include="Scripts\js\es5\apexPieDonutChart.script.js" />
+    <Content Include="Scripts\js\es5\apexPieDonutChart.script.min.js" />
+    <Content Include="Scripts\js\es5\apexRadarChart.script.js" />
+    <Content Include="Scripts\js\es5\apexRadarChart.script.min.js" />
+    <Content Include="Scripts\js\es5\apexRadialBarChart.script.js" />
+    <Content Include="Scripts\js\es5\apexRadialBarChart.script.min.js" />
+    <Content Include="Scripts\js\es5\apexScatterChart.script.js" />
+    <Content Include="Scripts\js\es5\apexScatterChart.script.min.js" />
+    <Content Include="Scripts\js\es5\apexSparklineChart.script.js" />
+    <Content Include="Scripts\js\es5\apexSparklineChart.script.min.js" />
+    <Content Include="Scripts\js\es5\calendar.script.js" />
+    <Content Include="Scripts\js\es5\calendar.script.min.js" />
+    <Content Include="Scripts\js\es5\card.metrics.script.js" />
+    <Content Include="Scripts\js\es5\card.metrics.script.min.js" />
+    <Content Include="Scripts\js\es5\carousel.script.js" />
+    <Content Include="Scripts\js\es5\carousel.script.min.js" />
+    <Content Include="Scripts\js\es5\chartjs.script.js" />
+    <Content Include="Scripts\js\es5\chartjs.script.min.js" />
+    <Content Include="Scripts\js\es5\core.script.min.js" />
+    <Content Include="Scripts\js\es5\cropper.script.js" />
+    <Content Include="Scripts\js\es5\cropper.script.min.js" />
+    <Content Include="Scripts\js\es5\customizer.script.js" />
+    <Content Include="Scripts\js\es5\customizer.script.min.js" />
+    <Content Include="Scripts\js\es5\dashboard.v1.script.js" />
+    <Content Include="Scripts\js\es5\dashboard.v1.script.min.js" />
+    <Content Include="Scripts\js\es5\dashboard.v2.script.js" />
+    <Content Include="Scripts\js\es5\dashboard.v2.script.min.js" />
+    <Content Include="Scripts\js\es5\dashboard.v3.script.js" />
+    <Content Include="Scripts\js\es5\dashboard.v3.script.min.js" />
+    <Content Include="Scripts\js\es5\dashboard.v4.script.js" />
+    <Content Include="Scripts\js\es5\dashboard.v4.script.min.js" />
+    <Content Include="Scripts\js\es5\datatables.script.js" />
+    <Content Include="Scripts\js\es5\datatables.script.min.js" />
+    <Content Include="Scripts\js\es5\dropzone.script.js" />
+    <Content Include="Scripts\js\es5\dropzone.script.min.js" />
+    <Content Include="Scripts\js\es5\echart.options.js" />
+    <Content Include="Scripts\js\es5\echart.options.min.js" />
+    <Content Include="Scripts\js\es5\echarts.script.js" />
+    <Content Include="Scripts\js\es5\echarts.script.min.js" />
+    <Content Include="Scripts\js\es5\form.basic.script.js" />
+    <Content Include="Scripts\js\es5\form.basic.script.min.js" />
+    <Content Include="Scripts\js\es5\form.validation.script.js" />
+    <Content Include="Scripts\js\es5\form.validation.script.min.js" />
+    <Content Include="Scripts\js\es5\gull.script.js" />
+    <Content Include="Scripts\js\es5\gull.script.min.js" />
+    <Content Include="Scripts\js\es5\gull.ui.kits.js" />
+    <Content Include="Scripts\js\es5\gull.ui.kits.min.js" />
+    <Content Include="Scripts\js\es5\hopscotch.script.js" />
+    <Content Include="Scripts\js\es5\hopscotch.script.min.js" />
+    <Content Include="Scripts\js\es5\invoice.script.js" />
+    <Content Include="Scripts\js\es5\invoice.script.min.js" />
+    <Content Include="Scripts\js\es5\ladda.script.js" />
+    <Content Include="Scripts\js\es5\ladda.script.min.js" />
+    <Content Include="Scripts\js\es5\landing.script.js" />
+    <Content Include="Scripts\js\es5\landing.script.min.js" />
+    <Content Include="Scripts\js\es5\modal.script.js" />
+    <Content Include="Scripts\js\es5\modal.script.min.js" />
+    <Content Include="Scripts\js\es5\nuslider.script.js" />
+    <Content Include="Scripts\js\es5\nuslider.script.min.js" />
+    <Content Include="Scripts\js\es5\quill.script.js" />
+    <Content Include="Scripts\js\es5\quill.script.min.js" />
+    <Content Include="Scripts\js\es5\script.js" />
+    <Content Include="Scripts\js\es5\script.min.js" />
+    <Content Include="Scripts\js\es5\sidebar-horizontal.script.js" />
+    <Content Include="Scripts\js\es5\sidebar-horizontal.script.min.js" />
+    <Content Include="Scripts\js\es5\sidebar.compact.script.js" />
+    <Content Include="Scripts\js\es5\sidebar.compact.script.min.js" />
+    <Content Include="Scripts\js\es5\sidebar.large.script.js" />
+    <Content Include="Scripts\js\es5\sidebar.large.script.min.js" />
+    <Content Include="Scripts\js\es5\sidebar.script.js" />
+    <Content Include="Scripts\js\es5\sidebar.script.min.js" />
+    <Content Include="Scripts\js\es5\smart.wizard.script.js" />
+    <Content Include="Scripts\js\es5\smart.wizard.script.min.js" />
+    <Content Include="Scripts\js\es5\sweetalert.script.js" />
+    <Content Include="Scripts\js\es5\sweetalert.script.min.js" />
+    <Content Include="Scripts\js\es5\tagging.script.js" />
+    <Content Include="Scripts\js\es5\tagging.script.min.js" />
+    <Content Include="Scripts\js\es5\task-manager-list.js" />
+    <Content Include="Scripts\js\es5\task-manager-list.min.js" />
+    <Content Include="Scripts\js\es5\task-manager.js" />
+    <Content Include="Scripts\js\es5\task-manager.min.js" />
+    <Content Include="Scripts\js\es5\toastr.script.js" />
+    <Content Include="Scripts\js\es5\toastr.script.min.js" />
+    <Content Include="Scripts\js\es5\toastuicharts.script.js" />
+    <Content Include="Scripts\js\es5\toastuicharts.script.min.js" />
+    <Content Include="Scripts\js\es5\todo.script.js" />
+    <Content Include="Scripts\js\es5\todo.script.min.js" />
+    <Content Include="Scripts\js\es5\tooltip.script.js" />
+    <Content Include="Scripts\js\es5\tooltip.script.min.js" />
+    <Content Include="Scripts\js\es5\widget-list.js" />
+    <Content Include="Scripts\js\es5\widget-list.min.js" />
+    <Content Include="Scripts\js\es5\widgets-statistics.js" />
+    <Content Include="Scripts\js\es5\widgets-statistics.min.js" />
+    <Content Include="Scripts\js\form.basic.script.js" />
+    <Content Include="Scripts\js\form.validation.script.js" />
+    <Content Include="Scripts\js\hopscotch.script.js" />
+    <Content Include="Scripts\js\invoice.script.js" />
+    <Content Include="Scripts\js\ladda.script.js" />
+    <Content Include="Scripts\js\landing.script.js" />
+    <Content Include="Scripts\js\modal.script.js" />
+    <Content Include="Scripts\js\nuslider.script.js" />
+    <Content Include="Scripts\js\quill.script.js" />
+    <Content Include="Scripts\js\script.js" />
+    <Content Include="Scripts\js\sidebar-horizontal.script.js" />
+    <Content Include="Scripts\js\sidebar.compact.script.js" />
+    <Content Include="Scripts\js\sidebar.large.script.js" />
+    <Content Include="Scripts\js\sidebar.script.js" />
+    <Content Include="Scripts\js\smart.wizard.script.js" />
+    <Content Include="Scripts\js\sweetalert.script.js" />
+    <Content Include="Scripts\js\tagging.script.js" />
+    <Content Include="Scripts\js\task-manager-list.js" />
+    <Content Include="Scripts\js\task-manager.js" />
+    <Content Include="Scripts\js\toastr.script.js" />
+    <Content Include="Scripts\js\toastuicharts.script.js" />
+    <Content Include="Scripts\js\todo.script.js" />
+    <Content Include="Scripts\js\tooltip.script.js" />
+    <Content Include="Scripts\js\vendor\apexcharts.dataseries.js" />
+    <Content Include="Scripts\js\vendor\apexcharts.min.js" />
+    <Content Include="Scripts\js\vendor\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\js\vendor\bootstrap.js" />
+    <Content Include="Scripts\js\vendor\bootstrap.min.js" />
+    <Content Include="Scripts\js\vendor\calendar\datepicker.min.js" />
+    <Content Include="Scripts\js\vendor\calendar\fullcalendar.min.js" />
+    <Content Include="Scripts\js\vendor\calendar\jquery-ui.min.js" />
+    <Content Include="Scripts\js\vendor\calendar\moment.min.js" />
+    <Content Include="Scripts\js\vendor\cropper.min.js" />
+    <Content Include="Scripts\js\vendor\datatables.min.js" />
+    <Content Include="Scripts\js\vendor\dropzone.min.js" />
+    <Content Include="Scripts\js\vendor\echarts.min.js" />
+    <Content Include="Scripts\js\vendor\feather.min.js" />
+    <Content Include="Scripts\js\vendor\hopscotch.min.js" />
+    <Content Include="Scripts\js\vendor\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\js\vendor\jquery.smartWizard.min.js" />
+    <Content Include="Scripts\js\vendor\ladda.js" />
+    <Content Include="Scripts\js\vendor\nuslider.min.js" />
+    <Content Include="Scripts\js\vendor\parsley.js" />
+    <Content Include="Scripts\js\vendor\perfect-scrollbar.min.js" />
+    <Content Include="Scripts\js\vendor\pickadate\legacy.js" />
+    <Content Include="Scripts\js\vendor\pickadate\picker.date.js" />
+    <Content Include="Scripts\js\vendor\pickadate\picker.js" />
+    <Content Include="Scripts\js\vendor\pickadate\picker.time.js" />
+    <Content Include="Scripts\js\vendor\pickadate\themes\classic.css" />
+    <Content Include="Scripts\js\vendor\pickadate\themes\classic.date.css" />
+    <Content Include="Scripts\js\vendor\pickadate\themes\classic.time.css" />
+    <Content Include="Scripts\js\vendor\pickadate\themes\default.css" />
+    <Content Include="Scripts\js\vendor\pickadate\themes\default.date.css" />
+    <Content Include="Scripts\js\vendor\pickadate\themes\default.time.css" />
+    <Content Include="Scripts\js\vendor\pickadate\themes\rtl.css" />
+    <Content Include="Scripts\js\vendor\popper.min.js" />
+    <Content Include="Scripts\js\vendor\quill.min.js" />
+    <Content Include="Scripts\js\vendor\spin.min.js" />
+    <Content Include="Scripts\js\vendor\sweetalert2.min.js" />
+    <Content Include="Scripts\js\vendor\tagging.min.js" />
+    <Content Include="Scripts\js\vendor\toastr.min.js" />
+    <Content Include="Scripts\js\widget-list.js" />
+    <Content Include="Scripts\js\widgets-statistics.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="TestUploadFile.txt" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Admin\Account\Index.cshtml" />
+    <Content Include="Views\Admin\Home\Index.cshtml" />
+    <Content Include="Views\Main\Index.cshtml" />
+    <Content Include="Views\Admin\Error\NotFound.cshtml" />
+    <Content Include="Views\Admin\Plan\Index.cshtml" />
+    <Content Include="Views\Admin\Plan\ActivePlans.cshtml" />
+    <Content Include="Views\Admin\Plan\InactivePlans.cshtml" />
+    <Content Include="Views\Admin\Consultant\Index.cshtml" />
+    <Content Include="Views\Admin\Consultant\ActiveConsultants.cshtml" />
+    <Content Include="Views\Admin\Consultant\InactiveConsultants.cshtml" />
+    <Content Include="Views\Admin\Employee\Index.cshtml" />
+    <Content Include="Views\Admin\Employee\ActiveEmployees.cshtml" />
+    <Content Include="Views\Admin\Employee\InactiveEmployees.cshtml" />
+    <Content Include="Views\Admin\Client\Index.cshtml" />
+    <Content Include="Views\Admin\Payment\ClientLicensePayments.cshtml" />
+    <Content Include="Views\ChangePassword\Index.cshtml" />
+    <Content Include="Views\Admin\Client\ActiveClients.cshtml" />
+    <Content Include="Views\Admin\Client\InactiveClients.cshtml" />
+    <Content Include="Views\Admin\Subdomain\ActiveSubdomains.cshtml" />
+    <Content Include="Views\Admin\Subdomain\InactiveSubdomains.cshtml" />
+    <Content Include="Views\Admin\SalesAndContactRequest\NewSales.cshtml" />
+    <Content Include="Views\Admin\SalesAndContactRequest\PendingSales.cshtml" />
+    <Content Include="Views\Admin\SalesAndContactRequest\ClosedSales.cshtml" />
+    <Content Include="Views\Admin\SalesAndContactRequest\NewContact.cshtml" />
+    <Content Include="Views\Admin\SalesAndContactRequest\PendingContact.cshtml" />
+    <Content Include="Views\Admin\SalesAndContactRequest\ClosedContact.cshtml" />
+    <Content Include="Views\Admin\Account\MyProfile.cshtml" />
+    <Content Include="Views\Admin\OpinionRequest\NewOpinion.cshtml" />
+    <Content Include="Views\Admin\OpinionRequest\AssignedOpinion.cshtml" />
+    <Content Include="Views\Admin\OpinionRequest\CompletedOpinion.cshtml" />
+    <Content Include="Views\Admin\OpinionRequest\CancelledOpinion.cshtml" />
+    <Content Include="Views\Admin\Payment\ConsultantDoctorPayments.cshtml" />
+    <Content Include="Views\Admin\ConsultantRequest\NewRequest.cshtml" />
+    <Content Include="Views\Admin\ConsultantRequest\PendingRequest.cshtml" />
+    <Content Include="Views\Admin\ConsultantRequest\CompletedRequest.cshtml" />
+    <Content Include="Views\Admin\ConsultantPayment\MyPayments.cshtml" />
+    <Content Include="Views\User\Account\Index.cshtml" />
+    <Content Include="Views\User\Error\NotFound.cshtml" />
+    <Content Include="Views\User\Error\SubDomainNotFound.cshtml" />
+    <Content Include="Views\User\Error\InactiveAccount.cshtml" />
+    <Content Include="Views\User\Error\Exception.cshtml" />
+    <Content Include="Views\Shared\_LayoutUser.cshtml" />
+    <Content Include="Views\User\Home\Index.cshtml" />
+    <Content Include="Views\User\Account\MyProfile.cshtml" />
+    <Content Include="Views\User\Account\ChangePassword.cshtml" />
+    <Content Include="Views\User\Employee\ActiveEmployee.cshtml" />
+    <Content Include="Views\User\Employee\InactiveEmployees.cshtml" />
+    <Content Include="Views\User\Employee\Index.cshtml" />
+    <Content Include="Views\User\ExportData\AllPatientRecords.cshtml" />
+    <Content Include="Views\User\ExportData\AllTestRecords.cshtml" />
+    <Content Include="Views\User\ExtraWorkRequest\Completed.cshtml" />
+    <Content Include="Views\User\ExtraWorkRequest\New.cshtml" />
+    <Content Include="Views\User\ExtraWorkRequest\Open.cshtml" />
+    <Content Include="Views\User\ExtraWorkRequest\Search.cshtml" />
+    <Content Include="Views\User\InventoryManager\AvailableItems.cshtml" />
+    <Content Include="Views\User\InventoryManager\ClosedRequests.cshtml" />
+    <Content Include="Views\User\InventoryManager\DiscontinuedItems.cshtml" />
+    <Content Include="Views\User\InventoryManager\Index.cshtml" />
+    <Content Include="Views\User\InventoryManager\OpenRequests.cshtml" />
+    <Content Include="Views\User\InventoryManager\OutofstockItems.cshtml" />
+    <Content Include="Views\User\InventoryManager\RaiseRequest.cshtml" />
+    <Content Include="Views\User\MedicalTest\Completed.cshtml" />
+    <Content Include="Views\User\MedicalTest\Index.cshtml" />
+    <Content Include="Views\User\MedicalTest\Open.cshtml" />
+    <Content Include="Views\User\MyReports\CompletedReports.cshtml" />
+    <Content Include="Views\User\MyReports\PendingReports.cshtml" />
+    <Content Include="Views\User\OpinionRequest\Completed.cshtml" />
+    <Content Include="Views\User\OpinionRequest\New.cshtml" />
+    <Content Include="Views\User\OpinionRequest\Pending.cshtml" />
+    <Content Include="Views\User\Patients\Index.cshtml" />
+    <Content Include="Views\User\Patients\ViewAll.cshtml" />
+    <Content Include="Views\User\Payments\BookedTestPayments.cshtml" />
+    <Content Include="Views\User\Payments\PatientRegistrationPayments.cshtml" />
+    <Content Include="Views\User\Reports\AllBookedTests.cshtml" />
+    <Content Include="Views\User\Reports\CompletedTests.cshtml" />
+    <Content Include="Views\User\Reports\PendingTests.cshtml" />
+    <Content Include="Views\User\InventoryRequest\OpenRequests.cshtml" />
+    <Content Include="Views\User\InventoryRequest\ClosedRequests.cshtml" />
+    <Content Include="Views\User\InventoryRequest\RaiseRequest.cshtml" />
+    <Content Include="Views\Shared\_LayoutMainWebsite.cshtml" />
+    <Content Include="Views\Main\Services.cshtml" />
+    <Content Include="Views\Main\Demo.cshtml" />
+    <Content Include="Views\Main\Pricing.cshtml" />
+    <Content Include="Views\Main\ContactUs.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\User\Hospital\Index.cshtml" />
+    <Content Include="Views\User\Hospital\GetAllHospital.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Content\EmailTemplates\" />
+    <Folder Include="Content\MainWebsite\" />
+    <Folder Include="Views\Account\" />
+    <Folder Include="Views\Error\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LaboratoryBusiness\LaboratoryBusiness.csproj">
+      <Project>{c2ef8c17-49fb-4114-9c50-b602148011b7}</Project>
+      <Name>LaboratoryBusiness</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>81</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:82/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

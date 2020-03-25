@@ -1,0 +1,2560 @@
+﻿
+@{
+    ViewBag.Title = "Medical Test";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<script>
+    var currentmenu = 30;
+</script>
+
+    <div class="row" style="padding-bottom:15px;">
+        
+            <div class="col-md-9">
+                <div class="breadcrumb">
+                    <h1 class="mr-2" id="mainheading">Medical Test</h1>
+                    <ul>
+                        <li><a href="">Test</a></li>
+                        <li id="subheading">Medical Test</li>
+                    </ul>
+                </div>
+        </div>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-primary m-1 float-right" id="addbtnsupplement" style="display:none;">+ Add Supplementry Report</button>
+            </div>
+        
+</div>
+
+@{
+    LaboratoryBusiness.Repositories.User.IClientUserRepository cuser = ((DBInitializer)ViewBag.currentdomaindb).ClientUserRepository();
+    LaboratoryBusiness.Repositories.User.IPatientDetailRepository pdetail = ((DBInitializer)ViewBag.currentdomaindb).PatientDetailRepository();
+    LaboratoryBusiness.Repositories.User.IClientUserTypeRepository cusertype = ((DBInitializer)ViewBag.currentdomaindb).ClientUserTypeRepository();
+    LaboratoryBusiness.Repositories.User.ITestReportTypeRepository reporttyperep = ((DBInitializer)ViewBag.currentdomaindb).TestReportTypeRepository();
+
+    int patienttypeid = cusertype.GetAll().Where(x => x.TypeName.Equals("Patient")).FirstOrDefault().ClientUserTypeID;
+    
+    ClientUser cu = MySession.GetClientSession(((string)ViewBag.subdomainurl));
+
+    bool is_testinfo_show = true;
+    bool is_samplecollection_show = false;
+    bool is_investigation_show = false;
+    bool is_conclusion_show = false;
+
+    bool is_testinfo_editpanel_show = false;
+    bool is_samplecollection_editpanel_show = false;
+    bool is_investigation_editpanel_show = false;
+    bool is_conclusion_editpanel_show = false;
+
+    string currentrolename = cu.CurrentRole.RoleName;
+    int selectedindex = 0;
+    if (currentrolename.Equals("Receptionist"))
+    {
+        selectedindex = 0;
+    }
+    else if (currentrolename.Equals("Lab Technician"))
+    {
+        selectedindex = 1;
+    }
+    else if (currentrolename.Equals("Clinical Laboratory Scientist"))
+    {
+        selectedindex = 2;
+    }
+    else if (currentrolename.Equals("Clinical Laboratory Consultant"))
+    {
+        selectedindex = 3;
+    }
+    else
+    {
+        selectedindex = 0;
+    }
+
+    is_samplecollection_show = (currentrolename.Equals("Lab Technician") || currentrolename.Equals("Clinical Laboratory Scientist") || currentrolename.Equals("Clinical Laboratory Consultant")) ? true : false;
+    is_investigation_show = (currentrolename.Equals("Clinical Laboratory Scientist") || currentrolename.Equals("Clinical Laboratory Consultant")) ? true : false;
+    is_conclusion_show = (currentrolename.Equals("Clinical Laboratory Consultant")) ? true : false;
+
+    is_testinfo_editpanel_show = currentrolename.Equals("Receptionist") ? true : false;
+    is_samplecollection_editpanel_show = currentrolename.Equals("Lab Technician") ? true : false;
+    is_investigation_editpanel_show = currentrolename.Equals("Clinical Laboratory Scientist") ? true : false;
+    is_conclusion_editpanel_show = currentrolename.Equals("Clinical Laboratory Consultant") ? true : false;
+
+    string test_info_heading = currentrolename.Equals("Receptionist") ? "Create Test" : "Test Information";
+    string sample_collection_heading = currentrolename.Equals("Lab Technician") ? "Sample Collection Request" : "Sample Collection Information";
+    string investigation_heading = currentrolename.Equals("Clinical Laboratory Scientist") ? "Investigation Request" : "Investigation Information";
+   
+    string toolbar= (currentrolename.Equals("Receptionist")? "none":"bottom");
+    
+    <script>
+        var js_is_conclusion_show = false;
+        var js_is_viewbag_view = false;
+    $(document).ready(function () {
+         js_is_conclusion_show = @is_conclusion_show.ToString().ToLower();
+             js_is_viewbag_view = @ViewBag.IsView.ToString().ToLower();
+        // Step show event
+        $("#smartwizardcustom").on("showStep", function (e, anchorObject, stepNumber, stepDirection, stepPosition) {
+            //alert("You are on step "+stepNumber+" now");
+
+            if(anchorObject[0].text=="Add Supplementry Report") {
+                $("#addsupplement-step").show();
+                $("#addbtnsupplement").hide();
+            }
+            if (stepPosition === 'first') {
+                $("#prev-btn").addClass('disabled');
+            } else if (stepPosition === 'final') {
+                $("#next-btn").addClass('disabled');
+            } else {
+                $("#prev-btn").removeClass('disabled');
+                $("#next-btn").removeClass('disabled');
+            }
+        });
+
+        // Toolbar extra buttons
+        var btnFinish = $('<button></button>').text('Finish')
+            .addClass('btn btn-info')
+            .on('click', function () { alert('Finish Clicked'); });
+        var btnCancel = $('<button></button>').text('Cancel')
+            .addClass('btn btn-danger')
+            .on('click', function () { $('#smartwizardcustom').smartWizard("reset"); });
+
+
+        // Smart Wizard
+
+
+
+        // External Button Events
+        $("#reset-btn").on("click", function () {
+            // Reset wizard
+            $('#smartwizardcustom').smartWizard("reset");
+            return true;
+        });
+
+        $("#prev-btn").on("click", function () {
+            // Navigate previous
+            $('#smartwizardcustom').smartWizard("prev");
+            return true;
+        });
+
+        $("#next-btn").on("click", function () {
+            // Navigate next
+            $('#smartwizardcustom').smartWizard("next");
+            return true;
+        });
+
+        $("#theme_selector").on("change", function () {
+            // Change theme
+            $('#smartwizardcustom').smartWizard("theme", $(this).val());
+            return true;
+        });
+
+        // Set selected theme on page refresh
+        $("#theme_selector").change();
+
+        var query = getUrlVars();
+        if (query["EditId"] != null) {
+
+            MakeRequest(_User_MedicalTest_GetTestDetail, "POST", { "testid": query["EditId"] }, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+    var selectedstep = 0;
+
+    if (rs.ResponseType == "Simple") {
+        var dt_testobj = rs.ResponseData.testobjjson;
+        var dt_samplecollectionobj = rs.ResponseData.samplecollectionobjjson;
+        var dt_investigationobj = rs.ResponseData.investigationobjjson;
+        var dt_conclusionobj = rs.ResponseData.conclusionobjjson;
+        var dt_supplementreportlistobj = rs.ResponseData.supplementreportlistjson;
+
+
+
+        if(dt_testobj!=null) {
+            var _isview = false;
+            var _isrestricted = true;
+            if(query["IsEdit"]==null) {
+                _isview = true;
+            }
+            else {
+                if(query["IsEdit"]==0) {
+                    _isview = true;
+                }
+            }
+
+            if(query["Rest"]==null) {
+                _isrestricted = true;
+            }
+            else {
+                if(query["Rest"]==0) {
+                    _isrestricted = false;
+                }
+            }
+
+            if(_isview) {
+                if(_isrestricted) {
+                    var cr_role = "@currentrolename";
+
+                    if(dt_testobj!=null && (cr_role=="Receptionist" || cr_role=="Lab Technician" || cr_role=="Clinical Laboratory Scientist" ||
+                        cr_role=="Clinical Laboratory Consultant")) {
+                        PopulateTestInfo_ViewPanel(dt_testobj);
+                        $("#testinfo-step").show();
+                        $("#testinfo-viewpanel").show();
+
+                        $("#mainpanel").show();
+
+                        selectedstep = 0;
+                    }
+
+                    if(dt_samplecollectionobj!=null && (cr_role=="Lab Technician" || cr_role=="Clinical Laboratory Scientist" ||
+                        cr_role=="Clinical Laboratory Consultant")) {
+                        PopulateSampleInfo_ViewPanel(dt_samplecollectionobj);
+                        $("#sampleinfo-step").show();
+                        $("#samplecollection-viewpanel").show();
+
+                        $("#mainpanel").show();
+
+                        selectedstep = 1;
+                    }
+
+                    if(dt_investigationobj!=null && (cr_role=="Clinical Laboratory Scientist" ||
+                        cr_role=="Clinical Laboratory Consultant")) {
+                        PopulateInvestigationInfo_ViewPanel(dt_investigationobj);
+                        $("#investigation-step").show();
+                        $("#investigation-viewpanel").show();
+
+                        $("#mainpanel").show();
+
+                        selectedstep = 2;
+                    }
+
+                    if(dt_conclusionobj!=null && (cr_role=="Clinical Laboratory Consultant")) {
+                        PopulateConclusionInfo_ViewPanel(dt_conclusionobj);
+                        PopulateSupplementReport(dt_supplementreportlistobj);
+
+                        $("#conclusion-step").show();
+                        $("#conclusion-viewpanel").show();
+
+                        $("#mainpanel").show();
+
+                        selectedstep = 3;
+                    }
+                }
+                else {
+                    if(dt_testobj!=null) {
+                        PopulateTestInfo_ViewPanel(dt_testobj);
+                        $("#testinfo-step").show();
+                        $("#testinfo-viewpanel").show();
+
+                        $("#mainpanel").show();
+
+                        selectedstep = 0;
+                    }
+
+                    if(dt_samplecollectionobj!=null) {
+                        PopulateSampleInfo_ViewPanel(dt_samplecollectionobj);
+                        $("#sampleinfo-step").show();
+                        $("#samplecollection-viewpanel").show();
+
+                        $("#mainpanel").show();
+
+                        selectedstep = 1;
+                    }
+
+                    if(dt_investigationobj!=null) {
+                        PopulateInvestigationInfo_ViewPanel(dt_investigationobj);
+                        $("#investigation-step").show();
+                        $("#investigation-viewpanel").show();
+
+                        $("#mainpanel").show();
+
+                        selectedstep = 2;
+                    }
+
+                    if(dt_conclusionobj!=null) {
+                        PopulateConclusionInfo_ViewPanel(dt_conclusionobj);
+                        PopulateSupplementReport(dt_supplementreportlistobj);
+
+                        $("#conclusion-step").show();
+                        $("#conclusion-viewpanel").show();
+
+                        $("#mainpanel").show();
+
+                        selectedstep = 3;
+                    }
+                }
+            }
+            else {
+                if(dt_testobj!=null) {
+                    var cr_role2 = "@currentrolename";
+
+                    if(cr_role2 == "Lab Technician" && dt_testobj.TestStatusName=="On Lab Technician Plate")
+                    {
+                        if(dt_testobj!=null) {
+                            PopulateTestInfo_ViewPanel(dt_testobj);
+                            $("#testinfo-step").show();
+                            $("#testinfo-viewpanel").show();
+
+                            $("#mainpanel").show();
+
+                            $("#testid_samplecollection").val(dt_testobj.TestID);
+                        }
+
+                        $("#sampleinfo-step").show();
+                        $("#samplecollection-editpanel").show();
+
+                        selectedstep = 1;
+
+                    }
+
+                    else if(cr_role2 == "Clinical Laboratory Scientist" && dt_testobj.TestStatusName=="On Clinical Lab Scientist Plate")
+                    {
+                        if(dt_testobj!=null) {
+                            PopulateTestInfo_ViewPanel(dt_testobj);
+                            $("#testinfo-step").show();
+                            $("#testinfo-viewpanel").show();
+
+                            $("#mainpanel").show();
+
+                            $("#testid_investigation").val(dt_testobj.TestID);
+                        }
+
+                        if(dt_samplecollectionobj!=null) {
+                            PopulateSampleInfo_ViewPanel(dt_samplecollectionobj);
+                            $("#sampleinfo-step").show();
+                            $("#samplecollection-viewpanel").show();
+
+                            $("#mainpanel").show();
+                        }
+
+                        $("#investigation-step").show();
+                        $("#investigation-editpanel").show();
+
+                        selectedstep = 2;
+
+                    }
+
+                    else if(cr_role2 == "Clinical Laboratory Consultant" && dt_testobj.TestStatusName=="On Clinical Lab Doctor Plate")
+                    {
+                        if(dt_testobj!=null) {
+                            PopulateTestInfo_ViewPanel(dt_testobj);
+                            $("#testinfo-step").show();
+                            $("#testinfo-viewpanel").show();
+
+                            $("#mainpanel").show();
+
+                            $("#testid_conclusion").val(dt_testobj.TestID);
+                        }
+
+                        if(dt_samplecollectionobj!=null) {
+                            PopulateSampleInfo_ViewPanel(dt_samplecollectionobj);
+                            $("#sampleinfo-step").show();
+                            $("#samplecollection-viewpanel").show();
+
+                            $("#mainpanel").show();
+                        }
+
+                        if(dt_investigationobj!=null) {
+                            PopulateInvestigationInfo_ViewPanel(dt_investigationobj);
+                            $("#investigation-step").show();
+                            $("#investigation-viewpanel").show();
+
+                            $("#mainpanel").show();
+                        }
+
+                        if(dt_conclusionobj!=null) {
+                            PopulateConclusionInfo_EditPanel(dt_conclusionobj);
+                            PopulateSupplementReport(dt_supplementreportlistobj);
+
+                            if((dt_testobj.IsPublish!=null?dt_testobj.IsPublish:false)) {
+
+                                $("#addbtnsupplement").show();
+                            }
+                            else {
+                                $("#addsupplement-step").remove();
+                            }
+                        }
+                        else {
+                            $("#addsupplement-step").remove();
+                        }
+                        $("#conclusion-step").show();
+                        $("#conclusion-editpanel").show();
+
+                        selectedstep = 3;
+
+                        $("#mainpanel").show();
+
+
+                    }
+
+                    else if(dt_testobj.TestStatusName=="Completed" || (dt_testobj.IsPublish!=null?dt_testobj.IsPublish:false)) {
+                        if(dt_testobj!=null && (cr_role2=="Receptionist" || cr_role2=="Lab Technician" || cr_role2=="Clinical Laboratory Scientist" ||
+                        cr_role2=="Clinical Laboratory Consultant")) {
+                            PopulateTestInfo_ViewPanel(dt_testobj);
+                            $("#testinfo-step").show();
+                            $("#testinfo-viewpanel").show();
+
+                            $("#mainpanel").show();
+
+                            selectedstep = 0;
+                        }
+
+                        if(dt_samplecollectionobj!=null && (cr_role2=="Lab Technician" || cr_role2=="Clinical Laboratory Scientist" ||
+                            cr_role2=="Clinical Laboratory Consultant")) {
+                            PopulateSampleInfo_ViewPanel(dt_samplecollectionobj);
+                            $("#sampleinfo-step").show();
+                            $("#samplecollection-viewpanel").show();
+
+                            $("#mainpanel").show();
+
+                            selectedstep = 1;
+                        }
+
+                        if(dt_investigationobj!=null && (cr_role2=="Clinical Laboratory Scientist" ||
+                            cr_role2=="Clinical Laboratory Consultant")) {
+                            PopulateInvestigationInfo_ViewPanel(dt_investigationobj);
+                            $("#investigation-step").show();
+                            $("#investigation-viewpanel").show();
+
+                            $("#mainpanel").show();
+
+                            selectedstep = 2;
+                        }
+
+                        if(dt_conclusionobj!=null && (cr_role2=="Clinical Laboratory Consultant")) {
+                            PopulateConclusionInfo_ViewPanel(dt_conclusionobj);
+                            PopulateSupplementReport(dt_supplementreportlistobj);
+                            if((dt_testobj.IsPublish!=null?dt_testobj.IsPublish:false)) {
+
+                                $("#addbtnsupplement").show();
+                            }
+                            else {
+                                $("#addsupplement-step").remove();
+                            }
+                            $("#conclusion-step").show();
+                            $("#conclusion-viewpanel").show();
+
+                            $("#mainpanel").show();
+
+                            selectedstep = 3;
+                        }
+                    }
+                }
+            }
+
+
+
+        }
+
+    }
+
+    if(selectedstep==0) {
+        $("#sampleinfo-step").remove();
+        $("#investigation-step").remove();
+        $("#conclusion-step").remove();
+        $("#step-2").remove();
+        $("#step-3").remove();
+        $("#step-4").remove();
+
+    }
+    else if(selectedstep==1) {
+        $("#investigation-step").remove();
+        $("#conclusion-step").remove();
+        $("#step-3").remove();
+        $("#step-4").remove();
+    }
+    else if(selectedstep==2) {
+        $("#conclusion-step").remove();
+        $("#step-4").remove();
+    }
+
+    else if(selectedstep==3) {
+
+    }
+
+    $('#smartwizardcustom').smartWizard({
+        selected: selectedstep,
+        theme: 'default',
+        transitionEffect: 'fade',
+        showStepURLhash: false,
+        toolbarSettings: {
+            toolbarPosition: (selectedstep==0?'none':'bottom'),
+            toolbarButtonPosition: 'end'
+        }
+    });
+
+},
+    function (jqXhr, textStatus, errorMessage) {
+        //For Error
+
+        if(@selectedindex.ToString()==0) {
+            $("#sampleinfo-step").remove();
+            $("#investigation-step").remove();
+            $("#conclusion-step").remove();
+            $("#step-2").remove();
+            $("#step-3").remove();
+            $("#step-4").remove();
+
+        }
+        else if(@selectedindex.ToString()==1) {
+            $("#investigation-step").remove();
+            $("#conclusion-step").remove();
+            $("#step-3").remove();
+            $("#step-4").remove();
+        }
+        else if(@selectedindex.ToString()==2) {
+            $("#conclusion-step").remove();
+            $("#step-4").remove();
+        }
+
+        else if(@selectedindex.ToString()==3) {
+
+        }
+
+        $('#smartwizardcustom').smartWizard({
+            selected: @selectedindex.ToString(),
+            theme: 'default',
+            transitionEffect: 'fade',
+            showStepURLhash: false,
+            toolbarSettings: {
+                toolbarPosition: '@toolbar',
+                toolbarButtonPosition: 'end'
+            }
+        });
+        //
+
+        $('.loadscreen').fadeOut();
+        WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+    });
+        }
+        else {
+
+            if(@selectedindex.ToString()==0) {
+                $("#sampleinfo-step").remove();
+                $("#investigation-step").remove();
+                $("#conclusion-step").remove();
+                $("#step-2").remove();
+                $("#step-3").remove();
+                $("#step-4").remove();
+
+            }
+            else if(@selectedindex.ToString()==1) {
+                $("#investigation-step").remove();
+                $("#conclusion-step").remove();
+                $("#step-3").remove();
+                $("#step-4").remove();
+            }
+            else if(@selectedindex.ToString()==2) {
+                $("#conclusion-step").remove();
+                $("#step-4").remove();
+            }
+
+            else if(@selectedindex.ToString()==3) {
+
+            }
+
+            $('#smartwizardcustom').smartWizard({
+                selected: @selectedindex.ToString(),
+                theme: 'default',
+                transitionEffect: 'fade',
+                showStepURLhash: false,
+                toolbarSettings: {
+                    toolbarPosition: '@toolbar',
+                    toolbarButtonPosition: 'end'
+                }
+            });
+
+            if("@currentrolename"=="Receptionist") {
+                $("#mainpanel").show();
+                $("#testinfo-editpanel").show();
+                $("#testinfo-step").show();
+            }
+        }
+
+
+
+        @if (currentrolename.Equals("Receptionist"))
+            {
+             <text>
+        if (query["EditId"] == null) {
+            $('#newpatientpopup').modal('show');
+        }
+        </text>
+            }
+
+
+    });
+
+    function PopulateTestInfo_ViewPanel(inputdata) {
+        $("#testinfo-heading").text("Test Information");
+        $("#patientid_ti_vw_lbl").text(inputdata.PatientID);
+        $("#city_ti_vw_lbl").text(inputdata.City);
+        $("#testcreatedby_ti_vw_lbl").text(inputdata.TestCreatedByCustom);
+        $("#fullname_ti_vw_lbl").text(inputdata.PatientName);
+        $("#mobileno_ti_vw_lbl").text(inputdata.MobileNo);
+        $("#testcreateddate_ti_vw_lbl").text(inputdata.TestCreatedDateCustom);
+        $("#age_ti_vw_lbl").text(inputdata.Age);
+        $("#gender_ti_vw_lbl").text(inputdata.Gender);
+        $("#testid_ti_vw_lbl").text(inputdata.TestID);
+        $("#complainthistory_ti_vw_lbl").text(inputdata.ComplaintHistory);
+        $("#testname_ti_vw_lbl").text(inputdata.TestName);
+        $("#description_ti_vw_lbl").text(inputdata.Description);
+        $("#issamplerequired_ti_vw_lbl").text(inputdata.IsSampleRequired);
+    }
+
+    function PopulateSampleInfo_ViewPanel(inputdata) {
+        $("#samplecollection-heading").text("Sample Collection Information");
+        $("#issamplecollected_sc_vw_lbl").text(inputdata.IsSampleCollected);
+        $("#sampletype_sc_vw_lbl").text(inputdata.SampleType);
+        $("#samplelabel_sc_vw_lbl").text(inputdata.SampleLabel);
+        $("#samplecollecteddate_sc_vw_lbl").text(inputdata.SampleCollectedDateCustom);
+        $("#samplecode_sc_vw_lbl").text(inputdata.SampleCode);
+        $("#samplecollectedby_sc_vw_lbl").text(inputdata.SampleCollectedBy);
+
+        var html = '';
+        if(inputdata.AttachmentList != null) {
+            if (inputdata.AttachmentList.length > 0)
+            {
+                $.each(inputdata.AttachmentList, function (i, e) {
+
+                    html += '<div class="col-md-2 col-4 attachmentbox">\
+                                    <div class="mb-4">\
+                                        <p class="text-primary mb-1">\
+                                        <i class="i-Download text-16 mr-1 " title="Download"></i><a href="' + e.Link + '" target="_blank"> ' + e.Name + '</a></p>\
+                                    </div>\
+                                </div>'
+                });
+
+                $("#attachmentlist_samplecollection").html(html);
+                $(".attachmentsection_samplecollection").show();
+            }
+        }
+    }
+
+    function PopulateInvestigationInfo_ViewPanel(inputdata)
+    {
+        $("#investigation-heading").text("Investigation Information");
+        $("#investigationby_inv_vw_lbl").text(inputdata.AnalysisBy);
+        $("#investigationdate_inv_vw_lbl").text(inputdata.AnalysisDateCustom);
+
+        var html_investigationresult = '';
+        if(inputdata.InvestigationList!=null) {
+            if (inputdata.InvestigationList.length > 0)
+            {
+                $.each(inputdata.InvestigationList, function (i, e) {
+
+                    html_investigationresult += '<tr>\
+                                                        <td>'+e.InvestigationName+'</td>\
+                                                        <td>'+e.Value+'</td>\
+                                                        <td>'+e.Range+'</td>\
+                                                        <td>'+e.InvestigationResult+'</td>\
+                                                    </tr>'
+                });
+
+                $("#investigationsrow_inv_vw").html(html_investigationresult);
+
+            }
+        }
+
+        var html_investigationattachment = '';
+        if(inputdata.AttachmentList != null) {
+            if (inputdata.AttachmentList.length > 0)
+            {
+                $.each(inputdata.AttachmentList, function (i, e) {
+
+                    html_investigationattachment += '<div class="col-md-2 col-4 attachmentbox">\
+                                    <div class="mb-4">\
+                                        <p class="text-primary mb-1">\
+                                        <i class="i-Download text-16 mr-1 " title="Download"></i><a href="' + e.Link + '" target="_blank"> ' + e.Name + '</a></p>\
+                                    </div>\
+                                </div>'
+                });
+
+                $("#attachmentlist_investigation").html(html_investigationattachment);
+                $(".attachmentsection_investigation").show();
+            }
+        }
+
+        var html_extraworkrequest = '';
+        if(inputdata.ExtraWorkRequestList!=null) {
+            if (inputdata.ExtraWorkRequestList.length > 0)
+            {
+                $.each(inputdata.ExtraWorkRequestList, function (i, e) {
+
+                    html_extraworkrequest += '<h3 class="border-bottom border-gray pb-2" style="margin-left: 20px;">Extra Work Request # '+e.ExtraWorkID+'</h3>\
+\
+                                    <div class="row" style="margin-left:0">\
+                                        <div class="col-md-4 col-6">\
+                                            <div class="mb-4">\
+                                                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>H & E Levels</p>\
+                                                <span>'+e.H_ELevels+'</span>\
+                                            </div>\
+                                            <div class="mb-4">\
+                                                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Special Stains</p>\
+                                                <span>'+e.SpecialStains+'</span>\
+                                            </div>\
+\
+                                        </div>\
+                                        <div class="col-md-4 col-6">\
+                                            <div class="mb-4">\
+                                                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>ImmunoHisto Chemistry</p>\
+                                                <span>'+e.ImmunoHistoChemistry+'</span>\
+                                            </div>\
+                                            <div class="mb-4">\
+                                                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Others</p>\
+                                                <span>'+e.Others+'</span>\
+                                            </div>\
+                                        </div>\
+                                        <div class="col-md-4 col-6">\
+                                            <div class="mb-4">\
+                                                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Completed By</p>\
+                                                <span>'+e.CompletedBy+'</span>\
+                                            </div>\
+                                            <div class="mb-4">\
+                                                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Completed Date</p>\
+                                                <span>'+e.CompletedDateCustom+'</span>\
+                                            </div>\
+                                        </div>\
+                                    </div><div class="row" style="margin-left:0px;">\
+                                        <div class="col-lg-12">\
+\
+                                            <div class="table-borderless">\
+                                                <table class="table">\
+                                                    <thead>\
+                                                        <tr>\
+                                                            <th scope="col" style="color:#70657b">Investigation Name</th>\
+                                                            <th scope="col" style="color:#70657b">Values</th>\
+                                                            <th scope="col" style="color:#70657b">Range</th>\
+                                                            <th scope="col" style="color:#70657b">Result</th>\
+                                                        </tr>\
+                                                    </thead>\
+                                                    <tbody>';
+                    if(e.Investigations!=null) {
+                        if (e.Investigations.length > 0)
+                        {
+                            $.each(e.Investigations, function (h, f) {
+
+                                html_extraworkrequest += '<tr>\
+                                                        <td>'+f.InvestigationName+'</td>\
+                                                        <td>'+f.Value+'</td>\
+                                                        <td>'+f.Range+'</td>\
+                                                        <td>'+f.InvestigationResult+'</td>\
+                                                    </tr>'
+                            });
+
+
+                        }
+                    }
+
+                    html_extraworkrequest+='</tbody>\
+                                                </table>\
+                                            </div>\
+\
+                                        </div>\
+                                    </div>';
+
+                    if(e.AttachmentList != null) {
+                        if (e.AttachmentList.length > 0)
+                        {
+                            html_extraworkrequest+= '<h4 class="card-title mb-3" style="margin-left: 20px;">Attachments</h4>\
+                                    <hr>\
+                                    <div class="row ">';
+                            $.each(e.AttachmentList, function (b, l) {
+
+                                html_extraworkrequest += '<div class="col-md-2 col-4 attachmentbox">\
+                                    <div class="mb-4">\
+                                        <p class="text-primary mb-1">\
+                                        <i class="i-Download text-16 mr-1 " title="Download"></i><a href="' + l.Link + '" target="_blank"> ' + l.Name + '</a></p>\
+                                    </div>\
+                                </div>'
+                            });
+                            html_extraworkrequest+='</div>';
+                        }
+                    }
+
+
+
+                });
+
+                $("#extraworkrequest-investigation").html(html_extraworkrequest);
+            }
+        }
+    }
+
+    function PopulateConclusionInfo_ViewPanel(inputdata) {
+        $("#reporttype_con_vw_lbl").text(inputdata.TestReportType);
+        $("#specimendetails_con_vw_lbl").text(inputdata.SpecimenDetails);
+        $("#conclusion_con_vw_lbl").text(inputdata.Conclusion);
+        $("#conclusionby_con_vw_lbl").text(inputdata.ConclusionBy);
+        $("#clinicaldetails_con_vw_lbl").text(inputdata.ClinicalDetails);
+        $("#conclusiondate_con_vw_lbl").text(inputdata.ConclusionDateCustom);
+
+        ///
+        $("#testid_sp").val(inputdata.TestID);
+        ///
+
+        if(inputdata.Macroscopy!=null) {
+            $("#macroscopy_con_vw_lbl").text(inputdata.Macroscopy);
+            $("#macroscopy_con_vw").show();
+
+        }
+
+        if(inputdata.SnomedCoding!=null) {
+            $("#snomedcoding_con_vw_lbl").text(inputdata.SnomedCoding);
+            $("#snomedcoding_con_vw").show();
+        }
+
+        if(inputdata.Microscopy!=null) {
+            $("#microscopy_con_vw_lbl").text(inputdata.Microscopy);
+            $("#microscopy_con_vw").show();
+
+        }
+
+        if(inputdata.SampleDescription!=null) {
+            $("#sampledescription_con_vw_lbl").text(inputdata.SampleDescription);
+            $("#sampledescription_con_vw").show();
+
+        }
+
+        if(inputdata.Report!=null) {
+            $("#report_con_vw_lbl").text(inputdata.Report);
+            $("#report_con_vw").show();
+
+        }
+
+        var html_conclusionattachment = '';
+        if(inputdata.AttachmentList != null) {
+            if (inputdata.AttachmentList.length > 0)
+            {
+                $.each(inputdata.AttachmentList, function (i, e) {
+
+                    html_conclusionattachment += '<div class="col-md-2 col-4 attachmentbox">\
+                                    <div class="mb-4">\
+                                        <p class="text-primary mb-1">\
+                                        <i class="i-Download text-16 mr-1 " title="Download"></i><a href="' + e.Link + '" target="_blank"> ' + e.Name + '</a></p>\
+                                    </div>\
+                                </div>'
+                });
+
+                $("#attachmentlist_conclusion").html(html_conclusionattachment);
+                $(".attachmentsection_conclusion").show();
+            }
+        }
+
+    }
+
+
+    function PopulateConclusionInfo_EditPanel(inputdata) {
+        $("#reporttype").val(inputdata.TestReportTypeID);
+        $("#specimendetails").val(inputdata.SpecimenDetails);
+        $("#clinicaldetails").val(inputdata.ClinicalDetails);
+        $("#conclusion").val(inputdata.Conclusion);
+
+        $("#testid_conclusion").val(inputdata.TestID);
+        $("#conclusionid_conclusion").val(inputdata.TestConclusionID);
+
+
+        $(".histopathology").hide();
+        $(".sampledescriptionsection").hide();
+        $(".reportsection").hide();
+        $(".microscopysection").hide();
+
+
+        $("#microscopy").val("");
+        $("#macroscopy").val("");
+        $("#snomedcoding").val("");
+        $("#sampledescription").val("");
+        $("#microscopy2").val("");
+        $("#report").val("");
+
+        $("#microscopy").removeAttr("required");
+        $("#macroscopy").removeAttr("required");
+        $("#snomedcoding").removeAttr("required");
+        $("#microscopy2").removeAttr("required");
+
+        if(inputdata.TestReportTypeID==1) {
+            $("#microscopy").val(inputdata.Microscopy);
+            $("#macroscopy").val(inputdata.Macroscopy);
+            $("#snomedcoding").val(inputdata.SnomedCoding);
+
+            $(".histopathology").show();
+
+            $("#microscopy").attr("required","required");
+            $("#macroscopy").attr("required","required");
+            $("#snomedcoding").attr("required","required");
+        }
+        else if(inputdata.TestReportTypeID==2) {
+            $("#report").val(inputdata.Report);
+            $("#sampledescription").val(inputdata.SampleDescription);
+
+            $(".sampledescriptionsection").show();
+            $(".reportsection").show();
+
+        }
+        else if(inputdata.TestReportTypeID==3) {
+            $("#report").val(inputdata.Report);
+            $("#sampledescription").val(inputdata.SampleDescription);
+
+            $(".sampledescriptionsection").show();
+            $(".reportsection").show();
+
+        }
+        else if(inputdata.TestReportTypeID==4) {
+            $("#report").val(inputdata.Report);
+            $("#sampledescription").val(inputdata.SampleDescription);
+
+            $(".sampledescriptionsection").show();
+            $(".reportsection").show();
+
+        }
+        else if(inputdata.TestReportTypeID==5) {
+            $("#microscopy2").val(inputdata.Microscopy);
+            $("#sampledescription").val(inputdata.SampleDescription);
+
+            $(".sampledescriptionsection").show();
+            $(".microscopysection").show();
+
+            $("#microscopy2").attr("required","required");
+        }
+
+
+        if (inputdata.AttachmentList != null) {
+            if(inputdata.AttachmentList.length > 0) {
+                var html = '';
+                $.each(inputdata.AttachmentList, function (i, e) {
+
+                    html+='<div class="col-md-2 col-4 attachmentbox">\
+                                    <div class="mb-4">\
+                                        <p class="text-primary mb-1">\
+                                        <i class="i-Close text-16 mr-1 delattachment" style="cursor:pointer" title="Delete attachment" data-id="'+e.TestAttachmentID+'"></i><a href="'+e.Link+'" target="_blank"> '+e.Name+'</a></p>\
+                                    </div>\
+                                </div>'
+                });
+                $("#attachmentlist_conclusionalready").html(html);
+                $(".attachmentsection_conclusionalready").show();
+            }
+
+        }
+
+    }
+
+    function PopulateSupplementReport(inputdata) 
+    {
+        if(inputdata != null) {
+            if(inputdata.length > 0 && (js_is_conclusion_show || js_is_viewbag_view)) {
+                var _supp_html = '';
+                $.each(inputdata, function (i, e) {
+                    _supp_html = '<div id="step-sp-'+e.TestSupplementReportID+'" class="tab-pane step-content" style="display: none;">\
+                        <h3 class="border-bottom border-gray pb-2" id="supplement-'+e.TestSupplementReportID+'-heading" style="margin-left: 20px;">Supplementry Report #'+e.TestSupplementReportID+'</h3>\
+                        <div id="supplement-'+e.TestSupplementReportID+'-panel">\
+                        <div class="row" style="margin-left:0">\
+                                    <div class="col-md-4 col-6">\
+                                        <div class="mb-4">\
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Report Type</p>\
+                                            <span id="reporttype_sp-'+e.TestSupplementReportID+'_vw_lbl">'+(e.TestReportType==null?"N/A":e.TestReportType)+'</span>\
+                                        </div>\
+                                        <div class="mb-4">\
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Specimen Details</p>\
+                                            <span id="specimendetails_sp-'+e.TestSupplementReportID+'_vw_lbl">'+(e.SpecimenDetails==null?"N/A":e.SpecimenDetails)+'</span>\
+                                        </div>\
+                                        <div class="mb-4">\
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Conclusion</p>\
+                                            <span id="conclusion_sp-'+e.TestSupplementReportID+'_vw_lbl">'+(e.SupplementReportConclusion==null?"N/A":e.SupplementReportConclusion)+'</span>\
+                                        </div>\
+                                        <div class="mb-4">\
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Supplement By</p>\
+                                            <span id="conclusionby_sp-'+e.TestSupplementReportID+'_vw_lbl">'+(e.SupplementBy==null?"N/A":e.SupplementBy)+'</span>\
+                                        </div>\
+                                    </div>\
+                                    <div class="col-md-4 col-6">\
+                                        <div class="mb-4">\
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Clinical Details</p>\
+                                            <span id="clinicaldetails_sp-'+e.TestSupplementReportID+'_vw_lbl">'+(e.ClinicalDetails==null?"N/A":e.ClinicalDetails)+'</span>\
+                                        </div>\
+                                        <div class="mb-4" id="macroscopy_sp-'+e.TestSupplementReportID+'_vw" style="'+(e.Macroscopy==null?"display:none":"")+'">\
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Macroscopy</p>\
+                                            <span id="macroscopy_sp-'+e.TestSupplementReportID+'_vw_lbl">'+(e.Macroscopy==null?"N/A":e.Macroscopy)+'</span>\
+                                        </div>\
+                                        <div class="mb-4" id="snomedcoding_sp-'+e.TestSupplementReportID+'_vw" style="'+(e.SnomedCoding==null?"display:none":"")+'">\
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>SNOMED Coding</p>\
+                                            <span id="snomedcoding_sp-'+e.TestSupplementReportID+'_vw_lbl">'+(e.SnomedCoding==null?"N/A":e.SnomedCoding)+'</span>\
+                                        </div>\
+                                        <div class="mb-4">\
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Supplement Date</p>\
+                                            <span id="conclusiondate_sp-'+e.TestSupplementReportID+'_vw_lbl">'+(e.SupplementDate==null?"N/A":e.SupplementDate)+'</span>\
+                                        </div>\
+                                    </div>\
+                                    <div class="col-md-4 col-6">\
+                                        <div class="mb-4" id="microscopy_sp-'+e.TestSupplementReportID+'_vw" style="'+(e.Microscopy==null?"display:none":"")+'">\
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Microscopy</p>\
+                                            <span id="microscopy_sp-'+e.TestSupplementReportID+'_vw_lbl">'+(e.Microscopy==null?"N/A":e.Microscopy)+'</span>\
+                                        </div>\
+                                        <div class="mb-4" id="sampledescription_sp-'+e.TestSupplementReportID+'_vw" style="'+(e.SampleDescription==null?"display:none":"")+'">\
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Sample Description</p>\
+                                            <span id="sampledescription_sp-'+e.TestSupplementReportID+'_vw_lbl">'+(e.SampleDescription==null?"N/A":e.SampleDescription)+'</span>\
+                                        </div>\
+                                        <div class="mb-4" id="report_sp-'+e.TestSupplementReportID+'_vw" style="'+(e.Report==null?"display:none":"")+'">\
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Report</p>\
+                                            <span id="report_sp-'+e.TestSupplementReportID+'_vw_lbl">'+(e.Report==null?"N/A":e.Report)+'</span>\
+                                        </div>\
+                                    </div>\
+                                </div>\
+<h4 class="card-title mb-3" style="margin-left: 20px;">Attachments</h4>\
+<hr>\
+<div class="row attachmentsection_sp-'+e.TestSupplementReportID+'" style="" id="attachmentlist_sp-'+e.TestSupplementReportID+'">';
+
+                    if(e.AttachmentList != null) {
+                        if (e.AttachmentList.length > 0)
+                        {
+                            $.each(e.AttachmentList, function (b, x) {
+
+                                _supp_html += '<div class="col-md-2 col-4 attachmentbox">\
+                                    <div class="mb-4">\
+                                        <p class="text-primary mb-1">\
+                                        <i class="i-Download text-16 mr-1 " title="Download"></i><a href="' + x.Link + '" target="_blank"> ' + x.Name + '</a></p>\
+                                    </div>\
+                                </div>'
+                            });
+
+                        }
+                    }
+
+                    _supp_html+='</div>\
+                    </div></div>'
+                    
+                    $(".sw-container").append(_supp_html);
+                    if($("#addsupplement-step").length >0) {
+                        $('<li class="nav-item done" id="supplement-step-'+e.TestSupplementReportID+'" ><a href="#step-sp-'+e.TestSupplementReportID+'" class="nav-link">Supplementry Report #'+e.TestSupplementReportID+'<br><small></small></a></li>').insertBefore("#addsupplement-step");
+                    }
+                    else {
+                        $(".step-anchor").append('<li class="nav-item done" id="supplement-step-'+e.TestSupplementReportID+'" ><a href="#step-sp-'+e.TestSupplementReportID+'" class="nav-link">Supplementry Report #'+e.TestSupplementReportID+'<br><small></small></a></li>');
+                    }
+                });
+            }
+        }
+    }
+</script>
+        
+}
+
+@{
+    var activepatients = (from cus in cuser.GetAll()
+                          join pd in pdetail.GetAll() on cus.DetailID equals pd.PatientDetailID
+                          where cus.DetailType.Value == patienttypeid && cus.IsActive.Value == true
+                          select new
+                          {
+                              Name = cus.ClientUserID.ToString("000") + " - " + cus.FirstName + " " + pd.MiddleName + " " + cus.LastName,
+                              Value = cus.ClientUserID.ToString()
+                          }).ToList();
+}
+<div class="row" id="mainpanel" style="display:none">
+    <div class="col-md-12">
+        <!-- SmartWizard html -->
+        <div id="smartwizardcustom" class="sw-main sw-theme-dots">
+            <ul class="nav nav-tabs step-anchor">
+                @if (is_testinfo_show || ViewBag.IsView)
+                {
+                    <li class='nav-item done' id="testinfo-step" style="display:none"><a href="#step-1" class="nav-link">Test Info<br><small></small></a></li>
+                }
+                @if (is_samplecollection_show || ViewBag.IsView)
+                {
+                    <li class="nav-item done" id="sampleinfo-step" style="display:none"><a href="#step-2" class="nav-link">Sample Collection<br><small></small></a></li>
+                }
+                @if (is_investigation_show || ViewBag.IsView)
+                {
+                    <li class="nav-item done" id="investigation-step" style="display:none"><a href="#step-3" class="nav-link">Investigation<br><small></small></a></li>
+                }
+                @if (is_conclusion_show || ViewBag.IsView)
+                {
+                    <li class="nav-item done" id="conclusion-step" style="display:none"><a href="#step-4" class="nav-link">Conclusion<br><small></small></a></li>
+                    if (currentrolename.Equals("Clinical Laboratory Consultant") && !ViewBag.IsView)
+                    { 
+                    <li class="nav-item done" id="addsupplement-step" style="display:none"><a href="#step-add-supplement" class="nav-link">Add Supplementry Report<br><small></small></a></li>
+                    }
+                }
+                
+            </ul>
+            @*<div class="btn-toolbar sw-toolbar sw-toolbar-top justify-content-end"><div class="btn-group mr-2 sw-btn-group" role="group"><button class="btn btn-secondary sw-btn-prev" type="button">Previous</button><button class="btn btn-secondary sw-btn-next" type="button">Next</button></div><div class="btn-group mr-2 sw-btn-group-extra" role="group"><button class="btn btn-info">Finish</button><button class="btn btn-danger">Cancel</button></div></div>*@<div class="sw-container tab-content" style="min-height: 400px;">
+                @if (is_testinfo_show || ViewBag.IsView)
+                {
+                    <div id="step-1" class="tab-pane step-content" style="display:none">
+                        <h3 class="border-bottom border-gray pb-2" id="testinfo-heading" style="margin-left: 20px;">@test_info_heading</h3>
+                        @if (is_testinfo_editpanel_show && ViewBag.IsView==false)
+                        {
+                            <div id="testinfo-editpanel" style="display:none">
+                                <form id="patientddlform">
+                                    <div class="form-group row ">
+                                        <label for="ddlpatient" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                            Patient:
+                                        </label>
+                                        <div class="col-lg-3 ">
+                                            <select class="form-control select2patient" required="required" name="patientid" id="patientid">
+                                                <option value="0">--Select--</option>
+                                                @foreach (var patient in activepatients)
+                                                {
+                                                    <option value="@patient.Value">@patient.Name</option>
+                                                }
+                                            </select>
+                                            <small id="patienthelpblock" class="ul-form__text form-text ">
+                                                Please select patient
+                                            </small>
+                                        </div>
+                                    </div>
+                                </form>
+                                    <hr />
+                                    <div class="row" id="patientpanel" style="display:none;margin-left:0">
+                                        <div class="col-md-4 col-6">
+                                            <div class="mb-4">
+                                                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Patient ID #</p>
+                                                <span id="patientid_lbl">N/A</span>
+                                            </div>
+                                            <div class="mb-4">
+                                                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>City</p>
+                                                <span id="city_lbl">N/A</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-6">
+                                            <div class="mb-4">
+                                                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Name</p>
+                                                <span id="fullname_lbl">N/A</span>
+                                            </div>
+                                            <div class="mb-4">
+                                                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Mobile No</p>
+                                                <span id="mobileno_lbl">N/A</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-6">
+                                            <div class="mb-4">
+                                                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Age</p>
+                                                <span id="age_lbl">N/A</span>
+                                            </div>
+                                            <div class="mb-4">
+                                                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Gender</p>
+                                                <span id="gender_lbl">N/A</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <hr />
+
+                                <form id="testform" style="display:none">
+                                    <div class="card ul-card__margin-25">
+                                        <div class="card-body">
+                                            <div class="form-group row">
+                                                <label for="testname" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                                    Test Name:
+                                                </label>
+                                                <div class="col-lg-3 ">
+                                                    <input type="text" class="form-control" id="testname" name="testname" required="required" placeholder="Enter test name">
+                                                    <small id="testnamehelpblock" class="ul-form__text form-text ">
+                                                        Please enter test name
+                                                    </small>
+                                                </div>
+
+                                                <label for="issamplerequired" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                                    Is Sample Required:
+                                                </label>
+                                                <div class="col-lg-3 ">
+                                                    <select class="form-control" required="required" name="issamplerequired" id="issamplerequired">
+                                                        <option value="true">Yes</option>
+                                                        <option value="false">No</option>
+                                                    </select>
+                                                    <small id="issamplerequiredthelpblock" class="ul-form__text form-text ">
+                                                        Please select Is sample required
+                                                    </small>
+                                                </div>
+
+                                                <label for="complainthistory" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                                    Complaint History:
+                                                </label>
+                                                <div class="col-lg-3 ">
+                                                    <input type="text" class="form-control" id="complainthistory" name="complainthistory" required="required" placeholder="Enter complaint history">
+                                                    <small id="complainthistorythelpblock" class="ul-form__text form-text ">
+                                                        Please enter complaint history
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            <div class="custom-separator"></div>
+                                            <div class="form-group row">
+
+                                                <label for="description" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Description:</label>
+                                                <div class="col-lg-3">
+                                                    <textarea class="form-control" id="description" name="description" placeholder="Enter description"></textarea>
+                                                    <small id="descriptionBlock" class="ul-form__text form-text ">
+                                                        Please enter description
+                                                    </small>
+                                                </div>
+
+                                            </div>
+                                            <input type="hidden" value="0" name="patientid" id="patientid_inner" />
+                                            </div>
+                                        <div class="card-footer">
+                                            <div class="mc-footer">
+                                                <div class="row text-center">
+                                                    <div class="col-lg-12 ">
+                                                        <button type="submit" class="btn btn-primary m-1" id="savebtntest">Save</button>
+                                                        <button type="reset" class="btn btn-outline-secondary m-1" id="cancelbtn">Reset</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+</form>
+                                </div>
+                        }
+                        else
+                        {
+                            <div id="testinfo-viewpanel" style="display:none">
+                                <div class="row" style="margin-left:0">
+                                    <div class="col-md-4 col-6">
+                                        <div class="mb-4">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Patient ID #</p>
+                                            <span id="patientid_ti_vw_lbl">N/A</span>
+                                        </div>
+                                        <div class="mb-4">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>City</p>
+                                            <span id="city_ti_vw_lbl">N/A</span>
+                                        </div>
+                                        <div class="mb-4">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Test Created By</p>
+                                            <span id="testcreatedby_ti_vw_lbl">N/A</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-6">
+                                        <div class="mb-4">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Name</p>
+                                            <span id="fullname_ti_vw_lbl">N/A</span>
+                                        </div>
+                                        <div class="mb-4">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Mobile No</p>
+                                            <span id="mobileno_ti_vw_lbl">N/A</span>
+                                        </div>
+                                        <div class="mb-4">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Test Created Date</p>
+                                            <span id="testcreateddate_ti_vw_lbl">N/A</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-6">
+                                        <div class="mb-4">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Age</p>
+                                            <span id="age_ti_vw_lbl">N/A</span>
+                                        </div>
+                                        <div class="mb-4">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Gender</p>
+                                            <span id="gender_ti_vw_lbl">N/A</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="custom-separator">
+                                    <div class="row" style="margin-left:0">
+                                        <div class="col-md-4 col-6">
+                                            <div class="mb-4">
+                                                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Test ID #</p>
+                                                <span id="testid_ti_vw_lbl">N/A</span>
+                                            </div>
+                                            <div class="mb-4">
+                                                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Complaint History</p>
+                                                <span id="complainthistory_ti_vw_lbl">N/A</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-6">
+                                            <div class="mb-4">
+                                                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Test Name</p>
+                                                <span id="testname_ti_vw_lbl">N/A</span>
+                                            </div>
+                                            <div class="mb-4">
+                                                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Description</p>
+                                                <span id="description_ti_vw_lbl">N/A</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-6">
+                                            <div class="mb-4">
+                                                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Is Sample Required</p>
+                                                <span id="issamplerequired_ti_vw_lbl">N/A</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                @if (is_samplecollection_show || ViewBag.IsView)
+                {
+                    <div id="step-2" class="tab-pane step-content" style="display:none">
+                        <h3 class="border-bottom border-gray pb-2" id="samplecollection-heading" style="margin-left: 20px;">@sample_collection_heading</h3>
+                        @if (is_samplecollection_editpanel_show && ViewBag.IsView == false)
+                        {
+                            <div id="samplecollection-editpanel" style="display:none">
+                                <form id="samplecollectionform">
+                                    <div class="card ul-card__margin-25">
+                                        <div class="card-body">
+                                            <div class="form-group row">
+                                                <label for="issamplecollected" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                                    Is Sample Collected:
+                                                </label>
+                                                <div class="col-lg-3 ">
+                                                    <select class="form-control" required="required" name="issamplecollected" id="issamplecollected">
+                                                        <option value="true">Yes</option>
+                                                        <option value="false">No</option>
+                                                    </select>
+                                                    <small id="issamplerequiredthelpblock" class="ul-form__text form-text ">
+                                                        Please select Is sample collected
+                                                    </small>
+                                                </div>
+
+                                                <label for="samplelabel" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                                    Sample Label:
+                                                </label>
+                                                <div class="col-lg-3 ">
+                                                    <input type="text" class="form-control" id="samplelabel" name="samplelabel" required="required" placeholder="Enter sample label">
+                                                    <small id="samplelabelhelpblock" class="ul-form__text form-text ">
+                                                        Please enter sample label
+                                                    </small>
+                                                </div>
+
+                                                <label for="samplecode" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                                    Sample Code:
+                                                </label>
+                                                <div class="col-lg-3 ">
+                                                    <input type="text" class="form-control" id="samplecode" name="samplecode" required="required" placeholder="Enter sample code">
+                                                    <small id="samplecodethelpblock" class="ul-form__text form-text ">
+                                                        Please enter sample code
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            <div class="custom-separator"></div>
+                                            <div class="form-group row">
+
+                                                <label for="sampletype" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                                    Sample Type:
+                                                </label>
+                                                <div class="col-lg-3 ">
+                                                    <input type="text" class="form-control" id="sampletype" name="sampletype" required="required" placeholder="Enter sample type">
+                                                    <small id="sampletypehelpblock" class="ul-form__text form-text ">
+                                                        Please enter sample type
+                                                    </small>
+                                                </div>
+
+                                                <label for="attachmentfiles_sample" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Attachment Files:</label>
+                                                <div class="col-lg-3">
+                                                    <input type="file" id="attachmentfiles_sample" name="attachmentfiles_sample" multiple />
+                                                    <small id="attachmentfiles_sampleBlock" class="ul-form__text form-text ">
+                                                        upload attachment files
+                                                    </small>
+                                                </div>
+
+                                            </div>
+                                            <input type="hidden" name="testid" id="testid_samplecollection" value="0" />
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="mc-footer">
+                                                <div class="row text-center">
+                                                    <div class="col-lg-12 ">
+                                                        <button type="submit" class="btn btn-primary m-1" id="savebtnsample">Save</button>
+                                                        <button type="reset" class="btn btn-outline-secondary m-1" id="cancelbtn">Reset</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        }
+                        else
+                        {
+                            <div id="samplecollection-viewpanel" style="display:none">
+                                <div class="row" style="margin-left:0">
+                                    <div class="col-md-4 col-6">
+                                        <div class="mb-4">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Is Sample Collected</p>
+                                            <span id="issamplecollected_sc_vw_lbl">N/A</span>
+                                        </div>
+                                        <div class="mb-4">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Sample Type</p>
+                                            <span id="sampletype_sc_vw_lbl">N/A</span>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="col-md-4 col-6">
+                                        <div class="mb-4">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Sample Label</p>
+                                            <span id="samplelabel_sc_vw_lbl">N/A</span>
+                                        </div>
+                                        <div class="mb-4">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Sample Collected Date</p>
+                                            <span id="samplecollecteddate_sc_vw_lbl">N/A</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-6">
+                                        <div class="mb-4">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Sample Code</p>
+                                            <span id="samplecode_sc_vw_lbl">N/A</span>
+                                        </div>
+                                        <div class="mb-4">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Sample Collected By</p>
+                                            <span id="samplecollectedby_sc_vw_lbl">N/A</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4 class="card-title mb-3" style="margin-left: 20px;">Attachments</h4>
+                                <hr>
+                                <div class="row attachmentsection_samplecollection" style="display:none" id="attachmentlist_samplecollection">
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                @if (is_investigation_show || ViewBag.IsView)
+                {
+                    <div id="step-3" class="tab-pane step-content" style="display:none">
+                        <h3 class="border-bottom border-gray pb-2" id="investigation-heading" style="margin-left: 20px;">@investigation_heading</h3>
+                        @if (is_investigation_editpanel_show && ViewBag.IsView == false)
+                        {
+                            <div id="investigation-editpanel" style="display:none">
+                                <form id="investigationform">
+                                    <div class="card ul-card__margin-25">
+                                        <div class="card-body">
+                                            <div class="form-group row">
+                                                <div class="col-lg-12">
+
+                                                    <div class="table-borderless">
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th scope="col" style="color:#70657b">Investigation Name</th>
+                                                                    <th scope="col" style="color:#70657b">Values</th>
+                                                                    <th scope="col" style="color:#70657b">Range</th>
+                                                                    <th scope="col" style="color:#70657b">Result</th>
+                                                                    <th scope="col" style="color:#70657b">Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="investigationsrow">
+                                                                <tr class="investigationrow">
+                                                                    <td><input type="text" class="form-control investigationname" required="required" placeholder="Enter investigation name"></td>
+                                                                    <td><input type="text" class="form-control investigationvalues" required="required" placeholder="Enter values"></td>
+                                                                    <td><input type="text" class="form-control investigationrange" required="required" placeholder="Enter range"></td>
+                                                                    <td><input type="text" class="form-control investigationresult" required="required" placeholder="Enter result"></td>
+                                                                    <td>
+                                                                        <button type="button" class="btn btn-success m-1 addinvestigation">Add</button>
+                                                                        <i style="font-size:25px;color:red;cursor:pointer;display:none" title="Remove" class="nav-icon i-Close removeinvestigation"></i>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="custom-separator"></div>
+                                            <div class="form-group row">
+                                                <label for="attachmentfiles_investigation" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Attachment Files:</label>
+                                                <div class="col-lg-3">
+                                                    <input type="file" id="attachmentfiles_investigation" name="attachmentfiles_investigation" multiple />
+                                                    <small id="attachmentfiles_investigationBlock" class="ul-form__text form-text ">
+                                                        upload attachment files
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="testid" id="testid_investigation" value="0" />
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="mc-footer">
+                                                <div class="row text-center">
+                                                    <div class="col-lg-12 ">
+                                                        <button type="submit" class="btn btn-primary m-1" id="savebtninvestigation">Save</button>
+                                                        <button type="reset" class="btn btn-outline-secondary m-1" id="cancelbtn">Reset</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        }
+                        else
+                        {
+                            <div id="investigation-viewpanel" style="display:none">
+                                <div class="row" style="margin-left:0">
+                                    <div class="col-md-4 col-6">
+                                        <div class="mb-4">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Investigation By</p>
+                                            <span id="investigationby_inv_vw_lbl">N/A</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-6">
+                                        <div class="mb-4">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Investigation Date</p>
+                                            <span id="investigationdate_inv_vw_lbl">N/A</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" style="margin-left:0px;">
+                                    <div class="col-lg-12">
+
+                                        <div class="table-borderless">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" style="color:#70657b">Investigation Name</th>
+                                                        <th scope="col" style="color:#70657b">Values</th>
+                                                        <th scope="col" style="color:#70657b">Range</th>
+                                                        <th scope="col" style="color:#70657b">Result</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="investigationsrow_inv_vw">
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <h4 class="card-title mb-3" style="margin-left: 20px;">Attachments</h4>
+                                <hr>
+                                <div class="row attachmentsection_investigation" style="display:none" id="attachmentlist_investigation">
+                                </div>
+
+                                <div id="extraworkrequest-investigation">
+
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                @if (is_conclusion_show || ViewBag.IsView)
+                {
+                    <div id="step-4" class="tab-pane step-content" style="display:none">
+                        <h3 class="border-bottom border-gray pb-2" id="conclusion-heading" style="margin-left: 20px;">Test Conclusion</h3>
+                            <div id="conclusion-editpanel" style="display:none">
+                                <form id="conclusionform">
+                                    <div class="card ul-card__margin-25">
+                                        <div class="card-body">
+                                            <div class="form-group row">
+                                                <label for="reporttype" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                                    Report Type:
+                                                </label>
+                                                <div class="col-lg-3 ">
+                                                    <select class="form-control" required="required" name="reporttype" id="reporttype">
+                                                        @foreach (var repotype in reporttyperep.GetAll())
+                                                        {
+                                                            <option value="@repotype.TestReportTypeID">@repotype.Name</option>
+                                                        }
+                                                    </select>
+                                                    <small id="reporttypethelpblock" class="ul-form__text form-text ">
+                                                        Please select report type
+                                                    </small>
+                                                </div>
+
+                                                <label for="specimendetails" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                                    Specimen Details:
+                                                </label>
+                                                <div class="col-lg-3 ">
+                                                    <textarea class="form-control" id="specimendetails" name="specimendetails" placeholder="Enter specimen details"></textarea>
+                                                    <small id="specimendetailshelpblock" class="ul-form__text form-text ">
+                                                        Please enter specimen details
+                                                    </small>
+                                                </div>
+
+                                                <label for="clinicaldetails" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                                    Clinical Details:
+                                                </label>
+                                                <div class="col-lg-3 ">
+                                                    <textarea class="form-control" id="clinicaldetails" name="clinicaldetails" placeholder="Enter clinical details"></textarea>
+                                                    <small id="clinicalthelpblock" class="ul-form__text form-text ">
+                                                        Please enter clinical details
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            <div class="custom-separator"></div>
+                                            <div class="form-group row">
+                                                <label for="macroscopy" class="ul-form__label ul-form--margin col-lg-1   col-form-label histopathology">
+                                                    Macroscopy:
+                                                </label>
+                                                <div class="col-lg-3 histopathology">
+                                                    <input type="text" class="form-control" id="macroscopy" name="macroscopy" required="required" placeholder="Enter macroscopy">
+                                                    <small id="macroscopyhelpblock" class="ul-form__text form-text ">
+                                                        Please enter macroscopy
+                                                    </small>
+                                                </div>
+
+                                                <label for="microscopy" class="ul-form__label ul-form--margin col-lg-1   col-form-label histopathology">
+                                                    Microscopy:
+                                                </label>
+                                                <div class="col-lg-3 histopathology">
+                                                    <input type="text" class="form-control" id="microscopy" name="microscopy" required="required" placeholder="Enter microscopy">
+                                                    <small id="microscopyhelpblock" class="ul-form__text form-text ">
+                                                        Please enter microscopy
+                                                    </small>
+                                                </div>
+
+
+                                                <label for="conclusion" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                                    Conclusion / Comments:
+                                                </label>
+                                                <div class="col-lg-3 ">
+                                                    <textarea class="form-control" id="conclusion" name="conclusion" placeholder="Enter conclusion / comments"></textarea>
+                                                    <small id="conclusionthelpblock" class="ul-form__text form-text ">
+                                                        Please enter conclusion / comments
+                                                    </small>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="custom-separator"></div>
+                                            <div class="form-group row">
+                                                <label for="sampledescription" class="ul-form__label ul-form--margin col-lg-1   col-form-label sampledescriptionsection" style="display:none">
+                                                    Sample Description:
+                                                </label>
+                                                <div class="col-lg-3 sampledescriptionsection" style="display:none">
+                                                    <textarea class="form-control" id="sampledescription" name="sampledescription" placeholder="Enter sample description"></textarea>
+                                                    <small id="sampledescriptionhelpblock" class="ul-form__text form-text ">
+                                                        Please enter sample description
+                                                    </small>
+                                                </div>
+
+                                                <label for="microscopy" class="ul-form__label ul-form--margin col-lg-1   col-form-label microscopysection" style="display:none">
+                                                    Microscopy:
+                                                </label>
+                                                <div class="col-lg-3 microscopysection" style="display:none">
+                                                    <input type="text" class="form-control" id="microscopy2" name="microscopy2" placeholder="Enter microscopy">
+                                                    <small id="microscopyhelpblock" class="ul-form__text form-text ">
+                                                        Please enter microscopy
+                                                    </small>
+                                                </div>
+
+                                                <label for="report" class="ul-form__label ul-form--margin col-lg-1   col-form-label reportsection" style="display:none">
+                                                    Report:
+                                                </label>
+                                                <div class="col-lg-3 reportsection" style="display:none">
+                                                    <textarea class="form-control" id="report" name="report" placeholder="Enter report"></textarea>
+                                                    <small id="reporthelpblock" class="ul-form__text form-text ">
+                                                        Please enter report
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            <div class="custom-separator"></div>
+                                            <div class="form-group row">
+                                                <label for="snomedcoding" class="ul-form__label ul-form--margin col-lg-1   col-form-label histopathology">
+                                                    Disease Coding:
+                                                </label>
+                                                <div class="col-lg-3 histopathology">
+                                                    <input type="text" class="form-control" id="snomedcoding" name="snomedcoding" required="required" placeholder="Enter disease coding">
+                                                    <small id="snomedcodinghelpblock" class="ul-form__text form-text ">
+                                                        Please enter disease coding
+                                                    </small>
+                                                </div>
+
+                                                <label for="attachmentfiles_conclusion" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Attachment Files:</label>
+                                                <div class="col-lg-3">
+                                                    <input type="file" id="attachmentfiles_conclusion" name="attachmentfiles_conclusion" multiple />
+                                                    <small id="attachmentfiles_conclusionBlock" class="ul-form__text form-text ">
+                                                        upload attachment files
+                                                    </small>
+                                                </div>
+
+                                             </div>
+
+                                                <div class="custom-separator attachmentsection_conclusionalready" style="display:none"></div>
+                                                <div class="card-header bg-transparent attachmentsection_conclusionalready" style="display:none">
+                                                    <h3 class="card-title">Attachments</h3>
+                                                </div>
+                                                <div class="row attachmentsection_conclusionalready" style="display:none" id="attachmentlist_conclusionalready">
+                                                </div>
+                                                <input type="hidden" name="testid" id="testid_conclusion" value="0" />
+                                                <input type="hidden" name="conclusionid" id="conclusionid_conclusion" value="0" />
+                                                <input type="hidden" name="ispublish" id="ispublish_conclusion" value="0" />
+
+                                            </div>
+                                        <div class="card-footer">
+                                            <div class="mc-footer">
+                                                <div class="row text-center">
+                                                    <div class="col-lg-12 ">
+                                                        <button type="submit" class="btn btn-primary m-1" id="savebtnconclusion">Save</button>
+                                                        <button type="submit" class="btn btn-success m-1" id="saveandpublishbtnconclusion">Save & Publish</button>
+                                                        <button type="reset" class="btn btn-outline-secondary m-1" id="cancelbtn">Reset</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        
+                            <div id="conclusion-viewpanel" style="display:none">
+                                <div class="row" style="margin-left:0">
+                                    <div class="col-md-4 col-6">
+                                        <div class="mb-4">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Report Type</p>
+                                            <span id="reporttype_con_vw_lbl">N/A</span>
+                                        </div>
+                                        <div class="mb-4">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Specimen Details</p>
+                                            <span id="specimendetails_con_vw_lbl">N/A</span>
+                                        </div>
+                                        <div class="mb-4">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Conclusion</p>
+                                            <span id="conclusion_con_vw_lbl">N/A</span>
+                                        </div>
+                                        <div class="mb-4">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Conclusion By</p>
+                                            <span id="conclusionby_con_vw_lbl">N/A</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-6">
+                                        <div class="mb-4">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Clinical Details</p>
+                                            <span id="clinicaldetails_con_vw_lbl">N/A</span>
+                                        </div>
+                                        <div class="mb-4" id="macroscopy_con_vw" style="display:none">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Macroscopy</p>
+                                            <span id="macroscopy_con_vw_lbl">N/A</span>
+                                        </div>
+                                        <div class="mb-4" id="snomedcoding_con_vw" style="display:none">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>SNOMED Coding</p>
+                                            <span id="snomedcoding_con_vw_lbl">N/A</span>
+                                        </div>
+                                        <div class="mb-4">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Conclusion Date</p>
+                                            <span id="conclusiondate_con_vw_lbl">N/A</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-6">
+                                        <div class="mb-4" id="microscopy_con_vw" style="display:none">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Microscopy</p>
+                                            <span id="microscopy_con_vw_lbl">N/A</span>
+                                        </div>
+                                        <div class="mb-4" id="sampledescription_con_vw" style="display:none">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Sample Description</p>
+                                            <span id="sampledescription_con_vw_lbl">N/A</span>
+                                        </div>
+                                        <div class="mb-4" id="report_con_vw" style="display:none">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Report</p>
+                                            <span id="report_con_vw_lbl">N/A</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4 class="card-title mb-3" style="margin-left: 20px;">Attachments</h4>
+                                <hr>
+                                <div class="row attachmentsection_conclusion" style="display:none" id="attachmentlist_conclusion">
+                                </div>
+                            </div>
+                        
+                    </div>
+
+                    <div id="step-add-supplement" class="tab-pane step-content" style="display:none">
+        <h3 class="border-bottom border-gray pb-2" id="addsupplement-heading" style="margin-left: 20px;">Add Supplementry Report</h3>
+        <div id="addsupplement-editpanel">
+            <form id="addsupplementform">
+                <div class="card ul-card__margin-25">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label for="reporttype_sp" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                Report Type:
+                            </label>
+                            <div class="col-lg-3 ">
+                                <select class="form-control" required="required" name="reporttype" id="reporttype_sp">
+                                    @foreach (var repotype in reporttyperep.GetAll())
+                                    {
+                                        <option value="@repotype.TestReportTypeID">@repotype.Name</option>
+                                    }
+                                </select>
+                                <small id="reporttypethelpblock" class="ul-form__text form-text ">
+                                    Please select report type
+                                </small>
+                            </div>
+
+                            <label for="specimendetails_sp" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                Specimen Details:
+                            </label>
+                            <div class="col-lg-3 ">
+                                <textarea class="form-control" id="specimendetails_sp" name="specimendetails" placeholder="Enter specimen details"></textarea>
+                                <small id="specimendetailshelpblock" class="ul-form__text form-text ">
+                                    Please enter specimen details
+                                </small>
+                            </div>
+
+                            <label for="clinicaldetails_sp" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                Clinical Details:
+                            </label>
+                            <div class="col-lg-3 ">
+                                <textarea class="form-control" id="clinicaldetails_sp" name="clinicaldetails" placeholder="Enter clinical details"></textarea>
+                                <small id="clinicalthelpblock" class="ul-form__text form-text ">
+                                    Please enter clinical details
+                                </small>
+                            </div>
+                        </div>
+                        <div class="custom-separator"></div>
+                        <div class="form-group row">
+
+                        </div>
+                        <div class="custom-separator"></div>
+                        <div class="form-group row">
+                            <label for="macroscopy_sp" class="ul-form__label ul-form--margin col-lg-1   col-form-label histopathology_sp">
+                                Macroscopy:
+                            </label>
+                            <div class="col-lg-3 histopathology_sp">
+                                <input type="text" class="form-control" id="macroscopy_sp" name="macroscopy" required="required" placeholder="Enter macroscopy">
+                                <small id="macroscopyhelpblock" class="ul-form__text form-text ">
+                                    Please enter macroscopy
+                                </small>
+                            </div>
+
+                            <label for="microscopy_sp" class="ul-form__label ul-form--margin col-lg-1   col-form-label histopathology_sp">
+                                Microscopy:
+                            </label>
+                            <div class="col-lg-3 histopathology_sp">
+                                <input type="text" class="form-control" id="microscopy_sp" name="microscopy" required="required" placeholder="Enter microscopy">
+                                <small id="microscopyhelpblock" class="ul-form__text form-text ">
+                                    Please enter microscopy
+                                </small>
+                            </div>
+
+                            <label for="conclusion_sp" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                Conclusion / Comments:
+                            </label>
+                            <div class="col-lg-3 ">
+                                <textarea class="form-control" id="conclusion_sp" name="conclusion" placeholder="Enter conclusion / comments"></textarea>
+                                <small id="conclusionthelpblock" class="ul-form__text form-text ">
+                                    Please enter conclusion / comments
+                                </small>
+                            </div>
+
+                        </div>
+                        <div class="custom-separator"></div>
+                        <div class="form-group row">
+                            <label for="sampledescription_sp" class="ul-form__label ul-form--margin col-lg-1   col-form-label sampledescriptionsection_sp" style="display:none">
+                                Sample Description:
+                            </label>
+                            <div class="col-lg-3 sampledescriptionsection_sp" style="display:none">
+                                <textarea class="form-control" id="sampledescription_sp" name="sampledescription" placeholder="Enter sample description"></textarea>
+                                <small id="sampledescriptionhelpblock" class="ul-form__text form-text ">
+                                    Please enter sample description
+                                </small>
+                            </div>
+
+                            <label for="microscopy2_sp" class="ul-form__label ul-form--margin col-lg-1   col-form-label microscopysection_sp" style="display:none">
+                                Microscopy:
+                            </label>
+                            <div class="col-lg-3 microscopysection_sp" style="display:none">
+                                <input type="text" class="form-control" id="microscopy2_sp" name="microscopy2" placeholder="Enter microscopy">
+                                <small id="microscopyhelpblock" class="ul-form__text form-text ">
+                                    Please enter microscopy
+                                </small>
+                            </div>
+
+                            <label for="report_sp" class="ul-form__label ul-form--margin col-lg-1   col-form-label reportsection_sp" style="display:none">
+                                Report:
+                            </label>
+                            <div class="col-lg-3 reportsection_sp" style="display:none">
+                                <textarea class="form-control" id="report_sp" name="report" placeholder="Enter report"></textarea>
+                                <small id="reporthelpblock" class="ul-form__text form-text ">
+                                    Please enter report
+                                </small>
+                            </div>
+                        </div>
+                        <div class="custom-separator"></div>
+                        <div class="form-group row">
+                            <label for="snomedcoding_sp" class="ul-form__label ul-form--margin col-lg-1   col-form-label histopathology_sp">
+                                Disease Coding:
+                            </label>
+                            <div class="col-lg-3 histopathology_sp">
+                                <input type="text" class="form-control" id="snomedcoding_sp" name="snomedcoding" required="required" placeholder="Enter disease coding">
+                                <small id="snomedcodinghelpblock" class="ul-form__text form-text ">
+                                    Please enter disease coding
+                                </small>
+                            </div>
+
+                            <label for="attachmentfiles_sp" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Attachment Files:</label>
+                            <div class="col-lg-3">
+                                <input type="file" id="attachmentfiles_sp" name="attachmentfiles_sp" multiple />
+                                <small id="attachmentfiles_spBlock" class="ul-form__text form-text ">
+                                    upload attachment files
+                                </small>
+                            </div>
+                         </div>
+                            <input type="hidden" name="testid" id="testid_sp" value="0" />
+
+
+                        </div>
+                    <div class="card-footer">
+                        <div class="mc-footer">
+                            <div class="row text-center">
+                                <div class="col-lg-12 ">
+                                    <button type="submit" class="btn btn-primary m-1" id="savebtnsupplement">Save</button>
+                                    <button type="reset" class="btn btn-outline-secondary m-1" id="resetbtn">Reset</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+                }
+                @*</div><div class="btn-toolbar sw-toolbar sw-toolbar-bottom justify-content-end"><div class="btn-group mr-2 sw-btn-group" role="group"><button class="btn btn-secondary sw-btn-prev" type="button">Previous</button><button class="btn btn-secondary sw-btn-next" type="button">Next</button></div><div class="btn-group mr-2 sw-btn-group-extra" role="group"><button class="btn btn-info">Finish</button><button class="btn btn-danger">Cancel</button></div></div>*@
+            </div>
+        </div>
+</div>
+</div>
+
+<div class="modal fade" id="newpatientpopup" tabindex="-1" role="dialog" aria-labelledby="newpatientpopup-2" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newpatientpopup-2">Patient</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4>Do you want to create a new patient ?</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No ! Existing Patient</button>
+                <button type="button" class="btn btn-primary ml-2 newpatientyes">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    function UploadFile(TestId,AttachmentTypeId,formid,attachmentelementid,iscompletedorpublish,supplementreportid) 
+    {
+        supplementreportid  = typeof supplementreportid !== 'undefined' ? supplementreportid : 0; 
+        // Checking whether FormData is available in browser  
+        if (window.FormData !== undefined) {
+
+            var fileUpload = $(("#"+attachmentelementid)).get(0);
+            var files = fileUpload.files;
+
+            if (files.length > 0) {
+                // Create FormData object  
+                var fileData = new FormData();
+
+                // Looping over all files and add it to FormData object  
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append(files[i].name, files[i]);
+                }
+
+                // Adding one more key to FormData object  
+                fileData.append('TestID', TestId);
+                fileData.append('AttachmentTypeID', AttachmentTypeId);
+                fileData.append('SupplementReportID', supplementreportid);
+
+                $.ajax({
+                    url: _User_MedicalTest_UploadFile,
+                    type: "POST",
+                    contentType: false, // Not to set any content header  
+                    processData: false, // Not to process data  
+                    data: fileData,
+                    success: function (result) {
+                        //swal.fire({ title: "Created Successfully !", icon: "success", html: "Employee has been created successfully<br>" });
+                        $('.loadscreen').fadeOut();
+                        $(("#"+formid)).trigger("reset");
+
+                        if(result.data.ResponseType=="swal-success") {
+                            swal.fire({ title: result.data.Title, icon: "success", html: result.data.Description });
+                        }
+                        else {
+                            swal.fire({ title: result.data.Title, icon: "warning", html: result.data.Description });
+                        }
+                        
+                        if(!iscompletedorpublish && (AttachmentTypeId!=4)) {
+                            setTimeout(function () {
+                                window.location.replace("/User/MedicalTest/Open");
+                            }, 2500);
+                        }
+                        else {
+                            setTimeout(function () {
+                                window.location.replace("/User/MedicalTest/Completed");
+                            }, 2500);
+                        }
+                    },
+                    error: function (err) {
+                        $('.loadscreen').fadeOut();
+                        $(("#"+formid)).trigger("reset");
+                        WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                        if (AttachmentTypeId==1) {
+                            swal.fire({ title: "Saved Successfully !", icon: "success", html: "Sample Collection has been saved successfully<br>." });
+                        }
+                        else if (AttachmentTypeId==2) {
+                            swal.fire({ title: "Saved Successfully !", icon: "success", html: "Investigation Request has been saved successfully<br>." });
+                        }
+                        else if (AttachmentTypeId==3) {
+                            swal.fire({ title: "Saved Successfully !", icon: "success", html: "Report Conclusion has been saved successfully<br>." });
+                        }
+                        else if (AttachmentTypeId==4) {
+                            swal.fire({ title: "Saved Successfully !", icon: "success", html: "Supplementry Report has been saved successfully<br>." });
+                        }
+                        else {
+                            swal.fire({ title: "Saved Successfully !", icon: "success", html: "Saved Successfully !" });
+                        }
+
+                        if(!iscompletedorpublish && (AttachmentTypeId!=4)) {
+                            setTimeout(function () {
+                                window.location.replace("/User/MedicalTest/Open");
+                            }, 2500);
+                        }
+                        else {
+                            setTimeout(function () {
+                                window.location.replace("/User/MedicalTest/Completed");
+                            }, 2500);
+                        }
+                    }
+                });
+            }
+            else {
+                $(("#"+formid)).trigger("reset");
+                $('.loadscreen').fadeOut();
+                if (AttachmentTypeId==1) {
+                    swal.fire({ title: "Saved Successfully !", icon: "success", html: "Sample Collection has been saved successfully<br>." });
+                }
+                else if (AttachmentTypeId==2) {
+                    swal.fire({ title: "Saved Successfully !", icon: "success", html: "Investigation Request has been saved successfully<br>." });
+                }
+                else if (AttachmentTypeId==3) {
+                    swal.fire({ title: "Saved Successfully !", icon: "success", html: "Report Conclusion has been saved successfully<br>." });
+                }
+                else if (AttachmentTypeId==4) {
+                    swal.fire({ title: "Saved Successfully !", icon: "success", html: "Supplementry Report has been saved successfully<br>." });
+                }
+                else {
+                    swal.fire({ title: "Saved Successfully !", icon: "success", html: "Saved Successfully !" });
+                }
+
+                if(!iscompletedorpublish && (AttachmentTypeId!=4)) {
+                    setTimeout(function () {
+                        window.location.replace("/User/MedicalTest/Open");
+                    }, 2500);
+                }
+                else {
+                    setTimeout(function () {
+                        window.location.replace("/User/MedicalTest/Completed");
+                    }, 2500);
+                }
+            }
+        } else {
+            $(("#"+formid)).trigger("reset");
+            $('.loadscreen').fadeOut();
+            swal.fire({ title: "Not supported !", icon: "error", html: "Sorry file upload not supported in this browser." });
+            if (AttachmentTypeId==1) {
+                swal.fire({ title: "Saved Successfully !", icon: "success", html: "Sample Collection has been saved successfully<br>." });
+            }
+            else if (AttachmentTypeId==2) {
+                swal.fire({ title: "Saved Successfully !", icon: "success", html: "Investigation Request has been saved successfully<br>." });
+            }
+            else if (AttachmentTypeId==3) {
+                swal.fire({ title: "Saved Successfully !", icon: "success", html: "Report Conclusion has been saved successfully<br>." });
+            }
+            else if (AttachmentTypeId==4) {
+                swal.fire({ title: "Saved Successfully !", icon: "success", html: "Supplementry Report has been saved successfully<br>." });
+            }
+            else {
+                swal.fire({ title: "Saved Successfully !", icon: "success", html: "Saved Successfully !" });
+            }
+
+            if(!iscompletedorpublish && (AttachmentTypeId!=4)) {
+                setTimeout(function () {
+                    window.location.replace("/User/MedicalTest/Open");
+                }, 2500);
+            }
+            else {
+                setTimeout(function () {
+                    window.location.replace("/User/MedicalTest/Completed");
+                }, 2500);
+            }
+        }
+    }
+
+    function SaveConclusion(ispublish) {
+        $("#ispublish_conclusion").val(ispublish);
+        var form = document.querySelector('#conclusionform');
+            if (form.reportValidity()) {
+
+                var _posturl = _User_MedicalTest_AddConclusionInfo;
+
+                MakeRequest(_posturl, "POST", objectifyForm($("#conclusionform").serializeArray()), "json",
+                    function (jqXHR, settings) {
+                        //For Before Send
+                        $('.loadscreen').fadeIn();
+                    },
+                    function (data, status, xhr) {
+                        //For Success
+
+                        $('.loadscreen').fadeOut();
+
+                        var rs = WebResponse(data);
+                        if (rs.ResponseType == "Simple") {
+                            UploadFile(rs.ResponseData.testjson.TestID,3,"conclusionform","attachmentfiles_conclusion",(ispublish==1?true:false));
+                        }
+                    },
+                function (jqXhr, textStatus, errorMessage) {
+                    //For Error
+                    $('.loadscreen').fadeOut();
+                    WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                });
+            }
+            return false;
+    }
+
+    function SaveSupplementReport() {
+        var form = document.querySelector('#addsupplementform');
+        if (form.reportValidity()) {
+
+            var _posturl = _User_MedicalTest_AddSupplementaryInfo;
+
+            MakeRequest(_posturl, "POST", objectifyForm($("#addsupplementform").serializeArray()), "json",
+                function (jqXHR, settings) {
+                    //For Before Send
+                    $('.loadscreen').fadeIn();
+                },
+                function (data, status, xhr) {
+                    //For Success
+
+                    $('.loadscreen').fadeOut();
+
+                    var rs = WebResponse(data);
+                    if (rs.ResponseType == "Simple") {
+                        UploadFile(rs.ResponseData.testjson.TestID,4,"addsupplementform","attachmentfiles_sp",false,rs.ResponseData.supplementobjjson.TestSupplementReportID);
+                    }
+                },
+            function (jqXhr, textStatus, errorMessage) {
+                //For Error
+                $('.loadscreen').fadeOut();
+                WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+            });
+        }
+        return false;
+    }
+
+
+    $(document).ready(function() {
+        $('.select2patient').select2();
+        $(".newpatientyes").click(function() {
+            window.location = "/User/Patients";
+        });
+
+        $(document).on("click",".addinvestigation",function() {
+            var html = "<tr class='investigationrow'>\
+                                                                    <td><input type='text' class='form-control investigationname' required='required' placeholder='Enter investigation name'></td>\
+                                                                    <td><input type='text' class='form-control investigationvalues' required='required' placeholder='Enter values'></td>\
+                                                                    <td><input type='text' class='form-control investigationrange' required='required' placeholder='Enter range'></td>\
+                                                                    <td><input type='text' class='form-control investigationresult' required='required' placeholder='Enter result'></td>\
+                                                                    <td><button type='button' class='btn btn-success m-1 addinvestigation'>Add</button>\
+                                                                    <i style='font-size:25px;color:red;cursor:pointer;display:none' title='Remove' class='nav-icon i-Close removeinvestigation'></i>\
+                                                                    </td>\
+                                                                 </tr>";
+            $(".addinvestigation").remove();
+            $(".removeinvestigation").show();
+            $("#investigationsrow").append(html);
+        });
+
+        $(document).on("click",".removeinvestigation",function() {
+            $(this).parent().parent().remove();
+        });
+
+
+        $("#reporttype").change(function() {
+            $(".histopathology").hide();
+            $(".sampledescriptionsection").hide();
+            $(".reportsection").hide();
+            $(".microscopysection").hide();
+
+            $("#specimendetails").val("");
+            $("#clinicaldetails").val("");
+            $("#conclusion").val("");
+            $("#microscopy").val("");
+            $("#macroscopy").val("");
+            $("#snomedcoding").val("");
+            $("#sampledescription").val("");
+            $("#microscopy2").val("");
+            $("#report").val("");
+
+            $("#microscopy").removeAttr("required");
+            $("#macroscopy").removeAttr("required");
+            $("#snomedcoding").removeAttr("required");
+            $("#microscopy2").removeAttr("required");
+
+            if($(this).val()==1) {
+                $(".histopathology").show();
+                $("#microscopy").attr("required","required");
+                $("#macroscopy").attr("required","required");
+                $("#snomedcoding").attr("required","required");
+            }
+            else if($(this).val()==2) {
+                $(".sampledescriptionsection").show();
+                $(".reportsection").show();
+
+            }
+            else if($(this).val()==3) {
+                $(".sampledescriptionsection").show();
+                $(".reportsection").show();
+
+            }
+            else if($(this).val()==4) {
+                $(".sampledescriptionsection").show();
+                $(".reportsection").show();
+
+            }
+            else if($(this).val()==5) {
+                $(".sampledescriptionsection").show();
+                $(".microscopysection").show();
+
+                $("#microscopy2").attr("required","required");
+            }
+        
+        });
+
+        $("#reporttype_sp").change(function() {
+            $(".histopathology_sp").hide();
+            $(".sampledescriptionsection_sp").hide();
+            $(".reportsection_sp").hide();
+            $(".microscopysection_sp").hide();
+
+            $("#specimendetails_sp").val("");
+            $("#clinicaldetails_sp").val("");
+            $("#conclusion_sp").val("");
+            $("#microscopy_sp").val("");
+            $("#macroscopy_sp").val("");
+            $("#snomedcoding_sp").val("");
+            $("#sampledescription_sp").val("");
+            $("#microscopy2_sp").val("");
+            $("#report_sp").val("");
+
+            $("#microscopy_sp").removeAttr("required");
+            $("#macroscopy_sp").removeAttr("required");
+            $("#snomedcoding_sp").removeAttr("required");
+            $("#microscopy2_sp").removeAttr("required");
+
+            if($(this).val()==1) {
+                $(".histopathology_sp").show();
+                $("#microscopy_sp").attr("required","required");
+                $("#macroscopy_sp").attr("required","required");
+                $("#snomedcoding_sp").attr("required","required");
+            }
+            else if($(this).val()==2) {
+                $(".sampledescriptionsection_sp").show();
+                $(".reportsection_sp").show();
+
+            }
+            else if($(this).val()==3) {
+                $(".sampledescriptionsection_sp").show();
+                $(".reportsection_sp").show();
+
+            }
+            else if($(this).val()==4) {
+                $(".sampledescriptionsection_sp").show();
+                $(".reportsection_sp").show();
+
+            }
+            else if($(this).val()==5) {
+                $(".sampledescriptionsection_sp").show();
+                $(".microscopysection_sp").show();
+
+                $("#microscopy2_sp").attr("required","required");
+            }
+        
+        });
+
+        $("#patientid").change(function() {
+            var ddlvalue = $(this).val();
+            $("#patientid_inner").val(ddlvalue);
+            if(ddlvalue!=0) {
+                MakeRequest(_User_MedicalTest_GetPatientDetail, "POST", { "patientid":ddlvalue }, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+    var outputdt = null;
+    if (rs.ResponseType == "Simple") {
+        var dt = rs.ResponseData.patientuserjson;
+        outputdt = dt;
+    }
+
+    if (outputdt != null) {
+        $("#patientid_lbl").text(outputdt.ClientUserID);
+        $("#city_lbl").text(outputdt.City);
+        $("#fullname_lbl").text(outputdt.FullName);
+        $("#mobileno_lbl").text(outputdt.MobileNo);
+        $("#age_lbl").text(outputdt.Age);
+        $("#gender_lbl").text(outputdt.Sex);
+        $("#patientpanel").show();
+        $("#testform").show();
+
+
+    }
+    else {
+        $("#patientpanel").hide();
+        $("#testform").hide();
+        $("#patientid_lbl").text("N/A");
+        $("#city_lbl").text("N/A");
+        $("#fullname_lbl").text("N/A");
+        $("#mobileno_lbl").text("N/A");
+        $("#age_lbl").text("N/A");
+        $("#gender_lbl").text("N/A");
+
+        $("#testname").val("");
+        $("#issamplerequired").val("true");
+        $("#complainthistory").val("");
+        $("#description").text("");
+    }
+
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+            }
+            else {
+                $("#patientpanel").hide();
+                $("#testform").hide();
+                $("#patientid_lbl").text("N/A");
+                $("#city_lbl").text("N/A");
+                $("#fullname_lbl").text("N/A");
+                $("#mobileno_lbl").text("N/A");
+                $("#age_lbl").text("N/A");
+                $("#gender_lbl").text("N/A");
+
+                $("#testname").val("");
+                $("#issamplerequired").val("true");
+                $("#complainthistory").val("");
+                $("#description").text("");
+            }
+        });
+
+        $("#savebtntest").click(function () {
+            var form = document.querySelector('#testform');
+            if (form.reportValidity()) {
+
+
+                swal.fire({
+                    title: "Are you sure?",
+                    text: "Once saved after that you won't be able to edit!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, I am sure!',
+                    cancelButtonText: 'No, cancel it!',
+                    preConfirm: function () {
+                        var _posturl = _User_MedicalTest_AddTestInfo;
+
+                        MakeRequest(_posturl, "POST", objectifyForm($("#testform").serializeArray()), "json",
+                            function (jqXHR, settings) {
+                                //For Before Send
+                                $('.loadscreen').fadeIn();
+                            },
+                            function (data, status, xhr) {
+                                //For Success
+
+                                $('.loadscreen').fadeOut();
+
+                                var rs = WebResponse(data);
+                                if (rs.ResponseType == "swal-sucsess") {
+                                    $("#testform").trigger("reset");
+                                }
+                            },
+                        function (jqXhr, textStatus, errorMessage) {
+                            //For Error
+                            $('.loadscreen').fadeOut();
+                            WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                        });
+                    }
+                })
+
+
+                
+            }
+            return false;
+        });
+
+        $(document).on('click', '.delattachment', function () {
+            var mythis = $(this);
+            var dataid = $(this).attr("data-id");
+            swal.fire({
+                title: "Are you sure?",
+                text: "Do you want to delete this attachment!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: 'Yes, I am sure!',
+                cancelButtonText: 'No, cancel it!',
+                preConfirm: function () {
+                    MakeRequest(_User_MedicalTest_DeleteFile, "POST", { "attachmentid": dataid }, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+
+    if (rs.ResponseType == "toastr-sucsess") {
+        mythis.parents(".attachmentbox").get(0).remove();
+    }
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+                }
+            })
+
+        });
+
+        $("#savebtnsample").click(function () {
+            var form = document.querySelector('#samplecollectionform');
+            if (form.reportValidity()) {
+
+
+                swal.fire({
+                    title: "Are you sure?",
+                    text: "Once saved after that you won't be able to edit!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, I am sure!',
+                    cancelButtonText: 'No, cancel it!',
+                    preConfirm: function () {
+                        var _posturl = _User_MedicalTest_AddSampleCollectionInfo;
+
+                        MakeRequest(_posturl, "POST", objectifyForm($("#samplecollectionform").serializeArray()), "json",
+                            function (jqXHR, settings) {
+                                //For Before Send
+                                $('.loadscreen').fadeIn();
+                            },
+                            function (data, status, xhr) {
+                                //For Success
+
+                                $('.loadscreen').fadeOut();
+
+                                var rs = WebResponse(data);
+                                if (rs.ResponseType == "Simple") {
+                                    UploadFile(rs.ResponseData.testjson.TestID,1,"samplecollectionform","attachmentfiles_sample",false);
+                                }
+                            },
+                        function (jqXhr, textStatus, errorMessage) {
+                            //For Error
+                            $('.loadscreen').fadeOut();
+                            WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                        });
+                    }
+                })
+
+
+                
+            }
+            return false;
+        });
+
+        $("#savebtninvestigation").click(function () {
+            var form = document.querySelector('#investigationform');
+            if (form.reportValidity()) {
+
+                swal.fire({
+                    title: "Are you sure?",
+                    text: "Once saved after that you won't be able to edit!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, I am sure!',
+                    cancelButtonText: 'No, cancel it!',
+                    preConfirm: function () {
+                        var _posturl = _User_MedicalTest_AddInvestigationInfo;
+                
+
+                        var a = [];
+                        $(".investigationrow").each(function (i, obj) {
+
+                            a[i] = { "InvestigationName": $(this).find(".investigationname").val(), "InvestigationValues": $(this).find(".investigationvalues").val(),
+                                "InvestigationRange":$(this).find(".investigationrange").val(),"InvestigationResult":$(this).find(".investigationresult").val() }
+                        });
+                        MakeRequest(_posturl, "POST", objectifyFormwithExtraData($("#investigationform").serializeArray(),{"key": "testinvestigations", "value": a}), "json",
+                            function (jqXHR, settings) {
+                                //For Before Send
+                                $('.loadscreen').fadeIn();
+                            },
+                            function (data, status, xhr) {
+                                //For Success
+
+                                $('.loadscreen').fadeOut();
+
+                                var rs = WebResponse(data);
+                                if (rs.ResponseType == "Simple") {
+                                    UploadFile(rs.ResponseData.testjson.TestID,2,"investigationform","attachmentfiles_investigation",false);
+                                }
+                            },
+                        function (jqXhr, textStatus, errorMessage) {
+                            //For Error
+                            $('.loadscreen').fadeOut();
+                            WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                        });
+                    }
+                })
+
+            }
+            return false;
+        });
+
+        $("#savebtnconclusion").click(function() {
+            SaveConclusion(0);
+            return false;
+        
+        });
+
+        $("#saveandpublishbtnconclusion").click(function() {
+
+            swal.fire({
+                title: "Are you sure?",
+                text: "Once saved after that you won't be able to edit!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: 'Yes, I am sure!',
+                cancelButtonText: 'No, cancel it!',
+                preConfirm: function () {
+                    SaveConclusion(1);
+                }
+            })
+
+            
+            return false;
+        
+        });
+
+        $("#savebtnsupplement").click(function() {
+            swal.fire({
+                title: "Are you sure?",
+                text: "Once saved after that you won't be able to edit!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: 'Yes, I am sure!',
+                cancelButtonText: 'No, cancel it!',
+                preConfirm: function () {
+                    SaveSupplementReport();
+                }
+            })
+
+            
+            return false;
+        });
+
+        $("#addbtnsupplement").click(function() {
+            $("#addsupplement-step").show();
+            $("#addbtnsupplement").hide();
+
+
+        });
+
+
+        
+    });
+
+    
+</script>
