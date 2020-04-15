@@ -60,6 +60,7 @@ namespace LaboratorySystem.Controllers.User
                     patientdetailobj.ReferingHospital = referinghospital.Trim();
                     patientdetailobj.Sex = gender.Trim();
                     patientdetailobj.Streetname = streetname.Trim();
+                    patientdetailobj.HospitalID= MySession.GetClientSession(this.subdomainurl).HospitalDetailID.HasValue ? MySession.GetClientSession(this.subdomainurl).HospitalDetailID.Value : 0;
 
                     patientdetail.Insert(patientdetailobj);
 
@@ -369,22 +370,43 @@ namespace LaboratorySystem.Controllers.User
 
 
                 int clientuserdetailtypeid = clientusertype.GetAll().Where(x => x.TypeName.Equals("Patient")).FirstOrDefault().ClientUserTypeID;
-
+                int hospitalid = MySession.GetClientSession(this.subdomainurl).HospitalDetailID.HasValue ? MySession.GetClientSession(this.subdomainurl).HospitalDetailID.Value : 0;
                 object returnList = null;
                 if (status == "All")
                 {
-                    returnList = (from cl in clientuser.GetAll()
-                                  join pd in patientdetail.GetAll() on cl.DetailID equals pd.PatientDetailID
-                                  where cl.DetailType.Value == clientuserdetailtypeid
-                                  select new
-                                  {
-                                      cl.ClientUserID,
-                                      cl.Username,
-                                      Status=cl.IsActive.HasValue?(cl.IsActive.Value?"Active":"Inactive"):"Inactive",
-                                      FullName = cl.FirstName + " " + pd.MiddleName + " " + cl.LastName,
-                                      pd.Sex,
-                                      cl.IsBlock
-                                  }).ToList();
+                    if (!MySession.GetClientSession(this.subdomainurl).HospitalDetailID.HasValue)
+                    {
+                        returnList = (from cl in clientuser.GetAll()
+                                      join pd in patientdetail.GetAll() on cl.DetailID equals pd.PatientDetailID
+                                      where cl.DetailType.Value == clientuserdetailtypeid
+                                      select new
+                                      {
+                                          cl.ClientUserID,
+                                          cl.Username,
+                                          Status = cl.IsActive.HasValue ? (cl.IsActive.Value ? "Active" : "Inactive") : "Inactive",
+                                          FullName = cl.FirstName + " " + pd.MiddleName + " " + cl.LastName,
+                                          pd.Sex,
+                                          pd.City,
+                                          cl.IsBlock
+                                      }).ToList();
+                    }
+                    else
+                    {
+                        returnList = (from cl in clientuser.GetAll()
+                                      join pd in patientdetail.GetAll() on cl.DetailID equals pd.PatientDetailID
+                                      where pd.HospitalID == hospitalid
+                                      where cl.DetailType.Value == clientuserdetailtypeid
+                                      select new
+                                      {
+                                          cl.ClientUserID,
+                                          cl.Username,
+                                          Status = cl.IsActive.HasValue ? (cl.IsActive.Value ? "Active" : "Inactive") : "Inactive",
+                                          FullName = cl.FirstName + " " + pd.MiddleName + " " + cl.LastName,
+                                          pd.Sex,
+                                          pd.City,
+                                          cl.IsBlock
+                                      }).ToList();
+                    }
                 }
                 else if (status == "Active") 
                 {
@@ -398,7 +420,8 @@ namespace LaboratorySystem.Controllers.User
                                       Status = cl.IsActive.HasValue ? (cl.IsActive.Value ? "Active" : "Inactive") : "Inactive",
                                       FullName = cl.FirstName + " " + pd.MiddleName + " " + cl.LastName,
                                       pd.Sex,
-                                      cl.IsBlock
+                                      cl.IsBlock,
+                                      pd.City
                                   }).Where(x=>x.Status.Equals("Active")).ToList();
                 }
                 else
@@ -413,7 +436,8 @@ namespace LaboratorySystem.Controllers.User
                                       Status = cl.IsActive.HasValue ? (cl.IsActive.Value ? "Active" : "Inactive") : "Inactive",
                                       FullName = cl.FirstName + " " + pd.MiddleName + " " + cl.LastName,
                                       pd.Sex,
-                                      cl.IsBlock
+                                      cl.IsBlock,
+                                      pd.City
                                   }).Where(x => x.Status.Equals("Inactive")).ToList();
                 }
                 

@@ -38,7 +38,9 @@ namespace LaboratoryBusiness.BLL.User
                                CreatedBy = p.CreatedBy,
                                CreatedDate = p.CreatedDate,
                                UpdatedBy = p.UpdatedBy,
-                               UpdatedDate = p.UpdatedDate
+                               UpdatedDate = p.UpdatedDate,
+                               HospitalCode=p.HospitalCode
+                               
                            });
             return records;
 
@@ -58,7 +60,8 @@ namespace LaboratoryBusiness.BLL.User
                               CreatedBy = p.CreatedBy,
                               CreatedDate = p.CreatedDate,
                               UpdatedBy = p.UpdatedBy,
-                              UpdatedDate = p.UpdatedDate
+                              UpdatedDate = p.UpdatedDate,
+                                HospitalCode = p.HospitalCode
                           }).FirstOrDefault();
             return record;
 
@@ -77,7 +80,8 @@ namespace LaboratoryBusiness.BLL.User
                 CreatedBy = p.CreatedBy,
                 CreatedDate = p.CreatedDate,
                 UpdatedBy = p.UpdatedBy,
-                UpdatedDate = p.UpdatedDate
+                UpdatedDate = p.UpdatedDate,
+                  HospitalCode = p.HospitalCode
 
             };
             _context.Tbl_Cl_HospitalDetail.Add(inp);
@@ -102,7 +106,7 @@ namespace LaboratoryBusiness.BLL.User
                 record.CreatedDate = p.CreatedDate;
                 record.UpdatedBy = p.UpdatedBy;
                 record.UpdatedDate = p.UpdatedDate;
-
+                record.HospitalCode = p.HospitalCode;
             }
             else
             {

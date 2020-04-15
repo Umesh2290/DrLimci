@@ -152,6 +152,8 @@ var _User_Hospital_Create = "/User/Hospital/Create"
 var _User_Hospital_Get = "/User/Hospital/Get"
 var _User_Hospital_GetDetail = "/User/Hospital/GetAllHospital"
 
+var _User_ReportConfiguration_Get = "/User/ReportConfiguration/GetAll"
+
 
 
 var Admin_Home_Domain_Graph = "/Admin/Home/GetDomainData"

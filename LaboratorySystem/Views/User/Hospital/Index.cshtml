@@ -32,6 +32,7 @@
         var rs = WebResponse(data);
         if (rs.ResponseType == "Simple") {
             var dt_hospital = rs.ResponseData.hospitaldetailjson;
+            var dt_clientuser = rs.ResponseData.clientuserjson;
             //var dt_assignedrolesjson = rs.ResponseData.assignedrolesjson;
             //var dt_attachmentsjson = rs.ResponseData.attachmentsjson;
             debugger
@@ -40,6 +41,16 @@
             $("#city").val(dt_hospital.city);
             $("#phoneno").val(dt_hospital.phoneno);
             $("#faxno").val(dt_hospital.faxno);
+            $("#hospitalcode").val(dt_hospital.hospitalcode)
+
+            $("#username").val(dt_clientuser.Username);
+            $("#firstname").val(dt_clientuser.FirstName);
+            $("#lastname").val(dt_clientuser.LastName);
+            $("#email").val(dt_clientuser.Email);
+            $("#mobileno").val(dt_clientuser.MobileNo);
+            $("#address").val(dt_clientuser.Address);
+            //$("#designation").val(dt_clientuser.Qualifications);
+            $("#password").val(dt_clientuser.passwords);
             
 
             
@@ -99,49 +110,39 @@ function (jqXhr, textStatus, errorMessage) {
                         </div>
 
                         <div class="card-body">
+                            <div class="custom-separator" > 
+                            Hospital details
+                            </div>
                             <div class="form-group row">
-                                @*<label for="employeetype" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Employee Type:</label>
-                                <div class="col-lg-3">
-
-
-                                    <select class="form-control" id="employeetype" name="employeetype">
-                                        @{
-
-                                            foreach (var usertype in allusertypes)
-                                            {
-                                                <option value="@usertype.ClientUserTypeID">@usertype.TypeName</option>
-                                            }
-
-                                        }
-                                    </select>
-
-
-                                    <small id="employeetypeHelpBlock" class="ul-form__text form-text ">
-                                        Please select employee type
-                                    </small>
-                                </div>*@
-                                <label for="hospitalname" class="ul-form__label ul-form--margin col-lg-2   col-form-label ">
+                                <label for="hospitalname" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
                                     Hospital Name:
                                 </label>
-                                <div class="col-lg-6 ">
+                                <div class="col-lg-3 ">
                                     <input type="text" class="form-control" id="hospitalname" name="hospitalname" required="required" placeholder="Enter hospital name">
-                                    <small id="firstnamehelpblock" class="ul-form__text form-text ">
-
-
-
+                                    <small id="hospitalnamehelpblock" class="ul-form__text form-text ">
                                         Please enter hospital name
                                     </small>
                                 </div>
-
-                                @*<label for="lastname" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
-                                    Last Name:
+                                <label for="hospitalcode" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Hospital Code:
                                 </label>
                                 <div class="col-lg-3 ">
-                                    <input type="text" class="form-control" id="lastname" name="lastname" required="required" placeholder="Enter last name">
-                                    <small id="lastnamehelpblock" class="ul-form__text form-text ">
-                                        Please enter last name
+                                    <input type="text" class="form-control" id="hospitalcode" name="hospitalcode" placeholder="Enter hospital code">
+                                    <small id="hospitalcodehelpblock" class="ul-form__text form-text ">
+                                        Please enter hospital code
                                     </small>
-                                </div>*@
+                                </div>
+
+                                <label for="faxno" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Fax No:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <input type="text" class="form-control" id="faxno" name="faxno" required="required" placeholder="Enter fax no">
+                                    <small id="faxnohelpblock" class="ul-form__text form-text ">
+                                        Please enter fax no
+                                    </small>
+                                </div>
+
                             </div>
 
 
@@ -149,15 +150,7 @@ function (jqXhr, textStatus, errorMessage) {
                             <div class="custom-separator"></div>
 
                             <div class="form-group row">
-                                @*<label for="email" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
-            Email:
-        </label>
-        <div class="col-lg-3 ">
-            <input type="email" class="form-control" id="email" name="email" required="required" placeholder="Enter email">
-            <small id="emailhelpblock" class="ul-form__text form-text ">
-                Please enter email
-            </small>
-        </div>*@
+
 
                                 <label for="address" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Address:</label>
                                 <div class="col-lg-3">
@@ -175,15 +168,6 @@ function (jqXhr, textStatus, errorMessage) {
                                         Please enter city
                                     </small>
                                 </div>
-                               
-
-
-
-                            </div>
-
-                            <div class="custom-separator"></div>
-
-                            <div class="form-group row">
                                 <label for="mobileno" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
                                     Phone No:
                                 </label>
@@ -193,112 +177,78 @@ function (jqXhr, textStatus, errorMessage) {
                                         Please enter phone no
                                     </small>
                                 </div>
-                                <label for="faxno" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
-                                    Fax No:
-                                </label>
-                                <div class="col-lg-3 ">
-                                    <input type="text" class="form-control" id="faxno" name="faxno" required="required" placeholder="Enter fax no">
-                                    <small id="faxnohelpblock" class="ul-form__text form-text ">
-                                        Please enter fax no
-                                    </small>
-                                </div>
 
 
-                                @*<label for="username" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
-            Username:
-        </label>
-        <div class="col-lg-3 ">
-            <input type="text" class="form-control" id="username" name="username" required="required" placeholder="Enter username">
-            <small id="usernamehelpblock" class="ul-form__text form-text ">
-                Please enter username (@@@clpoco.CompanyName.Replace(" ", "").Trim());
-            </small>
-        </div>*@
 
-                                @*<label for="assignedrolesid_temp" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Additional Role's:</label>
-        <div class="col-lg-3">
-            <select class="form-control" id="assignedrolesid_temp" name="assignedrolesid_temp" multiple>
-                @{
-
-                    foreach (var currentrole in roles)
-                    {
-                        <option value="@currentrole.RoleID">@currentrole.RoleName</option>
-                    }
-
-                }
-
-            </select>
-            <small id="assignedrolesid_tempBlock" class="ul-form__text form-text ">
-                Please select roles to assign
-            </small>
-        </div>*@
 
                             </div>
 
-                            <div class="custom-separator"></div>
+                            <div class="custom-separator">Clinican details</div>
 
-                            @*<div class="form-group row">
-                                <label for="attachmentfiles" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Attachment Files:</label>
-                                <div class="col-lg-3">
-                                    <input type="file" id="attachmentfiles" name="attachmentfiles" multiple />
-                                    <small id="attachmentfilesBlock" class="ul-form__text form-text ">
-                                        upload attachment files
-                                    </small>
-                                </div>
-
-                                <label for="joiningdate" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
-                                    Joining Date:
-                                </label>
-                                <div class="col-lg-3 ">
-                                    <input type="date" class="form-control" id="joiningdate" value="@DateTime.Now.ToString("yyyy-MM-dd")" name="joiningdate" required="required" placeholder="Select joining date">
-                                    <small id="joiningdatehelpblock" class="ul-form__text form-text ">
-                                        Please select joining date
-                                    </small>
-                                </div>
-
-                                <label for="qualifications" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Qualification:</label>
-                                <div class="col-lg-3">
-                                    <textarea class="form-control" id="qualifications" name="qualifications" placeholder="Enter qualifications"></textarea>
-                                    <small id="qualificationsBlock" class="ul-form__text form-text ">
-                                        Please enter qualifications
-                                    </small>
-                                </div>
-                            </div>*@
-
-                            @*<div class="custom-separator"></div>
 
                             <div class="form-group row">
-                                <label style="display:none" for="typeofcollection" class="ul-form__label ul-form--margin col-lg-1 col-form-label typeofcollectiondiv">Type Of Collection:</label>
-                                <div class="col-lg-3 typeofcollectiondiv" style="display:none">
-                                    <textarea class="form-control" id="typeofcollection" name="typeofcollection" placeholder="Enter type of collection"></textarea>
-                                    <small id="typeofcollectionBlock" class="ul-form__text form-text ">
-                                        Please enter type of collection
-                                    </small>
-                                </div>
-
-                                <label style="display:none" for="license" class="ul-form__label ul-form--margin col-lg-1   col-form-label licensediv">
-                                    License:
+                                <label for="firstname" class="ul-form__label ul-form--margin col-lg-1 col-form-label">
+                                    First Name:
                                 </label>
-                                <div class="col-lg-3 licensediv" style="display:none">
-                                    <input type="text" class="form-control" id="license" name="license" required="required" placeholder="Enter license">
-                                    <small id="licensehelpblock" class="ul-form__text form-text ">
-                                        Please enter license
+                                <div class="col-lg-3 ">
+                                    <input type="text" class="form-control" id="firstname" name="firstname" required="required" placeholder="Enter first name">
+                                    <small id="firstnamehelpblock" class="ul-form__text form-text ">
+                                        Please enter first name
                                     </small>
                                 </div>
 
-                                <label style="display:none" for="employementtype" class="ul-form__label ul-form--margin col-lg-1 col-form-label employementtypediv">Employement Type:</label>
-                                <div class="col-lg-3 employementtypediv" style="display:none">
-
-
-                                    <select class="form-control" id="employementtype" name="employementtype">
-                                        <option value="true">Full-time</option>
-                                        <option value="false">Part-time</option>
-                                    </select>
-
-
-                                    <small id="employementtypeHelpBlock" class="ul-form__text form-text ">
-                                        Please select employement type
+                                <label for="lastname" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Last Name:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <input type="text" class="form-control" id="lastname" name="lastname" required="required" placeholder="Enter last name">
+                                    <small id="lastnamehelpblock" class="ul-form__text form-text ">
+                                        Please enter last name
                                     </small>
                                 </div>
+
+
+                                <label for="designation" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Designation:</label>
+                                <div class="col-lg-3">
+                                    <input type="text" class="form-control" id="designation" name="designation" required="required" placeholder="Enter designation">
+                                    @*<textarea class="form-control" id="designation" name="designation" placeholder="Enter designation"></textarea>*@
+                                    <small id="designationBlock" class="ul-form__text form-text ">
+                                        Please enter designation
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="custom-separator"></div>
+                            <div class="form-group row">
+                                <label for="email" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Email:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <input type="email" class="form-control" id="email" name="email" required="required" placeholder="Enter email">
+                                    <small id="emailhelpblock" class="ul-form__text form-text ">
+                                        Please enter email
+                                    </small>
+                                </div>
+
+
+                                <label for="username" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Username:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <input type="text" class="form-control" id="username" name="username" required="required" placeholder="Enter username">
+                                    <small id="usernamehelpblock" class="ul-form__text form-text ">
+                                        Please enter username (@@@clpoco.CompanyName.Replace(" ", "").Trim());
+                                    </small>
+                                </div>
+                                <label for="password" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Password:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <input type="text" class="form-control" id="password" name="password" required="required" placeholder="Enter password">
+                                    <small id="passwordblock" class="ul-form__text form-text ">
+                                        Please enter password
+                                    </small>
+                                </div>
+
 
                             </div>
 
@@ -306,33 +256,19 @@ function (jqXhr, textStatus, errorMessage) {
 
                             <div class="form-group row">
 
-                                <label style="display:none" for="terminationdate" class="ul-form__label ul-form--margin col-lg-1   col-form-label terminationdatediv">
-                                    Termination Date:
+
+                                <label for="mobileno" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Mobile No:
                                 </label>
-                                <div style="display:none" class="col-lg-3 terminationdatediv">
-                                    <input type="date" class="form-control" id="terminationdate" value="@DateTime.Now.ToString("yyyy-MM-dd")" name="terminationdate" required="required" placeholder="Select termination date">
-                                    <small id="terminationdatehelpblock" class="ul-form__text form-text ">
-                                        Please select termination date
+                                <div class="col-lg-3 ">
+                                    <input type="text" class="form-control" id="mobileno" name="mobileno" required="required" placeholder="Enter mobile no">
+                                    <small id="mobilenoblock" class="ul-form__text form-text ">
+                                        Please enter mobile no
                                     </small>
                                 </div>
 
-                                <label style="display:none" for="terminationreason" class="ul-form__label ul-form--margin col-lg-1   col-form-label terminationreasondiv">
-                                    Termination Reason:
-                                </label>
-                                <div style="display:none" class="col-lg-3 terminationreasondiv">
-                                    <textarea class="form-control" id="terminationreason" name="terminationreason" placeholder="Enter termination reason"></textarea>
-                                    <small id="terminationreasonhelpblock" class="ul-form__text form-text ">
-                                        Please enter termination reason
-                                    </small>
-                                </div>
-                            </div>
 
-                            <div class="custom-separator attachmentsection" style="display:none"></div>
-                            <div class="card-header bg-transparent attachmentsection" style="display:none">
-                                <h3 class="card-title">Attachments</h3>
                             </div>
-                            <div class="row attachmentsection" style="display:none" id="attachmentlist">
-                            </div>*@
 
                         </div>
                         <div class="card-footer">
@@ -390,7 +326,8 @@ function (jqXhr, textStatus, errorMessage) {
                         if (rs.ResponseType == "swal-sucsess") {
                             $("#hospitalform").trigger("reset");
                             setTimeout(function () {
-                                window.location.replace("/User/Hospital/GetAllHospital");
+                                window.location.replace("/User/Hospital/Create");
+                                //window.location.replace("/User/Hospital/ViewHospitals");
                             }, 2500);
                         }
                     },

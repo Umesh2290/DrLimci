@@ -1,0 +1,346 @@
+﻿
+@{
+    ViewBag.Title = "Add or Update Report Configuration";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<script>
+    var currentmenu = 63;
+    $(document).ready(function () {
+        debugger;
+        //var query = getUrlVars();
+        //if (query["IsEdit"] != null) {
+          //  if (query["IsEdit"] == "1" && query["EditId"] != null) {
+                $("#mainheading").html("Update Report Configuration");
+                $("#subheading").html("Update Report Configuration");
+                $("#cardheading").html("Edit Report Configuration");
+                $("#cancelbtn").hide();
+                $("#saveorupdatebtn").text("Update");
+
+                $("#editid").val(1);
+        $("#configid").val(1);
+        var _User_ReportConfiguration_Get = "/User/ReportConfiguration/GetList";
+
+                MakeRequest(_User_ReportConfiguration_Get, "POST", objectifyForm($("#reportconfigurationform").serializeArray()), "json",
+    function (jqXHR, settings) {
+        //For Before Send
+        $('.loadscreen').fadeIn();
+    },
+    function (data, status, xhr) {
+        //For Success
+        $('.loadscreen').fadeOut();
+        var rs = WebResponse(data);
+        if (rs.ResponseType == "Simple") {
+            debugger;
+            var dt_ReportConfiguration = rs.ResponseData.labReportConfigurationjson;
+            var dt_clientuser = rs.ResponseData.clientuserjson;
+            //var dt_assignedrolesjson = rs.ResponseData.assignedrolesjson;
+            //var dt_attachmentsjson = rs.ResponseData.attachmentsjson;
+            debugger
+            if (dt_ReportConfiguration != null) {
+                $("#labname").val(dt_ReportConfiguration[0].LabName);
+                $("#labaddress").val(dt_ReportConfiguration[0].LabAddress);
+                $("#phoneno").val(dt_ReportConfiguration[0].LabCompanyNumber);
+                $("#headofficeaddress").val(dt_ReportConfiguration[0].LabHeadOfficeAddress);
+                $("#labemail").val(dt_ReportConfiguration[0].labEmail);
+                $("#labuniquecode").val(dt_ReportConfiguration[0].LabUniqueCode);
+                $("#registrationno").val(dt_ReportConfiguration[0].RegistrationNumber);
+                
+                if(dt_ReportConfiguration[0].LabImage != null){
+                    $("#attachmentlist").show();
+                    $("#logo").attr("href", dt_ReportConfiguration[0].LabImage);
+                }
+
+            } else {
+                $("#labname").val();
+                $("#labaddress").val();
+                $("#phoneno").val();
+                $("#headofficeaddress").val();
+                $("#labemail").val();
+                $("#labuniquecode").val();
+
+
+            }
+
+
+
+
+
+
+
+        }
+    },
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+
+
+
+        @{
+            LaboratoryBusiness.Repositories.User.IRoleRepository role = ((DBInitializer)ViewBag.currentdomaindb).RoleRepository();
+            var roles = role.GetAll().Where(x => !(x.RoleName.Equals("Admin") )).ToList();
+
+
+        }
+
+
+    })
+</script>
+<div class="breadcrumb">
+    <h1 class="mr-2" id="mainheading">Create Report Configuration</h1>
+    <ul>
+        <li><a href="">Report Configiuration</a></li>
+        <li id="subheading">Create Report Configuration</li>
+    </ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+<div class="2-columns-form-layout">
+    <div class="">
+        <div class="row">
+            <div class="col-lg-12">
+                <!--begin::form 3 Horizontal-->
+                <form id="reportconfigurationform" name="reportconfigurationform">
+                    <!-- start card 3 Columns Horizontal Form Layout-->
+                    <div class="card ul-card__margin-25">
+                        <div class="card-header bg-transparent">
+                            <h3 class="card-title" id="cardheading">Add Report Configuration</h3>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="custom-separator">
+
+                            </div>
+                            <div class="form-group row">
+                                <label for="labname" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Lab Name:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <input type="text" class="form-control" id="labname" name="labname" required="required" placeholder="Enter lab name">
+                                    <small id="labnamehelpblock" class="ul-form__text form-text ">
+                                        Please enter lab name
+                                    </small>
+                                </div>
+                                <label for="labaddress" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Lab Address:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <textarea class="form-control" id="labaddress" name="labaddress" required="required" placeholder="Enter lab address"></textarea>
+                                    <small id="labaddresshelpblock" class="ul-form__text form-text ">
+                                        Please enter lab address
+                                    </small>
+                                </div>
+
+                                <label for="registrationno" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Lab Registration Number:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <input type="text" class="form-control" id="registrationno" name="registrationno"  placeholder="Enter registration no">
+                                    <small id="registrationnohelpblock" class="ul-form__text form-text ">
+                                        Please enter registration no
+                                    </small>
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="custom-separator"></div>
+
+                            <div class="form-group row">
+
+
+                                <label for="headofficeaddress" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Head Office Address:</label>
+                                <div class="col-lg-3">
+                                    <textarea class="form-control" id="headofficeaddress" name="headofficeaddress"  placeholder="Enter head office address"></textarea>
+                                    <small id="headofficeaddressBlock" class="ul-form__text form-text ">
+                                        Please enter head office address
+                                    </small>
+                                </div>
+                                <label for="labemail" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Lab Email:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <input type="text" class="form-control" id="labemail" name="labemail" required="required" placeholder="Enter lab email">
+                                    <small id="cityhelpblock" class="ul-form__text form-text ">
+                                        Please enter email
+                                    </small>
+                                </div>
+                                <label for="labuniquecode" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Lab Unique Code:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <input type="text" class="form-control" id="labuniquecode" name="labuniquecode"  placeholder="Enter lab unique code">
+                                    <small id="labuniquecodehelpblock" class="ul-form__text form-text ">
+                                        Please enter lab unique code
+                                    </small>
+                                </div>
+
+
+
+
+                            </div>
+
+
+
+
+                            <div class="custom-separator"></div>
+                            <div class="form-group row">
+                                <label for="phoneno" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                    Lab Phone Number:
+                                </label>
+                                <div class="col-lg-3 ">
+                                    <input type="text" class="form-control" id="phoneno" name="phoneno"  placeholder="Enter phone no">
+                                    <small id="phonenohelpblock" class="ul-form__text form-text ">
+                                        Please enter phone no
+                                    </small>
+                                </div>
+                                <label for="attachmentfiles_sample" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Logo Attachement:</label>
+                                <div class="col-lg-3">
+                                    <input type="file" id="attachmentfiles_sample" name="attachmentfiles_sample" single />
+
+                                    <small id="attachmentfiles_sampleBlock" class="ul-form__text form-text ">
+                                        Upload attachment files
+                                    </small>
+                                </div>
+                                <label for="attachmentfiles" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Logo Attached:</label>
+                                <div class="col-lg-3  " style="display:none;margin-top:10px" id="attachmentlist">
+
+                                    <a id="logo" href="" target="_blank">Logo Image</a>
+
+                                </div>
+
+
+
+
+
+                            </div>
+                            <div class="card-footer">
+                                <div class="mc-footer">
+                                    <div class="row text-center">
+                                        <div class="col-lg-12 ">
+                                            <button type="submit" class="btn btn-primary m-1" id="saveorupdatebtn">Save</button>
+                                            <button type="reset" class="btn btn-outline-secondary m-1" id="cancelbtn">Reset</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end card 3 Columns Horizontal Form Layout-->
+                        <input type="hidden" id="editid" name="editid" value="0" />
+
+                        <input type="hidden" id="configid" name="configid" value="0" />
+                </form>
+                <!-- end::form 3-->
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    function UploadFile(configid, AttachmentTypeId, formid, attachmentelementid, supplementreportid) {
+        debugger;
+        supplementreportid = typeof supplementreportid !== 'undefined' ? supplementreportid : 0;
+        // Checking whether FormData is available in browser
+        if (window.FormData !== undefined) {
+
+            var fileUpload = $(("#" + attachmentelementid)).get(0);
+            var files = fileUpload.files;
+
+            if (files.length > 0) {
+                // Create FormData object
+                var fileData = new FormData();
+
+                // Looping over all files and add it to FormData object
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append(files[i].name, files[i]);
+                }
+
+                // Adding one more key to FormData object
+                fileData.append('configid', configid);
+                fileData.append('AttachmentTypeID', AttachmentTypeId);
+                fileData.append('SupplementReportID', supplementreportid);
+
+
+                var url = "/User/ReportConfiguration/UploadFile";
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    contentType: false, // Not to set any content header
+                    processData: false, // Not to process data
+                    data: fileData,
+                    success: function (result) {
+                        //swal.fire({ title: "Created Successfully !", icon: "success", html: "Employee has been created successfully<br>" });
+                        $('.loadscreen').fadeOut();
+                        $(("#" + formid)).trigger("reset");
+
+
+                        swal.fire({ title: "Saved Successfully !", icon: "success", html: "Lab Report Logo has been saved successfully<br>." });
+                    }
+                });
+
+
+                //if (!iscompletedorpublish && (AttachmentTypeId != 4)) {
+                //    setTimeout(function () {
+                //        window.location.replace("/User/ReportConfiguration");
+                //    }, 2500);
+                //}
+
+            }
+        }
+    }
+
+    $(document).ready(function () {
+        $("#saveorupdatebtn").click(function () {
+            debugger
+            var form = document.querySelector('#reportconfigurationform');
+            if (form.reportValidity()) {
+                var isupdate = false;
+
+
+                var _posturl = "/User/ReportConfiguration/AddConfigurationInfo";
+                if ($("#editid").val() > 0) {
+                    _posturl = _posturl;
+                    isupdate = true;
+                }
+                MakeRequest(_posturl, "POST", objectifyForm($("#reportconfigurationform").serializeArray()), "json",
+                    function (jqXHR, settings) {
+                        //For Before Send
+                        $('.loadscreen').fadeIn();
+                    },
+                    function (data, status, xhr) {
+                        //For Success
+                        debugger;
+
+
+                        var rs = WebResponse(data);
+                        if (rs.ResponseType == "swal-sucsess") {
+                            debugger;
+                            UploadFile(rs.ResponseData.labReportConfigurationjson.ConfigID, 2, "reportconfigurationform", "attachmentfiles_sample", false);
+
+                            $("#reportconfigurationform").trigger("reset");
+                            setTimeout(function () {
+                                window.location.replace("/User/ReportConfiguration");
+                                //window.location.replace("/User/Hospital/ViewHospitals");
+                            }, 2500);
+                        }
+                    },
+                    function (jqXhr, textStatus, errorMessage) {
+                        //For Error
+                        $('.loadscreen').fadeOut();
+                        WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                    });
+            }
+            return false;
+        });
+
+
+    })
+</script>

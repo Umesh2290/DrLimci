@@ -46,7 +46,8 @@ namespace LaboratoryBusiness.BLL.User
                             Sex=p.Sex,
                             Streetname=p.Streetname,
                             UpdatedBy=p.UpdatedBy,
-                            UpdatedDate=p.UpdatedDate
+                            UpdatedDate=p.UpdatedDate,
+                            HospitalID=p.HospitalID
 
 
 
@@ -81,8 +82,8 @@ namespace LaboratoryBusiness.BLL.User
                             Sex=p.Sex,
                             Streetname=p.Streetname,
                             UpdatedBy=p.UpdatedBy,
-                            UpdatedDate=p.UpdatedDate
-
+                            UpdatedDate=p.UpdatedDate,
+                            HospitalID = p.HospitalID
 
 
                           }).FirstOrDefault();
@@ -111,7 +112,8 @@ namespace LaboratoryBusiness.BLL.User
                             Sex=p.Sex,
                             Streetname=p.Streetname,
                             UpdatedBy=p.UpdatedBy,
-                            UpdatedDate=p.UpdatedDate
+                            UpdatedDate=p.UpdatedDate,
+                            HospitalID = p.HospitalID
 
             };
             _context.Tbl_Cl_PatientDetail.Add(inp);
@@ -143,6 +145,7 @@ namespace LaboratoryBusiness.BLL.User
                             record.Streetname=p.Streetname;
                             record.UpdatedBy=p.UpdatedBy;
                             record.UpdatedDate=p.UpdatedDate;
+                            record.HospitalID = p.HospitalID;
 
             }
             else

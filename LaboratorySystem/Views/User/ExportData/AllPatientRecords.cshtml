@@ -41,8 +41,8 @@ function (data, status, xhr) {
         columns: [
             { data: 'PatientDetailID' },
             { data: 'FullName' },
-            { data: 'Streetname' },
-  { data: 'CreatedDate' },
+            { data: 'City' },
+            { data: 'CreatedDate' },
             { data: 'Payment' }, 
             { data: 'PdfLink' },
             { data: 'PatientDetailID' }
@@ -104,7 +104,7 @@ function (jqXhr, textStatus, errorMessage) {
                                 <tr>
                                     <th scope="col">ID #</th>
                                     <th scope="col">Patient Name</th>
-                                    <th scope="col">Street Name</th>
+                                    <th scope="col">D.O.B.</th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Payment</th>
                                     <th scope="col">PDF Link<br /><a href="#" id="alldowloadlink">Download Selected</a><input type="checkbox" class="form-check alldownloadpdf" /></th>
@@ -177,11 +177,11 @@ function (jqXhr, textStatus, errorMessage) {
                 <span id="gender_lbl">N/A</span>
             </div>
             <div class="mb-4">
-                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Street name</p>
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Report Number</p>
                 <span id="streetname_lbl">N/A</span>
             </div>
             <div class="mb-4">
-                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>City</p>
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>D.O.B</p>
                 <span id="city_lbl">N/A</span>
             </div>
             <div class="mb-4">

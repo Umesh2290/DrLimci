@@ -65,6 +65,7 @@ function (jqXhr, textStatus, errorMessage) {
         }
 
     })
+    
 </script>
 @{
     LaboratoryBusiness.Repositories.User.IAdminDetailRepository admindetail = ((DBInitializer)ViewBag.currentdomaindb).AdminDetailRepository();
@@ -75,6 +76,22 @@ function (jqXhr, textStatus, errorMessage) {
 
     LaboratoryBusiness.Repositories.Admin.IClientRepository cl = new LaboratoryBusiness.BLL.Admin.ClientRepository();
     LaboratoryBusiness.POCO.Admin.Client clpoco= cl.GetByID(supoco.DetailID.Value);
+
+    int hospitalid = MySession.GetClientSession(clpoco.Subdomain).HospitalDetailID.HasValue ? MySession.GetClientSession(clpoco.Subdomain).HospitalDetailID.Value : 0;
+    string hospitalName;
+    LaboratoryBusiness.Repositories.User.IHospitalDetail hospitalDetail = ((DBInitializer)ViewBag.currentdomaindb).HospitalDetailRepository();
+    var addhospitalail = hospitalDetail.GetByID(hospitalid);
+    if (hospitalid>0)
+    {
+        hospitalName = addhospitalail.HospitalName;
+    }
+    else
+    { hospitalName = null; }
+
+
+
+
+
 }
 <div class="breadcrumb">
     <h1 class="mr-2" id="mainheading">Create Patient</h1>
@@ -131,30 +148,99 @@ function (jqXhr, textStatus, errorMessage) {
                             </div>
 
 
+                            @{
+                                if (hospitalid > 0)
+                                {
+
+                                    <div class="custom-separator" style="display:none"></div>
+
+                                    <div class="form-group row" style="display:none">
+                                        <label for="email" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                            Email:
+                                        </label>
+                                        <div class="col-lg-3 ">
+                                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+                                            <small id="emailhelpblock" class="ul-form__text form-text ">
+                                                Please enter email
+                                            </small>
+                                        </div>
+
+                                        <label for="mobileno" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                            Mobile No:
+                                        </label>
+                                        <div class="col-lg-3 ">
+                                            <input type="text" class="form-control" id="mobileno" name="mobileno" placeholder="Enter mobile no">
+                                            <small id="mobilenohelpblock" class="ul-form__text form-text ">
+                                                Please enter mobile no
+                                            </small>
+                                        </div>
+
+                                        <label for="status" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Status:</label>
+                                        <div class="col-lg-3">
+
+
+                                            <select class="form-control" id="status" name="status">
+                                                <option value="true">Active</option>
+                                                <option value="false">Inactive</option>
+                                            </select>
+
+
+                                            <small id="statusHelpBlock" class="ul-form__text form-text ">
+                                                Please select status
+                                            </small>
+                                        </div>
+
+                                    </div>
+
+                                }
+                                else
+                                {
+
+                                    <div class="custom-separator"></div>
+
+                                    <div class="form-group row">
+                                        <label for="email" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                            Email:
+                                        </label>
+                                        <div class="col-lg-3 ">
+                                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+                                            <small id="emailhelpblock" class="ul-form__text form-text ">
+                                                Please enter email
+                                            </small>
+                                        </div>
+
+                                        <label for="mobileno" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                            Mobile No:
+                                        </label>
+                                        <div class="col-lg-3 ">
+                                            <input type="text" class="form-control" id="mobileno" name="mobileno" placeholder="Enter mobile no">
+                                            <small id="mobilenohelpblock" class="ul-form__text form-text ">
+                                                Please enter mobile no
+                                            </small>
+                                        </div>
+
+                                        <label for="status" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Status:</label>
+                                        <div class="col-lg-3">
+
+
+                                            <select class="form-control" id="status" name="status">
+                                                <option value="true">Active</option>
+                                                <option value="false">Inactive</option>
+                                            </select>
+
+
+                                            <small id="statusHelpBlock" class="ul-form__text form-text ">
+                                                Please select status
+                                            </small>
+                                        </div>
+
+                                    </div>
+                                }
+                            }
 
                             <div class="custom-separator"></div>
 
                             <div class="form-group row">
-                                <label for="email" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
-                                    Email:
-                                </label>
-                                <div class="col-lg-3 ">
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
-                                    <small id="emailhelpblock" class="ul-form__text form-text ">
-                                        Please enter email
-                                    </small>
-                                </div>
-
-                                <label for="mobileno" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
-                                    Mobile No:
-                                </label>
-                                <div class="col-lg-3 ">
-                                    <input type="text" class="form-control" id="mobileno" name="mobileno" placeholder="Enter mobile no">
-                                    <small id="mobilenohelpblock" class="ul-form__text form-text ">
-                                        Please enter mobile no
-                                    </small>
-                                </div>
-
                                 <label for="address" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Address:</label>
                                 <div class="col-lg-3">
                                     <textarea class="form-control" id="address" name="address" placeholder="Enter address"></textarea>
@@ -163,25 +249,6 @@ function (jqXhr, textStatus, errorMessage) {
                                     </small>
                                 </div>
 
-                            </div>
-
-                            <div class="custom-separator"></div>
-
-                            <div class="form-group row">
-                                <label for="status" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Status:</label>
-                                <div class="col-lg-3">
-
-
-                                    <select class="form-control" id="status" name="status">
-                                        <option value="true">Active</option>
-                                        <option value="false">Inactive</option>
-                                    </select>
-
-
-                                    <small id="statusHelpBlock" class="ul-form__text form-text ">
-                                        Please select status
-                                    </small>
-                                </div>
 
                                 <label for="username" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
                                     Username:
@@ -189,7 +256,7 @@ function (jqXhr, textStatus, errorMessage) {
                                 <div class="col-lg-3 ">
                                     <input type="text" class="form-control" id="username" name="username" required="required" placeholder="Enter username">
                                     <small id="usernamehelpblock" class="ul-form__text form-text ">
-                                        Please enter username (@@@clpoco.CompanyName.Replace(" ","").Trim());
+                                        Please enter username (@@@clpoco.CompanyName.Replace(" ", "").Trim());
                                     </small>
                                 </div>
 
@@ -197,9 +264,9 @@ function (jqXhr, textStatus, errorMessage) {
                                     Age:
                                 </label>
                                 <div class="col-lg-3 ">
-                                    <input type="text" class="form-control" id="age" name="D.O.B." placeholder="Enter Date of Birth">
+                                    <input type="text" class="form-control" id="age" name="age" placeholder="Enter Age">
                                     <small id="agehelpblock" class="ul-form__text form-text ">
-                                        Please enter  Date of Birth
+                                        Please enter age
                                     </small>
                                 </div>
 
@@ -225,67 +292,113 @@ function (jqXhr, textStatus, errorMessage) {
                                 </div>
 
                                 <label for="streetname" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
-                                    Street Name:
+                                    Report Number:
                                 </label>
                                 <div class="col-lg-3 ">
-                                    <input type="text" class="form-control" id="streetname" name="streetname" placeholder="Enter streetname">
+                                    <input type="text" class="form-control" id="streetname" name="streetname" placeholder="Enter Report Number">
                                     <small id="streetnamehelpblock" class="ul-form__text form-text ">
-                                        Please enter streetname
+                                        Please enter Report Number
                                     </small>
                                 </div>
 
                                 <label for="city" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
-                                    City:
+                                    D.O.B.:
                                 </label>
                                 <div class="col-lg-3 ">
-                                    <input type="text" class="form-control" id="city" name="city" placeholder="Enter city">
+                                    <input type="text" class="form-control" id="city" name="city" placeholder="Enter D.O.B.">
                                     <small id="cityhelpblock" class="ul-form__text form-text ">
-                                        Please enter city
+                                        Please enter D.O.B.
                                     </small>
                                 </div>
 
                             </div>
 
-                            <div class="custom-separator"></div>
+                            @{
+                                if (hospitalid > 0)
+                                {
+                                    <div class="custom-separator" style="display:none"></div>
 
-                            <div class="form-group row">
-                                <label for="alternateaddress" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Alternate Address:</label>
-                                <div class="col-lg-3">
-                                    <textarea class="form-control" id="alternateaddress" name="alternateaddress" placeholder="Enter alternate address"></textarea>
-                                    <small id="alternateaddressBlock" class="ul-form__text form-text ">
-                                        Please enter alternate address
-                                    </small>
-                                </div>
+                                    <div class="form-group row" style="display:none">
+                                        <label for="alternateaddress" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Alternate Address:</label>
+                                        <div class="col-lg-3">
+                                            <textarea class="form-control" id="alternateaddress" name="alternateaddress" placeholder="Enter alternate address"></textarea>
+                                            <small id="alternateaddressBlock" class="ul-form__text form-text ">
+                                                Please enter alternate address
+                                            </small>
+                                        </div>
 
-                                <label for="alternatephoneno" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
-                                    Alternate Phone No:
-                                </label>
-                                <div class="col-lg-3 ">
-                                    <input type="text" class="form-control" id="alternatephoneno" name="alternatephoneno" placeholder="Enter alternate phoneno">
-                                    <small id="alternatephonenohelpblock" class="ul-form__text form-text ">
-                                        Please enter alternate phoneno
-                                    </small>
-                                </div>
+                                        <label for="alternatephoneno" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                            Alternate Phone No:
+                                        </label>
+                                        <div class="col-lg-3 ">
+                                            <input type="text" class="form-control" id="alternatephoneno" name="alternatephoneno" placeholder="Enter alternate phoneno">
+                                            <small id="alternatephonenohelpblock" class="ul-form__text form-text ">
+                                                Please enter alternate phoneno
+                                            </small>
+                                        </div>
 
-                                <label for="referingdoctor" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
-                                    Refering Doctor:
-                                </label>
-                                <div class="col-lg-3 ">
-                                    <input type="text" class="form-control" id="referingdoctor" name="referingdoctor" placeholder="Enter refering doctor">
-                                    <small id="referingdoctorhelpblock" class="ul-form__text form-text ">
-                                        Please enter refering doctor
-                                    </small>
-                                </div>
+                                        <label for="referingdoctor" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                            Refering Doctor:
+                                        </label>
+                                        <div class="col-lg-3 ">
+                                            <input type="text" class="form-control" id="referingdoctor" name="referingdoctor" placeholder="Enter refering doctor">
+                                            <small id="referingdoctorhelpblock" class="ul-form__text form-text ">
+                                                Please enter refering doctor
+                                            </small>
+                                        </div>
 
-                            </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="custom-separator"></div>
+
+                                    <div class="form-group row">
+                                        <label for="alternateaddress" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Alternate Address:</label>
+                                        <div class="col-lg-3">
+                                            <textarea class="form-control" id="alternateaddress" name="alternateaddress" placeholder="Enter alternate address"></textarea>
+                                            <small id="alternateaddressBlock" class="ul-form__text form-text ">
+                                                Please enter alternate address
+                                            </small>
+                                        </div>
+
+                                        <label for="alternatephoneno" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                            Alternate Phone No:
+                                        </label>
+                                        <div class="col-lg-3 ">
+                                            <input type="text" class="form-control" id="alternatephoneno" name="alternatephoneno" placeholder="Enter alternate phoneno">
+                                            <small id="alternatephonenohelpblock" class="ul-form__text form-text ">
+                                                Please enter alternate phoneno
+                                            </small>
+                                        </div>
+
+                                        <label for="referingdoctor" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                            Refering Doctor:
+                                        </label>
+                                        <div class="col-lg-3 ">
+                                            <input type="text" class="form-control" id="referingdoctor" name="referingdoctor" placeholder="Enter refering doctor">
+                                            <small id="referingdoctorhelpblock" class="ul-form__text form-text ">
+                                                Please enter refering doctor
+                                            </small>
+                                        </div>
+
+                                    </div>
+                                }
+                            }
+
+                         
+
+       
                             <div class="custom-separator"></div>
 
                             <div class="form-group row">
                                 <label for="referinghospital" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
                                     Refering Hospital:
                                 </label>
+
+                               
                                 <div class="col-lg-3 ">
-                                    <input type="text" class="form-control" id="referinghospital" name="referinghospital" placeholder="Enter refering hospital">
+                                    <input type="text" class="form-control" id="referinghospital" name="referinghospital" value="@hospitalName" placeholder="Enter refering hospital">
                                     <small id="referinghospitalhelpblock" class="ul-form__text form-text ">
                                         Please enter refering hospital
                                     </small>

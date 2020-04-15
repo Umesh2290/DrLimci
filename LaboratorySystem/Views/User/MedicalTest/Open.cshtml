@@ -36,6 +36,7 @@ function (data, status, xhr) {
             { data: 'TestName' },
             { data: 'PatientName' },
             { data: 'TestCreatedDateCustom' },
+            { data: 'City' },
             { data: 'IsPublish' },
             { data: 'Status' },
             { data: 'TestID' },
@@ -47,7 +48,7 @@ function (data, status, xhr) {
                     var returnstring = '<a href="/User/MedicalTest?IsEdit=1&EditId=' + data + '" title="Work on it" target="_blank"><button type="button" class="btn btn-success "><i class="nav-icon i-Pen-2 "></i></button></a>';
                     return returnstring;
                 },
-                "targets": 7
+                "targets": 8
             },
             {
                 "render": function (data, type, row) {
@@ -62,13 +63,13 @@ function (data, status, xhr) {
                         return data;
                     }
                 },
-                "targets": 5
+                "targets": 6
             },
             {
                 "render": function (data, type, row) {
                     return '<a href="/User/MedicalTest?IsEdit=0&EditId=' + data + '" target="_blank" title="View Detail"><button type="button" class="btn btn-info"><i class="nav-icon i-Magnifi-Glass1"></i></button></a>';
                 },
-                "targets": 6
+                "targets": 7
             }
         ]
     });
@@ -116,6 +117,7 @@ function (jqXhr, textStatus, errorMessage) {
                                     <th scope="col">Test Name</th>
                                     <th scope="col">Patient Name</th>
                                     <th scope="col">Test Created Date</th>
+                                    <th scope="col">D.O.B.</th>
                                     <th scope="col">Is Publish</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">View Detail</th>

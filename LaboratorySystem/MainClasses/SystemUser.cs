@@ -275,7 +275,7 @@ namespace LaboratorySystem
 
             var returnobj = (from cl in client.GetAll()
                              join su in systemuser.GetAll() on cl.ClientDetailID equals su.DetailID
-                             where su.DetailType.Value == clientdetailtypeid //&& cl.Subdomain.Equals(subdomain)
+                             where su.DetailType.Value == clientdetailtypeid && cl.Subdomain.Equals(subdomain)
                              select su).FirstOrDefault();
 
             return returnobj;

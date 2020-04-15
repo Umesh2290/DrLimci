@@ -166,10 +166,15 @@ function (jqXhr, textStatus, errorMessage) {
 
                                             foreach (var usertype in allusertypes)
                                             {
+                                                if (usertype .TypeName == "Hospital / Clinician")
+                                                { }
+                                                else
+                                                {
                                                 <option value="@usertype.ClientUserTypeID">@usertype.TypeName</option>
-                                            }
+                                                    }
+                                                }
 
-                                        }
+                                            }
                                     </select>
 
 
@@ -269,10 +274,14 @@ function (jqXhr, textStatus, errorMessage) {
 
                                             foreach (var currentrole in roles)
                                             {
+                                                if (currentrole.RoleName == "Hospital / Clinician") { }
+                                                else
+                                                {
                                                 <option value="@currentrole.RoleID">@currentrole.RoleName</option>
-                                            }
+                                                    }
+                                                }
 
-                                        }
+                                            }
 
                                     </select>
                                     <small id="assignedrolesid_tempBlock" class="ul-form__text form-text ">

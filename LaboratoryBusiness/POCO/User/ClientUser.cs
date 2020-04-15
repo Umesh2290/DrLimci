@@ -25,5 +25,6 @@ namespace LaboratoryBusiness.POCO.User
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
+        public Nullable<int> HospitalDetailID  { get; set; }
     }
 }

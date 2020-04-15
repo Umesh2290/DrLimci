@@ -34,6 +34,7 @@ function (data, status, xhr) {
             { data: 'TestID' },
             { data: 'TestName' },
             { data: 'PatientName' },
+            { data: 'City' },
             { data: 'TestCreatedDateCustom' },
             { data: 'IsPublish' },
             { data: 'Status' },
@@ -53,13 +54,13 @@ function (data, status, xhr) {
                         return data;
                     }
                 },
-                "targets": 5
+                "targets": 6
             },
             {
                 "render": function (data, type, row) {
                     return '<a href="/User/MedicalTest?IsEdit=0&Rest=0&EditId=' + data + '" target="_blank" title="View Detail"><button type="button" class="btn btn-info"><i class="nav-icon i-Magnifi-Glass1"></i></button></a>';
                 },
-                "targets": 6
+                "targets": 7
             }
         ]
     });
@@ -106,6 +107,7 @@ function (jqXhr, textStatus, errorMessage) {
                                     <th scope="col">Test ID #</th>
                                     <th scope="col">Test Name</th>
                                     <th scope="col">Patient Name</th>
+                                    <th scope="col">D.O.B.</th>
                                     <th scope="col">Test Created Date</th>
                                     <th scope="col">Is Publish</th>
                                     <th scope="col">Status</th>

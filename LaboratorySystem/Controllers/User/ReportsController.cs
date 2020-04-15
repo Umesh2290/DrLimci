@@ -57,6 +57,7 @@ namespace LaboratorySystem.Controllers.User
                                   Status = (ts.TestStatusID.HasValue ? ts.TestStatusID.Value : 0) == 5 ? "Completed" : "Pending",
                                   TestCreatedDateCustom = ts.TestCreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
                                   IsPublish = ts.IsPublish.HasValue ? ts.IsPublish.Value ? "Yes" : "No" : "No",
+                                  City=pt.City,
                                   DetailStatus = dst.StatusName
 
                               }).ToList();
@@ -76,7 +77,8 @@ namespace LaboratorySystem.Controllers.User
                                   Status = (ts.TestStatusID.HasValue ? ts.TestStatusID.Value : 0) == 5 ? "Completed" : "Pending",
                                   TestCreatedDateCustom = ts.TestCreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
                                   IsPublish = ts.IsPublish.HasValue ? ts.IsPublish.Value ? "Yes" : "No" : "No",
-                                  DetailStatus = dst.StatusName
+                                  DetailStatus = dst.StatusName,
+                                  City = pt.City,
 
                               }).ToList();
                 }

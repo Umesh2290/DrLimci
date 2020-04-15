@@ -268,7 +268,8 @@ namespace LaboratorySystem
                     PatientDetail = _patientdetail,
                     AttachmentList = _attachmentlist,
                     Url = url,
-                    innerdb = db
+                    innerdb = db,
+                    HospitalDetailID=client.HospitalDetailID
 
                 };
 

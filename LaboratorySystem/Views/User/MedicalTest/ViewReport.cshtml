@@ -1,0 +1,217 @@
+﻿@model LaboratorySystem.Models.ReportModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>LG Pathlab</title>
+  
+    
+<style type="text/css">
+    .unselectable {
+        -webkit-user-select: none;
+        -webkit-touch-callout: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    .column {
+        float: left;
+        width: 33.33%;
+        padding: 5px;
+       
+    }
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    * {
+        box-sizing: border-box;
+    }
+     
+    td {
+        width: 50%;
+        text-align: left;
+        padding: 5px;
+    }
+   
+
+    
+</style>
+
+
+    </head>
+<body>
+
+    <div class="container"style="font-family:Calibri;font-size:11px">
+        <div class="row unselectable">
+            <div class=" column" style="font-family:Calibri">
+                <h4 class="blue-color" style="color:mediumpurple"> @Model.LabName</h4> 
+                <span style="font-weight:bold;font-family:Calibri;font-size:11px">
+                    @Model.LabUniqueCode<br>
+                    Company number: @Model.LabCompanyNumber <br>
+
+                    @Model.LabAddress
+                </span>
+               
+            </div>
+            <div class=" column" style="font-weight:bold;font-family:Calibri;font-size:11px">
+                <span class="add-head blue-color" >
+                    Head Office:<br>
+                    @Model.LabHeadOfficeAddress<br>
+                </span>
+                <p><a  style="color:Highlight;text-decoration:underline;text-decoration-color:Highlight" href="mailto:@Model.labEmail">@Model.labEmail</a></p>
+               
+            </div>
+            <div class=" column">
+
+                <img src="~/Content/images/logoLGPathLab.PNG" alt="logo" style="margin-top:0px;" />
+            </div>
+        </div>
+        <hr style="clear:both; margin-top:20px;" />
+        <div class="unselectable">
+            <h4 class="text-center" style="text-align:center"><u>Patient Information</u></h4>
+
+            <form class="form-horizontal" action="/">
+
+                <table>
+                    <tr>
+                        <td>
+                            <label class="control-label" for="name">Name :</label>
+                        </td>
+                        <td id="name">
+                            @Model.Name
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="control-label" for="name">DOB :</label>
+                        </td>
+                        <td id="dob">
+                            @Model.DOB
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="control-label" for="name">Address :</label>
+                        </td>
+                        <td id="address">
+                            @Model.Address
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="control-label" for="name">Referring lab name :</label>
+                        </td>
+                        <td>
+                            @Model.Referring_lab_no
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="control-label" for="name">Gender :</label>
+                        </td>
+                        <td id="gender">
+                            @Model.Gender
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="control-label" for="name">Referring hospital name :</label>
+                        </td>
+                        <td>
+                            @Model.Referring_hospital_name
+                        </td>
+                    </tr>
+                </table>
+            </form>
+
+
+
+            <hr />
+            <h4 class="text-center" style="text-align:center"><u>REPORT</u></h4>
+        </div>
+        <table>
+            <tr>
+                <td>
+                    <label class="control-label" for="name">@Model.LabName Report Number :</label>
+                </td>
+                <td>
+                    @Model.Report_number
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label" for="name">Report Refrence Number :</label>
+                </td>
+                <td>
+                    @Model.NHS_report_number
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label" for="name">Specimen type :</label>
+                </td>
+                <td>
+                    @Model.Specimen_type
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label" for="name">Clinical details :</label>
+                </td>
+                <td>
+                    @Model.Clinical_details
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label" for="name">Macroscopy :</label>
+                </td>
+                <td>
+                    @Model.Macroscopy
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label" for="name">Microscopy :</label>
+                </td>
+                <td>
+                    @Model.Microscopy
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                    <label class="control-label" for="name">Conclusion :</label>
+                </td>
+                <td>
+                    @Model.Conclusion
+                </td>
+            </tr>
+        </table>
+
+        <hr />
+
+
+
+        <div class="row unselectable">
+            <div class="col-sm-6 align-left" style="line-height:30px;">
+                @*Signature<br>*@
+                Reported By:&nbsp; @Model.reported_by<br>
+                Consultant Histopathologist <br>
+                @Model.LabName
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+

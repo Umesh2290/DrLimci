@@ -24,5 +24,7 @@ namespace LaboratoryBusiness.DAL.Client
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
+        public Nullable<int> ClientUserID { get; set; }
+        public string HospitalCode { get; set; }
     }
 }

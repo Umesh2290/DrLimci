@@ -1,5 +1,230 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="LabSystemClient_RajLabModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Tbl_Cl_AdminDetail">
+    <Key>
+      <PropertyRef Name="AdminDetailID" />
+    </Key>
+    <Property Name="AdminDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClientUserID" Type="int" />
+    <Property Name="SystemClientID" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_ClientUser">
+    <Key>
+      <PropertyRef Name="ClientUserID" />
+    </Key>
+    <Property Name="ClientUserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="varchar" MaxLength="250" />
+    <Property Name="Password" Type="varchar(max)" />
+    <Property Name="FirstName" Type="varchar(max)" />
+    <Property Name="LastName" Type="varchar(max)" />
+    <Property Name="Email" Type="varchar(max)" />
+    <Property Name="MobileNo" Type="varchar(max)" />
+    <Property Name="Address" Type="varchar(max)" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="ProfilePic" Type="varchar(max)" />
+    <Property Name="DetailID" Type="int" />
+    <Property Name="DetailType" Type="int" />
+    <Property Name="IsBlock" Type="bit" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="HospitalDetailID" Type="int" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_ClientUserAttachmentDetail">
+    <Key>
+      <PropertyRef Name="AttachmentID" />
+    </Key>
+    <Property Name="AttachmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AttachmentName" Type="varchar(max)" />
+    <Property Name="Link" Type="varchar(max)" />
+    <Property Name="Extension" Type="varchar" MaxLength="50" />
+    <Property Name="UserDetailID" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_ClientUserDetail">
+    <Key>
+      <PropertyRef Name="UserDetailID" />
+    </Key>
+    <Property Name="UserDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="JoiningDate" Type="date" />
+    <Property Name="TerminationDate" Type="date" />
+    <Property Name="TerminationReason" Type="varchar(max)" />
+    <Property Name="Qualifications" Type="varchar(max)" />
+    <Property Name="TypeOfCollection" Type="varchar(max)" />
+    <Property Name="License" Type="varchar(max)" />
+    <Property Name="IsFulltime" Type="bit" />
+    <Property Name="PdfLink" Type="varchar(max)" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_ClientUserType">
+    <Key>
+      <PropertyRef Name="ClientUserTypeID" />
+    </Key>
+    <Property Name="ClientUserTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TypeName" Type="varchar(max)" />
+    <Property Name="Description" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_ExtraWorkAttachment">
+    <Key>
+      <PropertyRef Name="ExtraWorkAttachmentID" />
+    </Key>
+    <Property Name="ExtraWorkAttachmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar(max)" />
+    <Property Name="Extension" Type="varchar" MaxLength="250" />
+    <Property Name="Link" Type="varchar(max)" />
+    <Property Name="ExtraWorkID" Type="int" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_ExtraWorkRequest">
+    <Key>
+      <PropertyRef Name="ExtraWorkID" />
+    </Key>
+    <Property Name="ExtraWorkID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TestID" Type="int" Nullable="false" />
+    <Property Name="H_ELevels" Type="varchar(max)" />
+    <Property Name="SpecialStains" Type="varchar(max)" />
+    <Property Name="ImmunoHistoChemistry" Type="varchar(max)" />
+    <Property Name="Others" Type="varchar(max)" />
+    <Property Name="StatusID" Type="int" />
+    <Property Name="RequestCreatedDate" Type="datetime" />
+    <Property Name="RequestCreatedBy" Type="int" />
+    <Property Name="NewActionDate" Type="datetime" />
+    <Property Name="NewActionBy" Type="int" />
+    <Property Name="NewActionStatusID" Type="int" />
+    <Property Name="NewActionComments" Type="varchar(max)" />
+    <Property Name="PendingActionBy" Type="int" />
+    <Property Name="PendingActionDate" Type="datetime" />
+    <Property Name="PendingActionComments" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_ExtraWorkRequestStatus">
+    <Key>
+      <PropertyRef Name="WorkRequestStatusID" />
+    </Key>
+    <Property Name="WorkRequestStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StatusName" Type="varchar" MaxLength="250" />
+    <Property Name="Description" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_ForgetPassword">
+    <Key>
+      <PropertyRef Name="ForgetPasswordID" />
+    </Key>
+    <Property Name="ForgetPasswordID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UniqueCode" Type="varchar(max)" />
+    <Property Name="ClientUserID" Type="int" />
+    <Property Name="ExpiresInMinutes" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_HospitalDetail">
+    <Key>
+      <PropertyRef Name="HospitalDetailID" />
+    </Key>
+    <Property Name="HospitalDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HospitalName" Type="varchar(max)" />
+    <Property Name="Address" Type="varchar(max)" />
+    <Property Name="City" Type="varchar(max)" />
+    <Property Name="PhoneNo" Type="varchar(max)" />
+    <Property Name="FaxNo" Type="varchar(max)" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="ClientUserID" Type="int" />
+    <Property Name="HospitalCode" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_IncorrectPasswordAttempt">
+    <Key>
+      <PropertyRef Name="IncorrectPasswordID" />
+    </Key>
+    <Property Name="IncorrectPasswordID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClientUserID" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="Password" Type="varchar(max)" />
+    <Property Name="IsInclude" Type="bit" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_Inventory">
+    <Key>
+      <PropertyRef Name="InventoryID" />
+    </Key>
+    <Property Name="InventoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ItemName" Type="varchar(max)" />
+    <Property Name="Code" Type="varchar" MaxLength="50" />
+    <Property Name="Description" Type="varchar(max)" />
+    <Property Name="QuantityOrdered" Type="varchar" MaxLength="100" />
+    <Property Name="QuantityLeft" Type="varchar" MaxLength="100" />
+    <Property Name="OrderedHistory" Type="varchar(max)" />
+    <Property Name="ExpiryDate" Type="date" />
+    <Property Name="InventoryStatusID" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_InventoryRequest">
+    <Key>
+      <PropertyRef Name="InventoryRequestID" />
+    </Key>
+    <Property Name="InventoryRequestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ItemName" Type="varchar(max)" />
+    <Property Name="Description" Type="varchar(max)" />
+    <Property Name="Comments" Type="varchar(max)" />
+    <Property Name="Quantity" Type="varchar" MaxLength="100" />
+    <Property Name="StatusID" Type="int" />
+    <Property Name="RequestCreatedDate" Type="datetime" />
+    <Property Name="RequestCreatedBy" Type="int" />
+    <Property Name="OpenActionBy" Type="int" />
+    <Property Name="OpenActionDate" Type="datetime" />
+    <Property Name="OpenActionStatusID" Type="int" />
+    <Property Name="OpenActionComments" Type="varchar(max)" />
+    <Property Name="ProgressActionBy" Type="int" />
+    <Property Name="ProgressActionDate" Type="datetime" />
+    <Property Name="ProgressActionComments" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_InventoryRequestStatus">
+    <Key>
+      <PropertyRef Name="InventoryRequestStatusID" />
+    </Key>
+    <Property Name="InventoryRequestStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StatusName" Type="varchar(max)" />
+    <Property Name="Description" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_InventoryStatusType">
+    <Key>
+      <PropertyRef Name="InventoryStatusTypeID" />
+    </Key>
+    <Property Name="InventoryStatusTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StatusName" Type="varchar" MaxLength="150" />
+    <Property Name="Description" Type="varchar(max)" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_LabReportConfiguration">
+    <Key>
+      <PropertyRef Name="ConfigID" />
+    </Key>
+    <Property Name="ConfigID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LabID" Type="int" />
+    <Property Name="LabImage" Type="varbinary(max)" />
+    <Property Name="LabName" Type="varchar(max)" />
+    <Property Name="LabAddress" Type="varchar(max)" />
+    <Property Name="LabCompanyNumber" Type="varchar" MaxLength="100" />
+    <Property Name="LabUniqueCode" Type="varchar" MaxLength="50" />
+    <Property Name="LabHeadOfficeAddress" Type="varchar(max)" />
+    <Property Name="labEmail" Type="varchar" MaxLength="100" />
+  </EntityType>
   <EntityType Name="Tbl_Cl_Menu">
     <Key>
       <PropertyRef Name="MenuID" />
@@ -30,8 +255,271 @@
     <Property Name="UpdatedDate" Type="datetime" />
     <Property Name="UpdatedBy" Type="int" />
   </EntityType>
+  <EntityType Name="Tbl_Cl_Notification">
+    <Key>
+      <PropertyRef Name="NotificationID" />
+    </Key>
+    <Property Name="NotificationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="varchar" MaxLength="400" />
+    <Property Name="Description" Type="varchar(max)" />
+    <Property Name="Icon" Type="varchar(max)" />
+    <Property Name="Type" Type="varchar" MaxLength="400" />
+    <Property Name="ClickLink" Type="varchar" MaxLength="400" />
+    <Property Name="CreatedDatetime" Type="datetime" />
+    <Property Name="Isviewed" Type="bit" />
+    <Property Name="ViewedDatetime" Type="datetime" />
+    <Property Name="EmployeeID" Type="int" />
+    <Property Name="CreatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_OpinionRequest">
+    <Key>
+      <PropertyRef Name="OpinionRequestID" />
+    </Key>
+    <Property Name="OpinionRequestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PatientDetails" Type="varchar(max)" />
+    <Property Name="SampleAnalysisDetails" Type="varchar(max)" />
+    <Property Name="OpinionNeededDescription" Type="varchar(max)" />
+    <Property Name="ConsultationOpinion" Type="varchar(max)" />
+    <Property Name="SystemOpinionRequestID" Type="int" />
+    <Property Name="StatusID" Type="int" />
+    <Property Name="OpinionBy" Type="varchar(max)" />
+    <Property Name="CommentForRequester" Type="varchar(max)" />
+    <Property Name="IsPublish" Type="bit" />
+    <Property Name="RequestCreatedDate" Type="datetime" />
+    <Property Name="RequestCreatedBy" Type="int" />
+    <Property Name="NewActionDate" Type="datetime" />
+    <Property Name="NewActionBy" Type="int" />
+    <Property Name="NewActionStatusID" Type="int" />
+    <Property Name="NewActionComments" Type="varchar(max)" />
+    <Property Name="PendingActionBy" Type="int" />
+    <Property Name="PendingActionDate" Type="datetime" />
+    <Property Name="PendingActionComments" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_OpinionRequestStatus">
+    <Key>
+      <PropertyRef Name="OpinionRequestStatusID" />
+    </Key>
+    <Property Name="OpinionRequestStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="250" />
+    <Property Name="Description" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_PatientDetail">
+    <Key>
+      <PropertyRef Name="PatientDetailID" />
+    </Key>
+    <Property Name="PatientDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MiddleName" Type="varchar(max)" />
+    <Property Name="Age" Type="varchar" MaxLength="50" />
+    <Property Name="Sex" Type="varchar" MaxLength="50" />
+    <Property Name="Streetname" Type="varchar(max)" />
+    <Property Name="City" Type="varchar(max)" />
+    <Property Name="AlternateAddress" Type="varchar(max)" />
+    <Property Name="AlternatePhoneNo" Type="varchar(max)" />
+    <Property Name="ReferingDoctor" Type="varchar" MaxLength="250" />
+    <Property Name="ReferingHospital" Type="varchar(max)" />
+    <Property Name="PaymentMode" Type="varchar" MaxLength="250" />
+    <Property Name="Payment" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="PdfLink" Type="varchar(max)" />
+    <Property Name="PaymentReceiptPdfLink" Type="varchar(max)" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="NHSnumber" Type="varchar(max)" />
+    <Property Name="HospitalID" Type="int" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_Role">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleName" Type="varchar" MaxLength="400" />
+    <Property Name="Description" Type="varchar" MaxLength="400" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_RoleMapping">
+    <Key>
+      <PropertyRef Name="RoleMappingID" />
+    </Key>
+    <Property Name="RoleMappingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleID" Type="int" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="IsDefault" Type="bit" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_SectionRestriction">
+    <Key>
+      <PropertyRef Name="SectionID" />
+    </Key>
+    <Property Name="SectionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SectionSelector" Type="varchar(max)" />
+    <Property Name="MenuID" Type="int" />
+    <Property Name="EmployeeID" Type="int" />
+    <Property Name="RoleID" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_Test">
+    <Key>
+      <PropertyRef Name="TestID" />
+    </Key>
+    <Property Name="TestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TestName" Type="varchar(max)" />
+    <Property Name="IsSampleRequired" Type="bit" />
+    <Property Name="ComplaintHistory" Type="varchar(max)" />
+    <Property Name="Description" Type="varchar(max)" />
+    <Property Name="PatientUserID" Type="int" />
+    <Property Name="TestStatusID" Type="int" />
+    <Property Name="IsSampleCollected" Type="bit" />
+    <Property Name="SampleLabel" Type="varchar(max)" />
+    <Property Name="SampleCode" Type="varchar(max)" />
+    <Property Name="SampleType" Type="varchar(max)" />
+    <Property Name="IsPublish" Type="bit" />
+    <Property Name="PdfLink" Type="varchar(max)" />
+    <Property Name="TestCreatedDate" Type="datetime" />
+    <Property Name="TestCreatedBy" Type="int" />
+    <Property Name="SampleCollectionDate" Type="datetime" />
+    <Property Name="SampleCollectionBy" Type="int" />
+    <Property Name="AnalysisDate" Type="datetime" />
+    <Property Name="AnalysisBy" Type="int" />
+    <Property Name="ConclusionDate" Type="datetime" />
+    <Property Name="ConclusionBy" Type="int" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_TestAttachment">
+    <Key>
+      <PropertyRef Name="TestAttachmentID" />
+    </Key>
+    <Property Name="TestAttachmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar(max)" />
+    <Property Name="Extension" Type="varchar" MaxLength="100" />
+    <Property Name="Link" Type="varchar(max)" />
+    <Property Name="TestID" Type="int" />
+    <Property Name="AttachmentTypeID" Type="int" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_TestAttachmentType">
+    <Key>
+      <PropertyRef Name="TestAttachmentTypeID" />
+    </Key>
+    <Property Name="TestAttachmentTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="250" />
+    <Property Name="Description" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_TestConclusion">
+    <Key>
+      <PropertyRef Name="TestConclusionID" />
+    </Key>
+    <Property Name="TestConclusionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TestReportTypeID" Type="int" />
+    <Property Name="TestID" Type="int" />
+    <Property Name="SpecimenDetails" Type="varchar(max)" />
+    <Property Name="ClinicalDetails" Type="varchar(max)" />
+    <Property Name="Microscopy" Type="varchar(max)" />
+    <Property Name="Macroscopy" Type="varchar(max)" />
+    <Property Name="Conclusion" Type="varchar(max)" />
+    <Property Name="SnomedCoding" Type="varchar(max)" />
+    <Property Name="SampleDescription" Type="varchar(max)" />
+    <Property Name="Report" Type="varchar(max)" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_TestInvestigation">
+    <Key>
+      <PropertyRef Name="InvestigationID" />
+    </Key>
+    <Property Name="InvestigationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InvestigationName" Type="varchar(max)" />
+    <Property Name="Value" Type="varchar(max)" />
+    <Property Name="Range" Type="varchar(max)" />
+    <Property Name="InvestigationResult" Type="varchar(max)" />
+    <Property Name="ExtraWorkID" Type="int" />
+    <Property Name="TestID" Type="int" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_TestReportType">
+    <Key>
+      <PropertyRef Name="TestReportTypeID" />
+    </Key>
+    <Property Name="TestReportTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar(max)" />
+    <Property Name="Description" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_TestStatus">
+    <Key>
+      <PropertyRef Name="TestStatusID" />
+    </Key>
+    <Property Name="TestStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StatusName" Type="varchar(max)" />
+    <Property Name="Description" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Tbl_Cl_TestSupplementReport">
+    <Key>
+      <PropertyRef Name="TestSupplementReportID" />
+    </Key>
+    <Property Name="TestSupplementReportID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TestReportTypeID" Type="int" />
+    <Property Name="TestID" Type="int" />
+    <Property Name="SpecimenDetails" Type="varchar(max)" />
+    <Property Name="ClinicalDetails" Type="varchar(max)" />
+    <Property Name="Microscopy" Type="varchar(max)" />
+    <Property Name="Macroscopy" Type="varchar(max)" />
+    <Property Name="SupplementReportConclusion" Type="varchar(max)" />
+    <Property Name="SnomedCoding" Type="varchar(max)" />
+    <Property Name="SampleDescription" Type="varchar(max)" />
+    <Property Name="Report" Type="varchar(max)" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
   <EntityContainer Name="LabSystemClient_RajLabModelStoreContainer">
+    <EntitySet Name="Tbl_Cl_AdminDetail" EntityType="Self.Tbl_Cl_AdminDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Cl_ClientUser" EntityType="Self.Tbl_Cl_ClientUser" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Cl_ClientUserAttachmentDetail" EntityType="Self.Tbl_Cl_ClientUserAttachmentDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Cl_ClientUserDetail" EntityType="Self.Tbl_Cl_ClientUserDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Cl_ClientUserType" EntityType="Self.Tbl_Cl_ClientUserType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Cl_ExtraWorkAttachment" EntityType="Self.Tbl_Cl_ExtraWorkAttachment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Cl_ExtraWorkRequest" EntityType="Self.Tbl_Cl_ExtraWorkRequest" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Cl_ExtraWorkRequestStatus" EntityType="Self.Tbl_Cl_ExtraWorkRequestStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Cl_ForgetPassword" EntityType="Self.Tbl_Cl_ForgetPassword" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Cl_HospitalDetail" EntityType="Self.Tbl_Cl_HospitalDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Cl_IncorrectPasswordAttempt" EntityType="Self.Tbl_Cl_IncorrectPasswordAttempt" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Cl_Inventory" EntityType="Self.Tbl_Cl_Inventory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Cl_InventoryRequest" EntityType="Self.Tbl_Cl_InventoryRequest" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Cl_InventoryRequestStatus" EntityType="Self.Tbl_Cl_InventoryRequestStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Cl_InventoryStatusType" EntityType="Self.Tbl_Cl_InventoryStatusType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Cl_LabReportConfiguration" EntityType="Self.Tbl_Cl_LabReportConfiguration" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Tbl_Cl_Menu" EntityType="Self.Tbl_Cl_Menu" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Tbl_Cl_MenuAssignment" EntityType="Self.Tbl_Cl_MenuAssignment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Cl_Notification" EntityType="Self.Tbl_Cl_Notification" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Cl_OpinionRequest" EntityType="Self.Tbl_Cl_OpinionRequest" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Cl_OpinionRequestStatus" EntityType="Self.Tbl_Cl_OpinionRequestStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Cl_PatientDetail" EntityType="Self.Tbl_Cl_PatientDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Cl_Role" EntityType="Self.Tbl_Cl_Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Cl_RoleMapping" EntityType="Self.Tbl_Cl_RoleMapping" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Cl_SectionRestriction" EntityType="Self.Tbl_Cl_SectionRestriction" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Cl_Test" EntityType="Self.Tbl_Cl_Test" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Cl_TestAttachment" EntityType="Self.Tbl_Cl_TestAttachment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Cl_TestAttachmentType" EntityType="Self.Tbl_Cl_TestAttachmentType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Cl_TestConclusion" EntityType="Self.Tbl_Cl_TestConclusion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Cl_TestInvestigation" EntityType="Self.Tbl_Cl_TestInvestigation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Cl_TestReportType" EntityType="Self.Tbl_Cl_TestReportType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Cl_TestStatus" EntityType="Self.Tbl_Cl_TestStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Cl_TestSupplementReport" EntityType="Self.Tbl_Cl_TestSupplementReport" Schema="dbo" store:Type="Tables" />
   </EntityContainer>
 </Schema>

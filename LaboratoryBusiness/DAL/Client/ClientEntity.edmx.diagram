@@ -37,6 +37,7 @@
         <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_TestStatus" Width="1.5" PointX="16.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_TestSupplementReport" Width="1.5" PointX="16.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_HospitalDetail" Width="1.5" PointX="13.375" PointY="16.75" />
+        <EntityTypeShape EntityType="LabSystemClient_RajLabModel.Tbl_Cl_LabReportConfiguration" Width="1.5" PointX="15.375" PointY="16.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

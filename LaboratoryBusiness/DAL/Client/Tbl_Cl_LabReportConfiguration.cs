@@ -12,25 +12,21 @@ namespace LaboratoryBusiness.DAL.Client
     using System;
     using System.Collections.Generic;
     
-    public partial class Tbl_Cl_ClientUser
+    public partial class Tbl_Cl_LabReportConfiguration
     {
-        public int ClientUserID { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public string MobileNo { get; set; }
-        public string Address { get; set; }
-        public Nullable<bool> IsActive { get; set; }
-        public string ProfilePic { get; set; }
-        public Nullable<int> DetailID { get; set; }
-        public Nullable<int> DetailType { get; set; }
-        public Nullable<bool> IsBlock { get; set; }
+        public int ConfigID { get; set; }
+        public Nullable<int> LabID { get; set; }
+        public string LabName { get; set; }
+        public string LabAddress { get; set; }
+        public string LabCompanyNumber { get; set; }
+        public string LabUniqueCode { get; set; }
+        public string LabHeadOfficeAddress { get; set; }
+        public string labEmail { get; set; }
+        public string LabImage { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
-        public Nullable<int> HospitalDetailID { get; set; }
+        public string RegistrationNumber { get; set; }
     }
 }

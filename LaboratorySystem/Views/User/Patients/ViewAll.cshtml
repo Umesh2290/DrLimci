@@ -36,6 +36,7 @@ function (data, status, xhr) {
             { data: 'FullName' },
             { data: 'Username' },
             { data: 'Sex' },
+            { data: 'City' },
             { data: 'Status' },
             { data: 'ClientUserID' },
             { data: 'ClientUserID', className: 'editcolumn' }
@@ -43,6 +44,7 @@ function (data, status, xhr) {
         "columnDefs": [
             {
                 "render": function (data, type, row) {
+                    debugger;
                     var returnstring = '<a id="editbtn" href="/User/Patients?IsEdit=1&EditId=' + data + '" title="Edit"><button type="button" class="btn btn-success "><i class="nav-icon i-Pen-2 "></i></button></a>';
                     if (row["IsBlock"] == true) {
                         returnstring += '&nbsp;&nbsp;<i style="font-size:25px;color:red;cursor:pointer" data-id="' + row["ClientUserID"] + '" title="Unblock User" class="nav-icon i-Lock-User unblockuser"></i>';
@@ -50,7 +52,7 @@ function (data, status, xhr) {
                     returnstring += '&nbsp;&nbsp;<i style="font-size:25px;color:green;cursor:pointer" data-id="' + row["ClientUserID"] + '" title="Send forget password email" class="nav-icon i-Key-3 forgetpassword"></i>';
                     return returnstring;
                 },
-                "targets": 6
+                "targets": 7
             },
             {
                 "render": function (data, type, row) {
@@ -71,13 +73,13 @@ function (data, status, xhr) {
                         return data;
                     }
                 },
-                "targets": 4
+                "targets": 5
             },
             {
                 "render": function (data, type, row) {
                     return '<button type="button" class="btn btn-info viewdetail" title="View Detail" class="viewdetail" data-id="' + data + '"><i class="nav-icon i-Magnifi-Glass1"></i></button>';
                 },
-                "targets": 5
+                "targets": 6
             }
         ]
     });
@@ -92,6 +94,7 @@ function (jqXhr, textStatus, errorMessage) {
 
     })
 </script>
+
 <div class="breadcrumb">
     <h1 class="mr-2" id="mainheading">View All</h1>
     <ul>
@@ -124,6 +127,7 @@ function (jqXhr, textStatus, errorMessage) {
                                     <th scope="col">Full Name</th>
                                     <th scope="col">Username</th>
                                     <th scope="col">Gender</th>
+                                    <th scope="col">D.O.B.</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">View Detail</th>
                                     <th scope="col">Action</th>
@@ -192,11 +196,11 @@ function (jqXhr, textStatus, errorMessage) {
                 <span id="gender_lbl">N/A</span>
             </div>
             <div class="mb-4">
-                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Street name</p>
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Report Number</p>
                 <span id="streetname_lbl">N/A</span>
             </div>
             <div class="mb-4">
-                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>City</p>
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>D.O.B.</p>
                 <span id="city_lbl">N/A</span>
             </div>
             <div class="mb-4">
@@ -284,7 +288,7 @@ function (jqXhr, textStatus, errorMessage) {
 
 
         $(document).on('click', '.viewdetail', function () {
-
+            debugger
             MakeRequest(_User_Patients_GetDetail, "POST", { "clientdetailid": $(this).attr("data-id") }, "json",
 function (jqXHR, settings) {
     //For Before Send
@@ -301,6 +305,7 @@ function (data, status, xhr) {
     }
 
     if (outputdt != null) {
+        debugger
         $("#patientid_lbl").text(outputdt.ClientUserID);
         $("#firstname_lbl").text(outputdt.FirstName);
         $("#middlename_lbl").text(outputdt.MiddleName);

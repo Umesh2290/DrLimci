@@ -38,6 +38,7 @@
           <Property Name="CreatedBy" Type="int" />
           <Property Name="UpdatedDate" Type="datetime" />
           <Property Name="UpdatedBy" Type="int" />
+          <Property Name="HospitalDetailID" Type="int" />
         </EntityType>
         <EntityType Name="Tbl_Cl_ClientUserAttachmentDetail">
           <Key>
@@ -144,6 +145,8 @@
           <Property Name="CreatedBy" Type="int" />
           <Property Name="UpdatedDate" Type="datetime" />
           <Property Name="UpdatedBy" Type="int" />
+          <Property Name="ClientUserID" Type="int" />
+          <Property Name="HospitalCode" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Tbl_Cl_IncorrectPasswordAttempt">
           <Key>
@@ -212,6 +215,25 @@
           <Property Name="CreatedBy" Type="int" />
           <Property Name="UpdatedDate" Type="datetime" />
           <Property Name="UpdatedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_LabReportConfiguration">
+          <Key>
+            <PropertyRef Name="ConfigID" />
+          </Key>
+          <Property Name="ConfigID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LabID" Type="int" />
+          <Property Name="LabImage" Type="varchar(max)" />
+          <Property Name="LabName" Type="varchar(max)" />
+          <Property Name="LabAddress" Type="varchar(max)" />
+          <Property Name="LabCompanyNumber" Type="varchar" MaxLength="100" />
+          <Property Name="LabUniqueCode" Type="varchar" MaxLength="50" />
+          <Property Name="LabHeadOfficeAddress" Type="varchar(max)" />
+          <Property Name="labEmail" Type="varchar" MaxLength="100" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="RegistrationNumber" Type="varchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="Tbl_Cl_Menu">
           <Key>
@@ -313,6 +335,8 @@
           <Property Name="CreatedBy" Type="int" />
           <Property Name="UpdatedDate" Type="datetime" />
           <Property Name="UpdatedBy" Type="int" />
+          <Property Name="NHSnumber" Type="varchar(max)" />
+          <Property Name="HospitalID" Type="int" />
         </EntityType>
         <EntityType Name="Tbl_Cl_Role">
           <Key>
@@ -489,6 +513,7 @@
           <EntitySet Name="Tbl_Cl_InventoryRequest" EntityType="Self.Tbl_Cl_InventoryRequest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Cl_InventoryRequestStatus" EntityType="Self.Tbl_Cl_InventoryRequestStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Cl_InventoryStatusType" EntityType="Self.Tbl_Cl_InventoryStatusType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_LabReportConfiguration" EntityType="Self.Tbl_Cl_LabReportConfiguration" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Cl_Menu" EntityType="Self.Tbl_Cl_Menu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Cl_MenuAssignment" EntityType="Self.Tbl_Cl_MenuAssignment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Cl_Notification" EntityType="Self.Tbl_Cl_Notification" Schema="dbo" store:Type="Tables" />
@@ -544,6 +569,7 @@
           <Property Name="CreatedBy" Type="Int32" />
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="HospitalDetailID" Type="Int32" />
         </EntityType>
         <EntityType Name="Tbl_Cl_ClientUserAttachmentDetail">
           <Key>
@@ -804,6 +830,8 @@
           <Property Name="CreatedBy" Type="Int32" />
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="NHSnumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="HospitalID" Type="Int32" />
         </EntityType>
         <EntityType Name="Tbl_Cl_Role">
           <Key>
@@ -997,6 +1025,7 @@
           <EntitySet Name="Tbl_Cl_TestStatus" EntityType="Self.Tbl_Cl_TestStatus" />
           <EntitySet Name="Tbl_Cl_TestSupplementReport" EntityType="Self.Tbl_Cl_TestSupplementReport" />
           <EntitySet Name="Tbl_Cl_HospitalDetail" EntityType="LabSystemClient_RajLabModel.Tbl_Cl_HospitalDetail" />
+          <EntitySet Name="Tbl_Cl_LabReportConfiguration" EntityType="LabSystemClient_RajLabModel.Tbl_Cl_LabReportConfiguration" />
         </EntityContainer>
         <EntityType Name="Tbl_Cl_HospitalDetail">
           <Key>
@@ -1012,6 +1041,27 @@
           <Property Name="CreatedBy" Type="Int32" />
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="ClientUserID" Type="Int32" />
+          <Property Name="HospitalCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_LabReportConfiguration">
+          <Key>
+            <PropertyRef Name="ConfigID" />
+          </Key>
+          <Property Name="ConfigID" Type="Int32" Nullable="false" />
+          <Property Name="LabID" Type="Int32" />
+          <Property Name="LabName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LabAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LabCompanyNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LabUniqueCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LabHeadOfficeAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="labEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LabImage" Type="String" Unicode="false" FixedLength="false" MaxLength="Max" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="RegistrationNumber" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1035,6 +1085,7 @@
           <EntitySetMapping Name="Tbl_Cl_ClientUser">
             <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_ClientUser">
               <MappingFragment StoreEntitySet="Tbl_Cl_ClientUser">
+                <ScalarProperty Name="HospitalDetailID" ColumnName="HospitalDetailID" />
                 <ScalarProperty Name="ClientUserID" ColumnName="ClientUserID" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -1312,6 +1363,8 @@
           <EntitySetMapping Name="Tbl_Cl_PatientDetail">
             <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_PatientDetail">
               <MappingFragment StoreEntitySet="Tbl_Cl_PatientDetail">
+                <ScalarProperty Name="HospitalID" ColumnName="HospitalID" />
+                <ScalarProperty Name="NHSnumber" ColumnName="NHSnumber" />
                 <ScalarProperty Name="PatientDetailID" ColumnName="PatientDetailID" />
                 <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
                 <ScalarProperty Name="Age" ColumnName="Age" />
@@ -1506,6 +1559,8 @@
           <EntitySetMapping Name="Tbl_Cl_HospitalDetail">
             <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_HospitalDetail">
               <MappingFragment StoreEntitySet="Tbl_Cl_HospitalDetail">
+                <ScalarProperty Name="HospitalCode" ColumnName="HospitalCode" />
+                <ScalarProperty Name="ClientUserID" ColumnName="ClientUserID" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
@@ -1519,7 +1574,27 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="Tbl_Cl_LabReportConfiguration">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_LabReportConfiguration">
+              <MappingFragment StoreEntitySet="Tbl_Cl_LabReportConfiguration">
+                <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="LabImage" ColumnName="LabImage" />
+                <ScalarProperty Name="labEmail" ColumnName="labEmail" />
+                <ScalarProperty Name="LabHeadOfficeAddress" ColumnName="LabHeadOfficeAddress" />
+                <ScalarProperty Name="LabUniqueCode" ColumnName="LabUniqueCode" />
+                <ScalarProperty Name="LabCompanyNumber" ColumnName="LabCompanyNumber" />
+                <ScalarProperty Name="LabAddress" ColumnName="LabAddress" />
+                <ScalarProperty Name="LabName" ColumnName="LabName" />
+                <ScalarProperty Name="LabID" ColumnName="LabID" />
+                <ScalarProperty Name="ConfigID" ColumnName="ConfigID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

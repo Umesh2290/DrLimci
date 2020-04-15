@@ -31,10 +31,10 @@ function (data, status, xhr) {
             { data: 'TestID' },
             { data: 'TestName' },
             { data: 'PatientName' },
-  { data: 'Status' },
+            { data: 'City' },
+            { data: 'Status' },
             { data: 'TestCreatedDateCustom' },
-           
-  { data: 'PdfLink' }
+            { data: 'PdfLink' }
 
         ],
         "columnDefs": [
@@ -54,7 +54,7 @@ function (data, status, xhr) {
         else {
             return data;
         }
-    }, "targets": 3
+    }, "targets": 4
 
 },
 
@@ -62,7 +62,7 @@ function (data, status, xhr) {
                 "render": function (data, type, row) {
                     return "<input type='checkbox' class='form-check downloadcheckbox' value='" + row["TestID"] + "' /><a href='" + row["PdfLink"] + "' target='_blank'>Click here to download</a>";
                 },
-                "targets": 5
+                "targets": 6
             }
         ]
     });
@@ -99,6 +99,7 @@ function (jqXhr, textStatus, errorMessage) {
                                     <th scope="col">Test ID #</th>
                                     <th scope="col">Test Name</th>
                                     <th scope="col">Patient Name</th>
+                                    <th scope="col">D.O.B.</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Date</th>
 
@@ -127,11 +128,13 @@ function (jqXhr, textStatus, errorMessage) {
 
 
         $(document).on('change', '.alldownloadpdf', function () {
+            debugger;
             $(".downloadcheckbox").prop('checked', $(this).prop('checked'));
         });
 
 
         $(document).on('change', '.downloadcheckbox', function () {
+            debugger;
             var allcheckboxcount = 0;
             var allcheckboxcheckedcount = 0;
             $('.downloadcheckbox').each(function (i, obj) {

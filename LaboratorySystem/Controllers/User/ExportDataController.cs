@@ -56,7 +56,7 @@ namespace LaboratorySystem.Controllers.User
             try
             {
                 LaboratoryBusiness.Repositories.User.IClientUserRepository clientuser = this.currentdomaindb.ClientUserRepository();
-            LaboratoryBusiness.Repositories.User.IClientUserTypeRepository clientusertype = this.currentdomaindb.ClientUserTypeRepository();
+                LaboratoryBusiness.Repositories.User.IClientUserTypeRepository clientusertype = this.currentdomaindb.ClientUserTypeRepository();
                 LaboratoryBusiness.Repositories.User.IPatientDetailRepository patientdetail = this.currentdomaindb.PatientDetailRepository();
 
 
@@ -73,7 +73,7 @@ namespace LaboratorySystem.Controllers.User
                                       pd.Payment,
                                       pd.PdfLink,
                                       pd.PaymentReceiptPdfLink,
-                                      pd.Streetname,
+                                      pd.City,
                                       CreatedDate=pd.CreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
                                       cl.ClientUserID,
                                       cl.Username,
@@ -252,7 +252,8 @@ namespace LaboratorySystem.Controllers.User
                                   Status = (ts.TestStatusID.HasValue ? ts.TestStatusID.Value : 0) == 5 ? "Completed" : "Pending",
                                   TestCreatedDateCustom = ts.TestCreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
                                   IsPublish = ts.IsPublish.HasValue ? ts.IsPublish.Value ? "Yes" : "No" : "No",
-                                  ts.PdfLink
+                                  ts.PdfLink,
+                                  City=pt.City
                               }).ToList();
 
                 return WebJSResponse.ResponseSimple(new { testjson = result });

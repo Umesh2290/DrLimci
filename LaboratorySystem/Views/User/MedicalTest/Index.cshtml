@@ -20,7 +20,7 @@
                 </div>
         </div>
             <div class="col-md-3">
-                <button type="button" class="btn btn-primary m-1 float-right" id="addbtnsupplement" style="display:none;">+ Add Supplementry Report</button>
+                <button type="button" class="btn btn-primary m-1 float-right" id="addbtnsupplement" style="display:none;">+ Add Supplementary Report</button>
             </div>
         
 </div>
@@ -32,7 +32,7 @@
     LaboratoryBusiness.Repositories.User.ITestReportTypeRepository reporttyperep = ((DBInitializer)ViewBag.currentdomaindb).TestReportTypeRepository();
 
     int patienttypeid = cusertype.GetAll().Where(x => x.TypeName.Equals("Patient")).FirstOrDefault().ClientUserTypeID;
-    
+
     ClientUser cu = MySession.GetClientSession(((string)ViewBag.subdomainurl));
 
     bool is_testinfo_show = true;
@@ -59,7 +59,7 @@
     {
         selectedindex = 2;
     }
-    else if (currentrolename.Equals("Clinical Laboratory Consultant"))
+    else if (currentrolename.Equals("Clinical Laboratory Consultant")|| currentrolename.Equals("Secretary"))
     {
         selectedindex = 3;
     }
@@ -68,21 +68,21 @@
         selectedindex = 0;
     }
 
-    is_samplecollection_show = (currentrolename.Equals("Lab Technician") || currentrolename.Equals("Clinical Laboratory Scientist") || currentrolename.Equals("Clinical Laboratory Consultant")) ? true : false;
-    is_investigation_show = (currentrolename.Equals("Clinical Laboratory Scientist") || currentrolename.Equals("Clinical Laboratory Consultant")) ? true : false;
-    is_conclusion_show = (currentrolename.Equals("Clinical Laboratory Consultant")) ? true : false;
+    is_samplecollection_show = (currentrolename.Equals("Lab Technician") || currentrolename.Equals("Clinical Laboratory Scientist") || currentrolename.Equals("Clinical Laboratory Consultant") || currentrolename.Equals("Secretary")) ? true : false;
+    is_investigation_show = (currentrolename.Equals("Clinical Laboratory Scientist") || currentrolename.Equals("Clinical Laboratory Consultant") || currentrolename.Equals("Secretary"))? true : false;
+    is_conclusion_show = (currentrolename.Equals("Clinical Laboratory Consultant") || currentrolename.Equals("Secretary")) ? true : false;
 
     is_testinfo_editpanel_show = currentrolename.Equals("Receptionist") ? true : false;
     is_samplecollection_editpanel_show = currentrolename.Equals("Lab Technician") ? true : false;
     is_investigation_editpanel_show = currentrolename.Equals("Clinical Laboratory Scientist") ? true : false;
-    is_conclusion_editpanel_show = currentrolename.Equals("Clinical Laboratory Consultant") ? true : false;
+    is_conclusion_editpanel_show = (currentrolename.Equals("Clinical Laboratory Consultant") || currentrolename.Equals("Secretary")) ? true : false;
 
     string test_info_heading = currentrolename.Equals("Receptionist") ? "Create Test" : "Test Information";
     string sample_collection_heading = currentrolename.Equals("Lab Technician") ? "Sample Collection Request" : "Sample Collection Information";
     string investigation_heading = currentrolename.Equals("Clinical Laboratory Scientist") ? "Investigation Request" : "Investigation Information";
-   
+
     string toolbar= (currentrolename.Equals("Receptionist")? "none":"bottom");
-    
+
     <script>
         var js_is_conclusion_show = false;
         var js_is_viewbag_view = false;
@@ -156,7 +156,8 @@ function (jqXHR, settings) {
     //For Before Send
     $('.loadscreen').fadeIn();
 },
-function (data, status, xhr) {
+                function (data, status, xhr) {
+                    debugger;
     //For Success
     $('.loadscreen').fadeOut();
     var rs = WebResponse(data);
@@ -196,8 +197,8 @@ function (data, status, xhr) {
                 if(_isrestricted) {
                     var cr_role = "@currentrolename";
 
-                    if(dt_testobj!=null && (cr_role=="Receptionist" || cr_role=="Lab Technician" || cr_role=="Clinical Laboratory Scientist" ||
-                        cr_role=="Clinical Laboratory Consultant")) {
+                                    if (dt_testobj != null && cr_role == "Receptionist" || cr_role == "Lab Technician" || cr_role == "Clinical Laboratory Scientist"
+                                        || cr_role == "Clinical Laboratory Consultant" || cr_role== "Secretary") {
                         PopulateTestInfo_ViewPanel(dt_testobj);
                         $("#testinfo-step").show();
                         $("#testinfo-viewpanel").show();
@@ -207,8 +208,8 @@ function (data, status, xhr) {
                         selectedstep = 0;
                     }
 
-                    if(dt_samplecollectionobj!=null && (cr_role=="Lab Technician" || cr_role=="Clinical Laboratory Scientist" ||
-                        cr_role=="Clinical Laboratory Consultant")) {
+                    if(dt_samplecollectionobj!=null && cr_role=="Lab Technician" || cr_role=="Clinical Laboratory Scientist" ||
+                        cr_role == "Clinical Laboratory Consultant" || cr_role== "Secretary") {
                         PopulateSampleInfo_ViewPanel(dt_samplecollectionobj);
                         $("#sampleinfo-step").show();
                         $("#samplecollection-viewpanel").show();
@@ -218,8 +219,8 @@ function (data, status, xhr) {
                         selectedstep = 1;
                     }
 
-                    if(dt_investigationobj!=null && (cr_role=="Clinical Laboratory Scientist" ||
-                        cr_role=="Clinical Laboratory Consultant")) {
+                    if(dt_investigationobj!=null && cr_role=="Clinical Laboratory Scientist" ||
+                        cr_role == "Clinical Laboratory Consultant" || cr_role== "Secretary") {
                         PopulateInvestigationInfo_ViewPanel(dt_investigationobj);
                         $("#investigation-step").show();
                         $("#investigation-viewpanel").show();
@@ -229,8 +230,8 @@ function (data, status, xhr) {
                         selectedstep = 2;
                     }
 
-                    if(dt_conclusionobj!=null && (cr_role=="Clinical Laboratory Consultant")) {
-                        PopulateConclusionInfo_ViewPanel(dt_conclusionobj);
+        if (dt_conclusionobj != null && cr_role == "Clinical Laboratory Consultant" || cr_role== "Secretary") {
+                        PopulateConclusionInfo_ViewPanel(dt_conclusionobj,dt_testobj);
                         PopulateSupplementReport(dt_supplementreportlistobj);
 
                         $("#conclusion-step").show();
@@ -273,7 +274,7 @@ function (data, status, xhr) {
                     }
 
                     if(dt_conclusionobj!=null) {
-                        PopulateConclusionInfo_ViewPanel(dt_conclusionobj);
+                        PopulateConclusionInfo_ViewPanel(dt_conclusionobj,dt_testobj);
                         PopulateSupplementReport(dt_supplementreportlistobj);
 
                         $("#conclusion-step").show();
@@ -288,7 +289,7 @@ function (data, status, xhr) {
             else {
                 if(dt_testobj!=null) {
                     var cr_role2 = "@currentrolename";
-
+                    //if (cr_role2 == "Clinical Laboratory Scientist" && dt_testobj.TestStatusName == "On Lab Technician Plate") 
                     if(cr_role2 == "Lab Technician" && dt_testobj.TestStatusName=="On Lab Technician Plate")
                     {
                         if(dt_testobj!=null) {
@@ -335,7 +336,7 @@ function (data, status, xhr) {
 
                     }
 
-                    else if(cr_role2 == "Clinical Laboratory Consultant" && dt_testobj.TestStatusName=="On Clinical Lab Doctor Plate")
+                    else if ((cr_role2 == "Clinical Laboratory Consultant" || cr_role2 == "Secretary") && dt_testobj.TestStatusName=="On Clinical Lab Doctor Plate")
                     {
                         if(dt_testobj!=null) {
                             PopulateTestInfo_ViewPanel(dt_testobj);
@@ -389,8 +390,8 @@ function (data, status, xhr) {
                     }
 
                     else if(dt_testobj.TestStatusName=="Completed" || (dt_testobj.IsPublish!=null?dt_testobj.IsPublish:false)) {
-                        if(dt_testobj!=null && (cr_role2=="Receptionist" || cr_role2=="Lab Technician" || cr_role2=="Clinical Laboratory Scientist" ||
-                        cr_role2=="Clinical Laboratory Consultant")) {
+                        if(dt_testobj!=null && cr_role2=="Receptionist" || cr_role2=="Lab Technician" || cr_role2=="Clinical Laboratory Scientist" ||
+                            cr_role2 == "Clinical Laboratory Consultant" || cr_role2== "Secretary") {
                             PopulateTestInfo_ViewPanel(dt_testobj);
                             $("#testinfo-step").show();
                             $("#testinfo-viewpanel").show();
@@ -400,8 +401,8 @@ function (data, status, xhr) {
                             selectedstep = 0;
                         }
 
-                        if(dt_samplecollectionobj!=null && (cr_role2=="Lab Technician" || cr_role2=="Clinical Laboratory Scientist" ||
-                            cr_role2=="Clinical Laboratory Consultant")) {
+                        if(dt_samplecollectionobj!=null && cr_role2=="Lab Technician" || cr_role2=="Clinical Laboratory Scientist" ||
+                            cr_role2 == "Clinical Laboratory Consultant" || cr_role2== "Secretary") {
                             PopulateSampleInfo_ViewPanel(dt_samplecollectionobj);
                             $("#sampleinfo-step").show();
                             $("#samplecollection-viewpanel").show();
@@ -411,8 +412,8 @@ function (data, status, xhr) {
                             selectedstep = 1;
                         }
 
-                        if(dt_investigationobj!=null && (cr_role2=="Clinical Laboratory Scientist" ||
-                            cr_role2=="Clinical Laboratory Consultant")) {
+                        if(dt_investigationobj!=null && cr_role2=="Clinical Laboratory Scientist" ||
+                            cr_role2 == "Clinical Laboratory Consultant" || cr_role2== "Secretary") {
                             PopulateInvestigationInfo_ViewPanel(dt_investigationobj);
                             $("#investigation-step").show();
                             $("#investigation-viewpanel").show();
@@ -422,8 +423,8 @@ function (data, status, xhr) {
                             selectedstep = 2;
                         }
 
-                        if(dt_conclusionobj!=null && (cr_role2=="Clinical Laboratory Consultant")) {
-                            PopulateConclusionInfo_ViewPanel(dt_conclusionobj);
+                        if (dt_conclusionobj != null && cr_role2 == "Clinical Laboratory Consultant" || cr_role2== "Secretary") {
+                            PopulateConclusionInfo_ViewPanel(dt_conclusionobj,dt_testobj);
                             PopulateSupplementReport(dt_supplementreportlistobj);
                             if((dt_testobj.IsPublish!=null?dt_testobj.IsPublish:false)) {
 
@@ -586,7 +587,8 @@ function (data, status, xhr) {
 
     });
 
-    function PopulateTestInfo_ViewPanel(inputdata) {
+        function PopulateTestInfo_ViewPanel(inputdata) {
+            debugger;
         $("#testinfo-heading").text("Test Information");
         $("#patientid_ti_vw_lbl").text(inputdata.PatientID);
         $("#city_ti_vw_lbl").text(inputdata.City);
@@ -603,7 +605,8 @@ function (data, status, xhr) {
         $("#issamplerequired_ti_vw_lbl").text(inputdata.IsSampleRequired);
     }
 
-    function PopulateSampleInfo_ViewPanel(inputdata) {
+        function PopulateSampleInfo_ViewPanel(inputdata) {
+            debugger;
         $("#samplecollection-heading").text("Sample Collection Information");
         $("#issamplecollected_sc_vw_lbl").text(inputdata.IsSampleCollected);
         $("#sampletype_sc_vw_lbl").text(inputdata.SampleType);
@@ -782,7 +785,8 @@ function (data, status, xhr) {
         }
     }
 
-    function PopulateConclusionInfo_ViewPanel(inputdata) {
+        function PopulateConclusionInfo_ViewPanel(inputdata, testobjdata) {
+            debugger;
         $("#reporttype_con_vw_lbl").text(inputdata.TestReportType);
         $("#specimendetails_con_vw_lbl").text(inputdata.SpecimenDetails);
         $("#conclusion_con_vw_lbl").text(inputdata.Conclusion);
@@ -820,6 +824,12 @@ function (data, status, xhr) {
         if(inputdata.Report!=null) {
             $("#report_con_vw_lbl").text(inputdata.Report);
             $("#report_con_vw").show();
+
+        }
+
+        if(testobjdata.PdfLink!=null) {
+            $("#downloadtestreport_con_vw_lbl_href").attr("href",testobjdata.PdfLink);
+            $(".downloadtestreport_lbl").show();
 
         }
 
@@ -1068,9 +1078,9 @@ function (data, status, xhr) {
                 @if (is_conclusion_show || ViewBag.IsView)
                 {
                     <li class="nav-item done" id="conclusion-step" style="display:none"><a href="#step-4" class="nav-link">Conclusion<br><small></small></a></li>
-                    if (currentrolename.Equals("Clinical Laboratory Consultant") && !ViewBag.IsView)
-                    { 
-                    <li class="nav-item done" id="addsupplement-step" style="display:none"><a href="#step-add-supplement" class="nav-link">Add Supplementry Report<br><small></small></a></li>
+                    if (currentrolename.Equals("Clinical Laboratory Consultant")|| currentrolename.Equals("Secretary") && !ViewBag.IsView)
+                    {
+                    <li class="nav-item done" id="addsupplement-step" style="display:none"><a href="#step-add-supplement" class="nav-link">Add Supplementary Report<br><small></small></a></li>
                     }
                 }
                 
@@ -1110,7 +1120,7 @@ function (data, status, xhr) {
                                                 <span id="patientid_lbl">N/A</span>
                                             </div>
                                             <div class="mb-4">
-                                                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>City</p>
+                                                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>D.O.B.</p>
                                                 <span id="city_lbl">N/A</span>
                                             </div>
                                         </div>
@@ -1145,7 +1155,7 @@ function (data, status, xhr) {
                                                     Test Name:
                                                 </label>
                                                 <div class="col-lg-3 ">
-                                                    <input type="text" class="form-control" id="testname" name="testname" required="required" placeholder="Enter test name">
+                                                    <input type="text" class="form-control" id="testname" name="testname" placeholder="Enter test name">
                                                     <small id="testnamehelpblock" class="ul-form__text form-text ">
                                                         Please enter test name
                                                     </small>
@@ -1168,7 +1178,7 @@ function (data, status, xhr) {
                                                     Complaint History:
                                                 </label>
                                                 <div class="col-lg-3 ">
-                                                    <input type="text" class="form-control" id="complainthistory" name="complainthistory" required="required" placeholder="Enter complaint history">
+                                                    <input type="text" class="form-control" id="complainthistory" name="complainthistory" placeholder="Enter complaint history">
                                                     <small id="complainthistorythelpblock" class="ul-form__text form-text ">
                                                         Please enter complaint history
                                                     </small>
@@ -1212,7 +1222,7 @@ function (data, status, xhr) {
                                             <span id="patientid_ti_vw_lbl">N/A</span>
                                         </div>
                                         <div class="mb-4">
-                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>City</p>
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>D.O.B.</p>
                                             <span id="city_ti_vw_lbl">N/A</span>
                                         </div>
                                         <div class="mb-4">
@@ -1226,7 +1236,7 @@ function (data, status, xhr) {
                                             <span id="fullname_ti_vw_lbl">N/A</span>
                                         </div>
                                         <div class="mb-4">
-                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Mobile No</p>
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Mobile Number</p>
                                             <span id="mobileno_ti_vw_lbl">N/A</span>
                                         </div>
                                         <div class="mb-4">
@@ -1304,7 +1314,7 @@ function (data, status, xhr) {
                                                 </div>
 
                                                 <label for="samplelabel" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
-                                                    Sample Label:
+                                                    Sample Label/Report Refrence No:
                                                 </label>
                                                 <div class="col-lg-3 ">
                                                     <input type="text" class="form-control" id="samplelabel" name="samplelabel" required="required" placeholder="Enter sample label">
@@ -1317,7 +1327,7 @@ function (data, status, xhr) {
                                                     Sample Code:
                                                 </label>
                                                 <div class="col-lg-3 ">
-                                                    <input type="text" class="form-control" id="samplecode" name="samplecode" required="required" placeholder="Enter sample code">
+                                                    <input type="text" class="form-control" id="samplecode" name="samplecode" placeholder="Enter sample code">
                                                     <small id="samplecodethelpblock" class="ul-form__text form-text ">
                                                         Please enter sample code
                                                     </small>
@@ -1330,7 +1340,7 @@ function (data, status, xhr) {
                                                     Sample Type:
                                                 </label>
                                                 <div class="col-lg-3 ">
-                                                    <input type="text" class="form-control" id="sampletype" name="sampletype" required="required" placeholder="Enter sample type">
+                                                    <input type="text" class="form-control" id="sampletype" name="sampletype" placeholder="Enter sample type">
                                                     <small id="sampletypehelpblock" class="ul-form__text form-text ">
                                                         Please enter sample type
                                                     </small>
@@ -1431,10 +1441,10 @@ function (data, status, xhr) {
                                                             </thead>
                                                             <tbody id="investigationsrow">
                                                                 <tr class="investigationrow">
-                                                                    <td><input type="text" class="form-control investigationname" required="required" placeholder="Enter investigation name"></td>
-                                                                    <td><input type="text" class="form-control investigationvalues" required="required" placeholder="Enter values"></td>
-                                                                    <td><input type="text" class="form-control investigationrange" required="required" placeholder="Enter range"></td>
-                                                                    <td><input type="text" class="form-control investigationresult" required="required" placeholder="Enter result"></td>
+                                                                    <td><input type="text" class="form-control investigationname" placeholder="Enter investigation name"></td>
+                                                                    <td><input type="text" class="form-control investigationvalues" placeholder="Enter values"></td>
+                                                                    <td><input type="text" class="form-control investigationrange" placeholder="Enter range"></td>
+                                                                    <td><input type="text" class="form-control investigationresult" placeholder="Enter result"></td>
                                                                     <td>
                                                                         <button type="button" class="btn btn-success m-1 addinvestigation">Add</button>
                                                                         <i style="font-size:25px;color:red;cursor:pointer;display:none" title="Remove" class="nav-icon i-Close removeinvestigation"></i>
@@ -1573,50 +1583,8 @@ function (data, status, xhr) {
                                                         Please enter clinical details
                                                     </small>
                                                 </div></div>
- <div class="custom-separator"></div>
-<div class="form-group row">
-                                                <label for="conclusion" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
-                                                    Conclusion / Comments:
-                                                </label>
-                                                <div class="col-lg-10 ">
-                                                    <textarea class="form-control" id="conclusion" name="conclusion" placeholder="Enter conclusion / comments"></textarea>
-                                                    <small id="conclusionthelpblock" class="ul-form__text form-text ">
-                                                        Please enter conclusion / comments
-                                                    </small>
-                                                </div></div>
-<div class="custom-separator"></div>
-<div class="form-group row"> <label for="sampledescription" class="ul-form__label ul-form--margin col-lg-1   col-form-label sampledescriptionsection" style="display:none">
-                                                    Sample Description:
-                                                </label>
-                                                <div class="col-lg-10 sampledescriptionsection" style="display:none">
-                                                    <textarea class="form-control" id="sampledescription" name="sampledescription" placeholder="Enter sample description"></textarea>
-                                                    <small id="sampledescriptionhelpblock" class="ul-form__text form-text ">
-                                                        Please enter sample description
-                                                    </small>
-                                                </div></div>
-<div class="custom-separator"></div>
-<div class="form-group row">
-                                                <label for="microscopy" class="ul-form__label ul-form--margin col-lg-1   col-form-label microscopysection" style="display:none">
-                                                    Microscopy:
-                                                </label>
-                                                <div class="col-lg-10 microscopysection" style="display:none">
-                                                    <input type="text" class="form-control" id="microscopy2" name="microscopy2" placeholder="Enter microscopy">
-                                                    <small id="microscopyhelpblock" class="ul-form__text form-text ">
-                                                        Please enter microscopy
-                                                    </small>
-                                                </div></div>
-<div class="custom-separator"></div>
 
-  <div class="form-group row"> <label for="snomedcoding" class="ul-form__label ul-form--margin col-lg-1   col-form-label histopathology">
-                                                    Disease Coding:
-                                                </label>
-                                                <div class="col-lg-10 histopathology">
-                                                    <input type="text" class="form-control" id="snomedcoding" name="snomedcoding" required="required" placeholder="Enter disease coding">
-                                                    <small id="snomedcodinghelpblock" class="ul-form__text form-text ">
-                                                        Please enter disease coding
-                                                    </small>
-                                                </div></div>
-<div class="custom-separator"></div>
+                                            <div class="custom-separator"></div>
                                             <div class="form-group row">
                                                 <label for="macroscopy" class="ul-form__label ul-form--margin col-lg-1   col-form-label histopathology">
                                                     Macroscopy:
@@ -1634,9 +1602,34 @@ function (data, status, xhr) {
 
                                             </div>
                                             <div class="custom-separator"></div>
+                                            <div class="form-group row">
+                                                <label for="microscopy" class="ul-form__label ul-form--margin col-lg-1   col-form-label histopathology">
+                                                    Microscopy:
+                                                </label>
+                                                <div class="col-lg-10 histopathology">
+                                                    <input type="text" class="form-control" id="microscopy" name="microscopy" placeholder="Enter microscopy">
+                                                    <small id="microscopyhelpblock" class="ul-form__text form-text ">
+                                                        Please enter microscopy
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="custom-separator"></div>
+                                            <div class="form-group row">
+                                                <label for="sampledescription" class="ul-form__label ul-form--margin col-lg-1   col-form-label sampledescriptionsection" style="display:none">
+                                                    Sample Description:
+                                                </label>
+                                                <div class="col-lg-10 sampledescriptionsection" style="display:none">
+                                                    <textarea class="form-control" id="sampledescription" name="sampledescription" placeholder="Enter sample description"></textarea>
+                                                    <small id="sampledescriptionhelpblock" class="ul-form__text form-text ">
+                                                        Please enter sample description
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            <div class="custom-separator"></div>
 
                                             <div class="form-group row">
-                                               
+
 
 
                                                 <label for="report" class="ul-form__label ul-form--margin col-lg-1   col-form-label reportsection" style="display:none">
@@ -1650,18 +1643,54 @@ function (data, status, xhr) {
                                                 </div>
                                             </div>
                                             <div class="custom-separator"></div>
-                                            <div class="form-group row">
-                                               
-
-                                                <label for="attachmentfiles_conclusion" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Attachment Files:</label>
-                                                <div class="col-lg-10">
-                                                    <input type="file" id="attachmentfiles_conclusion" name="attachmentfiles_conclusion" multiple />
-                                                    <small id="attachmentfiles_conclusionBlock" class="ul-form__text form-text ">
-                                                        upload attachment files
+<div class="form-group row">
+                                                <label for="conclusion" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                                    Conclusion / Comments:
+                                                </label>
+                                                <div class="col-lg-10 ">
+                                                    <textarea class="form-control" id="conclusion" name="conclusion" placeholder="Enter conclusion / comments"></textarea>
+                                                    <small id="conclusionthelpblock" class="ul-form__text form-text ">
+                                                        Please enter conclusion / comments
                                                     </small>
-                                                </div>
+                                                </div></div>
 
-                                             </div>
+<div class="custom-separator"></div>
+<div class="form-group row">
+                                                <label for="microscopy" class="ul-form__label ul-form--margin col-lg-1   col-form-label microscopysection" style="display:none">
+                                                    Microscopy:
+                                                </label>
+                                                <div class="col-lg-10 microscopysection" style="display:none">
+                                                    <input type="text" class="form-control" id="microscopy2" name="microscopy2" placeholder="Enter microscopy">
+                                                    <small id="microscopyhelpblock" class="ul-form__text form-text ">
+                                                        Please enter microscopy
+                                                    </small>
+                                                </div></div>
+<div class="custom-separator"></div>
+
+  <div class="form-group row"> <label for="snomedcoding" class="ul-form__label ul-form--margin col-lg-1   col-form-label histopathology">
+                                                    Disease Coding:
+                                                </label>
+                                                <div class="col-lg-10 histopathology">
+                                                    <input type="text" class="form-control" id="snomedcoding" name="snomedcoding" placeholder="Enter disease coding">
+                                                    <small id="snomedcodinghelpblock" class="ul-form__text form-text ">
+                                                        Please enter disease coding
+                                                    </small>
+                                                </div></div>
+
+                                                
+                                                <div class="custom-separator"></div>
+                                                <div class="form-group row">
+
+
+                                                    <label for="attachmentfiles_conclusion" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Attachment Files:</label>
+                                                    <div class="col-lg-10">
+                                                        <input type="file" id="attachmentfiles_conclusion" name="attachmentfiles_conclusion" multiple />
+                                                        <small id="attachmentfiles_conclusionBlock" class="ul-form__text form-text ">
+                                                            upload attachment files
+                                                        </small>
+                                                    </div>
+
+                                                </div>
 
                                                 <div class="custom-separator attachmentsection_conclusionalready" style="display:none"></div>
                                                 <div class="card-header bg-transparent attachmentsection_conclusionalready" style="display:none">
@@ -1679,7 +1708,17 @@ function (data, status, xhr) {
                                                 <div class="row text-center">
                                                     <div class="col-lg-12 ">
                                                         <button type="submit" class="btn btn-primary m-1" id="savebtnconclusion">Save</button>
+                                                        @{ 
+                                                            if (currentrolename == "Secretary")
+                                                            {
+                                                         <button type="submit" style="display:none" class="btn btn-success m-1" id="saveandpublishbtnconclusion">Authorise</button>
+                                                            }
+                                                            else
+                                                            {
                                                         <button type="submit" class="btn btn-success m-1" id="saveandpublishbtnconclusion">Authorise</button>
+                                                            }
+                                                            }
+
                                                         <button type="reset" class="btn btn-outline-secondary m-1" id="cancelbtn">Reset</button>
                                                     </div>
                                                 </div>
@@ -1726,6 +1765,10 @@ function (data, status, xhr) {
                                             <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Conclusion Date</p>
                                             <span id="conclusiondate_con_vw_lbl">N/A</span>
                                         </div>
+                                        <div class="mb-4 downloadtestreport_lbl" style="display:none;">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Download Test Report</p>
+                                            <span id="downloadtestreport_con_vw_lbl"><a id="downloadtestreport_con_vw_lbl_href" href="#" target="_blank"><b>Download</b></a></span>
+                                        </div>
                                     </div>
                                     <div class="col-md-4 col-6">
                                         <div class="mb-4" id="microscopy_con_vw" style="display:none">
@@ -1751,7 +1794,7 @@ function (data, status, xhr) {
                     </div>
 
                     <div id="step-add-supplement" class="tab-pane step-content" style="display:none">
-        <h3 class="border-bottom border-gray pb-2" id="addsupplement-heading" style="margin-left: 20px;">Add Supplementry Report</h3>
+        <h3 class="border-bottom border-gray pb-2" id="addsupplement-heading" style="margin-left: 20px;">Add Supplementary Report</h3>
         <div id="addsupplement-editpanel">
             <form id="addsupplementform">
                 <div class="card ul-card__margin-25">
@@ -1802,7 +1845,7 @@ function (data, status, xhr) {
                                 Macroscopy:
                             </label>
                             <div class="col-lg-3 histopathology_sp">
-                                <input type="text" class="form-control" id="macroscopy_sp" name="macroscopy" required="required" placeholder="Enter macroscopy">
+                                <input type="text" class="form-control" id="macroscopy_sp" name="macroscopy" placeholder="Enter macroscopy">
                                 <small id="macroscopyhelpblock" class="ul-form__text form-text ">
                                     Please enter macroscopy
                                 </small>
@@ -1812,7 +1855,7 @@ function (data, status, xhr) {
                                 Microscopy:
                             </label>
                             <div class="col-lg-3 histopathology_sp">
-                                <input type="text" class="form-control" id="microscopy_sp" name="microscopy" required="required" placeholder="Enter microscopy">
+                                <input type="text" class="form-control" id="microscopy_sp" name="microscopy" placeholder="Enter microscopy">
                                 <small id="microscopyhelpblock" class="ul-form__text form-text ">
                                     Please enter microscopy
                                 </small>
@@ -1867,7 +1910,7 @@ function (data, status, xhr) {
                                 Disease Coding:
                             </label>
                             <div class="col-lg-3 histopathology_sp">
-                                <input type="text" class="form-control" id="snomedcoding_sp" name="snomedcoding" required="required" placeholder="Enter disease coding">
+                                <input type="text" class="form-control" id="snomedcoding_sp" name="snomedcoding" placeholder="Enter disease coding">
                                 <small id="snomedcodinghelpblock" class="ul-form__text form-text ">
                                     Please enter disease coding
                                 </small>
@@ -1994,7 +2037,7 @@ function (data, status, xhr) {
                             swal.fire({ title: "Saved Successfully !", icon: "success", html: "Report Conclusion has been saved successfully<br>." });
                         }
                         else if (AttachmentTypeId==4) {
-                            swal.fire({ title: "Saved Successfully !", icon: "success", html: "Supplementry Report has been saved successfully<br>." });
+                            swal.fire({ title: "Saved Successfully !", icon: "success", html: "Supplementary Report has been saved successfully<br>." });
                         }
                         else {
                             swal.fire({ title: "Saved Successfully !", icon: "success", html: "Saved Successfully !" });
@@ -2026,7 +2069,7 @@ function (data, status, xhr) {
                     swal.fire({ title: "Saved Successfully !", icon: "success", html: "Report Conclusion has been saved successfully<br>." });
                 }
                 else if (AttachmentTypeId==4) {
-                    swal.fire({ title: "Saved Successfully !", icon: "success", html: "Supplementry Report has been saved successfully<br>." });
+                    swal.fire({ title: "Saved Successfully !", icon: "success", html: "Supplementary Report has been saved successfully<br>." });
                 }
                 else {
                     swal.fire({ title: "Saved Successfully !", icon: "success", html: "Saved Successfully !" });
@@ -2057,7 +2100,7 @@ function (data, status, xhr) {
                 swal.fire({ title: "Saved Successfully !", icon: "success", html: "Report Conclusion has been saved successfully<br>." });
             }
             else if (AttachmentTypeId==4) {
-                swal.fire({ title: "Saved Successfully !", icon: "success", html: "Supplementry Report has been saved successfully<br>." });
+                swal.fire({ title: "Saved Successfully !", icon: "success", html: "Supplementary Report has been saved successfully<br>." });
             }
             else {
                 swal.fire({ title: "Saved Successfully !", icon: "success", html: "Saved Successfully !" });
@@ -2089,6 +2132,7 @@ function (data, status, xhr) {
                         $('.loadscreen').fadeIn();
                     },
                     function (data, status, xhr) {
+                        debugger
                         //For Success
 
                         $('.loadscreen').fadeOut();

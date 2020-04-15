@@ -43,7 +43,8 @@ namespace LaboratoryBusiness.BLL.User
                                ProfilePic = p.ProfilePic,
                                UpdatedBy = p.UpdatedBy,
                                UpdatedDate = p.UpdatedDate,
-                               IsBlock = p.IsBlock
+                               IsBlock = p.IsBlock,
+                               HospitalDetailID=p.HospitalDetailID
 
                            });
             return records;
@@ -72,7 +73,8 @@ namespace LaboratoryBusiness.BLL.User
                               ProfilePic = p.ProfilePic,
                               UpdatedBy = p.UpdatedBy,
                               UpdatedDate = p.UpdatedDate,
-                              IsBlock = p.IsBlock
+                              IsBlock = p.IsBlock,
+                              HospitalDetailID=p.HospitalDetailID
                           }).FirstOrDefault();
 
             return record;
@@ -99,7 +101,8 @@ namespace LaboratoryBusiness.BLL.User
                 ProfilePic = clientuser.ProfilePic,
                 UpdatedBy = clientuser.UpdatedBy,
                 UpdatedDate = clientuser.UpdatedDate,
-                IsBlock = clientuser.IsBlock
+                IsBlock = clientuser.IsBlock,
+                HospitalDetailID=clientuser.HospitalDetailID
 
             };
             _context.Tbl_Cl_ClientUser.Add(cl_user);
@@ -129,6 +132,7 @@ namespace LaboratoryBusiness.BLL.User
                 record.UpdatedBy = clientuser.UpdatedBy;
                 record.UpdatedDate = clientuser.UpdatedDate;
                 record.IsBlock = clientuser.IsBlock;
+                record.HospitalDetailID = clientuser.HospitalDetailID;
 
             }
             else

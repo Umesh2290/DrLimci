@@ -299,5 +299,9 @@ namespace LaboratorySystem
         {
             return new BLL.User.HospitalDetailRepository(new LaboratoryBusiness.DAL.Client.LabSystemClient_RajLabEntities(this._connectionstring));
         }
+        public Repositories.User.ILabReportConfiguration LabReportConfigurationRepository()
+        {
+            return new BLL.User.LabReportConfigurationRepository(new LaboratoryBusiness.DAL.Client.LabSystemClient_RajLabEntities(this._connectionstring));
+        }
     }
 }

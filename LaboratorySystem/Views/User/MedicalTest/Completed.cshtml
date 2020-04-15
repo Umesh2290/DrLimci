@@ -4,7 +4,18 @@
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
 
+@{
+    LaboratoryBusiness.Repositories.User.IAdminDetailRepository admindetail = ((DBInitializer)ViewBag.currentdomaindb).AdminDetailRepository();
+    LaboratoryBusiness.POCO.User.Cl_AdminDetail _addetail = admindetail.GetAll().FirstOrDefault();
 
+    LaboratoryBusiness.Repositories.Admin.ISystemUserRepository su = new LaboratoryBusiness.BLL.Admin.SystemUserRepository();
+    LaboratoryBusiness.POCO.Admin.SystemUser supoco = su.GetByID(_addetail.SystemClientID.Value);
+
+    LaboratoryBusiness.Repositories.Admin.IClientRepository cl = new LaboratoryBusiness.BLL.Admin.ClientRepository();
+    LaboratoryBusiness.POCO.Admin.Client clpoco = cl.GetByID(supoco.DetailID.Value);
+    int role = MySession.GetClientSession(clpoco.Subdomain).CurrentRole.RoleID;
+
+}
 <script>
     var currentmenu = 32;
     var allloaded = false;
@@ -36,10 +47,12 @@ function (data, status, xhr) {
             { data: 'TestName' },
             { data: 'PatientName' },
             { data: 'TestCreatedDateCustom' },
-            { data: 'IsPublish' },
+            { data: 'City' },
             { data: 'Status' },
             { data: 'TestID' },
-            { data: 'TestID', className: 'editcolumn' }
+            { data: 'TestID', className: 'editcolumn' },
+            { data: 'TestID' }
+
         ],
         "columnDefs": [
             {
@@ -69,6 +82,20 @@ function (data, status, xhr) {
                     return '<a href="/User/MedicalTest?IsEdit=0&EditId=' + data + '" target="_blank" title="View Detail"><button type="button" class="btn btn-info"><i class="nav-icon i-Magnifi-Glass1"></i></button></a>';
                 },
                 "targets": 6
+            },
+            {
+
+                "render": function (data, type, row) {
+
+                    if (@role == 1 || @role == 5 || @role == 10 || @role == 6) {
+                        return '<button type="button" class="btn btn-info ViewReport" id="ViewReport" data-id=' + data + '><i class="nav-icon i-Magnifi-Glass1"></i></button>';
+                    }
+                    else {
+                        return "";
+                    }
+                },  
+                "targets": 8,
+              
             }
         ]
     });
@@ -79,10 +106,59 @@ function (jqXhr, textStatus, errorMessage) {
     //For Error
     $('.loadscreen').fadeOut();
     WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
-});
+            });
+        $(document).on("click", ".ViewReport", function (e) {
+            //$('.ViewReport').click(function (e) {
+            debugger;
+            //$mymodal = $("#myModal");
+            // $mymodal.modal("show");
+            e.preventDefault();
+            var $form = $(this);
+            var dataId = $(this).attr("data-id");
+
+            $.post('./ViewReport', { Id: dataId }).done(function (res) {
+                debugger;
+                $mymodal = $("#myModal");
+                //update the modal's body with the response received
+                $mymodal.find("div.modal-body").html(res);
+                // Show the modal
+                $mymodal.modal("show");
+            });
+        });
 
     });
+    function PrintDiv() {
+        debugger;
+
+        document.getElementById("name").innerHTML = "XXXX";
+        document.getElementById("dob").innerHTML = "XXXX";
+        document.getElementById("address").innerHTML = "XXXX";
+        document.getElementById("gender").innerHTML = "XXXX";
+
+        var contents = document.getElementById("divprint").innerHTML;
+
+        var frame1 = document.createElement('iframe');
+        frame1.name = "frame1";
+        frame1.id = "frame1";
+        frame1.style.position = "absolute";
+        frame1.style.top = "-10000px";
+        document.body.appendChild(frame1);
+        var frameDoc = frame1.contentWindow ? frame1.contentWindow : frame1.contentDocument.document ? frame1.contentDocument.document : frame1.contentDocument;
+        frameDoc.document.open();
+        frameDoc.document.write('</head><body>');
+        frameDoc.document.write(contents);
+        frameDoc.document.write('</body></html>');
+        frameDoc.document.close();
+        setTimeout(function () {
+            window.frames["frame1"].focus();
+            window.frames["frame1"].print();
+            document.body.removeChild(frame1);
+        }, 500);
+        return false;
+    }
+
 </script>
+
 <div class="breadcrumb">
     <h1 class="mr-2" id="mainheading">Completed</h1>
     <ul>
@@ -116,10 +192,22 @@ function (jqXhr, textStatus, errorMessage) {
                                     <th scope="col">Test Name</th>
                                     <th scope="col">Patient Name</th>
                                     <th scope="col">Test Created Date</th>
-                                    <th scope="col">Is Publish</th>
+                                    <th scope="col">D.O.B.</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">View Detail</th>
                                     <th scope="col">Action</th>
+                                    @{
+                                        if (role == 1 || role == 5 || role == 10 || role == 6)
+                                        {
+                                            <th scope="col">View Report</th>
+                                        }
+                                       else
+                                        {
+                                            <th scope="col" style="display:none">View Report</th>
+                                        }
+
+                                    }
+
                                 </tr>
                             </thead>
                             <tbody></tbody>
@@ -131,4 +219,22 @@ function (jqXhr, textStatus, errorMessage) {
         </div>
         <!-- end of col-->
     </div>
-</div>   
+</div> 
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:125%">
+            <div id="divprint">
+
+                <div class="modal-body">
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" data-dismiss="modal">Close</button>
+                <button type="button" id="btnPrint" onclick="PrintDiv();" class="btn btn-primary">Print</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+
+</div>  
