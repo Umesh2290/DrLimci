@@ -44,11 +44,11 @@
         }
     </style>
     <script>
-        @{ 
+        @{
             ReportModel report = Model.data;
             @report.TestReportTypeID;
         }
-        
+
          if (@report.TestReportTypeID == 1)
          {
              $('#divhistopathology').css('display', 'block');
@@ -171,99 +171,71 @@
             <hr />
             <h4 class="text-center" style="text-align:center"><u>REPORT</u></h4>
         </div>
-
-        @{
-            int i=1;
-            foreach (TestSupplementReport sup in Model.supplementreportlist)
-            {
-
-                if (sup.TestReportTypeID == 1)
-                {
-
-
-        <h6 class="text-center" style="text-align:center"><u>Supplementary Report @i</u></h6>
-        <div id="divSupplementary">
-            <table>
-                <tr>
-                    <td style="width:20%">
-                        <label class="control-label" for="name">Specimen details :</label>
-                    </td>
-                    <td>
-                        @sup.SpecimenDetails
-                    </td>
-                </tr>
-
-                <tr>
-                    <td style="width:15%">
-                        <label class="control-label" for="name">Microscopy :</label>
-                    </td>
-                    <td>
-                        @sup.Microscopy
-                    </td>
-                </tr>
-
-                <tr>
-                    <td style="width:15%">
-                        <label class="control-label" for="name">Conclusion :</label>
-                    </td>
-                    <td>
-                        @sup.SupplementReportConclusion
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width:15%">
-                        <label class="control-label" for="name"> Supplement By :</label>
-                    </td>
-                    <td>
-                        @sup.SupplementBy
-                    </td>
-                </tr>
-               
-            </table>
-        </div>
-        i++;
-        }
-        else
+        @foreach (TestSupplementReport sup in Model.supplementreportlist)
         {
-        <h6 class="text-center" style="text-align:center"><u>Supplementary Report @i</u></h6>
-        <div id="divSupplementary">
-            <table>
-                <tr>
-                    <td style="width:20%">
-                        <label class="control-label" for="name">Specimen details :</label>
-                    </td>
-                    <td>
-                        @sup.SpecimenDetails
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width:15%">
-                        <label class="control-label" for="name">Conclusion :</label>
-                    </td>
-                    <td>
-                        @sup.SupplementReportConclusion
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width:15%">
-                        <label class="control-label" for="name"> Supplement By :</label>
-                    </td>
-                    <td>
-                        @sup.SupplementBy
-                    </td>
-                </tr>
-            </table>
-        </div>
-        i++;
+            if (sup.TestReportTypeID == 1)
+            {
+                <h6 class="text-center" style="text-align:center"><u>Supplementary Report @sup.TestSupplementReportID</u></h6>
+                <div id="divSupplementary">
+                    <table>
+                        <tr>
+                            <td style="width:20%">
+                                <label class="control-label" for="name">Specimen details :</label>
+                            </td>
+                            <td>
+                                @sup.SpecimenDetails
+                            </td>
+                        </tr>
 
-        }
+                        <tr>
+                            <td style="width:15%">
+                                <label class="control-label" for="name">Microscopy :</label>
+                            </td>
+                            <td>
+                                @sup.Microscopy
+                            </td>
+                        </tr>
 
-        <hr />
-        }
+                        <tr>
+                            <td style="width:15%">
+                                <label class="control-label" for="name">Conclusion :</label>
+                            </td>
+                            <td>
+                                @sup.SupplementReportConclusion
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <h6 class="text-center" style="text-align:center"><u>Supplementary Report @sup.TestSupplementReportID</u></h6>
+                <div id="divSupplementary">
+                    <table>
+                        <tr>
+                            <td style="width:20%">
+                                <label class="control-label" for="name">Specimen details :</label>
+                            </td>
+                            <td>
+                                @sup.SpecimenDetails
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:15%">
+                                <label class="control-label" for="name">Conclusion :</label>
+                            </td>
+                            <td>
+                                @sup.SupplementReportConclusion
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            }
+            <div class="custom-separator"></div>
         }
 
         <div id="divhistopathology">
-            <h6 class="text-center" style="text-align:center"><u>Previous Report</u></h6>
             <table>
                 <tr>
                     <td style="width:20%">
@@ -309,7 +281,6 @@
             </table>
         </div>
         <div id="divcytopathology" style="display:none">
-            <h6 class="text-center" style="text-align:center"><u>Previous Report</u></h6>
             <table>
                 <tr>
                     <td style="width:20%">

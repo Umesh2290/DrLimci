@@ -21,6 +21,7 @@ namespace LaboratorySystem
         public string Report { get; set; }
         public string SupplementBy { get; set; }
         public string SupplementDate { get; set; }
-        public List<LaboratoryBusiness.POCO.User.Cl_TestAttachment> AttachmentList { get; set; } 
+        public List<LaboratoryBusiness.POCO.User.Cl_TestAttachment> AttachmentList { get; set; }
+        public bool IsPublished { get; set; }
     }
 }

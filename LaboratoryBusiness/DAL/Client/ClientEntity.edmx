@@ -496,6 +496,7 @@
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="UpdatedBy" Type="int" />
           <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="IsPublished" Type="bit" />
         </EntityType>
         <EntityContainer Name="LabSystemClient_RajLabModelStoreContainer">
           <EntitySet Name="Tbl_Cl_AdminDetail" EntityType="Self.Tbl_Cl_AdminDetail" Schema="dbo" store:Type="Tables" />
@@ -991,6 +992,7 @@
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsPublished" Type="Boolean" />
         </EntityType>
         <EntityContainer Name="LabSystemClient_RajLabEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Tbl_Cl_AdminDetail" EntityType="Self.Tbl_Cl_AdminDetail" />
@@ -1538,6 +1540,7 @@
           <EntitySetMapping Name="Tbl_Cl_TestSupplementReport">
             <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_TestSupplementReport">
               <MappingFragment StoreEntitySet="Tbl_Cl_TestSupplementReport">
+                <ScalarProperty Name="IsPublished" ColumnName="IsPublished" />
                 <ScalarProperty Name="TestSupplementReportID" ColumnName="TestSupplementReportID" />
                 <ScalarProperty Name="TestReportTypeID" ColumnName="TestReportTypeID" />
                 <ScalarProperty Name="TestID" ColumnName="TestID" />

@@ -193,29 +193,68 @@ namespace LaboratorySystem.Controllers.User
                 Repositories.User.ITestRepository testrep = this.currentdomaindb.TestRepository();
                 Repositories.User.IExtraWorkRequestReposotory extrawork = this.currentdomaindb.ExtraWorkRequestRepository();
                 Repositories.User.IExtraWorkRequestStatusRepository extrastatus = this.currentdomaindb.ExtraWorkRequestStatusRepository();
+                Repositories.User.IPatientDetailRepository patientrepo = this.currentdomaindb.PatientDetailRepository();
+                Repositories.User.IClientUserRepository clientuser = this.currentdomaindb.ClientUserRepository();
+                Repositories.User.IHospitalDetail hospitalDetail = this.currentdomaindb.HospitalDetailRepository();
+                int hospitalid = MySession.GetClientSession(this.subdomainurl).HospitalDetailID.HasValue? MySession.GetClientSession(this.subdomainurl).HospitalDetailID.Value:0;
 
                 object result = new {};        
         
                 if (status.Equals("Open"))
                 {
-                    result = (from ew in extrawork.GetAll()
+                    result = (hospitalid != 0)?(from ew in extrawork.GetAll()
                               join ews in extrastatus.GetAll() on ew.StatusID equals ews.WorkRequestStatusID
                               join tst in testrep.GetAll() on ew.TestID equals tst.TestID
-                              where ew.StatusID.Value==1 || ew.StatusID.Value==2
-                              select new { ew.ExtraWorkID, tst.TestName, ew.H_ELevels, RequestCreatedDate = ew.RequestCreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
-                              StatusCustom=ews.StatusName}).ToList();
+                              join cl in clientuser.GetAll() on tst.PatientUserID equals cl.ClientUserID
+                              join pt in patientrepo.GetAll() on cl.DetailID equals pt.PatientDetailID
+                              join hs in hospitalDetail.GetAll() on pt.HospitalID equals hs.HospitalDetailID into hspd
+                              from m in hspd.DefaultIfEmpty()
+                              where pt.HospitalID == hospitalid && ( ew.StatusID.Value==1 || ew.StatusID.Value==2) 
+                              select new { ew.ExtraWorkID, tst.TestName,
+                                  PatientName = (cl.FirstName + " " + (pt.MiddleName == null ? "" : pt.MiddleName) + " " + cl.LastName),
+                                  City=pt.City,
+                                  HospitalName = (pt.HospitalID != null) ? m.HospitalName : pt.ReferingHospital,
+                                  ReportRefrenceNumber = tst.SampleLabel,
+                                  RequestCreatedDate = ew.RequestCreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
+                              StatusCustom=ews.StatusName}).ToList()
+                    : (from ew in extrawork.GetAll()
+                       join ews in extrastatus.GetAll() on ew.StatusID equals ews.WorkRequestStatusID
+                       join tst in testrep.GetAll() on ew.TestID equals tst.TestID
+                       join cl in clientuser.GetAll() on tst.PatientUserID equals cl.ClientUserID
+                       join pt in patientrepo.GetAll() on cl.DetailID equals pt.PatientDetailID
+                       join hs in hospitalDetail.GetAll() on pt.HospitalID equals hs.HospitalDetailID into hspd
+                       from m in hspd.DefaultIfEmpty()
+                       where ew.StatusID.Value == 1 || ew.StatusID.Value == 2
+                       select new
+                       {
+                           ew.ExtraWorkID,
+                           tst.TestName,
+                           PatientName = (cl.FirstName + " " + (pt.MiddleName == null ? "" : pt.MiddleName) + " " + cl.LastName),
+                           City = pt.City,
+                           HospitalName = (pt.HospitalID != null) ? m.HospitalName : pt.ReferingHospital,
+                           ReportRefrenceNumber = tst.SampleLabel,
+                           RequestCreatedDate = ew.RequestCreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
+                           StatusCustom = ews.StatusName
+                       }).ToList();
                 }
                 else if (status.Equals("Completed"))
                 {
                     result = (from ew in extrawork.GetAll()
                               join ews in extrastatus.GetAll() on ew.StatusID equals ews.WorkRequestStatusID
                               join tst in testrep.GetAll() on ew.TestID equals tst.TestID
+                              join cl in clientuser.GetAll() on tst.PatientUserID equals cl.ClientUserID
+                              join pt in patientrepo.GetAll() on cl.DetailID equals pt.PatientDetailID
+                              join hs in hospitalDetail.GetAll() on pt.HospitalID equals hs.HospitalDetailID into hspd
+                              from m in hspd.DefaultIfEmpty()
                               where ew.StatusID.Value == 3
                               select new
                               {
                                   ew.ExtraWorkID,
                                   tst.TestName,
-                                  ew.H_ELevels,
+                                  PatientName = (cl.FirstName + " " + (pt.MiddleName == null ? "" : pt.MiddleName) + " " + cl.LastName),
+                                  City = pt.City,
+                                  HospitalName= (pt.HospitalID != null) ? m.HospitalName : pt.ReferingHospital,
+                                  ReportRefrenceNumber=tst.SampleLabel,
                                   RequestCreatedDate = ew.RequestCreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
                                   StatusCustom = ews.StatusName
                               }).ToList();
@@ -225,12 +264,19 @@ namespace LaboratorySystem.Controllers.User
                     result = (from ew in extrawork.GetAll()
                               join ews in extrastatus.GetAll() on ew.StatusID equals ews.WorkRequestStatusID
                               join tst in testrep.GetAll() on ew.TestID equals tst.TestID
+                              join cl in clientuser.GetAll() on tst.PatientUserID equals cl.ClientUserID
+                              join pt in patientrepo.GetAll() on cl.DetailID equals pt.PatientDetailID
+                              join hs in hospitalDetail.GetAll() on pt.HospitalID equals hs.HospitalDetailID into hspd
+                              from m in hspd.DefaultIfEmpty()
                               where ew.StatusID.Value == 1 || ew.StatusID.Value == 2 || ew.StatusID.Value==3
                               select new
                               {
                                   ew.ExtraWorkID,
                                   tst.TestName,
-                                  ew.H_ELevels,
+                                  PatientName = (cl.FirstName + " " + (pt.MiddleName == null ? "" : pt.MiddleName) + " " + cl.LastName),
+                                  City = pt.City,
+                                  HospitalName = (pt.HospitalID != null) ? m.HospitalName : pt.ReferingHospital,
+                                  ReportRefrenceNumber = tst.SampleLabel,
                                   RequestCreatedDate = ew.RequestCreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
                                   StatusCustom = ews.StatusName
                               }).ToList();
@@ -272,6 +318,11 @@ namespace LaboratorySystem.Controllers.User
                 {
                     var cu = clientuser.GetByID(data.RequestCreatedBy.Value);
                     var test = testrep.GetByID(data.TestID);
+                    var patdetail = clientuser.GetByID(Convert.ToInt32(test.PatientUserID));
+                    var pat =patientrepo.GetByID(Convert.ToInt32(patdetail.DetailID));
+                    
+                   
+
                     returnlist = new
                     {
                         data.ExtraWorkID,
@@ -280,6 +331,7 @@ namespace LaboratorySystem.Controllers.User
                         data.SpecialStains,
                         data.ImmunoHistoChemistry,
                         data.Others,
+                        PatientName = patdetail.FirstName+" "+patdetail.LastName,
                         StatusName = extrastatus.GetByID(data.StatusID.Value).StatusName,
                         RequestCreatedDateCustom = data.RequestCreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
                         RequestCreatedByName = cu.FirstName + " " + cu.LastName

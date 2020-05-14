@@ -85,6 +85,7 @@
     <Compile Include="BLL\User\InventoryRequestRepository.cs" />
     <Compile Include="BLL\User\InventoryRequestStatusRepository.cs" />
     <Compile Include="BLL\User\InventoryStatusTypeRepository.cs" />
+    <Compile Include="BLL\User\LabReportConfigurationRepository.cs" />
     <Compile Include="BLL\User\MenuAssignmentRepository.cs" />
     <Compile Include="BLL\User\MenuRepository.cs" />
     <Compile Include="BLL\User\NotificationRepository.cs" />
@@ -161,6 +162,9 @@
       <DependentUpon>ClientEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\Client\Tbl_Cl_InventoryStatusType.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_LabReportConfiguration.cs">
       <DependentUpon>ClientEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\Client\Tbl_Cl_Menu.cs">
@@ -332,6 +336,7 @@
     <Compile Include="POCO\User\InventoryRequest.cs" />
     <Compile Include="POCO\User\InventoryRequestStatus.cs" />
     <Compile Include="POCO\User\InventoryStatusType.cs" />
+    <Compile Include="POCO\User\LabReportConfiguration.cs" />
     <Compile Include="POCO\User\Menu.cs" />
     <Compile Include="POCO\User\MenuAssignment.cs" />
     <Compile Include="POCO\User\Notification.cs" />
@@ -387,6 +392,7 @@
     <Compile Include="Repositories\User\IInventoryRequest.cs" />
     <Compile Include="Repositories\User\IInventoryRequestStatus.cs" />
     <Compile Include="Repositories\User\IInventoryStatusType.cs" />
+    <Compile Include="Repositories\User\ILabReportConfiguration.cs" />
     <Compile Include="Repositories\User\IMenuAssignmentRepository.cs" />
     <Compile Include="Repositories\User\IMenuRepository.cs" />
     <Compile Include="Repositories\User\INotificationRepository.cs" />

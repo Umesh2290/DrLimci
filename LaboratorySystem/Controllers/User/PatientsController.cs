@@ -60,8 +60,10 @@ namespace LaboratorySystem.Controllers.User
                     patientdetailobj.ReferingHospital = referinghospital.Trim();
                     patientdetailobj.Sex = gender.Trim();
                     patientdetailobj.Streetname = streetname.Trim();
-                    patientdetailobj.HospitalID= MySession.GetClientSession(this.subdomainurl).HospitalDetailID.HasValue ? MySession.GetClientSession(this.subdomainurl).HospitalDetailID.Value : 0;
-
+                    if (MySession.GetClientSession(this.subdomainurl).HospitalDetailID.HasValue)
+                    {
+                        patientdetailobj.HospitalID = MySession.GetClientSession(this.subdomainurl).HospitalDetailID.Value;
+                    }
                     patientdetail.Insert(patientdetailobj);
 
                     patientdetail.Save();

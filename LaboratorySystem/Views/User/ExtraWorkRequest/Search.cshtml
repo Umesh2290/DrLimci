@@ -34,7 +34,10 @@ function (data, status, xhr) {
         columns: [
             { data: 'ExtraWorkID' },
             { data: 'TestName' },
-            { data: 'H_ELevels' },
+            { data: 'PatientName' },
+            { data: 'HospitalName' },
+            { data: 'ReportRefrenceNumber' },
+            { data: 'City' },
             { data: 'RequestCreatedDate' },
             { data: 'StatusCustom' }
         ],
@@ -54,7 +57,7 @@ function (data, status, xhr) {
                         return data;
                     }
                 },
-                "targets": 4
+                "targets": 7
             }
         ]
     });
@@ -100,7 +103,10 @@ function (jqXhr, textStatus, errorMessage) {
                                 <tr>
                                     <th scope="col">Request ID #</th>
                                     <th scope="col">Test Name</th>
-                                    <th scope="col">H&E Levels</th>
+                                    <th scope="col">Patient Name</th>
+                                    <th scope="col">Hospital Name</th>
+                                    <th scope="col">Report Refrence No.</th>
+                                    <th scope="col">D.O.B.</th>
                                     <th scope="col">Request Created Date</th>
                                     <th scope="col">Status</th>
                                 </tr>

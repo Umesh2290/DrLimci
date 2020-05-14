@@ -1,8 +1,10 @@
 ﻿
 @{
-    ViewBag.Title = "Completed Tests";
+    ViewBag.Title = "SearchCompletedReport";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
+
+
 
 @{
     LaboratoryBusiness.Repositories.User.IAdminDetailRepository admindetail = ((DBInitializer)ViewBag.currentdomaindb).AdminDetailRepository();
@@ -17,13 +19,30 @@
 
 }
 <script>
-    var currentmenu = 19;
+    var currentmenu = 32;
     var allloaded = false;
-    var displaypanel = "gridarea";
+    //var displaypanel = "gridarea";
     $(document).ready(function () {
+       // debugger;
+       //$('#testtable_length').css('display', 'none');
+       //$('#testtable_filter').css('display', 'none');
+        $('#myInputTextField').keyup(function () {
+           
+            //$("#testtable_length").css('display', 'none');
+            //$("#testtable_filter").css('display', 'none');
 
+            oTable = $('#testtable').DataTable();
+            oTable.search($(this).val()).draw();
+            debugger
+            if ($(this).val() != "")
+                $('#testtable').css('display', 'block');
+            else
+                $('#testtable').css('display', 'none');
 
-        MakeRequest(_User_Reports_GetList, "POST", { "status": "Completed" }, "json",
+            //ttbody
+        });
+        debugger;
+       MakeRequest(_User_MedicalTest_GetList, "POST", { "status": "Completed" }, "json",
 function (jqXHR, settings) {
     //For Before Send
     $('.loadscreen').fadeIn();
@@ -38,7 +57,7 @@ function (data, status, xhr) {
         outputdt = dt;
     }
 
-    $('#testtable').on('init.dt', function () {
+    $('#testtable').on('draw.dt', function () {
         allloaded = true;
     }).DataTable({
         data: outputdt,
@@ -46,14 +65,22 @@ function (data, status, xhr) {
             { data: 'TestID' },
             { data: 'TestName' },
             { data: 'PatientName' },
-            { data: 'City' },
             { data: 'TestCreatedDateCustom' },
-            { data: 'IsPublish' },
+            { data: 'City' },
             { data: 'Status' },
             { data: 'TestID' },
+            { data: 'TestID', className: 'editcolumn' },
             { data: 'TestID' }
+
         ],
         "columnDefs": [
+            {
+                "render": function (data, type, row) {
+                    var returnstring = '<a href="/User/MedicalTest?IsEdit=1&EditId=' + data + '" title="Work on it" target="_blank"><button type="button" class="btn btn-success "><i class="nav-icon i-Pen-2 "></i></button></a>';
+                    return returnstring;
+                },
+                "targets": 7
+            },
             {
                 "render": function (data, type, row) {
                     if (data == "Completed") {
@@ -67,31 +94,29 @@ function (data, status, xhr) {
                         return data;
                     }
                 },
+                "targets": 5
+            },
+            {
+                "render": function (data, type, row) {
+                    return '<a href="/User/MedicalTest?IsEdit=0&EditId=' + data + '" target="_blank" title="View Detail"><button type="button" class="btn btn-info"><i class="nav-icon i-Magnifi-Glass1"></i></button></a>';
+                },
                 "targets": 6
             },
             {
-                "render": function (data, type, row) {
-                    return '<a href="/User/MedicalTest?IsEdit=0&Rest=0&EditId=' + data + '" target="_blank" title="View Detail"><button type="button" class="btn btn-info"><i class="nav-icon i-Magnifi-Glass1"></i></button></a>';
-                },
-                "targets": 7
-            },
-            {
 
                 "render": function (data, type, row) {
 
-                    if (@role == 1 || @role == 5 || @role == 10 || @role == 6) {
+                   
                         return '<button type="button" class="btn btn-info ViewReport" id="ViewReport" data-id=' + data + '><i class="nav-icon i-Magnifi-Glass1"></i></button>';
-                    }
-                    else {
-                        return "";
-                    }
-                },
+                    
+                },  
                 "targets": 8,
-
+              
             }
         ]
     });
-
+    $('#testtable_length').css('display', 'none');
+    $('#testtable_filter').css('display', 'none');
 
 },
 function (jqXhr, textStatus, errorMessage) {
@@ -99,6 +124,8 @@ function (jqXhr, textStatus, errorMessage) {
     $('.loadscreen').fadeOut();
     WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
             });
+       
+
         $(document).on("click", ".ViewReport", function (e) {
             //$('.ViewReport').click(function (e) {
             debugger;
@@ -119,6 +146,8 @@ function (jqXhr, textStatus, errorMessage) {
         });
 
     });
+   
+
     function PrintDiv() {
         debugger;
 
@@ -148,12 +177,15 @@ function (jqXhr, textStatus, errorMessage) {
         }, 500);
         return false;
     }
+    
+
 </script>
+
 <div class="breadcrumb">
-    <h1 class="mr-2" id="mainheading">Completed Tests</h1>
+    <h1 class="mr-2" id="mainheading">Completed</h1>
     <ul>
-        <li><a href="">Reports</a></li>
-        <li id="subheading">Completed Tests</li>
+        <li><a href="">Medical Test</a></li>
+        <li id="subheading">Completed</li>
     </ul>
 </div>
 
@@ -168,43 +200,46 @@ function (jqXhr, textStatus, errorMessage) {
     <br />
 </div>
 <div class="separator-breadcrumb border-top"></div>
-<div id="gridarea" style="visibility:hidden">
+<div  style="visibility:visible">
     <div class="row mb-4">
 
         <div class="col-md-12 mb-3">
             <div class="card text-left">
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover" id="testtable">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Test ID #</th>
-                                    <th scope="col">Test Name</th>
-                                    <th scope="col">Patient Name</th>
-                                    <th scope="col">D.O.B.</th>
-                                    <th scope="col">Test Created Date</th>
-                                    <th scope="col">Is Publish</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">View Detail</th>
-                                    @{
-                                        if (role == 1 || role == 5 || role == 10 || role == 6)
-                                        {
-                                            <th scope="col">View Report</th>
-                                        }
-                                        else
-                                        {
-                                            <th scope="col" style="display:none">View Report</th>
-                                        }
+                    <div class="row">
+                        <div class="col-sm-12 col-md-8"></div>
+                        <div class="col-sm-12 col-md-4" style="text-align-last: center">
 
-                                    }
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
+                            <label id="lblsearch">Search: </label>
+                            <input type="text" id="myInputTextField">
+
+                        </div>
                     </div>
 
+                        <div class="table-responsive">
+
+
+
+                            <table class="table table-hover" id="testtable" style="display:none">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Test ID #</th>
+                                        <th scope="col">Test Name</th>
+                                        <th scope="col">Patient Name</th>
+                                        <th scope="col">Test Created Date</th>
+                                        <th scope="col">D.O.B.</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">View Detail</th>
+                                        <th scope="col">Action</th>
+                                        <th scope="col">View Report</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+
+                    </div>
                 </div>
-            </div>
         </div>
         <!-- end of col-->
     </div>
@@ -226,4 +261,4 @@ function (jqXhr, textStatus, errorMessage) {
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 
-</div>   
+</div>  

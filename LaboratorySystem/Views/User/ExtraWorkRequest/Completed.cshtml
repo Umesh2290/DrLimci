@@ -32,7 +32,10 @@ function (data, status, xhr) {
         columns: [
             { data: 'ExtraWorkID' },
             { data: 'TestName' },
-            { data: 'H_ELevels' },
+            { data: 'PatientName' },
+            { data: 'HospitalName' },
+            { data: 'ReportRefrenceNumber' },
+            { data: 'City' },
             { data: 'RequestCreatedDate' },
             { data: 'StatusCustom' },
             { data: 'ExtraWorkID', className: 'editcolumn' }
@@ -53,13 +56,13 @@ function (data, status, xhr) {
                         data;
                     }
                 },
-                "targets": 4
+                "targets": 7
             },
             {
                 "render": function (data, type, row) {
                     return '<button type="button" class="btn btn-info viewdetail" title="View Detail" class="viewdetail" data-id="' + data + '"><i class="nav-icon i-Magnifi-Glass1"></i></button>';
                 },
-                "targets": 5
+                "targets": 8
             }
         ]
     });
@@ -105,7 +108,10 @@ function (jqXhr, textStatus, errorMessage) {
                                 <tr>
                                     <th scope="col">Request ID #</th>
                                     <th scope="col">Test Name</th>
-                                    <th scope="col">H&E Levels</th>
+                                    <th scope="col">Patient Name</th>
+                                    <th scope="col">Hospital Name</th>
+                                    <th scope="col">Report Refrence No.</th>
+                                    <th scope="col">D.O.B.</th>
                                     <th scope="col">Request Created Date</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">View Detail</th>

@@ -23,12 +23,12 @@
     int labconsultstatusid = teststatusrepo.GetAll().Where(x => x.StatusName.Equals("On Clinical Lab Doctor Plate")).FirstOrDefault().TestStatusID;
 
     var eligibletests = (from ts in testrepo.GetAll()
-                         join pd in pdetail.GetAll() on ts.PatientUserID  equals pd.PatientDetailID
                          join cl in cldetail.GetAll() on ts.PatientUserID equals cl.ClientUserID
+                         join pd in pdetail.GetAll() on cl.DetailID  equals pd.PatientDetailID
                          where (ts.TestStatusID.HasValue ? ts.TestStatusID.Value : 0) == labconsultstatusid && !(ts.IsPublish.HasValue ? ts.IsPublish.Value : false)
 
                          select new  {
-                             Name = ts.TestID.ToString()+" - "+ts.TestName+" - "+cl.FirstName+" "+ cl.LastName+" - "+pd.City,
+                             Name = ts.TestID.ToString()+" - "+ts.TestName+" - "+cl.FirstName+" "+ cl.LastName+" - "+pd.City+ " - " + ts.SampleLabel,
                              Value = ts.TestID.ToString()
                          }).ToList();
 

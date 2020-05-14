@@ -34,7 +34,10 @@ function (data, status, xhr) {
         columns: [
             { data: 'ExtraWorkID' },
             { data: 'TestName' },
-            { data: 'H_ELevels' },
+            { data: 'PatientName' },
+            { data: 'HospitalName' },
+            { data: 'ReportRefrenceNumber' },
+            { data: 'City' },
             { data: 'RequestCreatedDate' },
             { data: 'StatusCustom' },
             { data: 'ExtraWorkID', className: 'editcolumn' }
@@ -52,13 +55,13 @@ function (data, status, xhr) {
                         data
                     }
                 },
-                "targets": 4
+                "targets": 7
             },
             {
                 "render": function (data, type, row) {
                     return '<button type="button" class="btn btn-info viewdetail" title="View Detail" class="viewdetail" data-id="' + data + '"><i class="nav-icon i-Magnifi-Glass1"></i></button>';
                 },
-                "targets": 5
+                "targets": 8
             }
         ]
     });
@@ -104,7 +107,10 @@ function (jqXhr, textStatus, errorMessage) {
                                 <tr>
                                     <th scope="col">Request ID #</th>
                                     <th scope="col">Test Name</th>
-                                    <th scope="col">H&E Levels</th>
+                                    <th scope="col">Patient Name</th>
+                                    <th scope="col">Hospital Name</th>
+                                    <th scope="col">Report Refrence No.</th>
+                                    <th scope="col">D.O.B.</th>
                                     <th scope="col">Request Created Date</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">View Detail</th>
@@ -133,12 +139,6 @@ function (jqXhr, textStatus, errorMessage) {
     <div class="row">
         <div class="col-md-4 col-6">
             <div class="mb-4">
-                    <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Patient Name</p>
-                    <span id="patientname_lbl">N/A</span>
-            </div>
-         </div>   
-        <div class="col-md-4 col-6">
-            <div class="mb-4">
                 <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Extra Work Request ID #</p>
                 <span id="requestid_lbl">N/A</span>
             </div>
@@ -147,50 +147,59 @@ function (jqXhr, textStatus, errorMessage) {
                 <span id="testname_lbl">N/A</span>
             </div>
             <div class="mb-4">
-                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> H&E Levels</p>
-                <span id="helevels_lbl">N/A</span>
-            </div>
-            <div class="mb-4">
-                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Special Stains</p>
+                <p class="text-primary mb-1" style="font-weight:bold"><i class="text-16 mr-1"></i> Special Stains</p>
                 <span id="specialstains_lbl">N/A</span>
-            </div>
-        </div>
-        <div class="col-md-4 col-6">
-            <div class="mb-4">
-                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Immuno Histo Chemisty</p>
-                <span id="immunohistochemistry_lbl">N/A</span>
-            </div>
-            <div class="mb-4">
-                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Others</p>
-                <span id="others_lbl">N/A</span>
-            </div>
-            <div class="mb-4">
-                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Request Date</p>
-                <span id="requestdate_lbl">N/A</span>
             </div>
             <div class="mb-4 inprogressdate" style="display:none">
                 <p class="text-primary mb-1"><i class="text-16 mr-1"></i> In-Progress Date</p>
                 <span id="inprogressdate_lbl">N/A</span>
             </div>
-        </div>
-        <div class="col-md-4 col-6">
-            <div class="mb-4">
-                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Status</p>
-                <span id="status_lbl">N/A</span>
-            </div>
             <div class="mb-4">
                 <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Request By</p>
                 <span id="requestby_lbl">N/A</span>
             </div>
+
+        </div>   
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Patient Name</p>
+                <span id="patientname_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1" style="font-weight:bold"><i class="text-16 mr-1"></i> H&E Levels</p>
+                <span id="helevels_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1" style="font-weight:bold"><i class="text-16 mr-1"></i> Others</p>
+                <span id="others_lbl">N/A</span>
+            </div>
+
             <div class="mb-4 inprogresscomments" style="display:none">
                 <p class="text-primary mb-1"><i class="text-16 mr-1"></i> In-Progress Comments</p>
                 <span id="inprogresscomments_lbl">N/A</span>
+            </div>
+
+        </div>
+        <div class="col-md-4 col-6">
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Request Date</p>
+                <span id="requestdate_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1" style="font-weight:bold"><i class="text-16 mr-1"></i> Immuno Histo Chemisty</p>
+                <span id="immunohistochemistry_lbl">N/A</span>
+            </div>
+            <div class="mb-4">
+                <p class="text-primary mb-1"><i class="text-16 mr-1"></i> Status</p>
+                <span id="status_lbl">N/A</span>
             </div>
             <div class="mb-4 inprogressby" style="display:none">
                 <p class="text-primary mb-1"><i class="text-16 mr-1"></i> In-Progress By</p>
                 <span id="inprogressby_lbl">N/A</span>
             </div>
+
         </div>
+       
     </div>
     <div class="updatestatus-section">
         <hr>
@@ -401,7 +410,7 @@ function (jqXhr, textStatus, errorMessage) {
         $(".investigationresult").val("");
 
         if (statusid == 3) {
-
+            debugger
             $(".extrainvestigation-section").show();
             $(".investigationname").attr("required", "required");
             $(".investigationvalues").attr("required", "required");
@@ -469,7 +478,7 @@ function (data, status, xhr) {
     }
 
     if (extraworkrequestobj != null) {
-
+        debugger;
         var optionhtml = "";
         $.each(rs.ResponseData.extraworkrequeststatusesjson, function (key, value) {
             optionhtml += "<option value=\"" + value.WorkRequestStatusID + "\">" + value.StatusName + "</option>"

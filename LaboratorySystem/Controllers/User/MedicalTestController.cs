@@ -8,6 +8,7 @@ using BLL = LaboratoryBusiness.BLL;
 using BusinessPOCO = LaboratoryBusiness.POCO;
 using System.IO;
 using LaboratorySystem.Models;
+using System.Dynamic;
 
 namespace LaboratorySystem.Controllers.User
 {
@@ -148,8 +149,8 @@ namespace LaboratorySystem.Controllers.User
                          labtech.UserID.Value, MySession.GetClientSession(this.subdomainurl).ClientUserID,this.currentdomaindb,
                         "i-Speach-Bubble-6 text-primary mr-1", "New Sample Collection Request", ("Test ID #" + test.TestID.ToString("0000")), "toastr-sucsess");
                  }
-
-                 return WebJSResponse.ResponseSWAL(SwalEnum.success, "Created Successfully !", "Test has been created successfully<br>", new { testjson = test });
+                //return WebJSResponse.ResponseSimple(new { testjson = test });
+                return WebJSResponse.ResponseSWAL(SwalEnum.success, "Created Successfully !", "Test has been created successfully<br>", new { testjson = test });
 
 
              }
@@ -215,7 +216,7 @@ namespace LaboratorySystem.Controllers.User
 
          [Route("AddInvestigationInfo")]
          [HttpPost]
-         public JsonResult AddInvestigationInfo(int testid,List<ViewModels.TestInvestigation> testinvestigations)
+         public JsonResult AddInvestigationInfo(int testid,List<ViewModels.TestInvestigation> testinvestigations,int consultantid)
          {
              try
              {
@@ -234,6 +235,10 @@ namespace LaboratorySystem.Controllers.User
                      test.TestStatusID = teststatusid;
                      test.AnalysisBy = MySession.GetClientSession(this.subdomainurl).ClientUserID;
                      test.AnalysisDate = DateTime.Now;
+                     if(consultantid != 0)
+                    {
+                        test.ConclusionBy = consultantid;
+                    }
 
                      testrep.Update(test);
                      testrep.Save();
@@ -450,8 +455,8 @@ namespace LaboratorySystem.Controllers.User
 
          [Route("AddSupplementaryInfo")]
          [HttpPost]
-         public JsonResult AddSupplementaryInfo(int testid, int reporttype, string specimendetails, string clinicaldetails, string conclusion
-             , string microscopy, string microscopy2, string macroscopy, string snomedcoding, string sampledescription, string report)
+         public JsonResult AddSupplementaryInfo(int testid,int supplementid, int reporttype, string specimendetails, string clinicaldetails, string conclusion
+             , string microscopy, string microscopy2, string macroscopy, string snomedcoding, string sampledescription, string report,int ispublish)
          {
              try
              {
@@ -464,56 +469,102 @@ namespace LaboratorySystem.Controllers.User
 
 
                  BusinessPOCO.User.Cl_Test test = testrep.GetByID(testid);
-                 if (test != null)
+               
+                if (test != null)
                  {
                      
-                     BusinessPOCO.User.Cl_TestSupplementReport supplementobj = null;
-                     if (supplementobj == null)
-                     {
-                         supplementobj = new BusinessPOCO.User.Cl_TestSupplementReport();
-                         supplementobj.TestReportTypeID = reporttype;
-                         supplementobj.TestID = testid;
-                         supplementobj.SpecimenDetails = specimendetails;
-                         supplementobj.ClinicalDetails = clinicaldetails;
-                         supplementobj.SupplementReportConclusion = conclusion;
-                         if (reporttype == 1)
-                         {
-                             supplementobj.Microscopy = microscopy;
-                         }
-                         if (reporttype == 1)
-                         {
-                             supplementobj.Macroscopy = macroscopy;
-                         }
-                         if (reporttype == 1)
-                         {
-                             supplementobj.SnomedCoding = snomedcoding;
-                         }
-                         if (reporttype == 2 || reporttype == 3 || reporttype == 4 || reporttype == 5)
-                         {
-                             supplementobj.SampleDescription = sampledescription;
-                         }
+                     BusinessPOCO.User.Cl_TestSupplementReport supplementobj = testsupplement.GetByID(supplementid);
+                    
+                        if (supplementobj == null)
+                        {
+                            supplementobj = new BusinessPOCO.User.Cl_TestSupplementReport();
+                            supplementobj.TestReportTypeID = reporttype;
+                            supplementobj.TestID = testid;
+                            supplementobj.SpecimenDetails = specimendetails;
+                            supplementobj.ClinicalDetails = clinicaldetails;
+                            supplementobj.SupplementReportConclusion = conclusion;
+                            supplementobj.IsPublished = false;
+                            if (reporttype == 1)
+                            {
+                                supplementobj.Microscopy = microscopy;
+                            }
+                            if (reporttype == 1)
+                            {
+                                supplementobj.Macroscopy = macroscopy;
+                            }
+                            if (reporttype == 1)
+                            {
+                                supplementobj.SnomedCoding = snomedcoding;
+                            }
+                            if (reporttype == 2 || reporttype == 3 || reporttype == 4 || reporttype == 5)
+                            {
+                                supplementobj.SampleDescription = sampledescription;
+                            }
 
-                         if (reporttype == 2 || reporttype == 3 || reporttype == 4)
-                         {
-                             supplementobj.Report = report;
-                         }
-                         if (reporttype == 5)
-                         {
-                             supplementobj.Microscopy = microscopy2;
-                         }
-                         supplementobj.CreatedBy = MySession.GetClientSession(this.subdomainurl).ClientUserID;
-                         supplementobj.CreatedDate = DateTime.Now;
+                            if (reporttype == 2 || reporttype == 3 || reporttype == 4)
+                            {
+                                supplementobj.Report = report;
+                            }
+                            if (reporttype == 5)
+                            {
+                                supplementobj.Microscopy = microscopy2;
+                            }
+                            supplementobj.CreatedBy = MySession.GetClientSession(this.subdomainurl).ClientUserID;
+                            supplementobj.CreatedDate = DateTime.Now;
 
-                         testsupplement.Insert(supplementobj);
-                         testsupplement.Save();
-                     }
+                            testsupplement.Insert(supplementobj);
+                            testsupplement.Save();
+                        }
+                    
+                    else
+                    {
 
-                     //Report PDF Code
+                        //supplementobj = new BusinessPOCO.User.Cl_TestSupplementReport();
+                        supplementobj.TestReportTypeID = reporttype;
+                        supplementobj.TestID = testid;
+                        supplementobj.SpecimenDetails = specimendetails;
+                        supplementobj.ClinicalDetails = clinicaldetails;
+                        supplementobj.SupplementReportConclusion = conclusion;
+                        supplementobj.IsPublished = true;
+                        if (reporttype == 1)
+                        {
+                            supplementobj.Microscopy = microscopy;
+                        }
+                        if (reporttype == 1)
+                        {
+                            supplementobj.Macroscopy = macroscopy;
+                        }
+                        if (reporttype == 1)
+                        {
+                            supplementobj.SnomedCoding = snomedcoding;
+                        }
+                        if (reporttype == 2 || reporttype == 3 || reporttype == 4 || reporttype == 5)
+                        {
+                            supplementobj.SampleDescription = sampledescription;
+                        }
 
-                     //Report PDF Code
+                        if (reporttype == 2 || reporttype == 3 || reporttype == 4)
+                        {
+                            supplementobj.Report = report;
+                        }
+                        if (reporttype == 5)
+                        {
+                            supplementobj.Microscopy = microscopy2;
+                        }
+                        supplementobj.UpdatedBy = MySession.GetClientSession(this.subdomainurl).ClientUserID;
+                        supplementobj.UpdatedDate = DateTime.Now;
+
+                        testsupplement.Update(supplementobj);
+                        testsupplement.Save();
+                    }
 
 
-                         NotificationManager.FireOnClient(("Test ID #" + test.TestID.ToString("0000")), "New Supplement Report", "/User/MyReports/CompletedReports",
+                    //Report PDF Code
+
+                    //Report PDF Code
+
+
+                    NotificationManager.FireOnClient(("Test ID #" + test.TestID.ToString("0000")), "New Supplement Report", "/User/MyReports/CompletedReports",
                                  test.PatientUserID.Value, MySession.GetClientSession(this.subdomainurl).ClientUserID, this.currentdomaindb,
                                 "i-Speach-Bubble-6 text-primary mr-1", "New Supplement Report", ("Test ID #" + test.TestID.ToString("0000")), "toastr-sucsess");
 
@@ -610,7 +661,11 @@ namespace LaboratorySystem.Controllers.User
                  {
                      return WebJSResponse.ResponseSimple(new { ResponseType = "swal-success", Title = "Saved Successfully !", Description = "Supplement Report has been saved successfully<br>." });
                  }
-                 else
+                else if (AttachmentTypeID == 5)
+                {
+                    return WebJSResponse.ResponseSimple(new { ResponseType = "swal-success", Title = "Saved Successfully !", Description = "Test Report has been saved successfully<br>." });
+                }
+                else
                  {
                      return WebJSResponse.ResponseSimple(new { ResponseType = "swal-success", Title = "Saved Successfully !", Description = "Saved Successfully<br>." });
                  }
@@ -634,7 +689,11 @@ namespace LaboratorySystem.Controllers.User
                  {
                      return WebJSResponse.ResponseSimple(new { ResponseType = "swal-warning", Title = "Saved Successfully !", Description = "Supplement Report has been saved successfully<br>but something went wrong while uploading files." });
                  }
-                 else
+                else if (AttachmentTypeID == 5)
+                {
+                    return WebJSResponse.ResponseSimple(new { ResponseType = "swal-warning", Title = "Saved Successfully !", Description = "Test Report has been saved successfully<br>but something went wrong while uploading files." });
+                }
+                else
                  {
                      return WebJSResponse.ResponseSimple(new { ResponseType = "swal-warning", Title = "Saved Successfully !", Description = "Saved Successfully<br>but something went wrong while uploading files." });
                  }
@@ -710,7 +769,10 @@ namespace LaboratorySystem.Controllers.User
                                            select new { cl, pd }).FirstOrDefault();
                          var createdby = clientuser.GetByID(testinnerobj.TestCreatedBy.Value);
                          string createdbycustom = createdby.FirstName + " " + createdby.LastName;
-                         testobj = new
+                        attachmenttypeid = testattachmenttyperepo.GetAll().Where(x => x.Name.Equals("Test Creation")).FirstOrDefault().TestAttachmentTypeID;
+                        var attachmentlist_testcreation = testattachmentrepo.GetAll().Where(x => x.AttachmentTypeID.Value == attachmenttypeid &&
+                            x.TestID.Value == testinnerobj.TestID).ToList();
+                        testobj = new
                          {
                              PatientID = patientobj == null ? 0 : patientobj.cl.ClientUserID,
                              PatientName = patientobj == null ? "" : patientobj.cl.FirstName + " " + (patientobj.pd.MiddleName == null ? "" : patientobj.pd.MiddleName)+patientobj.cl.LastName,
@@ -727,8 +789,9 @@ namespace LaboratorySystem.Controllers.User
                              TestCreatedDateCustom = testinnerobj.TestCreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
                              TestCreatedByCustom = createdbycustom,
                              testinnerobj.TestID,
-                             testinnerobj.IsPublish
-                         };
+                             testinnerobj.IsPublish,
+                            AttachmentList = attachmentlist_testcreation
+                        };
 
                          if (testinnerobj.SampleCollectionBy.HasValue)
                          {
@@ -812,46 +875,53 @@ namespace LaboratorySystem.Controllers.User
                              };
 
                          }
+                         
 
-                         if (testinnerobj.ConclusionBy.HasValue)
-                         {
-                             createdby = clientuser.GetByID(testinnerobj.ConclusionBy.Value);
-                             createdbycustom = createdby.FirstName + " " + createdby.LastName;
+                        if (testinnerobj.ConclusionBy.HasValue)
+                        {
+                            createdby = clientuser.GetByID(testinnerobj.ConclusionBy.Value);
+                            createdbycustom = createdby.FirstName + " " + createdby.LastName;
 
-                             attachmenttypeid = testattachmenttyperepo.GetAll().Where(x => x.Name.Equals("Report Conclusion")).FirstOrDefault().TestAttachmentTypeID;
-                             var attachmentlist_conclusion = testattachmentrepo.GetAll().Where(x => x.AttachmentTypeID.Value == attachmenttypeid &&
-                                 x.TestID.Value == testinnerobj.TestID).ToList();
+                            attachmenttypeid = testattachmenttyperepo.GetAll().Where(x => x.Name.Equals("Report Conclusion")).FirstOrDefault().TestAttachmentTypeID;
+                            var attachmentlist_conclusion = testattachmentrepo.GetAll().Where(x => x.AttachmentTypeID.Value == attachmenttypeid &&
+                                x.TestID.Value == testinnerobj.TestID).ToList();
 
-                             var conclusioninner = testconclusionrepo.GetAll().Where(x => x.TestID.Value == testinnerobj.TestID).FirstOrDefault();
+                            var conclusioninner = testconclusionrepo.GetAll().Where(x => x.TestID.Value == testinnerobj.TestID).FirstOrDefault();
+                            
+                                string _reporttype = string.Empty;
+                            if (conclusioninner != null)
+                            {
+                                if (conclusioninner.TestReportTypeID.HasValue)
+                                {
+                                    var rp_type = testreporttyperepo.GetByID(conclusioninner.TestReportTypeID.Value);
+                                    if (rp_type != null)
+                                    {
+                                        _reporttype = rp_type.Name;
+                                    }
+                                }
 
-                             string _reporttype = string.Empty;
-                             if(conclusioninner.TestReportTypeID.HasValue) 
-                             {
-                                 var rp_type = testreporttyperepo.GetByID(conclusioninner.TestReportTypeID.Value);
-                                 if(rp_type!=null) {
-                                     _reporttype = rp_type.Name;
-                                 }
-                             }
 
-                             conclusionobj = new
-                             {
-                                 conclusioninner.TestConclusionID,
-                                 TestReportTypeID = conclusioninner.TestReportTypeID.HasValue ? conclusioninner.TestReportTypeID.Value : 0,
-                                 TestID = conclusioninner.TestID.HasValue ? conclusioninner.TestID.Value : 0,
-                                 conclusioninner.SpecimenDetails,
-                                 conclusioninner.ClinicalDetails,
-                                 conclusioninner.Microscopy,
-                                 conclusioninner.Macroscopy,
-                                 conclusioninner.Conclusion,
-                                 conclusioninner.SnomedCoding,
-                                 conclusioninner.SampleDescription,
-                                 conclusioninner.Report,
-                                 ConclusionBy = createdbycustom,
-                                 ConclusionDateCustom = testinnerobj.ConclusionDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
-                                 TestReportType = _reporttype,
-                                 AttachmentList = attachmentlist_conclusion,
-                             };
-                         }
+                                conclusionobj = new
+                                {
+                                    conclusioninner.TestConclusionID,
+                                    TestReportTypeID = conclusioninner.TestReportTypeID.HasValue ? conclusioninner.TestReportTypeID.Value : 0,
+                                    TestID = conclusioninner.TestID.HasValue ? conclusioninner.TestID.Value : 0,
+                                    conclusioninner.SpecimenDetails,
+                                    conclusioninner.ClinicalDetails,
+                                    conclusioninner.Microscopy,
+                                    conclusioninner.Macroscopy,
+                                    conclusioninner.Conclusion,
+                                    conclusioninner.SnomedCoding,
+                                    conclusioninner.SampleDescription,
+                                    conclusioninner.Report,
+                                    ConclusionBy = createdbycustom,
+                                    ConclusionDateCustom = testinnerobj.ConclusionDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
+                                    TestReportType = _reporttype,
+                                    AttachmentList = attachmentlist_conclusion,
+                                };
+                            }
+                            }
+                        
 
                          List<TestSupplementReport> supplementreportlist = new List<TestSupplementReport>();
                          var supplementreports = testsupplementrepo.GetAll().Where(x => (x.TestID.HasValue ? x.TestID.Value : 0) == testid).ToList();
@@ -884,6 +954,7 @@ namespace LaboratorySystem.Controllers.User
                                  innersup.TestSupplementReportID = supp.TestSupplementReportID;
                                  innersup.TestReportTypeID = supp.TestReportTypeID.HasValue ? supp.TestReportTypeID.Value : 0;
                                  innersup.TestID = supp.TestID.HasValue ? supp.TestID.Value : 0;
+                                 innersup.IsPublished = supp.IsPublished.Value;
                                  innersup.SpecimenDetails = supp.SpecimenDetails;
                                  innersup.ClinicalDetails = supp.ClinicalDetails;
                                  innersup.Microscopy = supp.Microscopy;
@@ -942,7 +1013,7 @@ namespace LaboratorySystem.Controllers.User
                  
                  if (status.Equals("Open"))
                  {
-                    if (MySession.GetClientSession(this.subdomainurl).CurrentRole.RoleName.Equals("Receptionist"))
+                    if (MySession.GetClientSession(this.subdomainurl).CurrentRole.RoleName.Equals("Receptionist")||MySession.GetClientSession(this.subdomainurl).CurrentRole.RoleName.Equals("Hospital / Clinician"))
                     {
                         teststatusid = teststatusrep.GetAll().Where(x => x.StatusName.Equals("On Receptionist Plate")).FirstOrDefault().TestStatusID;
                     }
@@ -954,7 +1025,7 @@ namespace LaboratorySystem.Controllers.User
                     {
                         teststatusid = teststatusrep.GetAll().Where(x => x.StatusName.Equals("On Clinical Lab Scientist Plate")).FirstOrDefault().TestStatusID;
                     }
-                    else if (MySession.GetClientSession(this.subdomainurl).CurrentRole.RoleName.Equals("Clinical Laboratory Consultant")|| MySession.GetClientSession(this.subdomainurl).CurrentRole.RoleName.Equals("Secretary"))
+                    else if (MySession.GetClientSession(this.subdomainurl).CurrentRole.RoleName.Equals("Clinical Laboratory Consultant")|| MySession.GetClientSession(this.subdomainurl).CurrentRole.RoleName.Equals("Secretary")|| MySession.GetClientSession(this.subdomainurl).CurrentRole.RoleName.Equals("External Consultant"))
                     {
                         teststatusid = teststatusrep.GetAll().Where(x => x.StatusName.Equals("On Clinical Lab Doctor Plate")).FirstOrDefault().TestStatusID;
                     }
@@ -967,8 +1038,48 @@ namespace LaboratorySystem.Controllers.User
                         teststatusid = teststatusrep.GetAll().Where(x => x.StatusName.Equals("Completed")).FirstOrDefault().TestStatusID;
                         hospitalid = MySession.GetClientSession(this.subdomainurl).HospitalDetailID.HasValue ?MySession.GetClientSession(this.subdomainurl).HospitalDetailID.Value:0;
                  }
-                 
-                if (!MySession.GetClientSession(this.subdomainurl).HospitalDetailID.HasValue)
+
+                if (MySession.GetClientSession(this.subdomainurl).CurrentRole.RoleName == "External Consultant")
+                {
+                    if (status == "Completed")
+                    {
+                        var result = (from ts in testrep.GetAll()
+                                      join ptus in clientuser.GetAll() on ts.PatientUserID equals ptus.ClientUserID
+                                      join pt in patientdetailrepo.GetAll() on ptus.DetailID equals pt.PatientDetailID
+                                      where (ts.TestStatusID.HasValue ? ts.TestStatusID.Value : 0) == teststatusid 
+                                      select new
+                                      {
+                                          ts.TestID,
+                                          ts.TestName,
+                                          PatientName = (ptus.FirstName + " " + (pt.MiddleName == null ? "" : pt.MiddleName) + " " + ptus.LastName),
+                                          Status = (ts.TestStatusID.HasValue ? ts.TestStatusID.Value : 0) == 5 ? "Completed" : "Pending",
+                                          TestCreatedDateCustom = ts.TestCreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
+                                          City = pt.City,
+                                          IsPublish = ts.IsPublish.HasValue ? ts.IsPublish.Value ? "Yes" : "No" : "No"
+                                      }).ToList();
+                        return WebJSResponse.ResponseSimple(new { testjson = result });
+                    }
+                    else
+                    {
+                        var result = (from ts in testrep.GetAll()
+                                      join ptus in clientuser.GetAll() on ts.PatientUserID equals ptus.ClientUserID
+                                      join pt in patientdetailrepo.GetAll() on ptus.DetailID equals pt.PatientDetailID
+                                      where (ts.TestStatusID.HasValue ? ts.TestStatusID.Value : 0) == teststatusid && ts.ConclusionBy == MySession.GetClientSession(this.subdomainurl).ClientUserID
+                                      select new
+                                      {
+                                          ts.TestID,
+                                          ts.TestName,
+                                          PatientName = (ptus.FirstName + " " + (pt.MiddleName == null ? "" : pt.MiddleName) + " " + ptus.LastName),
+                                          Status = (ts.TestStatusID.HasValue ? ts.TestStatusID.Value : 0) == 5 ? "Completed" : "Pending",
+                                          TestCreatedDateCustom = ts.TestCreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
+                                          City = pt.City,
+                                          IsPublish = ts.IsPublish.HasValue ? ts.IsPublish.Value ? "Yes" : "No" : "No"
+                                      }).ToList();
+                        return WebJSResponse.ResponseSimple(new { testjson = result });
+                    }
+                }
+
+                 if (!MySession.GetClientSession(this.subdomainurl).HospitalDetailID.HasValue)
                 {
                     
                         var result = (from ts in testrep.GetAll()
@@ -988,7 +1099,7 @@ namespace LaboratorySystem.Controllers.User
                         return WebJSResponse.ResponseSimple(new { testjson = result });
                     
                 }
-               
+                
                 else
                 {
                     var result = (from ts in testrep.GetAll()
@@ -1045,6 +1156,17 @@ namespace LaboratorySystem.Controllers.User
             return View("~/Views/User/MedicalTest/CompletedReport.cshtml");
         }
 
+        [Route("SearchCompletedReport")]
+        [ClientAuthorizeMember]
+        //[SystemAuthorizeMember]
+        [HttpGet]
+        public ActionResult SearchCompletedReport()
+        {
+            ViewBag.currentdomaindb = this.currentdomaindb;
+            ViewBag.subdomainurl = this.subdomainurl;
+            return View("~/Views/User/MedicalTest/SearchCompletedReport.cshtml");
+        }
+
         [Route("ViewReport")]
         [ClientAuthorizeMember]
         // [SystemAuthorizeMember]
@@ -1054,6 +1176,7 @@ namespace LaboratorySystem.Controllers.User
 
             object testobj = null;
             object conclusionobj = null;
+            dynamic mymodel = new ExpandoObject();
             var data = new ReportModel();
             try
             {
@@ -1133,7 +1256,7 @@ namespace LaboratorySystem.Controllers.User
 
                             //attachmenttypeid = testattachmenttyperepo.GetAll().Where(x => x.Name.Equals("Report Conclusion")).FirstOrDefault().TestAttachmentTypeID;
                             //var attachmentlist_conclusion = testattachmentrepo.GetAll().Where(x => x.AttachmentTypeID.Value == attachmenttypeid &&
-                                //x.TestID.Value == testinnerobj.TestID).ToList();
+                            //x.TestID.Value == testinnerobj.TestID).ToList();
 
                             var conclusioninner = testconclusionrepo.GetAll().Where(x => x.TestID.Value == testinnerobj.TestID).FirstOrDefault();
 
@@ -1171,14 +1294,65 @@ namespace LaboratorySystem.Controllers.User
                             data.Microscopy = conclusioninner.Microscopy;
                             data.Conclusion = conclusioninner.Conclusion;
                             data.reported_by = createdbycustom;
-                           
+                            data.SampleDescription = conclusioninner.SampleDescription;
+                            data.Report = conclusioninner.Report;
+                            data.TestReportTypeID = conclusioninner.TestReportTypeID.HasValue ? conclusioninner.TestReportTypeID.Value : 0;
+                            mymodel.data = data;
+                            List<TestSupplementReport> supplementreportlist = new List<TestSupplementReport>();
+                            var supplementreports = testsupplementrepo.GetAll().Where(x => (x.TestID.HasValue ? x.TestID.Value : 0) == Id).ToList();
+                            if (supplementreports.Count > 0)
+                            {
+                               // attachmenttypeid = testattachmenttyperepo.GetAll().Where(x => x.Name.Equals("Supplementary Report")).FirstOrDefault().TestAttachmentTypeID;
+                                TestSupplementReport innersup = null;
+                                //string _reporttype = string.Empty;
+                                BusinessPOCO.User.Cl_TestReportType reporttype = null;
+                                foreach (var supp in supplementreports)
+                                {
+                                    innersup = new TestSupplementReport();
+                                    if (supp.TestReportTypeID.HasValue)
+                                    {
+                                        reporttype = testreporttyperepo.GetByID(supp.TestReportTypeID.Value);
+                                        if (reporttype != null)
+                                        {
+                                            _reporttype = reporttype.Name;
+                                            reporttype = null;
+                                        }
+                                        else
+                                        {
+                                            _reporttype = "";
+                                        }
+                                    }
 
+                                    createdby = clientuser.GetByID(supp.CreatedBy.Value);
+                                    createdbycustom = createdby.FirstName + " " + createdby.LastName;
+
+                                    innersup.TestSupplementReportID = supp.TestSupplementReportID;
+                                    innersup.TestReportTypeID = supp.TestReportTypeID.HasValue ? supp.TestReportTypeID.Value : 0;
+                                    innersup.TestID = supp.TestID.HasValue ? supp.TestID.Value : 0;
+                                    innersup.SpecimenDetails = supp.SpecimenDetails;
+                                    innersup.ClinicalDetails = supp.ClinicalDetails;
+                                    innersup.Microscopy = supp.Microscopy;
+                                    innersup.Macroscopy = supp.Macroscopy;
+                                    innersup.SupplementReportConclusion = supp.SupplementReportConclusion;
+                                    innersup.SnomedCoding = supp.SnomedCoding;
+                                    innersup.SampleDescription = supp.SampleDescription;
+                                    innersup.Report = supp.Report;
+                                    innersup.SupplementBy = createdbycustom;
+                                    innersup.SupplementDate = supp.CreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt");
+                                    innersup.TestReportType = _reporttype;
+                                    //innersup.AttachmentList = testattachmentrepo.GetAll().Where(x => x.AttachmentTypeID.Value == attachmenttypeid &&
+                                  //  x.TestID.Value == testinnerobj.TestID && (x.CreatedBy.HasValue ? x.CreatedBy.Value : 0) == supp.TestSupplementReportID).ToList();
+
+                                    supplementreportlist.Add(innersup);
+                                }
+                            }
+                            mymodel.supplementreportlist = supplementreportlist;
                         }
-                       
+                                                                              
 
 
 
-                        return PartialView("~/Views/User/MedicalTest/ViewReport.cshtml", data);
+                        return PartialView("~/Views/User/MedicalTest/ViewReport.cshtml", mymodel);
 
 
 
@@ -1206,7 +1380,7 @@ namespace LaboratorySystem.Controllers.User
             
             //return View("~/Views/User/MedicalTest/ViewReport.cshtml");
         }
+        
 
-       
-    }
+        }
 }

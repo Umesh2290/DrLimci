@@ -15,6 +15,9 @@ namespace LaboratorySystem.Models
         public string Referring_hospital_name { get; set; }
         public string Specimen_type { get; set; }
         public string Clinical_details { get; set; }
+        public string SampleDescription { get; set; }
+        public string Report { get; set; }
+        public int TestReportTypeID { get; set; }
         public string Macroscopy { get; set; } 
         public string Microscopy { get; set; } 
         public string Conclusion { get; set; } 

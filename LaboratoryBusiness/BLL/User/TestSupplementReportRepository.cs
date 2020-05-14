@@ -43,7 +43,9 @@ namespace LaboratoryBusiness.BLL.User
                                TestID=p.TestID,
                                TestReportTypeID=p.TestReportTypeID,
                                UpdatedBy=p.UpdatedBy,
-                               UpdatedDate=p.UpdatedDate
+                               UpdatedDate=p.UpdatedDate,
+                               IsPublished = p.IsPublished
+
 
 
 
@@ -74,7 +76,8 @@ namespace LaboratoryBusiness.BLL.User
                               TestID = p.TestID,
                               TestReportTypeID = p.TestReportTypeID,
                               UpdatedBy = p.UpdatedBy,
-                              UpdatedDate = p.UpdatedDate
+                              UpdatedDate = p.UpdatedDate,
+                              IsPublished = p.IsPublished
 
 
 
@@ -104,7 +107,8 @@ namespace LaboratoryBusiness.BLL.User
                 TestID = p.TestID,
                 TestReportTypeID = p.TestReportTypeID,
                 UpdatedBy = p.UpdatedBy,
-                UpdatedDate = p.UpdatedDate
+                UpdatedDate = p.UpdatedDate,
+                IsPublished=p.IsPublished
 
 
             };
@@ -134,7 +138,8 @@ namespace LaboratoryBusiness.BLL.User
                               record.TestID = p.TestID;
                               record.TestReportTypeID = p.TestReportTypeID;
                               record.UpdatedBy = p.UpdatedBy;
-                              record.UpdatedDate = p.UpdatedDate;
+                record.UpdatedDate = p.UpdatedDate;
+                record.IsPublished = p.IsPublished;
 
             }
             else
