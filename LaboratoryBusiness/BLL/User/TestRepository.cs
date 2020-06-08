@@ -28,27 +28,30 @@ namespace LaboratoryBusiness.BLL.User
             var records = (from p in _context.Tbl_Cl_Test.AsEnumerable()
                            select new LaboratoryBusiness.POCO.User.Cl_Test
                            {
-                              AnalysisBy=p.AnalysisBy,
-                              AnalysisDate=p.AnalysisDate,
-                              ComplaintHistory=p.ComplaintHistory,
-                              ConclusionBy=p.ConclusionBy,
-                              ConclusionDate=p.ConclusionDate,
-                              Description=p.Description,
-                              IsPublish=p.IsPublish,
-                              IsSampleCollected=p.IsSampleCollected,
-                              IsSampleRequired=p.IsSampleRequired,
-                              PatientUserID=p.PatientUserID,
-                              PdfLink=p.PdfLink,
-                              SampleCode=p.SampleCode,
-                              SampleCollectionBy=p.SampleCollectionBy,
-                              SampleCollectionDate=p.SampleCollectionDate,
-                              SampleLabel=p.SampleLabel,
-                              SampleType=p.SampleType,
-                              TestCreatedBy=p.TestCreatedBy,
-                              TestCreatedDate=p.TestCreatedDate,
-                              TestID=p.TestID,
-                              TestName=p.TestName,
-                              TestStatusID=p.TestStatusID
+                               AnalysisBy = p.AnalysisBy,
+                               AnalysisDate = p.AnalysisDate,
+                               ComplaintHistory = p.ComplaintHistory,
+                               ConclusionBy = p.ConclusionBy,
+                               ConclusionDate = p.ConclusionDate,
+                               Description = p.Description,
+                               IsPublish = p.IsPublish,
+                               IsSampleCollected = p.IsSampleCollected,
+                               IsSampleRequired = p.IsSampleRequired,
+                               PatientUserID = p.PatientUserID,
+                               PdfLink = p.PdfLink,
+                               SampleCode = p.SampleCode,
+                               SampleCollectionBy = p.SampleCollectionBy,
+                               SampleCollectionDate = p.SampleCollectionDate,
+                               SampleLabel = p.SampleLabel,
+                               SampleType = p.SampleType,
+                               TestCreatedBy = p.TestCreatedBy,
+                               TestCreatedDate = p.TestCreatedDate,
+                               TestID = p.TestID,
+                               TestName = p.TestName,
+                               TestStatusID = p.TestStatusID,
+                               Cost = p.Cost,
+                               IsInvoiceGenerated = p.IsInvoiceGenerated,
+                               AurthorizeDate = p.AurthorizeDate
                               
 
 
@@ -83,9 +86,10 @@ namespace LaboratoryBusiness.BLL.User
                               TestCreatedDate = p.TestCreatedDate,
                               TestID = p.TestID,
                               TestName = p.TestName,
-                              TestStatusID = p.TestStatusID
-
-
+                              TestStatusID = p.TestStatusID,
+                              Cost = p.Cost,
+                              IsInvoiceGenerated = p.IsInvoiceGenerated,
+                              AurthorizeDate = p.AurthorizeDate
 
                           }).FirstOrDefault();
             return record;
@@ -117,7 +121,11 @@ namespace LaboratoryBusiness.BLL.User
                 TestCreatedDate = p.TestCreatedDate,
                 TestID = p.TestID,
                 TestName = p.TestName,
-                TestStatusID = p.TestStatusID
+                TestStatusID = p.TestStatusID,
+                Cost = p.Cost,
+                IsInvoiceGenerated=p.IsInvoiceGenerated,
+                AurthorizeDate = p.AurthorizeDate
+
 
             };
             _context.Tbl_Cl_Test.Add(inp);
@@ -153,6 +161,9 @@ namespace LaboratoryBusiness.BLL.User
                  record.TestID = p.TestID;
                  record.TestName = p.TestName;
                  record.TestStatusID = p.TestStatusID;
+                record.Cost = p.Cost;
+                record.IsInvoiceGenerated = p.IsInvoiceGenerated;
+                record.AurthorizeDate = p.AurthorizeDate;
 
             }
             else

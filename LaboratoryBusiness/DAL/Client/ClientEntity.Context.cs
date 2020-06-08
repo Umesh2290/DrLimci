@@ -58,5 +58,7 @@ namespace LaboratoryBusiness.DAL.Client
         public virtual DbSet<Tbl_Cl_TestSupplementReport> Tbl_Cl_TestSupplementReport { get; set; }
         public virtual DbSet<Tbl_Cl_HospitalDetail> Tbl_Cl_HospitalDetail { get; set; }
         public virtual DbSet<Tbl_Cl_LabReportConfiguration> Tbl_Cl_LabReportConfiguration { get; set; }
+        public virtual DbSet<Tbl_Cl_TestRate> Tbl_Cl_TestRate { get; set; }
+        public virtual DbSet<Tbl_Cl_Invoice> Tbl_Cl_Invoice { get; set; }
     }
 }

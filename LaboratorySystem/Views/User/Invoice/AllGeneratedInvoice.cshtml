@@ -1,0 +1,100 @@
+﻿
+@{
+    ViewBag.Title = "All Generated Invoice";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<script>
+    var currentmenu = 72;
+
+    var allloaded = false;
+    var displaypanel = "gridarea";
+    $(document).ready(function () {
+        debugger
+        var url = "/User/Invoice/AllGeneratedInvoice"
+        MakeRequest(url, "POST", null, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+    var outputdt = {};
+    if (rs.ResponseType == "Simple") {
+        var dt = rs.ResponseData.invoicejson;
+        outputdt = dt;
+    }
+
+    $('#invoicetable').on('init.dt', function () {
+        allloaded = true;
+    }).DataTable({
+        data: outputdt,
+        columns: [
+            { data: 'InvoiceID' },
+            { data: 'HospitalName' },
+            { data: 'Amount' },
+            { data: 'CreatedDate' },
+            { data: 'DueDate' },
+            { data: 'PDFLink' }
+        ],
+        "columnDefs": [
+            {
+                "render": function (data, type, row) {
+                    return "<a href='" + row["PDFLink"] + "' target='_blank'>Click here to download</a>";
+                },
+                "targets": 5
+            }
+        ]
+    });
+
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+
+    });
+</script>
+<div class="breadcrumb">
+    <h1 class="mr-2">All Generate Invoices</h1>
+    <ul>
+        <li><a href="">Generated Invoices</a></li>
+        <li>All Generated Invoices</li>
+    </ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+<div id="gridarea" style="visibility:hidden">
+    <div class="row mb-4">
+
+        <div class="col-md-12 mb-3">
+            <div class="card text-left">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="invoicetable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Invoice ID #</th>
+                                    <th scope="col">Hospital Name</th>
+                                    <th scope="col">Billed Amount</th>
+                                    <th scope="col">Billing Date</th>
+                                    <th scope="col">Due Date</th>
+                                    <th scope="col">Invoice Link</th>
+                                  
+                                    </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end of col-->
+    </div>
+</div>
+

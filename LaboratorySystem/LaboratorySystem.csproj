@@ -188,11 +188,13 @@
     <Compile Include="Controllers\User\ExtraWorkRequestController.cs" />
     <Compile Include="Controllers\User\HomeController.cs" />
     <Compile Include="Controllers\User\InventoryManagerController.cs" />
+    <Compile Include="Controllers\User\InvoiceController.cs" />
     <Compile Include="Controllers\User\MedicalTestController.cs" />
     <Compile Include="Controllers\User\MyReportsController.cs" />
     <Compile Include="Controllers\User\OpinionRequestController.cs" />
     <Compile Include="Controllers\User\PatientsController.cs" />
     <Compile Include="Controllers\User\PaymentsController.cs" />
+    <Compile Include="Controllers\User\RateListController.cs" />
     <Compile Include="Controllers\User\ReportConfigurationController.cs" />
     <Compile Include="Controllers\User\ReportsController.cs" />
     <Compile Include="HelperClasses\EmailManager.cs" />
@@ -212,6 +214,8 @@
     <Compile Include="MainClasses\SectionRestriction.cs" />
     <Compile Include="MainClasses\Signalr\RealTimeBroadcaster.cs" />
     <Compile Include="Models\ExtraWorkRequest.cs" />
+    <Compile Include="Models\InvoiceModel.cs" />
+    <Compile Include="Models\InvoiceTestData.cs" />
     <Compile Include="Models\ReportModel.cs" />
     <Compile Include="Models\TestSupplementReport.cs" />
     <Compile Include="SessionRelatedClasses\ClientAuthorizeMember.cs" />
@@ -251,6 +255,7 @@
     <Content Include="Content\EmailTemplates\InvoicePDF\invoicehtml - Copy.html" />
     <Content Include="Content\EmailTemplates\InvoicePDF\invoicehtml.html" />
     <Content Include="Content\EmailTemplates\InvoicePDF\target001.png" />
+    <Content Include="Content\EmailTemplates\Invoice\Invoice.html" />
     <Content Include="Content\EmailTemplates\NewClient.html" />
     <Content Include="Content\EmailTemplates\NewConsultant.html" />
     <Content Include="Content\EmailTemplates\NewEmployee.html" />
@@ -2663,6 +2668,8 @@
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile10.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile11.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile12.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile2.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile3.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile4.pubxml" />
@@ -2996,6 +3003,10 @@
     <Content Include="Views\User\ExportData\AllPaymentRecords.cshtml" />
     <Content Include="Views\User\Reports\ViewReport.cshtml" />
     <Content Include="Views\User\MedicalTest\SearchCompletedReport.cshtml" />
+    <Content Include="Views\User\RateList\Index.cshtml" />
+    <Content Include="Views\User\RateList\ViewAll.cshtml" />
+    <Content Include="Views\User\Invoice\Index.cshtml" />
+    <Content Include="Views\User\Invoice\AllGeneratedInvoice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

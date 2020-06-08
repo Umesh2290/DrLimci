@@ -29,5 +29,8 @@ namespace LaboratoryBusiness.POCO.User
         public Nullable<int> AnalysisBy { get; set; }
         public Nullable<System.DateTime> ConclusionDate { get; set; }
         public Nullable<int> ConclusionBy { get; set; }
+        public string Cost { get; set; }
+        public Nullable<bool> IsInvoiceGenerated { get; set; }
+        public Nullable<System.DateTime> AurthorizeDate { get; set; }
     }
 }

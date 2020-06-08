@@ -28,5 +28,6 @@ namespace LaboratoryBusiness.DAL.Client
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
         public string RegistrationNumber { get; set; }
+        public string VatRate { get; set; }
     }
 }

@@ -163,8 +163,8 @@ namespace LaboratorySystem
                     {
                         fileStream.CopyTo(ftpStream);
                     }
-
-                    uploadedfilepath = ("http://" + this.ftphost + "/MyFiles"+(@"/MyData_" + (_client.CompanyName.Replace(" ", "") + DirectoryPath.Replace("\\", "/"))) + "/" + file.Name + file.Extension);
+                    uploadedfilepath = ("https://" + this.ftphost +  (@"/MyData_" + (_client.CompanyName.Replace(" ", "") + DirectoryPath.Replace("\\", "/"))) + "/" + file.Name + file.Extension);
+                   // uploadedfilepath = ("https://" + this.ftphost + "/MyFiles"+(@"/MyData_" + (_client.CompanyName.Replace(" ", "") + DirectoryPath.Replace("\\", "/"))) + "/" + file.Name + file.Extension);
                     return true;
                 }
             }

@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewBag.Title = "View All Test Rate";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+<script>
+    var currentmenu = 69;
+    var allloaded = false;
+    var displaypanel = "gridarea";
+    $(document).ready(function () {
+        var _User_TestRateList_Get = "/User/RateList/GetList";
+
+        MakeRequest(_User_TestRateList_Get, "POST", { "status": "All" }, "json",
+function (jqXHR, settings) {
+    //For Before Send
+    $('.loadscreen').fadeIn();
+},
+function (data, status, xhr) {
+    //For Success
+    $('.loadscreen').fadeOut();
+    var rs = WebResponse(data);
+    var outputdt = {};
+    if (rs.ResponseType == "Simple") {
+        debugger;
+        var dt = rs.ResponseData.testratejson;
+        outputdt = dt;
+    }
+
+    $('#testratetable').on('init.dt', function () {
+        allloaded = true;
+        debugger;
+    }).DataTable({        
+        data: outputdt,
+        columns: [
+            { data: 'ID' },
+            { data: 'TestName' },
+            { data: 'Cost' },
+            { data: 'ID', className: 'editcolumn' }
+        ],
+        "columnDefs": [
+            {
+                "render": function (data, type, row) {
+                    debugger;
+                    var returnstring = '<a id="editbtn" href="/User/RateList?IsEdit=1&EditId=' + data + '" title="Edit"><button type="button" class="btn btn-success "><i class="nav-icon i-Pen-2 "></i></button></a>';
+                    return returnstring;
+                },
+                "targets": 3
+            }
+        ]
+    });
+
+
+},
+function (jqXhr, textStatus, errorMessage) {
+    //For Error
+    $('.loadscreen').fadeOut();
+    WebResponse(new { ResponseType: "toastr-error", description: "CL-Error", title: "Something went wrong (C)", data: {} });
+});
+
+    })
+</script>
+
+<div class="breadcrumb">
+    <h1 class="mr-2" id="mainheading">View All</h1>
+    <ul>
+        <li><a href="">Test Rate</a></li>
+        <li id="subheading">View All</li>
+    </ul>
+</div>
+<div id="backbtndiv" style="display:none">
+    <div class="row" style="margin:0 0.83em 0">
+        <div class="offset-md-11"></div>
+        <div class="col-md-1">
+            <button type="button" class="btn btn-gray-300" id="backtogridbtn"><i class="nav-icon i-Back1 "></i>Back</button>
+        </div>
+    </div>
+    <br />
+    <br />
+</div>
+<div class="separator-breadcrumb border-top"></div>
+<div id="gridarea" style="visibility:hidden">
+    <div class="row mb-4">
+
+        <div class="col-md-12 mb-3">
+            <div class="card text-left">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="testratetable">
+                            <thead>
+                                <tr>
+                                    <th scope="col"> ID #</th>
+                                    <th scope="col">Test Name</th>
+                                    <th scope="col">Rate</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end of col-->
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+       
+
+
+
+       
+    })
+</script>

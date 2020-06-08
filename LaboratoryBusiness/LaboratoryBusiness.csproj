@@ -85,6 +85,7 @@
     <Compile Include="BLL\User\InventoryRequestRepository.cs" />
     <Compile Include="BLL\User\InventoryRequestStatusRepository.cs" />
     <Compile Include="BLL\User\InventoryStatusTypeRepository.cs" />
+    <Compile Include="BLL\User\InvoiceRepository.cs" />
     <Compile Include="BLL\User\LabReportConfigurationRepository.cs" />
     <Compile Include="BLL\User\MenuAssignmentRepository.cs" />
     <Compile Include="BLL\User\MenuRepository.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="BLL\User\TestAttachmentTypeRepository.cs" />
     <Compile Include="BLL\User\TestConclusionRepository.cs" />
     <Compile Include="BLL\User\TestInvestigationRepository.cs" />
+    <Compile Include="BLL\User\TestRateRepository.cs" />
     <Compile Include="BLL\User\TestReportTypeRepository.cs" />
     <Compile Include="BLL\User\TestRepository.cs" />
     <Compile Include="BLL\User\TestStatusRepository.cs" />
@@ -164,6 +166,9 @@
     <Compile Include="DAL\Client\Tbl_Cl_InventoryStatusType.cs">
       <DependentUpon>ClientEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_Invoice.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\Client\Tbl_Cl_LabReportConfiguration.cs">
       <DependentUpon>ClientEntity.tt</DependentUpon>
     </Compile>
@@ -207,6 +212,9 @@
       <DependentUpon>ClientEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\Client\Tbl_Cl_TestInvestigation.cs">
+      <DependentUpon>ClientEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Client\Tbl_Cl_TestRate.cs">
       <DependentUpon>ClientEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\Client\Tbl_Cl_TestReportType.cs">
@@ -336,6 +344,7 @@
     <Compile Include="POCO\User\InventoryRequest.cs" />
     <Compile Include="POCO\User\InventoryRequestStatus.cs" />
     <Compile Include="POCO\User\InventoryStatusType.cs" />
+    <Compile Include="POCO\User\Invoice.cs" />
     <Compile Include="POCO\User\LabReportConfiguration.cs" />
     <Compile Include="POCO\User\Menu.cs" />
     <Compile Include="POCO\User\MenuAssignment.cs" />
@@ -351,6 +360,7 @@
     <Compile Include="POCO\User\TestAttachmentType.cs" />
     <Compile Include="POCO\User\TestConclusion.cs" />
     <Compile Include="POCO\User\TestInvestigation.cs" />
+    <Compile Include="POCO\User\TestRate.cs" />
     <Compile Include="POCO\User\TestReportType.cs" />
     <Compile Include="POCO\User\TestStatus.cs" />
     <Compile Include="POCO\User\TestSupplementReport.cs" />
@@ -392,6 +402,7 @@
     <Compile Include="Repositories\User\IInventoryRequest.cs" />
     <Compile Include="Repositories\User\IInventoryRequestStatus.cs" />
     <Compile Include="Repositories\User\IInventoryStatusType.cs" />
+    <Compile Include="Repositories\User\IInvoiceRepository.cs" />
     <Compile Include="Repositories\User\ILabReportConfiguration.cs" />
     <Compile Include="Repositories\User\IMenuAssignmentRepository.cs" />
     <Compile Include="Repositories\User\IMenuRepository.cs" />
@@ -407,6 +418,7 @@
     <Compile Include="Repositories\User\ITestAttachmentType.cs" />
     <Compile Include="Repositories\User\ITestConclusion.cs" />
     <Compile Include="Repositories\User\ITestInvestigation.cs" />
+    <Compile Include="Repositories\User\ITestRate.cs" />
     <Compile Include="Repositories\User\ITestReportType.cs" />
     <Compile Include="Repositories\User\ITestStatus.cs" />
     <Compile Include="Repositories\User\ITestSupplementReportRepository.cs" />

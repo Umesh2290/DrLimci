@@ -303,5 +303,13 @@ namespace LaboratorySystem
         {
             return new BLL.User.LabReportConfigurationRepository(new LaboratoryBusiness.DAL.Client.LabSystemClient_RajLabEntities(this._connectionstring));
         }
+        public Repositories.User.ITestRate TestRate()
+        {
+            return new BLL.User.TestRateRepository(new LaboratoryBusiness.DAL.Client.LabSystemClient_RajLabEntities(this._connectionstring));
+        }
+        public Repositories.User.IInvoiceRepository Invoice()
+        {
+            return new BLL.User.InvoiceRepository(new LaboratoryBusiness.DAL.Client.LabSystemClient_RajLabEntities(this._connectionstring));
+        }
     }
 }

@@ -1,0 +1,305 @@
+﻿
+@{
+    ViewBag.Title = "Create Invoice";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<script>
+    var currentmenu = 71;
+    var allloaded = false;
+    var displaypanel = "gridarea";
+</script>
+@{ 
+    LaboratoryBusiness.Repositories.User.IHospitalDetail hospitalDetail = ((DBInitializer)ViewBag.currentdomaindb).HospitalDetailRepository();
+}
+
+<div class="breadcrumb">
+    <h1 class="mr-2" id="mainheading">Create Invoice</h1>
+    <ul>
+        <li><a href="">Invoice</a></li>
+        <li id="subheading">Create Invoice</li>
+    </ul>
+</div>
+<div id="backbtndiv" style="display:none">
+    <div class="row" style="margin:0 0.83em 0">
+        <div class="offset-md-11"></div>
+        <div class="col-md-1">
+            <button type="button" class="btn btn-gray-300" id="backtogridbtn"><i class="nav-icon i-Back1 "></i>Back</button>
+        </div>
+    </div>
+    <br />
+    <br />
+</div>
+<div class="separator-breadcrumb border-top"></div>
+<div id="gridarea" >
+    <div class="row mb-4">
+
+        <div class="col-md-12 mb-3">
+            <div class="card text-left">
+                <div class="card-body">
+                    <form id="invoiceform" name="invoiceform">
+                        <div class="row">
+                            <div class="col-sm-12 "></div>
+                           
+                            <label id="lblfromdate" class="col-lg-1">From Date: </label>
+                            <div class="col-lg-3 ">
+                                <input type="date" id="fromdate" name="fromdate">
+                            </div>
+                            <label id="lbltodate" class="col-lg-1">To Date: </label>
+                            <div class="col-lg-3 ">
+                                <input type="date" id="todate" name="todate">
+                            </div>
+                            <label id="lblhospital" class="col-lg-1">Select Hospital: </label>
+                            <div class="col-lg-3 ">
+                                <select class="form-control" required="required" name="hospital" id="hospital">
+                                    @foreach (var hospital in hospitalDetail.GetAll())
+                                    {
+                                        <option value="@hospital.HospitalDetailID">@hospital.HospitalName</option>
+                                    }
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary m-1" id="searchbtn">Search</button>
+                            <button type="submit" class="btn btn-primary m-1" id="generatebtn">Generate Invoice</button>
+
+                        
+                        </div>
+
+                        <div class="custom-separator"></div>
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="testinvoicetable">
+                                <thead>
+                                    <tr>
+
+                                        <th scope="col">TestID #</th>
+                                        <th scope="col">Sample No/NHS Reference No</th>
+                                        <th scope="col">Test Name</th>
+                                        <th scope="col">Patient Name</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Status</th>
+                                        @*<th scope="col">Selected All<input type="checkbox" class="form-check alldownloadpdf" /></th>*@
+                                        @*<th scope="col">Action</th>*@
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodyinv" class="bodyhide" ></tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- end of col-->
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#searchbtn").click(function () {
+            debugger;
+            var form = document.querySelector('#invoiceform');
+            if (form.reportValidity()) {
+               
+                debugger;
+                var _posturl = "/User/Invoice/Getlist";
+                
+                MakeRequest(_posturl, "POST", objectifyForm($("#invoiceform").serializeArray()), "json",
+                    function (jqXHR, settings) {
+                        //For Before Send
+                        $('.loadscreen').fadeIn();
+                    },
+                    function (data, status, xhr) {                       //For Success
+
+                        $('.loadscreen').fadeOut();
+
+                        var rs = WebResponse(data);
+                        if (rs.ResponseType == "Simple" || rs.ResponseType == "swal-warning") {
+
+                            var dt = rs.ResponseData.testinvoicejson;
+                            outputdt = dt;
+                        }
+                        $('.bodyhide').css("visibility", "visible");
+                        $("#testinvoicetable").dataTable().fnDestroy()
+                        $('#testinvoicetable').on('draw.dt', function () {
+                            allloaded = true;
+                            
+                           
+                        }).DataTable({
+                            data: outputdt,
+                            columns: [
+                                { data: 'TestID' },
+                                { data: 'SampleCode' },
+                                { data: 'TestName' },
+                                { data: 'PatientName' },
+                                { data: 'Cost' },
+                                { data: 'Status' },
+                                //{ data: 'TestID' },
+                                //{ data: 'TestID', className: 'editcolumn' }
+                            ],
+                            "columnDefs": [
+                                //{
+                                     
+                                //    "render": function (data, type, row) {
+                                //        return "<input type='checkbox' class='form-check downloadcheckbox' value='" + row["TestID"] + "' />Select";
+                                //    },
+                                //    "targets": 6
+                                //}
+                                //},
+                                //    "render": function (data, type, row) {
+                                //        debugger;
+                                //        var returnstring = '<a id="editbtn" href="/User/RateList?IsEdit=1&EditId=' + data + '" title="Edit"><button type="button" class="btn btn-success "><i class="nav-icon i-Pen-2 "></i></button></a>';
+                                //        return returnstring;
+                                //    },
+                                //    "targets": 3
+                                //}
+                            ]
+                        });
+
+
+                            // Checking whether FormData is available in browser  
+                        },
+                       
+                   
+                    function (jqXhr, textStatus, errorMessage) {
+                        //For Error
+                        $('.loadscreen').fadeOut();
+                        WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                    });
+            }
+            return false;
+        });
+
+        $("#generatebtn").click(function () {
+            debugger;
+            var form = document.querySelector('#invoiceform');
+           
+            debugger;
+            if (form.reportValidity()) {
+              
+                debugger;
+                var _posturl = "/User/Invoice/GenerateInvoice";
+               
+                MakeRequest(_posturl, "POST", objectifyForm($("#invoiceform").serializeArray()), "json",
+                    function (jqXHR, settings) {
+                        //For Before Send
+                        $('.loadscreen').fadeIn();
+                    },
+                    function (data, status, xhr) {                       //For Success
+
+                        $('.loadscreen').fadeOut();
+
+                        var rs = WebResponse(data);
+                        if (rs.ResponseType == "Simple" || rs.ResponseType == "swal-warning") {
+
+                            var dt = rs.ResponseData.testinvoicejson;
+                            //outputdt = dt;
+                        }
+                        debugger;
+
+                        $('.bodyhide').css("visibility", "hidden");
+                        //$("#testinvoicetable").dataTable().fnDestroy();
+                        //$("#testinvoicetable").dataTable().row().delete();
+                       // var table = $('#testinvoicetable').dataTable();
+                        //table.clear().draw();
+                        //$('#testinvoicetable').on('draw.dt', function () {
+                        //    allloaded = true;
+
+                        //    debugger;
+                        //}).DataTable({
+                        //    data: dt,
+                        //    columns: [
+                        //        { data: 'TestID' },
+                        //        { data: 'SampleCode' },
+                        //        { data: 'TestName' },
+                        //        { data: 'PatientName' },
+                        //        { data: 'Cost' },
+                        //        { data: 'Status' }
+                        //        //{ data: 'TestID' },
+                        //        //{ data: 'TestID', className: 'editcolumn' }
+                        //    ],
+                        //    "columnDefs": [
+                        //        //{
+
+                        //        //    "render": function (data, type, row) {
+                        //        //        return "<input type='checkbox' class='form-check downloadcheckbox' value='" + row["TestID"] + "' />Select";
+                        //        //    },
+                        //        //    "targets": 6
+                        //        //}
+                        //        //},
+                        //        //    "render": function (data, type, row) {
+                        //        //        debugger;
+                        //        //        var returnstring = '<a id="editbtn" href="/User/RateList?IsEdit=1&EditId=' + data + '" title="Edit"><button type="button" class="btn btn-success "><i class="nav-icon i-Pen-2 "></i></button></a>';
+                        //        //        return returnstring;
+                        //        //    },
+                        //        //    "targets": 3
+                        //        //}
+                        //    ]
+                        //});
+
+
+                        // Checking whether FormData is available in browser  
+                    },
+
+
+                    function (jqXhr, textStatus, errorMessage) {
+                        //For Error
+                        $('.loadscreen').fadeOut();
+                        WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                    });
+            }
+            return false;
+        });
+
+                //$(document).on('change', '.alldownloadpdf', function () {
+        //    $(".downloadcheckbox").prop('checked', $(this).prop('checked'));
+        //});
+
+        //$(document).on('change', '.downloadcheckbox', function () {
+        //    var allcheckboxcount = 0;
+        //    var allcheckboxcheckedcount = 0;
+        //    $('.downloadcheckbox').each(function (i, obj) {
+        //        allcheckboxcount++;
+        //        if ($(obj).prop('checked')) {
+        //            allcheckboxcheckedcount++;
+        //        }
+        //    });
+
+        //    if (allcheckboxcount == allcheckboxcheckedcount) {
+        //        $(".alldownloadpdf").prop('checked', true);
+        //    }
+
+        //    else {
+        //        $(".alldownloadpdf").prop('checked', false);
+        //    }
+        //});
+
+        //$("#alldowloadlink").click(function () {
+        //    debugger
+        //    var totalids = "";
+        //    $('.downloadcheckbox').each(function (i, obj) {
+        //        if ($(obj).prop('checked')) {
+        //            totalids += $(obj).val() + ",";
+        //        }
+        //    });
+
+        //    //totalids = totalids.replace(/,\s*$/, "");
+        //    //if (totalids == '') {
+        //    //    swal.fire({ title: "Error", icon: "error", html: "Select atleast one employee pdf to download !" });
+        //    //    return;
+        //    //}
+        //    //var origin = window.location.origin;
+        //    //var win = window.open(origin + '/' + _User_ExportData_DownloadAllEmployeeRecords + '?qr=' + totalids, '_blank');
+        //    //console.log(win);
+        //    //if (win) {
+        //    //    //Browser has allowed it to be opened
+        //    //    win.focus();
+        //    //} else {
+        //    //    //Browser has blocked it
+        //    //    alert('Please allow popups for this website');
+        //    //}
+        //});
+
+
+
+
+    })
+</script>
+

@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>LG Pathlab- Invoice</title>
+
+
+    <style type="text/css">
+        table {
+            font-family: Calibri;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .unselectable {
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .column {
+            float: left;
+            width: 50%;
+            padding: 5px;
+        }
+
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        /*td {
+            vertical-align: text-bottom;
+            text-align: left;
+            padding: 5px;
+        }*/
+    </style>
+
+</head>
+<body>
+    <div class="container" style="font-family:Calibri;">
+        <div class="row unselectable">
+            <div class=" column" style="font-weight:bold;font-family:Calibri;font-size:30px">
+                <h1 class="blue-color" style="color:mediumpurple">INVOICE</h1>
+            </div>
+            <div class=" column" style="font-weight:bold;font-family:Calibri;font-size:25px">
+                <h3 class="blue-color" style="color:mediumpurple">LGPathlab</h3>
+            </div>
+
+
+        </div>
+        <div class="row unselectable">
+            <div class=" column" style="font-weight:bold;font-family:Calibri;font-size:11px">
+                <span class="add-head blue-color">
+                    Invoice Number:<br>
+                    @InvoiceNumber@<br>
+                </span>
+
+
+            </div>
+            <div class=" column" style="font-weight:bold;font-family:Calibri;font-size:11px">
+                <span class="add-head blue-color">
+                    Date of Issue:<br>
+                    @invoicedate@<br>
+                </span>
+
+
+            </div>
+        </div>
+        <div class="row unselectable">
+            <div class=" column" style="font-family:Calibri;font-size:11px">
+                <span class="add-head blue-color">
+                    Billed To:<br>
+                    @hospitalname@<br>
+                    @hospitaladdress@<br>
+                </span>
+
+
+            </div>
+            <div class=" column" style="font-family:Calibri;font-size:11px">
+                <span class="add-head blue-color">
+                    1 Harley Street<br>
+                    London, United Kingdom W1G 9QD<br />
+                    customercare@lgpathlab.co.uk<br />
+                    LGPathlab.co.uk<br />
+                    07841584103<br />
+
+
+                </span>
+
+
+            </div>
+        </div>
+        <hr style="clear:both; margin-top:20px;" />
+        <div class="row mb-4">
+
+            <div class="col-md-12 mb-3">
+                <div class="card text-left">
+                    <div class="card-body">
+                        
+
+                        <div class="table-responsive">
+
+                            <table class="table table-hover ">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No of Items</th>
+                                        <th scope="col">Sample No/NHS Reference No</th>
+                                        <th scope="col">Patient Name</th>
+                                        <th scope="col">Test Name</th>
+                                        <th scope="col">Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @paitientnewrow@
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                            </div>
+                        </div>
+            </div>
+                        <hr />
+                        <div class="row unselectable">
+                            <div class="column" style="font-weight:bold;font-family:Calibri;font-size:16px">
+                                <span class="add-head blue-color">
+                                    Invoice Total<br>
+                                    &#163;@Subtotal@<br>
+                                </span>
+
+
+                            </div>
+                            <div class="column" style="font-weight:bold;font-family:Calibri;font-size:14px">
+                                <span class="add-head blue-color">
+                                    Subtotal&nbsp; &nbsp;&#163;@total@<br>
+                                    Vat &nbsp;&nbsp;&#163;@vatcost@<br>
+                                    (Vat Rate)&nbsp;&nbsp;@vat@ %<br>
+                                    Total&nbsp;&nbsp;&#163;@Subtotal@<br>
+                                </span>
+
+
+                            </div>
+                        </div>
+                        <div class="row unselectable">
+                            <div class="col-sm-6 align-left" style="line-height:30px;">
+                                TERMS
+                                <br>Please pay the invoice by @duedate@
+
+
+                            </div>
+
+                        </div>
+                        <div class="row unselectable">
+                            <div class=" column" style="font-weight:bold;font-family:Calibri;font-size:11px">
+                                <span class="add-head blue-color">
+                                    BANK DETAILS :<br>
+                                    Barclays<br>
+                                    Company's name : UKIHCC <br>
+                                    Sort code : 20-37-16 <br>
+                                    Account no : 23707172
+                                </span>
+
+                            </div>
+                        </div>
+                        <div class="row unselectable">
+                            <div class="col-sm-6 align-left" style="line-height:30px;">
+                                <span class="add-head blue-color">
+                                    Best wishes, <br>
+                                    LGPathlab Team <br>
+
+                                </span>
+
+                            </div>
+                        </div>
+                    </div>
+</body>
+</html>

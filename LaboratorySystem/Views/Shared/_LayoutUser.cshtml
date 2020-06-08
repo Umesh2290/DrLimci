@@ -19,6 +19,7 @@
     <link href="~/Content/styles/css/themes/lite-purple.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/Content/styles/vendor/toastr.css" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+
     @*<link rel="stylesheet" href="~/Content/styles/vendor/sweetalert2.min.css" />*@
     <style>
         .loadscreen {
@@ -257,7 +258,7 @@
                 <header>
                     <div class="logo">
                         @*<img  src="/Content/MainWebsite/assets/img/logo/logo.png" alt="">*@
-                        <img src="@logoimg" alt="">
+                        <img src="@logoimg" style="width:200px;height:80px;" alt="">
                     </div>
                 </header>
                 <!-- Submenu Dashboards -->
@@ -445,12 +446,19 @@
 
                         <div class="d-flex align-items-center" style="text-align: center;">
                             <img class="logo" src="/Content/MainWebsite/assets/img/logo/logo.png" alt="">
-                            <div>
+                            <div >
 
                                 <p class="m-0">© Copyright 2020 IndoUk Labs, Inc.</p>
                                 <p class="m-0">All rights reserved</p>
+                                
+                            </div>
+                            <div >
+                                <span id="siteseal" >
+                                    <script async type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=32KwYqogVmk0yHX3HOExEo2y82ZNXpNqXbVnJq6OzbHn7uFXsiQI3aPIsVh0"></script>
+                                </span>
                             </div>
                         </div>
+                      
                     </div>
                 </div>
                 <!-- footer end -->

@@ -40,7 +40,8 @@ namespace LaboratoryBusiness.BLL.User
                                CreatedDate = p.CreatedDate,
                                UpdatedBy = p.UpdatedBy,
                                UpdatedDate = p.UpdatedDate,
-                               RegistrationNumber=p.RegistrationNumber
+                               RegistrationNumber=p.RegistrationNumber,
+                               VatRate=p.VatRate
 
 
                            });
@@ -65,7 +66,8 @@ namespace LaboratoryBusiness.BLL.User
                 CreatedDate = p.CreatedDate,
                 UpdatedBy = p.UpdatedBy,
                 UpdatedDate = p.UpdatedDate,
-                RegistrationNumber=p.RegistrationNumber
+                RegistrationNumber=p.RegistrationNumber,
+                VatRate = p.VatRate
 
             };
             _context.Tbl_Cl_LabReportConfiguration.Add(inp);
@@ -95,6 +97,7 @@ namespace LaboratoryBusiness.BLL.User
                     record.CreatedDate = p.CreatedDate;
                     record.UpdatedBy = p.UpdatedBy;
                     record.RegistrationNumber = p.RegistrationNumber;
+                    record.VatRate = p.VatRate;
                
 
             }

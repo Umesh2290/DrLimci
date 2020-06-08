@@ -216,6 +216,17 @@
           <Property Name="UpdatedDate" Type="datetime" />
           <Property Name="UpdatedBy" Type="int" />
         </EntityType>
+        <EntityType Name="Tbl_Cl_Invoice">
+          <Key>
+            <PropertyRef Name="InvoiceID" />
+          </Key>
+          <Property Name="InvoiceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HospitalId" Type="int" />
+          <Property Name="Amount" Type="int" />
+          <Property Name="InvoiceDate" Type="datetime" />
+          <Property Name="DueDate" Type="datetime" />
+          <Property Name="PDFLink" Type="varchar(max)" />
+        </EntityType>
         <EntityType Name="Tbl_Cl_LabReportConfiguration">
           <Key>
             <PropertyRef Name="ConfigID" />
@@ -234,6 +245,7 @@
           <Property Name="UpdatedDate" Type="datetime" />
           <Property Name="UpdatedBy" Type="int" />
           <Property Name="RegistrationNumber" Type="varchar" MaxLength="250" />
+          <Property Name="VatRate" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Tbl_Cl_Menu">
           <Key>
@@ -403,6 +415,9 @@
           <Property Name="AnalysisBy" Type="int" />
           <Property Name="ConclusionDate" Type="datetime" />
           <Property Name="ConclusionBy" Type="int" />
+          <Property Name="Cost" Type="varchar(max)" />
+          <Property Name="IsInvoiceGenerated" Type="bit" />
+          <Property Name="AurthorizeDate" Type="datetime" />
         </EntityType>
         <EntityType Name="Tbl_Cl_TestAttachment">
           <Key>
@@ -461,6 +476,14 @@
           <Property Name="UpdatedBy" Type="int" />
           <Property Name="UpdatedDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="Tbl_Cl_TestRate">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TestName" Type="varchar(max)" />
+          <Property Name="Cost" Type="int" />
+        </EntityType>
         <EntityType Name="Tbl_Cl_TestReportType">
           <Key>
             <PropertyRef Name="TestReportTypeID" />
@@ -514,6 +537,7 @@
           <EntitySet Name="Tbl_Cl_InventoryRequest" EntityType="Self.Tbl_Cl_InventoryRequest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Cl_InventoryRequestStatus" EntityType="Self.Tbl_Cl_InventoryRequestStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Cl_InventoryStatusType" EntityType="Self.Tbl_Cl_InventoryStatusType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_Invoice" EntityType="Self.Tbl_Cl_Invoice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Cl_LabReportConfiguration" EntityType="Self.Tbl_Cl_LabReportConfiguration" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Cl_Menu" EntityType="Self.Tbl_Cl_Menu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Cl_MenuAssignment" EntityType="Self.Tbl_Cl_MenuAssignment" Schema="dbo" store:Type="Tables" />
@@ -529,6 +553,7 @@
           <EntitySet Name="Tbl_Cl_TestAttachmentType" EntityType="Self.Tbl_Cl_TestAttachmentType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Cl_TestConclusion" EntityType="Self.Tbl_Cl_TestConclusion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Cl_TestInvestigation" EntityType="Self.Tbl_Cl_TestInvestigation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Cl_TestRate" EntityType="Self.Tbl_Cl_TestRate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Cl_TestReportType" EntityType="Self.Tbl_Cl_TestReportType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Cl_TestStatus" EntityType="Self.Tbl_Cl_TestStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Cl_TestSupplementReport" EntityType="Self.Tbl_Cl_TestSupplementReport" Schema="dbo" store:Type="Tables" />
@@ -899,6 +924,9 @@
           <Property Name="AnalysisBy" Type="Int32" />
           <Property Name="ConclusionDate" Type="DateTime" Precision="3" />
           <Property Name="ConclusionBy" Type="Int32" />
+          <Property Name="Cost" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsInvoiceGenerated" Type="Boolean" />
+          <Property Name="AurthorizeDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Tbl_Cl_TestAttachment">
           <Key>
@@ -1028,6 +1056,8 @@
           <EntitySet Name="Tbl_Cl_TestSupplementReport" EntityType="Self.Tbl_Cl_TestSupplementReport" />
           <EntitySet Name="Tbl_Cl_HospitalDetail" EntityType="LabSystemClient_RajLabModel.Tbl_Cl_HospitalDetail" />
           <EntitySet Name="Tbl_Cl_LabReportConfiguration" EntityType="LabSystemClient_RajLabModel.Tbl_Cl_LabReportConfiguration" />
+          <EntitySet Name="Tbl_Cl_TestRate" EntityType="LabSystemClient_RajLabModel.Tbl_Cl_TestRate" />
+          <EntitySet Name="Tbl_Cl_Invoice" EntityType="LabSystemClient_RajLabModel.Tbl_Cl_Invoice" />
         </EntityContainer>
         <EntityType Name="Tbl_Cl_HospitalDetail">
           <Key>
@@ -1064,6 +1094,26 @@
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="RegistrationNumber" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="VatRate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_TestRate">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TestName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Cost" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Tbl_Cl_Invoice">
+          <Key>
+            <PropertyRef Name="InvoiceID" />
+          </Key>
+          <Property Name="InvoiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HospitalId" Type="Int32" />
+          <Property Name="Amount" Type="Int32" />
+          <Property Name="InvoiceDate" Type="DateTime" Precision="3" />
+          <Property Name="DueDate" Type="DateTime" Precision="3" />
+          <Property Name="PDFLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1434,6 +1484,9 @@
           <EntitySetMapping Name="Tbl_Cl_Test">
             <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_Test">
               <MappingFragment StoreEntitySet="Tbl_Cl_Test">
+                <ScalarProperty Name="AurthorizeDate" ColumnName="AurthorizeDate" />
+                <ScalarProperty Name="IsInvoiceGenerated" ColumnName="IsInvoiceGenerated" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
                 <ScalarProperty Name="TestID" ColumnName="TestID" />
                 <ScalarProperty Name="TestName" ColumnName="TestName" />
                 <ScalarProperty Name="IsSampleRequired" ColumnName="IsSampleRequired" />
@@ -1580,6 +1633,7 @@
           <EntitySetMapping Name="Tbl_Cl_LabReportConfiguration">
             <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_LabReportConfiguration">
               <MappingFragment StoreEntitySet="Tbl_Cl_LabReportConfiguration">
+                <ScalarProperty Name="VatRate" ColumnName="VatRate" />
                 <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
@@ -1594,6 +1648,27 @@
                 <ScalarProperty Name="LabName" ColumnName="LabName" />
                 <ScalarProperty Name="LabID" ColumnName="LabID" />
                 <ScalarProperty Name="ConfigID" ColumnName="ConfigID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cl_TestRate">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_TestRate">
+              <MappingFragment StoreEntitySet="Tbl_Cl_TestRate">
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="TestName" ColumnName="TestName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Cl_Invoice">
+            <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_Invoice">
+              <MappingFragment StoreEntitySet="Tbl_Cl_Invoice">
+                <ScalarProperty Name="PDFLink" ColumnName="PDFLink" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="HospitalId" ColumnName="HospitalId" />
+                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

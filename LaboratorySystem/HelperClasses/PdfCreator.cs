@@ -132,6 +132,75 @@ namespace LaboratorySystem
             }
         }
 
+        public static FileManager CreateInvoicePDF(Models.InvoiceModel invoice, string subdomainurl, DBInitializer db, out string link)
+        {
+            try
+            {
+
+
+                Dictionary<string, string> dic = new Dictionary<string, string>();
+                //Dictionary<string, string> dicP = new Dictionary<string, string>();
+                dic.Add("@invoicedate@", invoice.InvoiceDate.ToString("dd/MM/yyyy"));
+                dic.Add("@labname@", invoice.LabName);
+
+                dic.Add("@total@", invoice.Total);
+                dic.Add("@vat@", invoice.Vat);
+                dic.Add("@vatcost@", invoice.VatCost);
+
+                dic.Add("@hospitalname@", invoice.HospitalName);
+                dic.Add("@hospitaladdress@", invoice.HospitalAddress);
+                dic.Add("@duedate@", invoice.DueDate.ToString("dd/MM/yyyy"));
+                string paitientnewrow = string.Empty;
+                int sno = 1;
+                foreach (var p in invoice.invoiceTestDatas)
+                {
+                    paitientnewrow += @"<tr>
+                                        <td>" + sno + @"</td>
+                                        <td>" + p.SampleCode + @"</td>
+                                        <td>" + p.PaitientName + @"</td>
+                                        <td>" + p.TestName + @"</td>
+                                        <td>" + p.Cost + @"</td>
+                                        </tr>";
+                    sno++;
+                    //dicP.Add("@samplecode@", p.SampleCode);
+                    //dicP.Add("@paitientname@", p.PaitientName);
+                    //dicP.Add("@testname@", p.TestName);
+                    //dicP.Add("@cost@", p.Cost);
+                    
+                }
+                dic.Add("@paitientnewrow@", paitientnewrow);//Html
+                //dic.Append(dicP);
+                dic.Add("@InvoiceNumber@", invoice.InvoiceID);
+                dic.Add("@Subtotal@", invoice.SubTotal);
+                //dic.Add("@Phone@", clientdetail.MobileNo);
+                //dic.Add("@ClientEmail@", clientdetail.Email);
+                //dic.Add("@PatientID@", cuser.ClientUserID.ToString("0000"));
+                //dic.Add("@username@", cuser.Username);
+                //dic.Add("@invoiceno@", pdetail.PatientDetailID.ToString("0000"));
+                //dic.Add("@invoicedate@", pdetail.CreatedDate.Value.ToString("dd MMM yyyy HH:mm tt"));
+                //dic.Add("@PatientName@", cuser.FirstName + " " + pdetail.MiddleName + " " + cuser.LastName);
+                //dic.Add("@PatientAddress@", cuser.Address);
+                //dic.Add("@PatientMobile@", cuser.MobileNo);
+                //dic.Add("@patientemail@", cuser.Email);
+                //dic.Add("@Amount@", pdetail.Payment.ToString());
+                //dic.Add("@TotalAmount@", pdetail.Payment.ToString());
+
+                string pdfhtmltemplate = HtmlRendering.ReplaceParameterOfHtmlTemplate(HelpingClass.GetDefaultDirectory() + @"\Content\EmailTemplates\Invoice\Invoice.html", dic);
+
+                FileManager pd = PdfManager.HtmlToPdf("Invoice" +invoice.InvoiceID + invoice.InvoiceDate.ToString("MMddyyyyHHmmtt"), pdfhtmltemplate);
+                Client cl = new Client(subdomainurl);
+                FileInitializer fl = new FileInitializer(cl);
+                string pdfuploadedpath;
+                fl.UploadFile(pd, "\\InvoiceReciept", out pdfuploadedpath);
+                link = pdfuploadedpath;
+                return pd;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public static FileManager CreateEmployeePDF(int employeeuserid, string subdomainurl, DBInitializer db, out string link)
         {
             try

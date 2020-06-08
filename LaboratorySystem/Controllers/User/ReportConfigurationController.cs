@@ -45,7 +45,7 @@ namespace LaboratorySystem.Controllers.User
         }
         [HttpPost]
         [Route("AddConfigurationInfo")]
-        public JsonResult Create(string labname, string phoneno, string labaddress, string headofficeaddress, string labemail, string labuniquecode,string registrationno,
+        public JsonResult Create(string labname, string phoneno, string labaddress, string headofficeaddress, string labemail, string labuniquecode,string registrationno, string vatrate ,
           int editid)
         {
             try
@@ -72,9 +72,11 @@ namespace LaboratorySystem.Controllers.User
                     configdetailobj.CreatedBy = MySession.GetClientSession(this.subdomainurl).ClientUserID;
                     configdetailobj.CreatedDate = DateTime.Now;
                     configdetailobj.RegistrationNumber = registrationno.Trim();
+                    configdetailobj.VatRate = vatrate.Trim();
                     labReportConfiguration.Insert(configdetailobj);
                     labReportConfiguration.Save();
                     islabReportConfigurationcreated = true;
+                   
 
 
 
@@ -107,6 +109,8 @@ namespace LaboratorySystem.Controllers.User
                     configdetailobj.UpdatedBy = MySession.GetClientSession(this.subdomainurl).ClientUserID;
                     configdetailobj.UpdatedDate = DateTime.Now;
                     configdetailobj.RegistrationNumber = registrationno.Trim();
+                    configdetailobj.VatRate = vatrate.Trim();
+
                     labReportConfiguration.Update(configdetailobj);
                     labReportConfiguration.Save();
                     islabReportConfigurationcreated = true;
@@ -226,7 +230,8 @@ namespace LaboratorySystem.Controllers.User
                                   lab.LabImage,
                                   lab.LabUniqueCode,
                                   lab.LabCompanyNumber,
-                                  lab.RegistrationNumber
+                                  lab.RegistrationNumber,
+                                  lab.VatRate
 
                               }).OrderByDescending(x => x.ConfigID).ToList();
 
