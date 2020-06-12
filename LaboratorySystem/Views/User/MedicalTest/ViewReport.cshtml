@@ -1,18 +1,16 @@
 ﻿@using LaboratorySystem.Models;
 @model dynamic
 
-
 @{
     Layout = null;
 }
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>LG Pathlab</title>
 
-
     <style type="text/css">
+
         .unselectable {
             -webkit-user-select: none;
             -webkit-touch-callout: none;
@@ -44,27 +42,44 @@
         }
     </style>
     <script>
-        @{ 
+        @{
             ReportModel report = Model.data;
             @report.TestReportTypeID;
         }
-        
+
          if (@report.TestReportTypeID == 1)
          {
              $('#divhistopathology').css('display', 'block');
              $('#divcytopathology').css('display', 'none');
+             $('#divMicrobiology').css('display', 'none');
+             $('#divRadiology').css('display', 'none');
+
          }
         if (@report.TestReportTypeID == 4)
             {
             $('#divcytopathology').css('display', 'block');
             $('#divhistopathology').css('display', 'none');
+            $('#divMicrobiology').css('display', 'none');
+            $('#divRadiology').css('display', 'none');
+        }
+         if (@report.TestReportTypeID == 3)
+            {
+            $('#divcytopathology').css('display', 'none');
+            $('#divhistopathology').css('display', 'none');
+            $('#divMicrobiology').css('display', 'none');
+            $('#divRadiology').css('display', 'block');
+         }
+         if (@report.TestReportTypeID == 2|| @report.TestReportTypeID == 5)
+            {
+            $('#divcytopathology').css('display', 'none');
+            $('#divhistopathology').css('display', 'none');
+            $('#divMicrobiology').css('display', 'block');
+            $('#divRadiology').css('display', 'none');
         }
 
     </script>
-
 </head>
 <body>
-
     <div class="container" style="font-family:Calibri;font-size:11px">
         <div class="row unselectable">
             <div class=" column" style="font-family:Calibri">
@@ -72,10 +87,8 @@
                 <span style="font-weight:bold;font-family:Calibri;font-size:11px">
                     @report.LabUniqueCode<br>
                     Company number: @report.LabCompanyNumber <br>
-
                     @report.LabAddress
                 </span>
-
             </div>
             <div class=" column" style="font-weight:bold;font-family:Calibri;font-size:11px">
                 <span class="add-head blue-color">
@@ -83,19 +96,15 @@
                     @report.LabHeadOfficeAddress<br>
                 </span>
                 <p><a style="color:Highlight;text-decoration:underline;text-decoration-color:Highlight" href="mailto:@report.labEmail">@report.labEmail</a></p>
-
             </div>
             <div class=" column">
-
                 <img src="~/Content/images/logoLGPathLab.PNG" alt="logo" style="margin-top:0px;" />
             </div>
         </div>
         <hr style="clear:both; margin-top:20px;" />
         <div class="unselectable">
             <h4 class="text-center" style="text-align:center"><u>Patient Information</u></h4>
-
             <form class="form-horizontal" action="/">
-
                 <table>
                     <tr>
                         <td>
@@ -119,7 +128,6 @@
                         </td>
                         <td id="address">
                             @report.Address
-
                         </td>
                     </tr>
                     <tr>
@@ -162,18 +170,13 @@
                             @report.NHS_report_number
                         </td>
                     </tr>
-
                 </table>
             </form>
-
-
 
             <hr />
             <h4 class="text-center" style="text-align:center"><u>REPORT</u></h4>
         </div>
-
-        @{
-            int i=1;
+        @{ int i = 1;
             foreach (TestSupplementReport sup in Model.supplementreportlist)
             {
 
@@ -181,87 +184,79 @@
                 {
 
 
-        <h6 class="text-center" style="text-align:center"><u>Supplementary Report @i</u></h6>
-        <div id="divSupplementary">
-            <table>
-                <tr>
-                    <td style="width:20%">
-                        <label class="control-label" for="name">Specimen details :</label>
-                    </td>
-                    <td>
-                        @sup.SpecimenDetails
-                    </td>
-                </tr>
+                    <h6 class="text-center" style="text-align:center"><u>Supplementary Report @i</u></h6>
+                    <div id="divSupplementary">
+                        <table>
+                            <tr>
+                                <td style="width:20%">
+                                    <label class="control-label" for="name">Specimen details :</label>
+                                </td>
+                                <td>
+                                    @sup.SpecimenDetails
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width:15%">
+                                    <label class="control-label" for="name">Microscopy :</label>
+                                </td>
+                                <td>
+                                    @sup.Microscopy
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width:15%">
+                                    <label class="control-label" for="name">Conclusion :</label>
+                                </td>
+                                <td>
+                                    @sup.SupplementReportConclusion
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width:15%">
+                                    <label class="control-label" for="name"> Supplement By :</label>
+                                </td>
+                                <td>
+                                    @sup.SupplementBy
+                                </td>
+                            </tr>
+                        </table>
+                    </div> i++;
+                }
+                else
+                {
+                    <h6 class="text-center" style="text-align:center"><u>Supplementary Report @i</u></h6>
+                    <div id="divSupplementary">
+                        <table>
+                            <tr>
+                                <td style="width:20%">
+                                    <label class="control-label" for="name">Specimen details :</label>
+                                </td>
+                                <td>
+                                    @sup.SpecimenDetails
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width:15%">
+                                    <label class="control-label" for="name">Conclusion :</label>
+                                </td>
+                                <td>
+                                    @sup.SupplementReportConclusion
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width:15%">
+                                    <label class="control-label" for="name"> Supplement By :</label>
+                                </td>
+                                <td>
+                                    @sup.SupplementBy
+                                </td>
+                            </tr>
+                        </table>
+                    </div> i++;
 
-                <tr>
-                    <td style="width:15%">
-                        <label class="control-label" for="name">Microscopy :</label>
-                    </td>
-                    <td>
-                        @sup.Microscopy
-                    </td>
-                </tr>
+                }
 
-                <tr>
-                    <td style="width:15%">
-                        <label class="control-label" for="name">Conclusion :</label>
-                    </td>
-                    <td>
-                        @sup.SupplementReportConclusion
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width:15%">
-                        <label class="control-label" for="name"> Supplement By :</label>
-                    </td>
-                    <td>
-                        @sup.SupplementBy
-                    </td>
-                </tr>
-               
-            </table>
-        </div>
-        i++;
-        }
-        else
-        {
-        <h6 class="text-center" style="text-align:center"><u>Supplementary Report @i</u></h6>
-        <div id="divSupplementary">
-            <table>
-                <tr>
-                    <td style="width:20%">
-                        <label class="control-label" for="name">Specimen details :</label>
-                    </td>
-                    <td>
-                        @sup.SpecimenDetails
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width:15%">
-                        <label class="control-label" for="name">Conclusion :</label>
-                    </td>
-                    <td>
-                        @sup.SupplementReportConclusion
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width:15%">
-                        <label class="control-label" for="name"> Supplement By :</label>
-                    </td>
-                    <td>
-                        @sup.SupplementBy
-                    </td>
-                </tr>
-            </table>
-        </div>
-        i++;
-
-        }
-
-        <hr />
-        }
-        }
-
+                <hr /> } }
         <div id="divhistopathology">
             <h6 class="text-center" style="text-align:center"><u>Previous Report</u></h6>
             <table>
@@ -297,7 +292,6 @@
                         @report.Microscopy
                     </td>
                 </tr>
-
                 <tr>
                     <td style="width:15%">
                         <label class="control-label" for="name">Conclusion :</label>
@@ -345,7 +339,6 @@
                         @report.Report
                     </td>
                 </tr>
-
                 <tr>
                     <td style="width:15%">
                         <label class="control-label" for="name">Conclusion :</label>
@@ -356,10 +349,101 @@
                 </tr>
             </table>
         </div>
-
+        <div id="divRadiology" style="display:none">
+            <h6 class="text-center" style="text-align:center"><u>Previous Report</u></h6>
+            <table>
+                <tr>
+                    <td style="width:20%">
+                        <label class="control-label" for="name">Modality :</label>
+                    </td>
+                    <td>
+                        @report.Specimen_type
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:18%">
+                        <label class="control-label" for="name">Clinical history and other investigations :</label>
+                    </td>
+                    <td>
+                        @report.Clinical_details
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:15%">
+                        <label class="control-label" for="name">
+                            Area and name of procedure :
+                        </label>
+                    </td>
+                    <td>
+                        @report.SampleDescription
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:15%">
+                        <label class="control-label" for="name">Report :</label>
+                    </td>
+                    <td>
+                        @report.Report
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:15%">
+                        <label class="control-label" for="name">Conclusion :</label>
+                    </td>
+                    <td>
+                        @report.Conclusion
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="divMicrobiology" style="display:none">
+            <h6 class="text-center" style="text-align:center"><u>Previous Report</u></h6>
+            <table>
+                <tr>
+                    <td style="width:20%">
+                        <label class="control-label" for="name">Sample Type :</label>
+                    </td>
+                    <td>
+                        @report.Specimen_type
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:18%">
+                        <label class="control-label" for="name">Clinical details :</label>
+                    </td>
+                    <td>
+                        @report.Clinical_details
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:15%">
+                        <label class="control-label" for="name">
+                            Sample Description:
+                        </label>
+                    </td>
+                    <td>
+                        @report.SampleDescription
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:15%">
+                        <label class="control-label" for="name">Report :</label>
+                    </td>
+                    <td>
+                        @report.Report
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:15%">
+                        <label class="control-label" for="name">Conclusion :</label>
+                    </td>
+                    <td>
+                        @report.Conclusion
+                    </td>
+                </tr>
+            </table>
+        </div>
         <hr />
-
-
 
         <div class="row unselectable">
             <div class="col-sm-6 align-left" style="line-height:30px;">
@@ -367,14 +451,9 @@
                 Reported By:&nbsp; @report.reported_by<br>
                 Consultant Histopathologist <br>
                 @report.LabName
-
             </div>
-
         </div>
     </div>
 
-
-
 </body>
 </html>
-
