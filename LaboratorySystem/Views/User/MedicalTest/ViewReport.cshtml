@@ -45,8 +45,11 @@
         @{
             ReportModel report = Model.data;
             @report.TestReportTypeID;
-        }
+           
+            
 
+        }
+       
          if (@report.TestReportTypeID == 1)
          {
              $('#divhistopathology').css('display', 'block');
@@ -67,7 +70,8 @@
             $('#divcytopathology').css('display', 'none');
             $('#divhistopathology').css('display', 'none');
             $('#divMicrobiology').css('display', 'none');
-            $('#divRadiology').css('display', 'block');
+             $('#divRadiology').css('display', 'block');
+             $('#lblConsultant').text("Consultant Radiologist");
          }
          if (@report.TestReportTypeID == 2|| @report.TestReportTypeID == 5)
             {
@@ -256,9 +260,11 @@
 
                 }
 
-                <hr /> } }
+                <hr />
+                <h6 class="text-center" style="text-align:center;text-decoration:underline" id="previousreport">Previous Report</h6>
+            } }
         <div id="divhistopathology">
-            <h6 class="text-center" style="text-align:center"><u>Previous Report</u></h6>
+
             <table>
                 <tr>
                     <td style="width:20%">
@@ -303,7 +309,7 @@
             </table>
         </div>
         <div id="divcytopathology" style="display:none">
-            <h6 class="text-center" style="text-align:center"><u>Previous Report</u></h6>
+            @*<h6 class="text-center" style="text-align:center"><u>Previous Report</u></h6>*@
             <table>
                 <tr>
                     <td style="width:20%">
@@ -350,7 +356,7 @@
             </table>
         </div>
         <div id="divRadiology" style="display:none">
-            <h6 class="text-center" style="text-align:center"><u>Previous Report</u></h6>
+            @*<h6 class="text-center" style="text-align:center"><u>Previous Report</u></h6>*@
             <table>
                 <tr>
                     <td style="width:20%">
@@ -397,7 +403,7 @@
             </table>
         </div>
         <div id="divMicrobiology" style="display:none">
-            <h6 class="text-center" style="text-align:center"><u>Previous Report</u></h6>
+            @*<h6 class="text-center" style="text-align:center"><u>Previous Report</u></h6>*@
             <table>
                 <tr>
                     <td style="width:20%">
@@ -449,7 +455,8 @@
             <div class="col-sm-6 align-left" style="line-height:30px;">
                 @*Signature<br>*@
                 Reported By:&nbsp; @report.reported_by<br>
-                Consultant Histopathologist <br>
+
+                <label class="control-label" for="name" id="lblConsultant">Consultant Pathologist</label> <br>
                 @report.LabName
             </div>
         </div>
