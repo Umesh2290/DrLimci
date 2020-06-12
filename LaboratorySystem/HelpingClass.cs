@@ -102,17 +102,17 @@ namespace LaboratorySystem
                 }
 
                 // Verify that what we think is the domain is truly the ending of the hostname... otherwise we're hooped.
-                //if (!subdomain.EndsWith(domain))
-                //    throw new ArgumentException("Site was not loaded from the expected domain");
+                if (!subdomain.EndsWith(domain))
+                    throw new ArgumentException("Site was not loaded from the expected domain");
 
                 //// Quash the domain portion, which should leave us with the subdomain and a trailing dot IF there is a subdomain.
-                //subdomain = subdomain.Replace(domain, "");
+                subdomain = subdomain.Replace(domain, "");
                 //// Check if we have anything left.  If we don't, there was no subdomain, the request was directly to the root domain:
                 if (string.IsNullOrWhiteSpace(subdomain))
                     return null;
 
                 //// Quash any trailing periods
-                //subdomain = subdomain.TrimEnd(new[] { '.' });
+                subdomain = subdomain.TrimEnd(new[] { '.' });
             }
 
             return subdomain;
@@ -186,8 +186,8 @@ namespace LaboratorySystem
             try
             {
                 currentweburl = HelpingClass.CurrentWebUrl();
-                //string[] parts = currentweburl.Split(new string[] { "www." }, StringSplitOptions.None);
-                domainonly = currentweburl;//parts[1].Replace("/", "");
+                string[] parts = currentweburl.Split(new string[] { "www." }, StringSplitOptions.None);
+                domainonly = parts[1].Replace("/", "");
             }
             catch
             {

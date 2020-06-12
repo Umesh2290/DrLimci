@@ -20,7 +20,7 @@ namespace LaboratorySystem
             {
                 if (!sub.Equals("www") && !sub.Equals("127.0"))
                 {
-                    subdomain = sub + ".";// + HelpingClass.GetDomainOnly();
+                    subdomain = sub + "." + HelpingClass.GetDomainOnly();
                 }
             }
 

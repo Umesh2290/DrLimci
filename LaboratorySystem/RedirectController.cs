@@ -30,7 +30,7 @@ namespace LaboratorySystem
                     {
                         try
                         {
-                            this.subdomainurl = sub + ".";//+HelpingClass.GetDomainOnly();
+                            this.subdomainurl = sub + "."+HelpingClass.GetDomainOnly();
                             var systemobj = SystemUser.GetSystemUserBySubdomain(this.subdomainurl);
                             if (systemobj == null)
                             {
