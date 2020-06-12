@@ -135,7 +135,7 @@ namespace LaboratorySystem.Controllers.User
                 test.TestStatusID = teststatusid;
                 test.TestCreatedBy = MySession.GetClientSession(this.subdomainurl).ClientUserID;
                 test.TestCreatedDate = DateTime.Now;
-                test.Cost = testrate.Cost.ToString();
+                test.Cost = complainthistory;
                 testrep.Insert(test);
                 testrep.Save();
 
@@ -1265,7 +1265,7 @@ namespace LaboratorySystem.Controllers.User
                         data.Referring_hospital_name = patientobj.pd.ReferingHospital;
                         data.Referring_lab_no = patientobj.pd.ReferingDoctor;
                         data.Report_number = testinnerobj.TestID.ToString();
-                        data.NHS_report_number = "N/A";
+                        data.NHS_report_number = testinnerobj.SampleLabel.ToString();// ; "N/A";
                         //data.reported_by = createdbycustom;
 
                         if (testinnerobj.ConclusionBy.HasValue)

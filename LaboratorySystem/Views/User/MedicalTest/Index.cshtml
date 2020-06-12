@@ -102,6 +102,10 @@
         var js_is_conclusion_show = false;
                 var js_is_viewbag_view = false;
         $(document).ready(function () {
+            $('#testname').change(function () {
+                var cost = $(':selected', this).data('id');
+                $('#complainthistory').val(cost);
+            });
 
             $('textarea').on('keyup keypress mouseover', function () {
                 $(this).height(0);
@@ -1375,11 +1379,11 @@ function (jqXHR, settings) {
 
                                                 <select class="form-control" id="testname" name="testname">
                                                     @{
-
+                                                    <option value="">Select test</option>
                                                         foreach (var rate in ratelist)
                                                         {
                                                            
-                                                        <option value="@rate.ID">@rate.TestName</option>
+                                                        <option value="@rate.ID" data-id="@rate.Cost">@rate.TestName</option>
                                                           
                                                         }
 
