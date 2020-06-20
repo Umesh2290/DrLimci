@@ -418,6 +418,7 @@
           <Property Name="Cost" Type="varchar(max)" />
           <Property Name="IsInvoiceGenerated" Type="bit" />
           <Property Name="AurthorizeDate" Type="datetime" />
+          <Property Name="ExternalConsultantBy" Type="int" />
         </EntityType>
         <EntityType Name="Tbl_Cl_TestAttachment">
           <Key>
@@ -927,6 +928,7 @@
           <Property Name="Cost" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="IsInvoiceGenerated" Type="Boolean" />
           <Property Name="AurthorizeDate" Type="DateTime" Precision="3" />
+          <Property Name="ExternalConsultantBy" Type="Int32" />
         </EntityType>
         <EntityType Name="Tbl_Cl_TestAttachment">
           <Key>
@@ -1484,6 +1486,7 @@
           <EntitySetMapping Name="Tbl_Cl_Test">
             <EntityTypeMapping TypeName="LabSystemClient_RajLabModel.Tbl_Cl_Test">
               <MappingFragment StoreEntitySet="Tbl_Cl_Test">
+                <ScalarProperty Name="ExternalConsultantBy" ColumnName="ExternalConsultantBy" />
                 <ScalarProperty Name="AurthorizeDate" ColumnName="AurthorizeDate" />
                 <ScalarProperty Name="IsInvoiceGenerated" ColumnName="IsInvoiceGenerated" />
                 <ScalarProperty Name="Cost" ColumnName="Cost" />

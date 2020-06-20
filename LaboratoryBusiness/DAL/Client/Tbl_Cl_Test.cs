@@ -38,5 +38,6 @@ namespace LaboratoryBusiness.DAL.Client
         public string Cost { get; set; }
         public Nullable<bool> IsInvoiceGenerated { get; set; }
         public Nullable<System.DateTime> AurthorizeDate { get; set; }
+        public Nullable<int> ExternalConsultantBy { get; set; }
     }
 }

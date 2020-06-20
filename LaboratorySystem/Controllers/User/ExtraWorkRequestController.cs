@@ -40,7 +40,7 @@ namespace LaboratorySystem.Controllers.User
                             PatientName = clientuserobj.FirstName + " " + (patientdetailobj.MiddleName == null ? "" : patientdetailobj.MiddleName) + " " + clientuserobj.LastName,
                             IsSampleCollected = test.IsSampleCollected.HasValue?(test.IsSampleCollected.Value?"Yes":"No"):"No",
                             ComplaintHistory = test.ComplaintHistory==null?"":test.ComplaintHistory,
-                            TestCreatedDate = test.TestCreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt")
+                            TestCreatedDate = test.TestCreatedDate.Value.ToString("dd/MM/yyyy HH:mm tt")
                         };
                         return WebJSResponse.ResponseSimple(new { testjson = testobj });
                     }
@@ -215,7 +215,7 @@ namespace LaboratorySystem.Controllers.User
                                   City=pt.City,
                                   HospitalName = (pt.HospitalID != null) ? m.HospitalName : pt.ReferingHospital,
                                   ReportRefrenceNumber = tst.SampleLabel,
-                                  RequestCreatedDate = ew.RequestCreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
+                                  RequestCreatedDate = ew.RequestCreatedDate.Value.ToString("dd/MM/yyyy HH:mm tt"),
                               StatusCustom=ews.StatusName}).ToList()
                     : (from ew in extrawork.GetAll()
                        join ews in extrastatus.GetAll() on ew.StatusID equals ews.WorkRequestStatusID
@@ -233,7 +233,7 @@ namespace LaboratorySystem.Controllers.User
                            City = pt.City,
                            HospitalName = (pt.HospitalID != null) ? m.HospitalName : pt.ReferingHospital,
                            ReportRefrenceNumber = tst.SampleLabel,
-                           RequestCreatedDate = ew.RequestCreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
+                           RequestCreatedDate = ew.RequestCreatedDate.Value.ToString("dd/MM/yyyy HH:mm tt"),
                            StatusCustom = ews.StatusName
                        }).ToList();
                 }
@@ -255,7 +255,7 @@ namespace LaboratorySystem.Controllers.User
                                   City = pt.City,
                                   HospitalName= (pt.HospitalID != null) ? m.HospitalName : pt.ReferingHospital,
                                   ReportRefrenceNumber=tst.SampleLabel,
-                                  RequestCreatedDate = ew.RequestCreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
+                                  RequestCreatedDate = ew.RequestCreatedDate.Value.ToString("dd/MM/yyyy HH:mm tt"),
                                   StatusCustom = ews.StatusName
                               }).ToList();
                 }
@@ -277,7 +277,7 @@ namespace LaboratorySystem.Controllers.User
                                   City = pt.City,
                                   HospitalName = (pt.HospitalID != null) ? m.HospitalName : pt.ReferingHospital,
                                   ReportRefrenceNumber = tst.SampleLabel,
-                                  RequestCreatedDate = ew.RequestCreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
+                                  RequestCreatedDate = ew.RequestCreatedDate.Value.ToString("dd/MM/yyyy HH:mm tt"),
                                   StatusCustom = ews.StatusName
                               }).ToList();
                 }
@@ -333,7 +333,7 @@ namespace LaboratorySystem.Controllers.User
                         data.Others,
                         PatientName = patdetail.FirstName+" "+patdetail.LastName,
                         StatusName = extrastatus.GetByID(data.StatusID.Value).StatusName,
-                        RequestCreatedDateCustom = data.RequestCreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
+                        RequestCreatedDateCustom = data.RequestCreatedDate.Value.ToString("dd/MM/yyyy HH:mm tt"),
                         RequestCreatedByName = cu.FirstName + " " + cu.LastName
                     };
 
@@ -343,7 +343,7 @@ namespace LaboratorySystem.Controllers.User
                         openAction = new
                         {
                             OpenActionByName = cu.FirstName + " " + cu.LastName,
-                            OpenActionDateCustom = data.NewActionDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
+                            OpenActionDateCustom = data.NewActionDate.Value.ToString("dd/MM/yyyy HH:mm tt"),
                             OpenActionComments = data.NewActionComments,
                             OpenActionStatusName = extrastatus.GetByID(data.NewActionStatusID.Value).StatusName
                         };
@@ -355,7 +355,7 @@ namespace LaboratorySystem.Controllers.User
                         progressAction = new
                         {
                             ProgressActionByName = cu.FirstName + " " + cu.LastName,
-                            ProgressActionDateCustom = data.PendingActionDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
+                            ProgressActionDateCustom = data.PendingActionDate.Value.ToString("dd/MM/yyyy HH:mm tt"),
                             ProgressActionComments = data.PendingActionComments,
                             ProgressActionStatusName = extrastatus.GetByID(data.StatusID.Value).StatusName
                         };

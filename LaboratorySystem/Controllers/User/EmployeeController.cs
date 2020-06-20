@@ -632,7 +632,7 @@ namespace LaboratorySystem.Controllers.User
                              IsActive = clientuserobj.IsActive,
                              ClientUserID = clientuserobj.ClientUserID,
                              Username = clientuserobj.Username,
-                             JoiningDateCustom = clientuserdetailobj.JoiningDate.Value.ToString("MM/dd/yyyy"),
+                             JoiningDateCustom = clientuserdetailobj.JoiningDate.Value.ToString("dd/MM/yyyy"),
                              TerminationDateCustom = clientuserdetailobj.TerminationDate.HasValue ? clientuserdetailobj.TerminationDate.Value.ToString("MM/dd/yyyy") : null,
                              TerminationReason = clientuserdetailobj.TerminationReason,
                              Qualifications = clientuserdetailobj.Qualifications,
@@ -642,7 +642,7 @@ namespace LaboratorySystem.Controllers.User
                              PdfLink=clientuserdetailobj.PdfLink,
                              Status = clientuserobj.IsActive.HasValue ? (clientuserobj.IsActive.Value ? "Active" : "Inactive") : "Inactive",
                              EmployeeType = clientusertype.GetByID(clientuserobj.DetailType.Value).TypeName,
-                             CreatedDateCustom = clientuserobj.CreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt")
+                             CreatedDateCustom = clientuserobj.CreatedDate.Value.ToString("dd/MM/yyyy HH:mm tt")
                          };
                          return WebJSResponse.ResponseSimple(new { clientuserjson = clientuserobjj, assignedrolesjson = assignedroles, attachmentsjson = attachments });
                      }

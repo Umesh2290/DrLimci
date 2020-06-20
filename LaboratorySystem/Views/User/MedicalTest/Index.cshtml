@@ -642,7 +642,12 @@ function (jqXHR, settings) {
             $("#description_ti_vw_lbl").text(inputdata.Description);
             $("#issamplerequired_ti_vw_lbl").text(inputdata.IsSampleRequired);
             $("#hospitalname_ti_vw_lbl").text(inputdata.HospitalName);
-          
+            var currole="@currentrolename";
+            if (currole != "External Consultant") {
+                $('#divrate').css('display', 'block');
+            }
+                                            
+                                           
 
             var html = '';
             if (inputdata.AttachmentList != null) {
@@ -1409,12 +1414,12 @@ function (jqXHR, settings) {
                                             </div>
 
                                             <label for="complainthistory" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
-                                                Complaint History:
+                                                Rate:
                                             </label>
                                             <div class="col-lg-3 ">
-                                                <input type="text" class="form-control" id="complainthistory" name="complainthistory" placeholder="Enter complaint history">
+                                                <input type="text" class="form-control" id="complainthistory" name="complainthistory" placeholder="Enter rate">
                                                 <small id="complainthistorythelpblock" class="ul-form__text form-text ">
-                                                    Please enter complaint history
+                                                    Please enter rate
                                                 </small>
                                             </div>
                                         </div>
@@ -1507,8 +1512,9 @@ function (jqXHR, settings) {
                                                 <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Test ID #</p>
                                                 <span id="testid_ti_vw_lbl">N/A</span>
                                             </div>
-                                            <div class="mb-4">
-                                                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Complaint History</p>
+
+                                            <div class="mb-4" id="divrate" style="display:none">
+                                                <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Rate</p>
                                                 <span id="complainthistory_ti_vw_lbl">N/A</span>
                                             </div>
                                         </div>
@@ -2307,7 +2313,8 @@ function (jqXHR, settings) {
                         }
                         else {
                             setTimeout(function () {
-                                window.location.replace("/User/MedicalTest/Completed");
+                                redirectexternalinternal();
+                                //window.location.replace("/User/MedicalTest/Completed");
                             }, 2500);
                         }
                     },
@@ -2346,7 +2353,8 @@ function (jqXHR, settings) {
                         }
                         else {
                             setTimeout(function () {
-                                window.location.replace("/User/MedicalTest/Completed");
+                                redirectexternalinternal();
+                                //window.location.replace("/User/MedicalTest/Completed");
                             }, 2500);
                         }
                     }
@@ -2385,7 +2393,8 @@ function (jqXHR, settings) {
                 }
                 else {
                     setTimeout(function () {
-                        window.location.replace("/User/MedicalTest/Completed");
+                        redirectexternalinternal();
+                        //window.location.replace("/User/MedicalTest/Completed");
                     }, 2500);
                 }
             }
@@ -2423,14 +2432,25 @@ function (jqXHR, settings) {
             }
             else {
                 setTimeout(function () {
-                    window.location.replace("/User/MedicalTest/Completed");
+                    redirectexternalinternal();
+                    //window.location.replace("/User/MedicalTest/Completed");
                 }, 2500);
             }
         }
     }
 
+    function redirectexternalinternal() {
+        var currentrole ="@currentrolename";
+        if (currentrole == "External Consultant") {
+            window.location.replace("/User/MedicalTest/SearchCompletedReport");
+        }
+        else {
+            window.location.replace("/User/MedicalTest/Completed");
+        }
+    }
     function SaveConclusion(ispublish) {
         $("#ispublish_conclusion").val(ispublish);
+        debugger;
         var form = document.querySelector('#conclusionform');
         if (form.reportValidity()) {
 

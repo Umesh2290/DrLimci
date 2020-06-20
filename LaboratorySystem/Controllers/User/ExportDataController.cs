@@ -74,7 +74,7 @@ namespace LaboratorySystem.Controllers.User
                                       pd.PdfLink,
                                       pd.PaymentReceiptPdfLink,
                                       pd.City,
-                                      CreatedDate=pd.CreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
+                                      CreatedDate=pd.CreatedDate.Value.ToString("dd/MM/yyyy HH:mm tt"),
                                       cl.ClientUserID,
                                       cl.Username,
                                       cl.FirstName,
@@ -179,7 +179,7 @@ namespace LaboratorySystem.Controllers.User
                             Age = patientdetailobj.Age,
                             PatientDetailID = patientdetailobj.PatientDetailID,
                             Status = clientuserobj.IsActive.HasValue ? (clientuserobj.IsActive.Value ? "Active" : "Inactive") : "Inactive",
-                            CreatedDateCustom = clientuserobj.CreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
+                            CreatedDateCustom = clientuserobj.CreatedDate.Value.ToString("dd/MM/yyyy HH:mm tt"),
                         };
                         return WebJSResponse.ResponseSimple(new { patientuserjson = patientuserobj });
                     }
@@ -250,7 +250,7 @@ namespace LaboratorySystem.Controllers.User
                                   ts.TestName,
                                   PatientName = (ptus.FirstName + " " + (pt.MiddleName == null ? "" : pt.MiddleName) + " " + ptus.LastName),
                                   Status = (ts.TestStatusID.HasValue ? ts.TestStatusID.Value : 0) == 5 ? "Completed" : "Pending",
-                                  TestCreatedDateCustom = ts.TestCreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
+                                  TestCreatedDateCustom = ts.TestCreatedDate.Value.ToString("dd/MM/yyyy HH:mm tt"),
                                   IsPublish = ts.IsPublish.HasValue ? ts.IsPublish.Value ? "Yes" : "No" : "No",
                                   ts.PdfLink,
                                   City=pt.City
@@ -431,8 +431,8 @@ namespace LaboratorySystem.Controllers.User
                             IsActive = clientuserobj.IsActive,
                             ClientUserID = clientuserobj.ClientUserID,
                             Username = clientuserobj.Username,
-                            JoiningDateCustom = clientuserdetailobj.JoiningDate.Value.ToString("MM/dd/yyyy"),
-                            TerminationDateCustom = clientuserdetailobj.TerminationDate.HasValue ? clientuserdetailobj.TerminationDate.Value.ToString("MM/dd/yyyy") : null,
+                            JoiningDateCustom = clientuserdetailobj.JoiningDate.Value.ToString("dd/MM/yyyy"),
+                            TerminationDateCustom = clientuserdetailobj.TerminationDate.HasValue ? clientuserdetailobj.TerminationDate.Value.ToString("dd/MM/yyyy") : null,
                             TerminationReason = clientuserdetailobj.TerminationReason,
                             Qualifications = clientuserdetailobj.Qualifications,
                             TypeOfCollection = clientuserdetailobj.TypeOfCollection,
@@ -441,7 +441,7 @@ namespace LaboratorySystem.Controllers.User
                             PdfLink = clientuserdetailobj.PdfLink,
                             Status = clientuserobj.IsActive.HasValue ? (clientuserobj.IsActive.Value ? "Active" : "Inactive") : "Inactive",
                             EmployeeType = clientusertype.GetByID(clientuserobj.DetailType.Value).TypeName,
-                            CreatedDateCustom = clientuserobj.CreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt")
+                            CreatedDateCustom = clientuserobj.CreatedDate.Value.ToString("dd/MM/yyyy HH:mm tt")
                         };
                         return WebJSResponse.ResponseSimple(new { clientuserjson = clientuserobjj, assignedrolesjson = assignedroles, attachmentsjson = attachments });
                     }

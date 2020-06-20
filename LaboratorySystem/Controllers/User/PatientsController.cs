@@ -499,7 +499,7 @@ namespace LaboratorySystem.Controllers.User
                             Age = patientdetailobj.Age,
                             PatientDetailID = patientdetailobj.PatientDetailID,
                             Status = clientuserobj.IsActive.HasValue ? (clientuserobj.IsActive.Value ? "Active" : "Inactive") : "Inactive",
-                            CreatedDateCustom = clientuserobj.CreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
+                            CreatedDateCustom = clientuserobj.CreatedDate.Value.ToString("dd/MM/yyyy HH:mm tt"),
                         };
                         return WebJSResponse.ResponseSimple(new { patientuserjson = patientuserobj });
                     }

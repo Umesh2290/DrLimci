@@ -51,7 +51,8 @@ namespace LaboratoryBusiness.BLL.User
                                TestStatusID = p.TestStatusID,
                                Cost = p.Cost,
                                IsInvoiceGenerated = p.IsInvoiceGenerated,
-                               AurthorizeDate = p.AurthorizeDate
+                               AurthorizeDate = p.AurthorizeDate,
+                               ExternalConsultantBy=p.ExternalConsultantBy
                               
 
 
@@ -89,7 +90,8 @@ namespace LaboratoryBusiness.BLL.User
                               TestStatusID = p.TestStatusID,
                               Cost = p.Cost,
                               IsInvoiceGenerated = p.IsInvoiceGenerated,
-                              AurthorizeDate = p.AurthorizeDate
+                              AurthorizeDate = p.AurthorizeDate,
+                              ExternalConsultantBy = p.ExternalConsultantBy
 
                           }).FirstOrDefault();
             return record;
@@ -124,7 +126,8 @@ namespace LaboratoryBusiness.BLL.User
                 TestStatusID = p.TestStatusID,
                 Cost = p.Cost,
                 IsInvoiceGenerated=p.IsInvoiceGenerated,
-                AurthorizeDate = p.AurthorizeDate
+                AurthorizeDate = p.AurthorizeDate,
+                ExternalConsultantBy = p.ExternalConsultantBy
 
 
             };
@@ -164,6 +167,7 @@ namespace LaboratoryBusiness.BLL.User
                 record.Cost = p.Cost;
                 record.IsInvoiceGenerated = p.IsInvoiceGenerated;
                 record.AurthorizeDate = p.AurthorizeDate;
+                record.ExternalConsultantBy = p.ExternalConsultantBy;
 
             }
             else

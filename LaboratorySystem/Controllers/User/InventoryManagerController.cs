@@ -235,7 +235,7 @@ namespace LaboratorySystem.Controllers.User
                             data.CreatedBy,
                             data.Code,
                             StatusName = inventorystatustype.GetByID(data.InventoryStatusID.Value).StatusName,
-                            ExpiryDateCustom = data.ExpiryDate.Value.ToString("MM/dd/yyyy")
+                            ExpiryDateCustom = data.ExpiryDate.Value.ToString("dd/MM/yyyy")
                         };
                 }
 

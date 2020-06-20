@@ -55,7 +55,7 @@ namespace LaboratorySystem.Controllers.User
                                   ts.TestName,
                                   PatientName = (ptus.FirstName + " " + (pt.MiddleName == null ? "" : pt.MiddleName) + " " + ptus.LastName),
                                   Status = (ts.TestStatusID.HasValue ? ts.TestStatusID.Value : 0) == 5 ? "Completed" : "Pending",
-                                  TestCreatedDateCustom = ts.TestCreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
+                                  TestCreatedDateCustom = ts.TestCreatedDate.Value.ToString("dd/MM/yyyy HH:mm tt"),
                                   IsPublish = ts.IsPublish.HasValue ? ts.IsPublish.Value ? "Yes" : "No" : "No",
                                   DetailStatus = dst.StatusName
 
@@ -74,7 +74,7 @@ namespace LaboratorySystem.Controllers.User
                                   ts.TestName,
                                   PatientName = (ptus.FirstName + " " + (pt.MiddleName == null ? "" : pt.MiddleName) + " " + ptus.LastName),
                                   Status = (ts.TestStatusID.HasValue ? ts.TestStatusID.Value : 0) == 5 ? "Completed" : "Pending",
-                                  TestCreatedDateCustom = ts.TestCreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
+                                  TestCreatedDateCustom = ts.TestCreatedDate.Value.ToString("dd/MM/yyyy HH:mm tt"),
                                   IsPublish = ts.IsPublish.HasValue ? ts.IsPublish.Value ? "Yes" : "No" : "No",
                                   DetailStatus = dst.StatusName
 

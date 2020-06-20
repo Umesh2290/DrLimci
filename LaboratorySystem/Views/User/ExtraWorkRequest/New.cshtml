@@ -19,18 +19,35 @@
     LaboratoryBusiness.Repositories.User.ITestStatusRepositories teststatusrepo = ((DBInitializer)ViewBag.currentdomaindb).TestStatusRepositories();
     LaboratoryBusiness.Repositories.User.IPatientDetailRepository pdetail = ((DBInitializer)ViewBag.currentdomaindb).PatientDetailRepository();
     LaboratoryBusiness.Repositories.User.IClientUserRepository cldetail = ((DBInitializer)ViewBag.currentdomaindb).ClientUserRepository();
-
+    LaboratoryBusiness.Repositories.User.IHospitalDetail hospitalDetail = ((DBInitializer)ViewBag.currentdomaindb).HospitalDetailRepository();
+    ClientUser cu = MySession.GetClientSession(((string)ViewBag.subdomainurl));
+    int hospitalid = Convert.ToInt32(cu.HospitalDetailID);
     int labconsultstatusid = teststatusrepo.GetAll().Where(x => x.StatusName.Equals("On Clinical Lab Doctor Plate")).FirstOrDefault().TestStatusID;
 
-    var eligibletests = (from ts in testrepo.GetAll()
-                         join cl in cldetail.GetAll() on ts.PatientUserID equals cl.ClientUserID
-                         join pd in pdetail.GetAll() on cl.DetailID  equals pd.PatientDetailID
-                         where (ts.TestStatusID.HasValue ? ts.TestStatusID.Value : 0) == labconsultstatusid && !(ts.IsPublish.HasValue ? ts.IsPublish.Value : false)
+    var eligibletests = (hospitalid != 0) ? ((from ts in testrepo.GetAll()
+                                              join cl in cldetail.GetAll() on ts.PatientUserID equals cl.ClientUserID
+                                              join pd in pdetail.GetAll() on cl.DetailID equals pd.PatientDetailID
+                                              join hs in hospitalDetail.GetAll() on pd.HospitalID equals hs.HospitalDetailID into hspd
+                                              from m in hspd.DefaultIfEmpty()
+                                              where (ts.TestStatusID.HasValue ? ts.TestStatusID.Value : 0) == labconsultstatusid && !(ts.IsPublish.HasValue ? ts.IsPublish.Value : false)
+                                              && pd.HospitalID == hospitalid
+                                              select new
+                                              {
+                                                  Name = ts.TestID.ToString() + " - " + ts.TestName + " - " + cl.FirstName + " " + cl.LastName + " - " + pd.City + " - " + ts.SampleLabel +" - " + ((pd.HospitalID != null) ? m.HospitalName : pd.ReferingHospital),
+                                                  Value = ts.TestID.ToString()
+                                              }).ToList())
+    : ((from ts in testrepo.GetAll()
+        join cl in cldetail.GetAll() on ts.PatientUserID equals cl.ClientUserID
+        join pd in pdetail.GetAll() on cl.DetailID equals pd.PatientDetailID
+        join hs in hospitalDetail.GetAll() on pd.HospitalID equals hs.HospitalDetailID into hspd
+        from m in hspd.DefaultIfEmpty()
+        where (ts.TestStatusID.HasValue ? ts.TestStatusID.Value : 0) == labconsultstatusid && !(ts.IsPublish.HasValue ? ts.IsPublish.Value : false)
 
-                         select new  {
-                             Name = ts.TestID.ToString()+" - "+ts.TestName+" - "+cl.FirstName+" "+ cl.LastName+" - "+pd.City+ " - " + ts.SampleLabel,
-                             Value = ts.TestID.ToString()
-                         }).ToList();
+        select new
+        {
+            Name = ts.TestID.ToString() + " - " + ts.TestName + " - " + cl.FirstName + " " + cl.LastName + " - " + pd.City + " - " + ts.SampleLabel + " - " + ((pd.HospitalID != null) ? m.HospitalName : pd.ReferingHospital),
+            Value = ts.TestID.ToString()
+        }).ToList());
 
 
 }
@@ -40,7 +57,7 @@
             <label for="ddltest" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
                 Test:
             </label>
-            <div class="col-lg-6 ">
+            <div class="col-lg-9 ">
                 <select class="form-control select2test" required="required" name="testid" id="testid">
                     <option value="0">--Select--</option>
                     @foreach (var test in eligibletests.Distinct())

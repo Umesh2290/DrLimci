@@ -238,7 +238,7 @@ namespace LaboratorySystem.Controllers.User
                     test.AnalysisDate = DateTime.Now;
                     if (consultantid != 0)
                     {
-                        test.ConclusionBy = consultantid;
+                        test.ExternalConsultantBy = consultantid;
                     }
 
                     testrep.Update(test);
@@ -316,9 +316,11 @@ namespace LaboratorySystem.Controllers.User
                     test.TestStatusID = teststatusid;
                     test.ConclusionBy = MySession.GetClientSession(this.subdomainurl).ClientUserID;
                     test.ConclusionDate = DateTime.Now;
+                    test.IsInvoiceGenerated = false;
                     if (ispublish != 0)
                     {
                         test.IsPublish = true;
+                        test.AurthorizeDate = DateTime.Now;
                     }
 
 
@@ -802,7 +804,7 @@ namespace LaboratorySystem.Controllers.User
                             IsSampleRequired = testinnerobj.IsSampleRequired.HasValue ? (testinnerobj.IsSampleRequired.Value ? "Yes" : "No") : ("Yes"),
                             ComplaintHistory = testinnerobj.ComplaintHistory,
                             Description = testinnerobj.Description,
-                            TestCreatedDateCustom = testinnerobj.TestCreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
+                            TestCreatedDateCustom = testinnerobj.TestCreatedDate.Value.ToString("dd/MM/yyyy HH:mm tt"),
                             TestCreatedByCustom = createdbycustom,
                             testinnerobj.TestID,
                             testinnerobj.IsPublish,
@@ -826,7 +828,7 @@ namespace LaboratorySystem.Controllers.User
                                 SampleCode = testinnerobj.SampleCode,
                                 SampleType = testinnerobj.SampleType,
                                 AttachmentList = attachmentlist_samplecollection,
-                                SampleCollectedDateCustom = testinnerobj.SampleCollectionDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
+                                SampleCollectedDateCustom = testinnerobj.SampleCollectionDate.Value.ToString("dd/MM/yyyy HH:mm tt"),
                                 SampleCollectedBy = createdbycustom
                             };
                         }
@@ -877,7 +879,7 @@ namespace LaboratorySystem.Controllers.User
                                 extraworkrequest.Investigations = testinvestigationrepo.GetAll().Where(x => (x.ExtraWorkID.HasValue ? x.ExtraWorkID.Value : 0) == extra.ExtraWorkID).ToList();
                                 extraworkrequest.AttachmentList = extraworkattachmentrepo.GetAll().Where(x => (x.ExtraWorkID.HasValue ? x.ExtraWorkID.Value : 0) == extra.ExtraWorkID).ToList();
                                 extraworkrequest.CompletedBy = createdbycustom;
-                                extraworkrequest.CompletedDateCustom = extra.PendingActionDate.HasValue ? (extra.PendingActionDate.Value.ToString("MM/dd/yyyy HH:mm tt")) : (extra.NewActionDate.Value.ToString("MM/dd/yyyy HH:mm tt"));
+                                extraworkrequest.CompletedDateCustom = extra.PendingActionDate.HasValue ? (extra.PendingActionDate.Value.ToString("dd/MM/yyyy HH:mm tt")) : (extra.NewActionDate.Value.ToString("dd/MM/yyyy HH:mm tt"));
 
                                 extraworkrequestlist.Add(extraworkrequest);
                             }
@@ -887,7 +889,7 @@ namespace LaboratorySystem.Controllers.User
                                 InvestigationList = investigations,
                                 AttachmentList = attachmentlist_analysis,
                                 ExtraWorkRequestList = extraworkrequestlist,
-                                AnalysisDateCustom = testinnerobj.AnalysisDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
+                                AnalysisDateCustom = testinnerobj.AnalysisDate.Value.ToString("dd/MM/yyyy HH:mm tt"),
                                 AnalysisBy = createdbycustom
                             };
 
@@ -932,7 +934,7 @@ namespace LaboratorySystem.Controllers.User
                                     conclusioninner.SampleDescription,
                                     conclusioninner.Report,
                                     ConclusionBy = createdbycustom,
-                                    ConclusionDateCustom = testinnerobj.ConclusionDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
+                                    ConclusionDateCustom = testinnerobj.ConclusionDate.Value.ToString("dd/MM/yyyy HH:mm tt"),
                                     TestReportType = _reporttype,
                                     AttachmentList = attachmentlist_conclusion,
                                 };
@@ -981,7 +983,7 @@ namespace LaboratorySystem.Controllers.User
                                 innersup.SampleDescription = supp.SampleDescription;
                                 innersup.Report = supp.Report;
                                 innersup.SupplementBy = createdbycustom;
-                                innersup.SupplementDate = supp.CreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt");
+                                innersup.SupplementDate = supp.CreatedDate.Value.ToString("dd/MM/yyyy HH:mm tt");
                                 innersup.TestReportType = _reporttype;
                                 innersup.AttachmentList = testattachmentrepo.GetAll().Where(x => x.AttachmentTypeID.Value == attachmenttypeid &&
                                 x.TestID.Value == testinnerobj.TestID && (x.CreatedBy.HasValue ? x.CreatedBy.Value : 0) == supp.TestSupplementReportID).ToList();
@@ -1070,7 +1072,7 @@ namespace LaboratorySystem.Controllers.User
                                           ts.TestName,
                                           PatientName = (ptus.FirstName + " " + (pt.MiddleName == null ? "" : pt.MiddleName) + " " + ptus.LastName),
                                           Status = (ts.TestStatusID.HasValue ? ts.TestStatusID.Value : 0) == 5 ? "Completed" : "Pending",
-                                          TestCreatedDateCustom = ts.TestCreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
+                                          TestCreatedDateCustom = ts.TestCreatedDate.Value.ToString("dd/MM/yyyy HH:mm tt"),
                                           City = pt.City,
                                           IsPublish = ts.IsPublish.HasValue ? ts.IsPublish.Value ? "Yes" : "No" : "No"
                                       }).ToList();
@@ -1081,14 +1083,14 @@ namespace LaboratorySystem.Controllers.User
                         var result = (from ts in testrep.GetAll()
                                       join ptus in clientuser.GetAll() on ts.PatientUserID equals ptus.ClientUserID
                                       join pt in patientdetailrepo.GetAll() on ptus.DetailID equals pt.PatientDetailID
-                                      where (ts.TestStatusID.HasValue ? ts.TestStatusID.Value : 0) == teststatusid && ts.ConclusionBy == MySession.GetClientSession(this.subdomainurl).ClientUserID
+                                      where (ts.TestStatusID.HasValue ? ts.TestStatusID.Value : 0) == teststatusid && ts.ExternalConsultantBy == MySession.GetClientSession(this.subdomainurl).ClientUserID
                                       select new
                                       {
                                           ts.TestID,
                                           ts.TestName,
                                           PatientName = (ptus.FirstName + " " + (pt.MiddleName == null ? "" : pt.MiddleName) + " " + ptus.LastName),
                                           Status = (ts.TestStatusID.HasValue ? ts.TestStatusID.Value : 0) == 5 ? "Completed" : "Pending",
-                                          TestCreatedDateCustom = ts.TestCreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
+                                          TestCreatedDateCustom = ts.TestCreatedDate.Value.ToString("dd/MM/yyyy HH:mm tt"),
                                           City = pt.City,
                                           IsPublish = ts.IsPublish.HasValue ? ts.IsPublish.Value ? "Yes" : "No" : "No"
                                       }).ToList();
@@ -1109,7 +1111,7 @@ namespace LaboratorySystem.Controllers.User
                                       ts.TestName,
                                       PatientName = (ptus.FirstName + " " + (pt.MiddleName == null ? "" : pt.MiddleName) + " " + ptus.LastName),
                                       Status = (ts.TestStatusID.HasValue ? ts.TestStatusID.Value : 0) == 5 ? "Completed" : "Pending",
-                                      TestCreatedDateCustom = ts.TestCreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
+                                      TestCreatedDateCustom = ts.TestCreatedDate.Value.ToString("dd/MM/yyyy HH:mm tt"),
                                       City = pt.City,
                                       IsPublish = ts.IsPublish.HasValue ? ts.IsPublish.Value ? "Yes" : "No" : "No"
                                   }).ToList();
@@ -1130,7 +1132,7 @@ namespace LaboratorySystem.Controllers.User
                                       ts.TestName,
                                       PatientName = (ptus.FirstName + " " + (pt.MiddleName == null ? "" : pt.MiddleName) + " " + ptus.LastName),
                                       Status = (ts.TestStatusID.HasValue ? ts.TestStatusID.Value : 0) == 5 ? "Completed" : "Pending",
-                                      TestCreatedDateCustom = ts.TestCreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
+                                      TestCreatedDateCustom = ts.TestCreatedDate.Value.ToString("dd/MM/yyyy HH:mm tt"),
                                       City = pt.City,
                                       IsPublish = ts.IsPublish.HasValue ? ts.IsPublish.Value ? "Yes" : "No" : "No"
                                   }).ToList();

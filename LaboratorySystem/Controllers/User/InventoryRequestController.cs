@@ -146,7 +146,7 @@ namespace LaboratorySystem.Controllers.User
                         data.Comments,
                         data.Quantity,
                         StatusName = inventoryrequeststatus.GetByID(data.StatusID.Value).StatusName,
-                        RequestCreatedDateCustom = data.RequestCreatedDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
+                        RequestCreatedDateCustom = data.RequestCreatedDate.Value.ToString("dd/MM/yyyy HH:mm tt"),
                         RequestCreatedByName = cu.FirstName+" "+cu.LastName
                     };
 
@@ -156,7 +156,7 @@ namespace LaboratorySystem.Controllers.User
                         openAction = new 
                         {
                             OpenActionByName = cu.FirstName+" "+cu.LastName,
-                            OpenActionDateCustom = data.OpenActionDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
+                            OpenActionDateCustom = data.OpenActionDate.Value.ToString("dd/MM/yyyy HH:mm tt"),
                             OpenActionComments = data.OpenActionComments,
                             OpenActionStatusName = inventoryrequeststatus.GetByID(data.OpenActionStatusID.Value).StatusName
                         };
@@ -168,7 +168,7 @@ namespace LaboratorySystem.Controllers.User
                         progressAction = new
                         {
                             ProgressActionByName = cu.FirstName + " " + cu.LastName,
-                            ProgressActionDateCustom = data.ProgressActionDate.Value.ToString("MM/dd/yyyy HH:mm tt"),
+                            ProgressActionDateCustom = data.ProgressActionDate.Value.ToString("dd/MM/yyyy HH:mm tt"),
                             ProgressActionComments = data.ProgressActionComments,
                             ProgressActionStatusName = inventoryrequeststatus.GetByID(data.StatusID.Value).StatusName
                         };

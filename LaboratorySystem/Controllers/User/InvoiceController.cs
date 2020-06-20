@@ -39,8 +39,8 @@ namespace LaboratorySystem.Controllers.User
                 if ((fromdate != null && todate != null) && hospital != null)
                 {
                     result = (from ts in testrep.GetAll()
-                              join pt in patientdetailrepo.GetAll() on ts.PatientUserID equals pt.PatientDetailID
                               join ptus in clientuser.GetAll() on ts.PatientUserID equals ptus.ClientUserID
+                              join pt in patientdetailrepo.GetAll() on ptus.DetailID equals pt.PatientDetailID
                               where ts.TestStatusID == 5 && ts.IsPublish == true && ts.IsInvoiceGenerated == false
                             && pt.HospitalID == Convert.ToInt32(hospital)
                             && (ts.AurthorizeDate >= fromdate.Date && ts.AurthorizeDate <= todate.Date)
@@ -51,7 +51,7 @@ namespace LaboratorySystem.Controllers.User
                                   PatientName = (ptus.FirstName + " " + (pt.MiddleName == null ? "" : pt.MiddleName) + " " + ptus.LastName),
                                   Status = "Completed",
                                   ts.Cost,
-                                  ts.SampleCode
+                                  ts.SampleLabel
                               }).ToList();
                     //return WebJSResponse.ResponseSimple(new { testinvoicejson = result });
                   
@@ -59,9 +59,9 @@ namespace LaboratorySystem.Controllers.User
                 else if ((fromdate == null && todate == null) && hospital != null)
                 {
                      result = (from ts in testrep.GetAll()
-                              join pt in patientdetailrepo.GetAll() on ts.PatientUserID equals pt.PatientDetailID
-                              join ptus in clientuser.GetAll() on ts.PatientUserID equals ptus.ClientUserID
-                              where ts.TestStatusID == 5 && ts.IsPublish == true && ts.IsInvoiceGenerated == false
+                               join ptus in clientuser.GetAll() on ts.PatientUserID equals ptus.ClientUserID
+                               join pt in patientdetailrepo.GetAll() on ptus.DetailID equals pt.PatientDetailID
+                               where ts.TestStatusID == 5 && ts.IsPublish == true && ts.IsInvoiceGenerated == false
                             && pt.HospitalID == Convert.ToInt32(hospital)
 
                               select new
@@ -71,7 +71,7 @@ namespace LaboratorySystem.Controllers.User
                                   PatientName = (ptus.FirstName + " " + (pt.MiddleName == null ? "" : pt.MiddleName) + " " + ptus.LastName),
                                   Status = "Completed",
                                   ts.Cost,
-                                  ts.SampleCode
+                                  ts.SampleLabel
                               }).ToList();
 
                    
@@ -109,9 +109,9 @@ namespace LaboratorySystem.Controllers.User
                 {
                     BusinessPOCO.User.Cl_HospitalDetail hospitaldata = hospitalDetail.GetByID (Convert.ToInt32(hospital));
                     var result = (from ts in testrep.GetAll()
-                              join pt in patientdetailrepo.GetAll() on ts.PatientUserID equals pt.PatientDetailID
-                              join ptus in clientuser.GetAll() on ts.PatientUserID equals ptus.ClientUserID
-                              where ts.TestStatusID == 5 && ts.IsPublish == true && ts.IsInvoiceGenerated ==false
+                                  join ptus in clientuser.GetAll() on ts.PatientUserID equals ptus.ClientUserID
+                                  join pt in patientdetailrepo.GetAll() on ptus.DetailID equals pt.PatientDetailID
+                                  where ts.TestStatusID == 5 && ts.IsPublish == true && ts.IsInvoiceGenerated ==false
                               && pt.HospitalID == Convert.ToInt32(hospital)
                             && (ts.AurthorizeDate >= fromdate.Date && ts.AurthorizeDate <= todate.Date)
                               select new
@@ -121,7 +121,7 @@ namespace LaboratorySystem.Controllers.User
                                   PatientName = (ptus.FirstName + " " + (pt.MiddleName == null ? "" : pt.MiddleName) + " " + ptus.LastName),
                                   Status = "Completed",
                                   ts.Cost,
-                                  ts.SampleCode
+                                  ts.SampleLabel
                               }).ToList();
                     if (result.Count > 0)
                     {
@@ -132,7 +132,7 @@ namespace LaboratorySystem.Controllers.User
                             BusinessPOCO.User.Cl_Test test = testrep.GetByID(i.TestID);
                             total += Convert.ToInt32(i.Cost);
                             
-                            invdata.SampleCode = i.SampleCode;
+                            invdata.SampleCode = i.SampleLabel;
                             invdata.PaitientName = i.PatientName;
                             invdata.TestName = i.TestName;
                             invdata.Cost = i.Cost;
@@ -182,8 +182,8 @@ namespace LaboratorySystem.Controllers.User
                                             }
 
                     result = (from ts in testrep.GetAll()
-                              join pt in patientdetailrepo.GetAll() on ts.PatientUserID equals pt.PatientDetailID
                               join ptus in clientuser.GetAll() on ts.PatientUserID equals ptus.ClientUserID
+                              join pt in patientdetailrepo.GetAll() on ptus.DetailID equals pt.PatientDetailID
                               where ts.TestStatusID == 5 && ts.IsPublish == true && ts.IsInvoiceGenerated == false
                               && pt.HospitalID == Convert.ToInt32(hospital)
                             && (ts.AurthorizeDate >= fromdate.Date && ts.AurthorizeDate <= todate.Date)
@@ -194,7 +194,7 @@ namespace LaboratorySystem.Controllers.User
                                   PatientName = (ptus.FirstName + " " + (pt.MiddleName == null ? "" : pt.MiddleName) + " " + ptus.LastName),
                                   Status = "Completed",
                                   ts.Cost,
-                                  ts.SampleCode
+                                  ts.SampleLabel
                               }).ToList();
                     return WebJSResponse.ResponseSWAL(SwalEnum.success, "Created Successfully !", "Invoice has been created successfully<br>", new { testinvoicejson = result });
 
@@ -204,9 +204,9 @@ namespace LaboratorySystem.Controllers.User
                 else if ((fromdate == null && todate == null) && hospital != null)
                 {
                    var result = (from ts in testrep.GetAll()
-                              join pt in patientdetailrepo.GetAll() on ts.PatientUserID equals pt.PatientDetailID
-                              join ptus in clientuser.GetAll() on ts.PatientUserID equals ptus.ClientUserID
-                              where ts.TestStatusID == 5 && ts.IsPublish == true && ts.IsInvoiceGenerated == false
+                                 join ptus in clientuser.GetAll() on ts.PatientUserID equals ptus.ClientUserID
+                                 join pt in patientdetailrepo.GetAll() on ptus.DetailID equals pt.PatientDetailID
+                                 where ts.TestStatusID == 5 && ts.IsPublish == true && ts.IsInvoiceGenerated == false
                             && pt.HospitalID == Convert.ToInt32(hospital)
 
                               select new
@@ -216,7 +216,7 @@ namespace LaboratorySystem.Controllers.User
                                   PatientName = (ptus.FirstName + " " + (pt.MiddleName == null ? "" : pt.MiddleName) + " " + ptus.LastName),
                                   Status = "Completed",
                                   ts.Cost,
-                                  ts.SampleCode
+                                  ts.SampleLabel
                               }).ToList();
 
                     return WebJSResponse.ResponseSWAL(SwalEnum.success, "Created Successfully !", "Invoice has been created successfully<br>", new { testinvoicejson = "" });
