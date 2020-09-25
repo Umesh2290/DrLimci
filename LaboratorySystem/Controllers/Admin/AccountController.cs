@@ -266,7 +266,7 @@ namespace LaboratorySystem.Controllers.Admin
                         Dictionary<string, string> dic = new Dictionary<string, string>();
                         dic.Add("@username@", username.Trim());
 
-                        dic.Add("@urllink@", HelpingClass.CurrentWebUrl() + "ChangePassword?guid=" + pocofp.UniqueCode);
+                        dic.Add("@urllink@", HelpingClass.CurrentWebUrl().Replace("www.","") + "ChangePassword?guid=" + pocofp.UniqueCode);
                         string htmltemplate = HtmlRendering.ReplaceParameterOfHtmlTemplate(HelpingClass.GetDefaultDirectory() + @"\Content\EmailTemplates\ForgetPassword.html", dic);
 
                         EmailManager.SendEMail("EmailConfig1", user.Email, null, null, "Forget Password", htmltemplate, null);

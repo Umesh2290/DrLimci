@@ -29,8 +29,8 @@
                                               join pd in pdetail.GetAll() on cl.DetailID equals pd.PatientDetailID
                                               join hs in hospitalDetail.GetAll() on pd.HospitalID equals hs.HospitalDetailID into hspd
                                               from m in hspd.DefaultIfEmpty()
-                                              where (ts.TestStatusID.HasValue ? ts.TestStatusID.Value : 0) == labconsultstatusid && !(ts.IsPublish.HasValue ? ts.IsPublish.Value : false)
-                                              && pd.HospitalID == hospitalid
+                                              where //(ts.TestStatusID.HasValue ? ts.TestStatusID.Value : 0) == labconsultstatusid && !(ts.IsPublish.HasValue ? ts.IsPublish.Value : false) &&
+                                               pd.HospitalID == hospitalid
                                               select new
                                               {
                                                   Name = ts.TestID.ToString() + " - " + ts.TestName + " - " + cl.FirstName + " " + cl.LastName + " - " + pd.City + " - " + ts.SampleLabel +" - " + ((pd.HospitalID != null) ? m.HospitalName : pd.ReferingHospital),
@@ -41,7 +41,7 @@
         join pd in pdetail.GetAll() on cl.DetailID equals pd.PatientDetailID
         join hs in hospitalDetail.GetAll() on pd.HospitalID equals hs.HospitalDetailID into hspd
         from m in hspd.DefaultIfEmpty()
-        where (ts.TestStatusID.HasValue ? ts.TestStatusID.Value : 0) == labconsultstatusid && !(ts.IsPublish.HasValue ? ts.IsPublish.Value : false)
+        //where (ts.TestStatusID.HasValue ? ts.TestStatusID.Value : 0) == labconsultstatusid && !(ts.IsPublish.HasValue ? ts.IsPublish.Value : false)
 
         select new
         {

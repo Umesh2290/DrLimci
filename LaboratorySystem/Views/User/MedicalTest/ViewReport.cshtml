@@ -98,13 +98,14 @@
                     Company number: @report.LabCompanyNumber <br>
                     @report.LabAddress
                 </span>
+                <p><a style="color:Highlight;text-decoration:underline;text-decoration-color:Highlight" href="mailto:@report.labEmail">@report.labEmail</a></p>
             </div>
             <div class=" column" style="font-weight:bold;font-family:Calibri;font-size:11px">
-                <span class="add-head blue-color">
+                <span class="add-head blue-color"  style="display:none">
                     Head Office:<br>
                     @report.LabHeadOfficeAddress<br>
                 </span>
-                <p><a style="color:Highlight;text-decoration:underline;text-decoration-color:Highlight" href="mailto:@report.labEmail">@report.labEmail</a></p>
+                @*<p><a style="color:Highlight;text-decoration:underline;text-decoration-color:Highlight" href="mailto:@report.labEmail">@report.labEmail</a></p>*@
             </div>
             <div class=" column">
                 <img src="~/Content/images/logoLGPathLab.PNG" alt="logo" style="margin-top:0px;" />
