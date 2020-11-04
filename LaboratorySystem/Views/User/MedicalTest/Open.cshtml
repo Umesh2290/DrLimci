@@ -6,11 +6,12 @@
 
 
 <script>
+
     var currentmenu = 36;
     var allloaded = false;
     var displaypanel = "gridarea";
     $(document).ready(function () {
-
+        debugger;
 
         MakeRequest(_User_MedicalTest_GetList, "POST", { "status": "Open" }, "json",
 function (jqXHR, settings) {

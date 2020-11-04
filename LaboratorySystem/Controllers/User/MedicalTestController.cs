@@ -113,7 +113,7 @@ namespace LaboratorySystem.Controllers.User
 
         [Route("AddTestInfo")]
         [HttpPost]
-        public JsonResult AddTestInfo(string testname, bool issamplerequired, string complainthistory, string description, int patientid)
+        public JsonResult AddTestInfo(string testname, bool issamplerequired, string complainthistory, string description, int patientid, int testid_testinfo)
         {
             try
             {
@@ -123,35 +123,86 @@ namespace LaboratorySystem.Controllers.User
                 Repositories.User.IRoleRepository role = this.currentdomaindb.RoleRepository();
                 Repositories.User.IRoleMappingRepository rolemapping = this.currentdomaindb.RoleMappingRepository();
                 Repositories.User.ITestRate testRate = this.currentdomaindb.TestRate();
-                var testrate=testRate.GetByID(Convert.ToInt32(testname));
+                var testrate = testRate.GetByID(Convert.ToInt32(testname));
                 int teststatusid = teststatusrep.GetAll().Where(x => x.StatusName.Equals("On Lab Technician Plate")).FirstOrDefault().TestStatusID;
+                //if (testid_testinfo != 0)
+                //{
+                //    BusinessPOCO.User.Cl_Test test = testrep.GetByID(testid_testinfo);
+                //    test.TestName = testrate.TestName.ToString();
+                //    test.IsSampleRequired = issamplerequired;
+                //    test.ComplaintHistory = complainthistory;
+                //    test.Description = description;
+                //    test.Cost = complainthistory;
+                //    testrep.Update(test);
+                //    testrep.Save();
+                //    return WebJSResponse.ResponseSWAL(SwalEnum.success, "Updated Successfully !", "Test has been updated successfully<br>", new { testjson = test });
+                //}
+                //else
+                {
+                    BusinessPOCO.User.Cl_Test test = new BusinessPOCO.User.Cl_Test();
 
-                BusinessPOCO.User.Cl_Test test = new BusinessPOCO.User.Cl_Test();
+                    test.TestName = testrate.TestName.ToString();
+                    test.IsSampleRequired = issamplerequired;
+                    test.ComplaintHistory = complainthistory;
+                    test.Description = description;
+                    test.PatientUserID = patientid;
+                    test.TestStatusID = teststatusid;
+                    test.TestCreatedBy = MySession.GetClientSession(this.subdomainurl).ClientUserID;
+                    test.TestCreatedDate = DateTime.Now;
+                    test.Cost = complainthistory;
+                    test.IsPublish =false;
+                    testrep.Insert(test);
+                    testrep.Save();
+
+                    var _labtech_users = (from rlm in rolemapping.GetAll()
+                                          join rl in role.GetAll() on rlm.RoleID equals rl.RoleID
+                                          where rl.RoleName.Equals("Lab Technician")
+                                          select rlm).ToList();
+
+                    foreach (var labtech in _labtech_users)
+                    {
+                        NotificationManager.FireOnClient(("Test ID #" + test.TestID.ToString("0000")), "Sample Collection Request", "/User/MedicalTest/Open",
+                            labtech.UserID.Value, MySession.GetClientSession(this.subdomainurl).ClientUserID, this.currentdomaindb,
+                           "i-Speach-Bubble-6 text-primary mr-1", "New Sample Collection Request", ("Test ID #" + test.TestID.ToString("0000")), "toastr-sucsess");
+                    }
+                    //return WebJSResponse.ResponseSimple(new { testjson = test });
+                    return WebJSResponse.ResponseSWAL(SwalEnum.success, "Created Successfully !", "Test has been created successfully<br>", new { testjson = test });
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return WebJSResponse.ResponseToastr(ToastrEnum.error, "Its not your fault", "Something went wrong from our side!please try later<br>" + ex.Message, new { });
+            }
+        }
+
+        [Route("UpdateTestInfo")]
+        [HttpPost]
+        public JsonResult UpdateTestInfo(string testname, bool issamplerequired, string complainthistory, string description, int patientid, int testid_testinfo)
+        {
+            try
+            {
+                Repositories.User.IClientUserRepository clientuser = this.currentdomaindb.ClientUserRepository();
+                Repositories.User.ITestRepository testrep = this.currentdomaindb.TestRepository();
+                Repositories.User.ITestStatusRepositories teststatusrep = this.currentdomaindb.TestStatusRepositories();
+                Repositories.User.IRoleRepository role = this.currentdomaindb.RoleRepository();
+                Repositories.User.IRoleMappingRepository rolemapping = this.currentdomaindb.RoleMappingRepository();
+                Repositories.User.ITestRate testRate = this.currentdomaindb.TestRate();
+                var testrate = testRate.GetByID(Convert.ToInt32(testname));
+                //int teststatusid = teststatusrep.GetAll().Where(x => x.StatusName.Equals("On Lab Technician Plate")).FirstOrDefault().TestStatusID;
+
+                BusinessPOCO.User.Cl_Test test = testrep.GetByID(testid_testinfo);
                 test.TestName = testrate.TestName.ToString();
                 test.IsSampleRequired = issamplerequired;
                 test.ComplaintHistory = complainthistory;
                 test.Description = description;
-                test.PatientUserID = patientid;
-                test.TestStatusID = teststatusid;
-                test.TestCreatedBy = MySession.GetClientSession(this.subdomainurl).ClientUserID;
-                test.TestCreatedDate = DateTime.Now;
+                //test.PatientUserID = patientid;
+                //test.TestStatusID = teststatusid;
                 test.Cost = complainthistory;
-                testrep.Insert(test);
+                testrep.Update(test);
                 testrep.Save();
-
-                var _labtech_users = (from rlm in rolemapping.GetAll()
-                                      join rl in role.GetAll() on rlm.RoleID equals rl.RoleID
-                                      where rl.RoleName.Equals("Lab Technician")
-                                      select rlm).ToList();
-
-                foreach (var labtech in _labtech_users)
-                {
-                    NotificationManager.FireOnClient(("Test ID #" + test.TestID.ToString("0000")), "Sample Collection Request", "/User/MedicalTest/Open",
-                        labtech.UserID.Value, MySession.GetClientSession(this.subdomainurl).ClientUserID, this.currentdomaindb,
-                       "i-Speach-Bubble-6 text-primary mr-1", "New Sample Collection Request", ("Test ID #" + test.TestID.ToString("0000")), "toastr-sucsess");
-                }
-                //return WebJSResponse.ResponseSimple(new { testjson = test });
-                return WebJSResponse.ResponseSWAL(SwalEnum.success, "Created Successfully !", "Test has been created successfully<br>", new { testjson = test });
+                return WebJSResponse.ResponseSWAL(SwalEnum.success, "Updated Successfully !", "Test has been updated successfully<br>", new { testjson = test });
 
 
             }
@@ -161,9 +212,125 @@ namespace LaboratorySystem.Controllers.User
             }
         }
 
+        [HttpPost]
+        [Route("UpdatePatientInfo")]
+        public JsonResult UpdatePatientInfo(int patientid, string firstname, string middlename, string lastname,
+           string email, string mobileno, string address, string age, string gender,
+           string city)
+        {
+            try
+            {
+                Repositories.User.IClientUserRepository clientuser = this.currentdomaindb.ClientUserRepository();
+                Repositories.User.IClientUserTypeRepository clientusertype = this.currentdomaindb.ClientUserTypeRepository();
+                Repositories.User.IPatientDetailRepository patientdetail = this.currentdomaindb.PatientDetailRepository();
+
+
+
+                if (patientid > 0)
+                {
+                    if (clientuser.GetAll().Where(x => ((string.IsNullOrEmpty(x.Email) ? false : x.Email.Equals(email.Trim())) && x.ClientUserID != patientid)).Count() > 0)
+                    {
+                        return WebJSResponse.ResponseToastr(ToastrEnum.error, "Username or email already exist !", "Please try another !", new { });
+
+                    }
+
+                    var clientuserobj = clientuser.GetByID(patientid);
+                    if (clientuserobj != null)
+                    {
+                        clientuserobj.FirstName = firstname.Trim();
+                        clientuserobj.LastName = lastname.Trim();
+                        clientuserobj.Email = email.Trim();
+                        clientuserobj.MobileNo = mobileno.Trim();
+                        clientuserobj.Address = address.Trim();
+                        //clientuserobj.IsActive = status;
+                        //clientuserobj.UpdatedBy = MySession.GetClientSession(this.subdomainurl).ClientUserID;
+                        //clientuserobj.UpdatedDate = DateTime.Now;
+
+                        clientuser.Update(clientuserobj);
+                        clientuser.Save();
+
+                        BusinessPOCO.User.Cl_PatientDetail patientdetailobj = patientdetail.GetByID(clientuserobj.DetailID.Value);
+
+                        if (patientdetailobj != null)
+                        {
+                            patientdetailobj.Age = age.Trim();
+                            //patientdetailobj.AlternateAddress = alternateaddress.Trim();
+                            //patientdetailobj.AlternatePhoneNo = alternatephoneno.Trim();
+                            patientdetailobj.City = city.Trim();
+                            //patientdetailobj.UpdatedBy = MySession.GetClientSession(this.subdomainurl).ClientUserID;
+                            //patientdetailobj.UpdatedDate = DateTime.Now;
+                            patientdetailobj.MiddleName = middlename.Trim();
+                            //patientdetailobj.Payment = payment;
+                            //patientdetailobj.PaymentMode = paymentmode.Trim();
+                            //patientdetailobj.ReferingDoctor = referingdoctor.Trim();
+                            //patientdetailobj.ReferingHospital = referinghospital.Trim();
+                            patientdetailobj.Sex = gender.Trim();
+                            //patientdetailobj.Streetname = streetname.Trim();
+
+                            patientdetail.Update(patientdetailobj);
+
+                            patientdetail.Save();
+                        }
+
+                        //bool ispdfcreated = false;
+                        //string paymentpdflink = string.Empty;
+                        //string pdflink = string.Empty;
+
+                        //try
+                        //{
+                        //    FileManager fmd = PdfCreator.CreatePatientPDF(clientuserobj.ClientUserID, this.subdomainurl, this.currentdomaindb, out pdflink);
+                        //    FileManager fmp = PdfCreator.CreatePatientPaymentPDF(clientuserobj.ClientUserID, this.subdomainurl, this.currentdomaindb, out paymentpdflink);
+
+                        //    if (patientdetailobj != null)
+                        //    {
+                        //        patientdetailobj.PdfLink = HelpingClass.LocalUploadPathToRelativeWebPath(pdflink);
+                        //        patientdetailobj.PaymentReceiptPdfLink = HelpingClass.LocalUploadPathToRelativeWebPath(paymentpdflink);
+
+                        //        patientdetail.Update(patientdetailobj);
+                        //        patientdetail.Save();
+                        //    }
+                        //    ispdfcreated = true;
+
+                        //}
+                        //catch (Exception ex)
+                        //{
+                        //    ispdfcreated = false;
+                        //}
+
+
+                        //if (ispdfcreated)
+                        //{
+                        return WebJSResponse.ResponseSWAL(SwalEnum.success, "Updated Successfully !", "Patient has been updated successfully<br>", new { clientuserjson = clientuserobj, patientdetailjson = patientdetailobj });
+                        //}
+                        //else
+                        //{
+                        //    return WebJSResponse.ResponseSWAL(SwalEnum.success, "Updated Successfully !", "Patient has been updated successfully<br>but something went wrong while generating pdf.", new { clientuserjson = clientuserobj, patientdetailjson = patientdetailobj });
+                        //}
+                    }
+
+                    else
+                    {
+                        return WebJSResponse.ResponseToastr(ToastrEnum.error, "No patient found !", "There is no patient associated to this patient id.", new { });
+                    }
+
+
+                }
+
+                return WebJSResponse.ResponseToastr(ToastrEnum.error, "No patient found !", "There is no patient associated to this patient id.", new { });
+
+            }
+            catch (Exception ex)
+            {
+                return WebJSResponse.ResponseToastr(ToastrEnum.error, "Its not your fault", "Something went wrong from our side!please try later<br>" + ex.Message, new { });
+            }
+        }
+
+
+
+
         [Route("AddSampleCollectionInfo")]
         [HttpPost]
-        public JsonResult AddSampleCollectionInfo(bool issamplecollected, string samplelabel, string samplecode, string sampletype, int testid)
+        public JsonResult AddSampleCollectionInfo(bool issamplecollected, string samplelabel, string samplecode, string sampletype, int testid, int roleid)
         {
             try
             {
@@ -172,6 +339,7 @@ namespace LaboratorySystem.Controllers.User
                 Repositories.User.ITestStatusRepositories teststatusrep = this.currentdomaindb.TestStatusRepositories();
                 Repositories.User.IRoleRepository role = this.currentdomaindb.RoleRepository();
                 Repositories.User.IRoleMappingRepository rolemapping = this.currentdomaindb.RoleMappingRepository();
+
 
                 int teststatusid = teststatusrep.GetAll().Where(x => x.StatusName.Equals("On Clinical Lab Scientist Plate")).FirstOrDefault().TestStatusID;
 
@@ -182,26 +350,29 @@ namespace LaboratorySystem.Controllers.User
                     test.SampleLabel = samplelabel;
                     test.SampleCode = samplecode;
                     test.SampleType = sampletype;
-                    test.TestStatusID = teststatusid;
+                    test.TestStatusID = (roleid != 6) ? teststatusid : test.TestStatusID;
                     test.SampleCollectionBy = MySession.GetClientSession(this.subdomainurl).ClientUserID;
                     test.SampleCollectionDate = DateTime.Now;
 
                     testrep.Update(test);
                     testrep.Save();
-
-                    var _labsci_users = (from rlm in rolemapping.GetAll()
-                                         join rl in role.GetAll() on rlm.RoleID equals rl.RoleID
-                                         where rl.RoleName.Equals("Clinical Laboratory Scientist")
-                                         select rlm).ToList();
-
-                    foreach (var labsci in _labsci_users)
+                    if (roleid != 6)
                     {
-                        NotificationManager.FireOnClient(("Test ID #" + test.TestID.ToString("0000")), "Investigation Request", "/User/MedicalTest/Open",
-                            labsci.UserID.Value, MySession.GetClientSession(this.subdomainurl).ClientUserID, this.currentdomaindb,
-                           "i-Speach-Bubble-6 text-primary mr-1", "New Investigation Request", ("Test ID #" + test.TestID.ToString("0000")), "toastr-sucsess");
+                        var _labsci_users = (from rlm in rolemapping.GetAll()
+                                             join rl in role.GetAll() on rlm.RoleID equals rl.RoleID
+                                             where rl.RoleName.Equals("Clinical Laboratory Scientist")
+                                             select rlm).ToList();
+
+                        foreach (var labsci in _labsci_users)
+                        {
+                            NotificationManager.FireOnClient(("Test ID #" + test.TestID.ToString("0000")), "Investigation Request", "/User/MedicalTest/Open",
+                                labsci.UserID.Value, MySession.GetClientSession(this.subdomainurl).ClientUserID, this.currentdomaindb,
+                               "i-Speach-Bubble-6 text-primary mr-1", "New Investigation Request", ("Test ID #" + test.TestID.ToString("0000")), "toastr-sucsess");
+                        }
                     }
 
-                    return WebJSResponse.ResponseSimple(new { testjson = test });
+                    //return WebJSResponse.ResponseSimple(new { testjson = test });
+                    return WebJSResponse.ResponseSWAL(SwalEnum.success, "Updated Successfully !", "Sample Collection has been updated successfully<br>", new { testjson = test });
                 }
                 else
                 {
@@ -229,7 +400,7 @@ namespace LaboratorySystem.Controllers.User
                 Repositories.User.IRoleMappingRepository rolemapping = this.currentdomaindb.RoleMappingRepository();
 
                 int teststatusid = teststatusrep.GetAll().Where(x => x.StatusName.Equals("On Clinical Lab Doctor Plate")).FirstOrDefault().TestStatusID;
-
+                bool InvestaddupdateStatus = false;
                 BusinessPOCO.User.Cl_Test test = testrep.GetByID(testid);
                 if (test != null)
                 {
@@ -246,33 +417,53 @@ namespace LaboratorySystem.Controllers.User
 
                     foreach (var inv in testinvestigations)
                     {
-                        testinvestigation.Insert(new BusinessPOCO.User.Cl_TestInvestigation()
+                        if (inv.InvestigationId != 0)
                         {
-                            InvestigationName = inv.InvestigationName,
-                            Value = inv.InvestigationValues,
-                            Range = inv.InvestigationRange,
-                            InvestigationResult = inv.InvestigationResult,
-                            TestID = testid,
-                            CreatedBy = MySession.GetClientSession(this.subdomainurl).ClientUserID,
-                            CreatedDate = DateTime.Now
-                        });
+                            BusinessPOCO.User.Cl_TestInvestigation investigation = testinvestigation.GetByID(inv.InvestigationId);
+                            if (investigation != null)
+                            {
+                                investigation.InvestigationName = inv.InvestigationName;
+                                investigation.Value = inv.InvestigationValues;
+                                investigation.Range = inv.InvestigationRange;
+                                investigation.InvestigationResult = inv.InvestigationResult;
+                                testinvestigation.Update(investigation);
+                                testinvestigation.Save();
+                            }
+
+                        }
+                        else
+                        {
+                            testinvestigation.Insert(new BusinessPOCO.User.Cl_TestInvestigation()
+                            {
+                                InvestigationName = inv.InvestigationName,
+                                Value = inv.InvestigationValues,
+                                Range = inv.InvestigationRange,
+                                InvestigationResult = inv.InvestigationResult,
+                                TestID = testid,
+                                CreatedBy = MySession.GetClientSession(this.subdomainurl).ClientUserID,
+                                CreatedDate = DateTime.Now
+                            });
+                            testinvestigation.Save();
+                            InvestaddupdateStatus = true;
+                        }
                     }
 
-                    testinvestigation.Save();
-
-                    var _labdoc_users = (from rlm in rolemapping.GetAll()
-                                         join rl in role.GetAll() on rlm.RoleID equals rl.RoleID
-                                         where rl.RoleName.Equals("Clinical Laboratory Consultant")
-                                         select rlm).ToList();
-
-                    foreach (var labdoc in _labdoc_users)
+                    if (InvestaddupdateStatus)
                     {
-                        NotificationManager.FireOnClient(("Test ID #" + test.TestID.ToString("0000")), "Test Conclusion Request", "/User/MedicalTest/Open",
-                            labdoc.UserID.Value, MySession.GetClientSession(this.subdomainurl).ClientUserID, this.currentdomaindb,
-                           "i-Speach-Bubble-6 text-primary mr-1", "New Test Conclusion Request", ("Test ID #" + test.TestID.ToString("0000")), "toastr-sucsess");
-                    }
+                        var _labdoc_users = (from rlm in rolemapping.GetAll()
+                                             join rl in role.GetAll() on rlm.RoleID equals rl.RoleID
+                                             where rl.RoleName.Equals("Clinical Laboratory Consultant")
+                                             select rlm).ToList();
 
-                    return WebJSResponse.ResponseSimple(new { testjson = test, investigationjson = testinvestigations });
+                        foreach (var labdoc in _labdoc_users)
+                        {
+                            NotificationManager.FireOnClient(("Test ID #" + test.TestID.ToString("0000")), "Test Conclusion Request", "/User/MedicalTest/Open",
+                                labdoc.UserID.Value, MySession.GetClientSession(this.subdomainurl).ClientUserID, this.currentdomaindb,
+                               "i-Speach-Bubble-6 text-primary mr-1", "New Test Conclusion Request", ("Test ID #" + test.TestID.ToString("0000")), "toastr-sucsess");
+                        }
+                    }
+                    //return WebJSResponse.ResponseSimple(new { testjson = test, investigationjson = testinvestigations });
+                    return WebJSResponse.ResponseSWAL(SwalEnum.success, "Updated Successfully !", "Investigation Info has been updated successfully<br>", new { testjson = test, investigationjson = testinvestigations });
                 }
                 else
                 {
@@ -772,19 +963,21 @@ namespace LaboratorySystem.Controllers.User
                     if (testinnerobj != null)
                     {
                         int attachmenttypeid = 0;
-                        var patientobj = (hospitalid != 0)?(from cl in clientuser.GetAll()
-                                          join pd in patientdetailrepo.GetAll() on cl.DetailID equals pd.PatientDetailID
-                                          join hs in hospitalDetail.GetAll() on pd.HospitalID equals hs.HospitalDetailID 
-                                          into hspd from m in hspd.DefaultIfEmpty()
-                                          where cl.ClientUserID == testinnerobj.PatientUserID.Value &&
-                                           pd.HospitalID == hospitalid 
-                                          select new { cl, pd,m }).FirstOrDefault()
+                        var patientobj = (hospitalid != 0) ? (from cl in clientuser.GetAll()
+                                                              join pd in patientdetailrepo.GetAll() on cl.DetailID equals pd.PatientDetailID
+                                                              join hs in hospitalDetail.GetAll() on pd.HospitalID equals hs.HospitalDetailID
+                                                              into hspd
+                                                              from m in hspd.DefaultIfEmpty()
+                                                              where cl.ClientUserID == testinnerobj.PatientUserID.Value &&
+                                                               pd.HospitalID == hospitalid
+                                                              select new { cl, pd, m }).FirstOrDefault()
                                           : (from cl in clientuser.GetAll()
                                              join pd in patientdetailrepo.GetAll() on cl.DetailID equals pd.PatientDetailID
                                              join hs in hospitalDetail.GetAll() on pd.HospitalID equals hs.HospitalDetailID
-                                             into hspd from m in hspd.DefaultIfEmpty()
-                                             where cl.ClientUserID == testinnerobj.PatientUserID.Value 
-                                             select new { cl, pd, m }).FirstOrDefault();                              
+                                             into hspd
+                                             from m in hspd.DefaultIfEmpty()
+                                             where cl.ClientUserID == testinnerobj.PatientUserID.Value
+                                             select new { cl, pd, m }).FirstOrDefault();
                         var createdby = clientuser.GetByID(testinnerobj.TestCreatedBy.Value);
                         string createdbycustom = createdby.FirstName + " " + createdby.LastName;
                         attachmenttypeid = testattachmenttyperepo.GetAll().Where(x => x.Name.Equals("Test Creation")).FirstOrDefault().TestAttachmentTypeID;
@@ -794,6 +987,11 @@ namespace LaboratorySystem.Controllers.User
                         {
                             PatientID = patientobj == null ? 0 : patientobj.cl.ClientUserID,
                             PatientName = patientobj == null ? "" : patientobj.cl.FirstName + " " + (patientobj.pd.MiddleName == null ? "" : patientobj.pd.MiddleName) + patientobj.cl.LastName,
+                            PatientFirstName = patientobj == null ? "" : patientobj.cl.FirstName,
+                            PatientMidName = patientobj == null ? "" : patientobj.pd.MiddleName,
+                            PatientLastName = patientobj == null ? "" : patientobj.cl.LastName,
+                            Email = patientobj == null ? "" : patientobj.cl.Email,
+                            Address = patientobj == null ? "" : patientobj.cl.Address,
                             City = patientobj == null ? "" : patientobj.pd.City,
                             MobileNo = patientobj == null ? "" : patientobj.cl.MobileNo,
                             Age = patientobj == null ? "" : patientobj.pd.Age,
@@ -837,6 +1035,9 @@ namespace LaboratorySystem.Controllers.User
                         {
                             createdby = clientuser.GetByID(testinnerobj.AnalysisBy.Value);
                             createdbycustom = createdby.FirstName + " " + createdby.LastName;
+                            var extconsultant =clientuser.GetByID(testinnerobj.ExternalConsultantBy.Value);
+                            
+                            
 
                             attachmenttypeid = testattachmenttyperepo.GetAll().Where(x => x.Name.Equals("Analysis Detail")).FirstOrDefault().TestAttachmentTypeID;
                             var attachmentlist_analysis = testattachmentrepo.GetAll().Where(x => x.AttachmentTypeID.Value == attachmenttypeid &&
@@ -890,7 +1091,8 @@ namespace LaboratorySystem.Controllers.User
                                 AttachmentList = attachmentlist_analysis,
                                 ExtraWorkRequestList = extraworkrequestlist,
                                 AnalysisDateCustom = testinnerobj.AnalysisDate.Value.ToString("dd/MM/yyyy HH:mm tt"),
-                                AnalysisBy = createdbycustom
+                                AnalysisBy = createdbycustom,
+                                ExternalConsultant = extconsultant
                             };
 
                         }
@@ -1029,6 +1231,7 @@ namespace LaboratorySystem.Controllers.User
 
                 int teststatusid = 0;
                 int hospitalid = 0;
+                int ispublished = 0;
 
                 if (status.Equals("Open"))
                 {
@@ -1048,7 +1251,11 @@ namespace LaboratorySystem.Controllers.User
                     {
                         teststatusid = teststatusrep.GetAll().Where(x => x.StatusName.Equals("On Clinical Lab Doctor Plate")).FirstOrDefault().TestStatusID;
                     }
+                    else if (MySession.GetClientSession(this.subdomainurl).CurrentRole.RoleName.Equals("Head Lab Technician"))
+                    {
+                        teststatusid = teststatusrep.GetAll().Where(x => x.StatusName.Equals("On Clinical Lab Doctor Plate")).FirstOrDefault().TestStatusID;
 
+                    }
 
                 }
                 else if (status.Equals("Completed"))
@@ -1056,6 +1263,48 @@ namespace LaboratorySystem.Controllers.User
 
                     teststatusid = teststatusrep.GetAll().Where(x => x.StatusName.Equals("Completed")).FirstOrDefault().TestStatusID;
                     hospitalid = MySession.GetClientSession(this.subdomainurl).HospitalDetailID.HasValue ? MySession.GetClientSession(this.subdomainurl).HospitalDetailID.Value : 0;
+                }
+                if (MySession.GetClientSession(this.subdomainurl).CurrentRole.RoleName == "Head Lab Technician")
+                {
+
+                    if (status == "Completed")
+                    {
+                        var result = (from ts in testrep.GetAll()
+                                      join ptus in clientuser.GetAll() on ts.PatientUserID equals ptus.ClientUserID
+                                      join pt in patientdetailrepo.GetAll() on ptus.DetailID equals pt.PatientDetailID
+                                      where ts.IsPublish == true
+                                      select new
+                                      {
+                                          ts.TestID,
+                                          ts.TestName,
+                                          PatientName = (ptus.FirstName + " " + (pt.MiddleName == null ? "" : pt.MiddleName) + " " + ptus.LastName),
+                                          Status = (ts.TestStatusID.HasValue ? ts.TestStatusID.Value : 0) == 5 ? "Completed" : "Pending",
+                                          TestCreatedDateCustom = ts.TestCreatedDate.Value.ToString("dd/MM/yyyy HH:mm tt"),
+                                          City = pt.City,
+                                          IsPublish = ts.IsPublish.HasValue ? ts.IsPublish.Value ? "Yes" : "No" : "No"
+                                      }).ToList();
+                        return WebJSResponse.ResponseSimple(new { testjson = result });
+
+                    }
+                    else
+                    {
+
+                        var result = (from ts in testrep.GetAll()
+                                      join ptus in clientuser.GetAll() on ts.PatientUserID equals ptus.ClientUserID
+                                      join pt in patientdetailrepo.GetAll() on ptus.DetailID equals pt.PatientDetailID
+                                      where ts.IsPublish == false
+                                      select new
+                                      {
+                                          ts.TestID,
+                                          ts.TestName,
+                                          PatientName = (ptus.FirstName + " " + (pt.MiddleName == null ? "" : pt.MiddleName) + " " + ptus.LastName),
+                                          Status = (ts.TestStatusID.HasValue ? ts.TestStatusID.Value : 0) == 5 ? "Completed" : "Pending",
+                                          TestCreatedDateCustom = ts.TestCreatedDate.Value.ToString("dd/MM/yyyy HH:mm tt"),
+                                          City = pt.City,
+                                          IsPublish = ts.IsPublish.HasValue ? ts.IsPublish.Value ? "Yes" : "No" : "No"
+                                      }).ToList();
+                        return WebJSResponse.ResponseSimple(new { testjson = result });
+                    }
                 }
 
                 if (MySession.GetClientSession(this.subdomainurl).CurrentRole.RoleName == "External Consultant")
@@ -1316,9 +1565,31 @@ namespace LaboratorySystem.Controllers.User
                             data.Conclusion = conclusioninner.Conclusion;
                             data.reported_by = createdbycustom;
                             data.SampleDescription = conclusioninner.SampleDescription;
+
                             data.Report = conclusioninner.Report;
                             data.TestReportTypeID = conclusioninner.TestReportTypeID.HasValue ? conclusioninner.TestReportTypeID.Value : 0;
                             mymodel.data = data;
+                            var investigationinner = testinvestigationrepo.GetAll().Where(x => x.TestID.Value == testinnerobj.TestID).ToList();
+                            List<TestInvestigationReport> investigationreportlist = new List<TestInvestigationReport>();
+                            if (investigationinner.Count > 0)
+                            {
+                                TestInvestigationReport innerinv = null;
+
+                                foreach (var inv in investigationinner)
+                                {
+                                    innerinv = new TestInvestigationReport();
+
+                                    innerinv.InvestigationName = inv.InvestigationName;
+                                    innerinv.InvestigationRange = inv.Range;
+                                    innerinv.InvestigationResult = inv.InvestigationResult;
+                                    innerinv.InvestigationValues = inv.Value;
+
+                                    investigationreportlist.Add(innerinv);
+
+                                }
+                                mymodel.investigationreportlist = investigationreportlist;
+
+                            }
                             List<TestSupplementReport> supplementreportlist = new List<TestSupplementReport>();
                             var supplementreports = testsupplementrepo.GetAll().Where(x => (x.TestID.HasValue ? x.TestID.Value : 0) == Id).ToList();
                             if (supplementreports.Count > 0)

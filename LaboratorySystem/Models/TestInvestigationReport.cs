@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace LaboratorySystem.ViewModels
+namespace LaboratorySystem.Models
 {
-    public class TestInvestigation
+    public class TestInvestigationReport
     {
         public int InvestigationId { get; set; }
         public string InvestigationName { get; set; }

@@ -60,6 +60,7 @@
     bool is_conclusion_editpanel_show = false;
 
     string currentrolename = cu.CurrentRole.RoleName;
+    int currentroleid = Convert.ToInt32(cu.CurrentRole.RoleID);
     int hospitalid = Convert.ToInt32(cu.HospitalDetailID);
     int selectedindex = 0;
     if (currentrolename.Equals("Receptionist") || currentrolename.Equals("Hospital / Clinician"))
@@ -74,7 +75,7 @@
     {
         selectedindex = 2;
     }
-    else if (currentrolename.Equals("Clinical Laboratory Consultant") || currentrolename.Equals("Secretary") || currentrolename.Equals("External Consultant"))
+    else if (currentrolename.Equals("Clinical Laboratory Consultant") || currentrolename.Equals("Head Lab Technician") || currentrolename.Equals("Secretary") || currentrolename.Equals("External Consultant"))
     {
         selectedindex = 3;
     }
@@ -83,14 +84,14 @@
         selectedindex = 0;
     }
 
-    is_samplecollection_show = (currentrolename.Equals("Lab Technician") || currentrolename.Equals("Clinical Laboratory Scientist") || currentrolename.Equals("Clinical Laboratory Consultant") || currentrolename.Equals("Secretary")) || currentrolename.Equals("External Consultant") ? true : false;
-    is_investigation_show = (currentrolename.Equals("Clinical Laboratory Scientist") || currentrolename.Equals("Clinical Laboratory Consultant") || currentrolename.Equals("Secretary")) || currentrolename.Equals("External Consultant") ? true : false;
-    is_conclusion_show = (currentrolename.Equals("Clinical Laboratory Consultant") || currentrolename.Equals("Secretary")) || currentrolename.Equals("External Consultant") ? true : false;
+    is_samplecollection_show = currentrolename.Equals("Head Lab Technician") || (currentrolename.Equals("Lab Technician") || currentrolename.Equals("Clinical Laboratory Scientist") || currentrolename.Equals("Clinical Laboratory Consultant") || currentrolename.Equals("Secretary")) || currentrolename.Equals("External Consultant") ? true : false;
+    is_investigation_show = currentrolename.Equals("Head Lab Technician") || (currentrolename.Equals("Clinical Laboratory Scientist") || currentrolename.Equals("Clinical Laboratory Consultant") || currentrolename.Equals("Secretary")) || currentrolename.Equals("External Consultant") ? true : false;
+    is_conclusion_show = currentrolename.Equals("Head Lab Technician") || (currentrolename.Equals("Clinical Laboratory Consultant") || currentrolename.Equals("Secretary")) || currentrolename.Equals("External Consultant") ? true : false;
 
-    is_testinfo_editpanel_show = currentrolename.Equals("Receptionist") || currentrolename.Equals("Hospital / Clinician") ? true : false;
-    is_samplecollection_editpanel_show = currentrolename.Equals("Lab Technician") ? true : false;
-    is_investigation_editpanel_show = currentrolename.Equals("Clinical Laboratory Scientist") ? true : false;
-    is_conclusion_editpanel_show = (currentrolename.Equals("Clinical Laboratory Consultant") || currentrolename.Equals("Secretary")) || currentrolename.Equals("External Consultant") ? true : false;
+    is_testinfo_editpanel_show = currentrolename.Equals("Head Lab Technician") || currentrolename.Equals("Clinical Laboratory Scientist") || currentrolename.Equals("Receptionist") || currentrolename.Equals("Hospital / Clinician") ? true : false;
+    is_samplecollection_editpanel_show = currentrolename.Equals("Head Lab Technician") || currentrolename.Equals("Clinical Laboratory Scientist") || currentrolename.Equals("Lab Technician") ? true : false;
+    is_investigation_editpanel_show = currentrolename.Equals("Head Lab Technician") || currentrolename.Equals("Clinical Laboratory Scientist") ? true : false;
+    is_conclusion_editpanel_show = (currentrolename.Equals("Clinical Laboratory Consultant") || currentrolename.Equals("Head Lab Technician") || currentrolename.Equals("Secretary")) || currentrolename.Equals("External Consultant") ? true : false;
 
     string test_info_heading = currentrolename.Equals("Receptionist") || currentrolename.Equals("Hospital / Clinician") ? "Create Test" : "Test Information";
     string sample_collection_heading = currentrolename.Equals("Lab Technician") ? "Sample Collection Request" : "Sample Collection Information";
@@ -226,7 +227,7 @@ function (jqXHR, settings) {
                                             var cr_role = "@currentrolename";
 
                                             if (dt_testobj != null && cr_role == "Receptionist" || cr_role == "Lab Technician" || cr_role == "Clinical Laboratory Scientist"
-                                                || cr_role == "Clinical Laboratory Consultant" || cr_role == "Secretary" || cr_role == "External Consultant") {
+                                                || cr_role == "Clinical Laboratory Consultant" || cr_role == "Secretary" || cr_role == "External Consultant" || cr_role == "Head Lab Technician") {
                                                 PopulateTestInfo_ViewPanel(dt_testobj);
                         $("#testinfo-step").show();
                         $("#testinfo-viewpanel").show();
@@ -237,7 +238,7 @@ function (jqXHR, settings) {
                                             }
 
                                             if(dt_samplecollectionobj!=null && cr_role=="Lab Technician" || cr_role=="Clinical Laboratory Scientist" ||
-                                                cr_role == "Clinical Laboratory Consultant" || cr_role == "Secretary" || cr_role == "External Consultant") {
+                                                cr_role == "Clinical Laboratory Consultant" || cr_role == "Secretary" || cr_role == "External Consultant" || cr_role == "Head Lab Technician") {
                                                 PopulateSampleInfo_ViewPanel(dt_samplecollectionobj);
                         $("#sampleinfo-step").show();
                         $("#samplecollection-viewpanel").show();
@@ -248,7 +249,7 @@ function (jqXHR, settings) {
                                             }
 
                                             if(dt_investigationobj!=null && cr_role=="Clinical Laboratory Scientist" ||
-                                                cr_role == "Clinical Laboratory Consultant" || cr_role == "Secretary" || cr_role == "External Consultant") {
+                                                cr_role == "Clinical Laboratory Consultant" || cr_role == "Secretary" || cr_role == "External Consultant" || cr_role == "Head Lab Technician") {
                                                 PopulateInvestigationInfo_ViewPanel(dt_investigationobj);
                         $("#investigation-step").show();
                         $("#investigation-viewpanel").show();
@@ -258,7 +259,7 @@ function (jqXHR, settings) {
                                                 selectedstep = 2;
                                             }
 
-                                            if (dt_conclusionobj != null && cr_role == "Clinical Laboratory Consultant" || cr_role == "Secretary" || cr_role == "External Consultant") {
+                                            if (dt_conclusionobj != null && cr_role == "Clinical Laboratory Consultant" || cr_role == "Secretary" || cr_role == "External Consultant" || cr_role == "Head Lab Technician") {
                                                 PopulateConclusionInfo_ViewPanel(dt_conclusionobj,dt_testobj);
                                                 PopulateSupplementReport(dt_supplementreportlistobj);
 
@@ -318,12 +319,13 @@ function (jqXHR, settings) {
                                         if(dt_testobj!=null) {
                                             var cr_role2 = "@currentrolename";
                                             //if (cr_role2 == "Clinical Laboratory Scientist" && dt_testobj.TestStatusName == "On Lab Technician Plate")
-                                            if(cr_role2 == "Lab Technician" && dt_testobj.TestStatusName=="On Lab Technician Plate")
+                                            if (cr_role2 == "Lab Technician" && dt_testobj.TestStatusName=="On Lab Technician Plate")
                                             {
                                                 if(dt_testobj!=null) {
                                                     PopulateTestInfo_ViewPanel(dt_testobj);
                             $("#testinfo-step").show();
                             $("#testinfo-viewpanel").show();
+
 
                             $("#mainpanel").show();
 
@@ -341,18 +343,20 @@ function (jqXHR, settings) {
                                             {
                                                 if(dt_testobj!=null) {
                                                     PopulateTestInfo_ViewPanel(dt_testobj);
-                            $("#testinfo-step").show();
-                            $("#testinfo-viewpanel").show();
+                                                    $("#testinfo-step").show();
+                                                    $("#testinfo-viewpanel").show();
+                                                    $('#testform').show();
 
                             $("#mainpanel").show();
 
                             $("#testid_investigation").val(dt_testobj.TestID);
                                                 }
 
-                                                if(dt_samplecollectionobj!=null) {
+                                                if (dt_samplecollectionobj != null) {
                                                     PopulateSampleInfo_ViewPanel(dt_samplecollectionobj);
                             $("#sampleinfo-step").show();
-                            $("#samplecollection-viewpanel").show();
+                            $("#samplecollection-editpanel").show();
+                                                    $("#testid_samplecollection").val(dt_testobj.TestID);
 
                             $("#mainpanel").show();
                                                 }
@@ -364,7 +368,7 @@ function (jqXHR, settings) {
 
                                             }
 
-                                            else if ((cr_role2 == "Clinical Laboratory Consultant" || cr_role2 == "Secretary" || cr_role2 == "External Consultant") && dt_testobj.TestStatusName=="On Clinical Lab Doctor Plate")
+                                            else if ((cr_role2 == "Clinical Laboratory Consultant" || cr_role2 == "Secretary" || cr_role2 == "External Consultant" ) && dt_testobj.TestStatusName=="On Clinical Lab Doctor Plate")
                                             {
                                                 if(dt_testobj!=null) {
                                                     PopulateTestInfo_ViewPanel(dt_testobj);
@@ -416,10 +420,71 @@ function (jqXHR, settings) {
 
 
                                             }
+                                                //<--head lab tech
+                                            else if (( cr_role2 == "Head Lab Technician") && dt_testobj.TestStatusName == "On Clinical Lab Doctor Plate") {
+                                                 var roleid = "@currentroleid";//
+                                                if (dt_testobj != null) {
+                                                    //PopulateTestInfo_ViewPanel(dt_testobj);
+                                                    PopulateTestInfo_EditPanel(dt_testobj);//
+                                                    $("#testinfo-step").show();
+                                                    $('#patientddlform').hide();//
+                                                    $("#testinfo-editpanel").show();//
+                                                    $('#patientpanel').remove();//
+                                                    $('#patientpanel_edit').show();//
+                                                    $('#testform').show();//
+                                                    $("#mainpanel").show();
+                                                    $("#testid_testinfo").val(dt_testobj.TestID);
+                                                    $("#testid_conclusion").val(dt_testobj.TestID);
+                                                }
 
+                                                if (dt_samplecollectionobj != null) {
+                                                    //PopulateSampleInfo_ViewPanel(dt_samplecollectionobj);
+                                                    PopulateSampleInfo_EditPanel(dt_samplecollectionobj);//
+                                                    $("#sampleinfo-step").show();
+                                                    //$("#samplecollection-viewpanel").show();
+                                                    $("#samplecollection-editpanel").show();//
+                                                    $("#testid_samplecollection").val(dt_testobj.TestID);//
+                                                    $('#roleid').val(roleid);
+                                                    $("#mainpanel").show();
+                                                }
+
+                                                if (dt_investigationobj != null) {
+                                                    //PopulateInvestigationInfo_ViewPanel(dt_investigationobj);
+                                                    PopulateInvestigationInfo_EditPanel(dt_investigationobj);//
+                                                    $("#investigation-step").show();
+                                                    //$("#investigation-viewpanel").show();
+                                                    $("#investigation-editpanel").show();//
+                                                    $("#testid_investigation").val(dt_testobj.TestID);
+                                                    $("#mainpanel").show();
+                                                }
+
+                                                if (dt_conclusionobj != null) {
+                                                    PopulateConclusionInfo_EditPanel(dt_conclusionobj);
+                                                    PopulateSupplementReport(dt_supplementreportlistobj);
+
+                                                    if ((dt_testobj.IsPublish != null ? dt_testobj.IsPublish : false)) {
+
+                                                        $("#addbtnsupplement").show();
+                                                    }
+                                                    else {
+                                                        $("#addsupplement-step").remove();
+                                                    }
+                                                }
+                                                else {
+                                                    $("#addsupplement-step").remove();
+                                                }
+                                                $("#conclusion-step").show();
+                                                $("#conclusion-editpanel").show();
+
+                                                selectedstep = 3;
+
+                                                $("#mainpanel").show();
+
+
+                                            }   //head lab tech--->
                                             else if(dt_testobj.TestStatusName=="Completed" || (dt_testobj.IsPublish!=null?dt_testobj.IsPublish:false)) {
                                                 if(dt_testobj!=null && cr_role2=="Receptionist" || cr_role2=="Lab Technician" || cr_role2=="Clinical Laboratory Scientist" ||
-                                                    cr_role2 == "Clinical Laboratory Consultant" || cr_role2 == "Secretary" || cr_role2 == "External Consultant") {
+                                                    cr_role2 == "Clinical Laboratory Consultant" || cr_role2 == "Secretary" || cr_role2 == "External Consultant" || cr_role2 == "Head Lab Technician") {
                                                     PopulateTestInfo_ViewPanel(dt_testobj);
                             $("#testinfo-step").show();
                             $("#testinfo-viewpanel").show();
@@ -430,7 +495,7 @@ function (jqXHR, settings) {
                                                 }
 
                                                 if(dt_samplecollectionobj!=null && cr_role2=="Lab Technician" || cr_role2=="Clinical Laboratory Scientist" ||
-                                                    cr_role2 == "Clinical Laboratory Consultant" || cr_role2 == "Secretary" || cr_role2 == "External Consultant") {
+                                                    cr_role2 == "Clinical Laboratory Consultant" || cr_role2 == "Secretary" || cr_role2 == "External Consultant" || cr_role2 == "Head Lab Technician") {
                                                     PopulateSampleInfo_ViewPanel(dt_samplecollectionobj);
                             $("#sampleinfo-step").show();
                             $("#samplecollection-viewpanel").show();
@@ -441,7 +506,7 @@ function (jqXHR, settings) {
                                                 }
 
                                                 if(dt_investigationobj!=null && cr_role2=="Clinical Laboratory Scientist" ||
-                                                    cr_role2 == "Clinical Laboratory Consultant" || cr_role2 == "Secretary" || cr_role2 == "External Consultant") {
+                                                    cr_role2 == "Clinical Laboratory Consultant" || cr_role2 == "Secretary" || cr_role2 == "External Consultant" || cr_role2 == "Head Lab Technician") {
                                                     PopulateInvestigationInfo_ViewPanel(dt_investigationobj);
                             $("#investigation-step").show();
                             $("#investigation-viewpanel").show();
@@ -451,7 +516,7 @@ function (jqXHR, settings) {
                                                     selectedstep = 2;
                                                 }
 
-                                                if (dt_conclusionobj != null && cr_role2 == "Clinical Laboratory Consultant" || cr_role2 == "Secretary" || cr_role2 == "External Consultant") {
+                                                if (dt_conclusionobj != null && cr_role2 == "Clinical Laboratory Consultant" || cr_role2 == "Secretary" || cr_role2 == "External Consultant" || cr_role2 == "Head Lab Technician") {
                                                     PopulateConclusionInfo_ViewPanel(dt_conclusionobj,dt_testobj);
                                                     PopulateSupplementReport(dt_supplementreportlistobj);
                                                     if((dt_testobj.IsPublish!=null?dt_testobj.IsPublish:false)) {
@@ -623,7 +688,172 @@ function (jqXHR, settings) {
             }
 
 
-            });
+        });
+    function PopulateTestInfo_EditPanel(inputdata) {
+        debugger;
+        var patientformHTML = '<form id="patientform">';
+        patientformHTML += '<div class="card ul-card__margin-25">';
+        patientformHTML += '<div class="card-header bg-transparent">\
+                            <h3 class="card-title" id="cardheading">Patient Info</h3>\
+                            </div>';
+        patientformHTML += '<div class="card-body">';
+        patientformHTML += '<div class="form-group row">\
+                                    <label for="firstname" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">\
+                                        First Name:\
+                                </label>\
+                                    <div class="col-lg-3 ">\
+                                        <input type="text" class="form-control" id="firstname" name="firstname" required="required" placeholder="Enter first name"/>\
+                                            <small id="firstnamehelpblock" class="ul-form__text form-text ">\
+                                                Please enter first name\
+                                    </small>\
+                                    </div>\
+            <label for= "middlename" class= "ul-form__label ul-form--margin col-lg-1 col-form-label">\
+                                    Middle Name:\
+                                </label>\
+                                <div class="col-lg-3 ">\
+                                    <input type="text" class="form-control" id="middlename" name="middlename" placeholder="Enter middle name"/>\
+                                    <small id="middlenamehelpblock" class="ul-form__text form-text ">\
+                                        Please enter middle name\
+                                    </small>\
+                                </div>\
+                                <label for="lastname" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">\
+                                    Last Name:\
+                                </label>\
+                                <div class="col-lg-3 ">\
+                                    <input type="text" class="form-control" id="lastname" name="lastname" required="required" placeholder="Enter last name"/>\
+                                    <small id="lastnamehelpblock" class="ul-form__text form-text ">\
+                                        Please enter last name\
+                                    </small>\
+                                </div>\
+                            </div>';
+        patientformHTML += '<div class="form-group row" style="display:none">\
+                                        <label for="email" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">\
+                                            Email:\
+                                        </label>\
+                                        <div class="col-lg-3 ">\
+                                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email"/>\
+                                            <small id="emailhelpblock" class="ul-form__text form-text ">\
+                                                Please enter email\
+                                            </small>\
+                                        </div>\
+                                        <label for="mobileno" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">\
+                                            Mobile No:\
+                                        </label>\
+                                        <div class="col-lg-3 ">\
+                                            <input type="text" class="form-control" id="mobileno" name="mobileno" placeholder="Enter mobile no"/>\
+                                            <small id="mobilenohelpblock" class="ul-form__text form-text ">\
+                                                Please enter mobile no\
+                                            </small>\
+                                        </div>\
+                                        <label for= "age" class= "ul-form__label ul-form--margin col-lg-1   col-form-label ">\
+                                    Age:\
+                                </label>\
+                                <div class="col-lg-3 ">\
+                                    <input type="text" class="form-control" id="age" name="age" placeholder="Enter Age"/>\
+                                    <small id="agehelpblock" class="ul-form__text form-text ">\
+                                        Please enter age\
+                                    </small>\
+                                </div>\
+                                </div>';
+        patientformHTML += '<div class="form-group row" >\
+                                        <label for="email" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">\
+                                            Email:\
+                                        </label>\
+                                        <div class="col-lg-3 ">\
+                                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email"/>\
+                                            <small id="emailhelpblock" class="ul-form__text form-text ">\
+                                                Please enter email\
+                                            </small>\
+                                        </div>\
+                                        <label for="mobileno" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">\
+                                            Mobile No:\
+                                        </label>\
+                                        <div class="col-lg-3">\
+                                            <input type="text" class="form-control" id="mobileno" name="mobileno" placeholder="Enter mobile no"/>\
+                                            <small id="mobilenohelpblock" class="ul-form__text form-text">\
+                                                Please enter mobile no\
+                                            </small>\
+                                        </div>\
+                                         <label for="age" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">\
+                                                        Age:\
+                                </label >\
+                                <div class="col-lg-3 ">\
+                                <input type = "text" class="form-control" id = "age" name = "age" placeholder = "Enter Age" >\
+                                    <small id="agehelpblock" class="ul-form__text form-text ">\
+                                        Please enter age\
+                                    </small>\
+                                </div >\
+                                </div > ';
+        patientformHTML += '<div class="form-group row" >\
+                                <label for="address" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Address:</label>\
+                                <div class="col-lg-3">\
+                                    <textarea class="form-control" id="address" name="address" placeholder="Enter address"></textarea>\
+                                    <small id="addressBlock" class="ul-form__text form-text ">\
+                                        Please enter address\
+                                    </small>\
+                                </div>\
+                            </div>';
+        patientformHTML += '<div class="form-group row">\
+                                <label for="gender" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Gender:</label>\
+                                <div class="col-lg-3">\
+                                    <select class="form-control" id="gender" name="gender">\
+                                        <option value="Male">Male</option>\
+                                        <option value="Female">Female</option>\
+                                        <option value="Other">Other</option>\
+                                    </select>\
+                                    <small id="genderHelpBlock" class="ul-form__text form-text ">\
+                                        Please select gender\
+                                    </small>\
+                                </div>\
+                                <label for="city" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">\
+                                    D.O.B.:\
+                                </label>\
+                                <div class="col-lg-3 ">\
+                                    <input type="text" class="form-control" id="city" name="city" placeholder="Enter D.O.B."/>\
+                                    <small id="cityhelpblock" class="ul-form__text form-text ">\
+                                        Please enter D.O.B.\
+                                    </small>\
+                                </div>\
+                               </div>';
+        patientformHTML += '</div>';
+        patientformHTML += '</div>';
+        //patientformHTML += '<input type="hidden" id="editid" name="editid" value="0" />';
+        patientformHTML += '<input type="hidden" id="patientid" name="patientid" value="0" />';
+        patientformHTML += '</form>';
+        $('#testinfo-editpanel #testform').before(patientformHTML);
+        $('#testinfo-editpanel #patientform #patientid').val(inputdata.PatientID);
+        $('#testinfo-editpanel').find('hr').hide();
+        $('#savebtntest').text('Update');
+        $('#cancelbtn').hide();
+        $("select[name='testname'] option").each(function () {
+            if ($(this).text() == inputdata.TestName) {
+                $(this).attr('selected', 'selected');
+            }
+        });
+
+        $('select[name="issamplerequired"] option').each(function () {
+            if ($(this).text() == inputdata.IsSampleRequired) {
+                $(this).attr('selected', 'selected');
+            }
+        });
+        $('#complainthistory').val(inputdata.ComplaintHistory);
+        $('#description').val(inputdata.Description);
+
+        $("#city").val(inputdata.City);//dob
+        $("#firstname").val(inputdata.PatientFirstName);
+        $("#middlename").val(inputdata.PatientMidName);
+        $("#lastname").val(inputdata.PatientLastName);
+        $("#patientform #mobileno").val(inputdata.MobileNo);
+        $("#patientform #age").val(inputdata.Age);
+        $('select[name="gender"] option').each(function () {
+            if ($(this).text() == inputdata.Gender) {
+                $(this).attr('selected', 'selected');
+            }
+        });
+        $("#patientform #email").val(inputdata.Email);
+        $("#address").val(inputdata.Address);
+        $("#testform").show();
+    }
 
         function PopulateTestInfo_ViewPanel(inputdata) {
 
@@ -646,8 +876,8 @@ function (jqXHR, settings) {
             if (currole != "External Consultant") {
                 $('#divrate').css('display', 'block');
             }
-                                            
-                                           
+
+
 
             var html = '';
             if (inputdata.AttachmentList != null) {
@@ -668,7 +898,18 @@ function (jqXHR, settings) {
             }
         }
 
-            function PopulateSampleInfo_ViewPanel(inputdata) {
+    function PopulateSampleInfo_EditPanel(inputdata) {
+        $('#savebtnsample').text('Update');
+        $('#samplecollectionform #cancelbtn').hide();
+        $("#samplecollection-heading").text("Sample Collection Information");
+        $('select[name="issamplecollected"] option[value=' + inputdata.IsSampleCollected + ']').attr("selected", "selected");
+        $('#samplelabel').val(inputdata.SampleLabel);
+        $('#samplecode').val(inputdata.SampleCode);
+        $('#sampletype').val(inputdata.SampleType);
+
+    }
+
+    function PopulateSampleInfo_ViewPanel(inputdata) {
 
         $("#samplecollection-heading").text("Sample Collection Information");
         $("#issamplecollected_sc_vw_lbl").text(inputdata.IsSampleCollected);
@@ -678,10 +919,9 @@ function (jqXHR, settings) {
         $("#samplecode_sc_vw_lbl").text(inputdata.SampleCode);
         $("#samplecollectedby_sc_vw_lbl").text(inputdata.SampleCollectedBy);
 
-                var html = '';
-                if(inputdata.AttachmentList != null) {
-                    if (inputdata.AttachmentList.length > 0)
-                    {
+        var html = '';
+        if (inputdata.AttachmentList != null) {
+            if (inputdata.AttachmentList.length > 0) {
                 $.each(inputdata.AttachmentList, function (i, e) {
 
                     html += '<div class="col-md-2 col-4 attachmentbox">\
@@ -694,8 +934,38 @@ function (jqXHR, settings) {
 
                 $("#attachmentlist_samplecollection").html(html);
                 $(".attachmentsection_samplecollection").show();
-    }
+            }
         }
+    }
+    function PopulateInvestigationInfo_EditPanel(inputdata) {
+        debugger;
+        $('#savebtninvestigation').text("Update");
+        $('#investigationform #cancelbtn').hide();
+        $('#investigationform thead tr th:last').remove();
+        var html_investigationresult = '';
+        if (inputdata.InvestigationList != null) {
+            if (inputdata.InvestigationList.length > 0) {
+                $.each(inputdata.InvestigationList, function (i, e) {
+
+                    html_investigationresult += "<tr id=" + e.InvestigationID +" class='investigationrow'>\
+                                                                    <td><input type='text' class='form-control investigationname' required='required' placeholder='Enter investigation name' value="+ e.InvestigationName + "></td>\
+                                                                    <td><input type='text' class='form-control investigationvalues' required='required' placeholder='Enter values' value="+ e.Value + "></td>\
+                                                                    <td><input type='text' class='form-control investigationrange' required='required' placeholder='Enter range' value="+e.Range+"></td>\
+                                                                    <td><input type='text' class='form-control investigationresult' required='required' placeholder='Enter result' value="+e.InvestigationResult+"></td>\
+                                                                    <td>\
+                                                                    <i style='font-size:25px;color:red;cursor:pointer;display:none' title='Remove' class='nav-icon i-Close removeinvestigation'></i>\
+                                                                    </td>\
+                                                                 </tr>"
+                });
+
+                $("#investigationsrow").html(html_investigationresult);
+                //$('tr:last.investigationrow').find('td:last').append("<button type='button' class='btn btn-success m-1 addinvestigation'>Add</button>");
+            }
+        }
+        //$(".addinvestigation").remove();
+        //$(".removeinvestigation").show();
+        //$("#investigationsrow").append(html);
+        $('select[name="consultantid"] option[value=' + inputdata.ExternalConsultant.ClientUserID + ']').attr("selected", "selected");
     }
 
     function PopulateInvestigationInfo_ViewPanel(inputdata)
@@ -1312,151 +1582,152 @@ function (jqXHR, settings) {
                         <h3 class="border-bottom border-gray pb-2" id="testinfo-heading" style="margin-left: 20px;">@test_info_heading</h3>
                         @if (is_testinfo_editpanel_show && ViewBag.IsView == false)
                         {
-                        <div id="testinfo-editpanel" style="display:none">
-                            <form id="patientddlform">
-                                <div class="form-group row ">
-                                    <label for="ddlpatient" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
-                                        Patient:
-                                    </label>
-                                    <div class="col-lg-6 ">
-                                        <select class="form-control select2patient" required="required" name="patientid" id="patientid">
-                                            <option value="0">--Select--</option>
-                                            @foreach (var patient in activepatients)
-                                            {
-                                                <option value="@patient.Value">@patient.Name</option>
-                                            }
-                                        </select>
-                                        <small id="patienthelpblock" class="ul-form__text form-text ">
-                                            Please select patient
-                                        </small>
+                            <div id="testinfo-editpanel" style="display:none">
+                                <form id="patientddlform">
+                                    <div class="form-group row ">
+                                        <label for="ddlpatient" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                            Patient:
+                                        </label>
+                                        <div class="col-lg-6 ">
+                                            <select class="form-control select2patient" required="required" name="patientid" id="patientid">
+                                                <option value="0">--Select--</option>
+                                                @foreach (var patient in activepatients)
+                                                {
+                                                    <option value="@patient.Value">@patient.Name</option>
+                                                }
+                                            </select>
+                                            <small id="patienthelpblock" class="ul-form__text form-text ">
+                                                Please select patient
+                                            </small>
+                                        </div>
+                                    </div>
+                                </form>
+                                <hr />
+                                <div class="row" id="patientpanel" style="display:none;margin-left:0">
+                                    <div class="col-md-4 col-6">
+                                        <div class="mb-4">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Patient ID #</p>
+                                            <span id="patientid_lbl">N/A</span>
+                                        </div>
+                                        <div class="mb-4">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>D.O.B.</p>
+                                            <span id="city_lbl">N/A</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-6">
+                                        <div class="mb-4">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Name</p>
+                                            <span id="fullname_lbl">N/A</span>
+                                        </div>
+                                        <div class="mb-4">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Mobile No</p>
+                                            <span id="mobileno_lbl">N/A</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-6">
+                                        <div class="mb-4">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Age</p>
+                                            <span id="age_lbl">N/A</span>
+                                        </div>
+                                        <div class="mb-4">
+                                            <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Gender</p>
+                                            <span id="gender_lbl">N/A</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </form>
-                            <hr />
-                            <div class="row" id="patientpanel" style="display:none;margin-left:0">
-                                <div class="col-md-4 col-6">
-                                    <div class="mb-4">
-                                        <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Patient ID #</p>
-                                        <span id="patientid_lbl">N/A</span>
-                                    </div>
-                                    <div class="mb-4">
-                                        <p class="text-primary mb-1"><i class="text-16 mr-1"></i>D.O.B.</p>
-                                        <span id="city_lbl">N/A</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-6">
-                                    <div class="mb-4">
-                                        <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Name</p>
-                                        <span id="fullname_lbl">N/A</span>
-                                    </div>
-                                    <div class="mb-4">
-                                        <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Mobile No</p>
-                                        <span id="mobileno_lbl">N/A</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-6">
-                                    <div class="mb-4">
-                                        <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Age</p>
-                                        <span id="age_lbl">N/A</span>
-                                    </div>
-                                    <div class="mb-4">
-                                        <p class="text-primary mb-1"><i class="text-16 mr-1"></i>Gender</p>
-                                        <span id="gender_lbl">N/A</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr />
-                            @{
-                                LaboratoryBusiness.Repositories.User.ITestRate testRate = ((DBInitializer)ViewBag.currentdomaindb).TestRate();
-                                var ratelist = testRate.GetAll().ToList();
+                                <hr />
+                                @{
+                                    LaboratoryBusiness.Repositories.User.ITestRate testRate = ((DBInitializer)ViewBag.currentdomaindb).TestRate();
+                                    var ratelist = testRate.GetAll().ToList();
 
 
-                            }
+                                }
 
-                            <form id="testform" style="display:none">
-                                <div class="card ul-card__margin-25">
-                                    <div class="card-body">
-                                        <div class="form-group row">
-                                            <label for="testname" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
-                                                Test Name:
-                                            </label>
-                                            <div class="col-lg-3 ">
+                                <form id="testform" style="display:none">
+                                    <div class="card ul-card__margin-25">
+                                        <div class="card-body">
+                                            <div class="form-group row">
+                                                <label for="testname" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                                    Test Name:
+                                                </label>
+                                                <div class="col-lg-3 ">
 
-                                                <select class="form-control" id="testname" name="testname">
-                                                    @{
-                                                    <option value="">Select test</option>
-                                                        foreach (var rate in ratelist)
-                                                        {
-                                                           
-                                                        <option value="@rate.ID" data-id="@rate.Cost">@rate.TestName</option>
-                                                          
+                                                    <select class="form-control" id="testname" name="testname">
+                                                        @{
+                                                            <option value="">Select test</option>
+                                                            foreach (var rate in ratelist)
+                                                            {
+
+                                                                <option value="@rate.ID" data-id="@rate.Cost">@rate.TestName</option>
+
+                                                            }
+
                                                         }
+                                                    </select>
+                                                    @*<input type="text" class="form-control" id="testname" name="testname" placeholder="Enter test name">*@
+                                                    <small id="testnamehelpblock" class="ul-form__text form-text ">
+                                                        Please enter test name
+                                                    </small>
+                                                </div>
 
-                                                    }
-                                                </select>
-                                                @*<input type="text" class="form-control" id="testname" name="testname" placeholder="Enter test name">*@
-                                                <small id="testnamehelpblock" class="ul-form__text form-text ">
-                                                    Please enter test name
-                                                </small>
-                                            </div>
+                                                <label for="issamplerequired" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                                    Is Sample Required:
+                                                </label>
+                                                <div class="col-lg-3 ">
+                                                    <select class="form-control" required="required" name="issamplerequired" id="issamplerequired">
+                                                        <option value="true">Yes</option>
+                                                        <option value="false">No</option>
+                                                    </select>
+                                                    <small id="issamplerequiredthelpblock" class="ul-form__text form-text ">
+                                                        Please select Is sample required
+                                                    </small>
+                                                </div>
 
-                                            <label for="issamplerequired" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
-                                                Is Sample Required:
-                                            </label>
-                                            <div class="col-lg-3 ">
-                                                <select class="form-control" required="required" name="issamplerequired" id="issamplerequired">
-                                                    <option value="true">Yes</option>
-                                                    <option value="false">No</option>
-                                                </select>
-                                                <small id="issamplerequiredthelpblock" class="ul-form__text form-text ">
-                                                    Please select Is sample required
-                                                </small>
+                                                <label for="complainthistory" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                                                    Rate:
+                                                </label>
+                                                <div class="col-lg-3 ">
+                                                    <input type="text" class="form-control" id="complainthistory" name="complainthistory" placeholder="Enter rate">
+                                                    <small id="complainthistorythelpblock" class="ul-form__text form-text ">
+                                                        Please enter rate
+                                                    </small>
+                                                </div>
                                             </div>
+                                            <div class="custom-separator"></div>
+                                            <div class="form-group row">
 
-                                            <label for="complainthistory" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
-                                                Rate:
-                                            </label>
-                                            <div class="col-lg-3 ">
-                                                <input type="text" class="form-control" id="complainthistory" name="complainthistory" placeholder="Enter rate">
-                                                <small id="complainthistorythelpblock" class="ul-form__text form-text ">
-                                                    Please enter rate
-                                                </small>
+                                                <label for="description" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Description:</label>
+                                                <div class="col-lg-3">
+                                                    <textarea class="form-control" id="description" name="description" placeholder="Enter description"></textarea>
+                                                    <small id="descriptionBlock" class="ul-form__text form-text ">
+                                                        Please enter description
+                                                    </small>
+                                                </div>
+                                                <label for="attachmentfiles_test" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Attachment Files:</label>
+                                                <div class="col-lg-3">
+                                                    <input type="file" id="attachmentfiles_test" name="attachmentfiles_test" multiple />
+                                                    <small id="attachmentfiles_testBlock" class="ul-form__text form-text ">
+                                                        upload attachment files
+                                                    </small>
+                                                </div>
+
                                             </div>
+                                            <input type="hidden" value="0" name="patientid" id="patientid_inner" />
+                                            <input type="hidden" value="0" name="testid_testinfo" id="testid_testinfo" />
                                         </div>
-                                        <div class="custom-separator"></div>
-                                        <div class="form-group row">
-
-                                            <label for="description" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Description:</label>
-                                            <div class="col-lg-3">
-                                                <textarea class="form-control" id="description" name="description" placeholder="Enter description"></textarea>
-                                                <small id="descriptionBlock" class="ul-form__text form-text ">
-                                                    Please enter description
-                                                </small>
-                                            </div>
-                                            <label for="attachmentfiles_test" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">Attachment Files:</label>
-                                            <div class="col-lg-3">
-                                                <input type="file" id="attachmentfiles_test" name="attachmentfiles_test" multiple />
-                                                <small id="attachmentfiles_testBlock" class="ul-form__text form-text ">
-                                                    upload attachment files
-                                                </small>
-                                            </div>
-
-                                        </div>
-                                        <input type="hidden" value="0" name="patientid" id="patientid_inner" />
-                                    </div>
-                                    <div class="card-footer">
-                                        <div class="mc-footer">
-                                            <div class="row text-center">
-                                                <div class="col-lg-12 ">
-                                                    <button type="submit" class="btn btn-primary m-1" id="savebtntest">Save</button>
-                                                    <button type="reset" class="btn btn-outline-secondary m-1" id="cancelbtn">Reset</button>
+                                        <div class="card-footer">
+                                            <div class="mc-footer">
+                                                <div class="row text-center">
+                                                    <div class="col-lg-12 ">
+                                                        <button type="submit" class="btn btn-primary m-1" id="savebtntest">Save</button>
+                                                        <button type="reset" class="btn btn-outline-secondary m-1" id="cancelbtn">Reset</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </form>
-                        </div>
+                                </form>
+                            </div>
                         }
                         else
                         {
@@ -1611,6 +1882,7 @@ function (jqXHR, settings) {
 
                                             </div>
                                             <input type="hidden" name="testid" id="testid_samplecollection" value="0" />
+                                            <input type="hidden" name="roleid" id="roleid" value="0" />
                                         </div>
                                         <div class="card-footer">
                                             <div class="mc-footer">
@@ -2262,6 +2534,7 @@ function (jqXHR, settings) {
 <script>
 
     function UploadFile(TestId, AttachmentTypeId, formid, attachmentelementid, iscompletedorpublish, supplementreportid) {
+        debugger;
         supplementreportid = typeof supplementreportid !== 'undefined' ? supplementreportid : 0;
         // Checking whether FormData is available in browser
         if (window.FormData !== undefined) {
@@ -2418,6 +2691,7 @@ function (jqXHR, settings) {
                 swal.fire({ title: "Saved Successfully !", icon: "success", html: "Test Report has been saved successfully<br>." });
             }
             else {
+                debugger;
                 swal.fire({ title: "Saved Successfully !", icon: "success", html: "Saved Successfully !" });
             }
             if (!iscompletedorpublish && (AttachmentTypeId == 5)) {
@@ -2780,46 +3054,129 @@ function (jqXHR, settings) {
         });
 
         $("#savebtntest").click(function () {
+            debugger;
+            var testid_testinfo = $('#testid_testinfo').val();
             var form = document.querySelector('#testform');
-            if (form.reportValidity()) {
+            var patientform = document.querySelector('#patientform');
+            console.log(objectifyForm($("#testform").serializeArray()));
+            if (testid_testinfo != 0) {
+                if (form.reportValidity()) {
+                    swal.fire({
+                        title: "Are you sure?",
+                        //text: "Once saved after that you won't be able to edit!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes, I am sure!',
+                        cancelButtonText: 'No, cancel it!',
+                        preConfirm: function () {
+                            var _posturl = "/User/MedicalTest/UpdateTestInfo";
+
+                            MakeRequest(_posturl, "POST", objectifyForm($("#testform").serializeArray()), "json",
+                                function (jqXHR, settings) {
+                                    debugger;
+                                    //For Before Send
+                                    $('.loadscreen').fadeIn();
+                                },
+                                function (data, status, xhr) {
+                                    //For Success
+                                    debugger;
+                                    //$('.loadscreen').fadeOut();
+                                    //debugger;
+                                    if (patientform.reportValidity()) {
+                                                var _posturl = "/User/MedicalTest/UpdatePatientInfo";
+                                                MakeRequest(_posturl, "POST", objectifyForm($("#patientform").serializeArray()), "json",
+                                                    function (jqXHR, settings) {
+                                                        debugger;
+                                                        //For Before Send
+                                                        //$('.loadscreen').fadeIn();
+                                                    },
+                                                    function (data, status, xhr) {
+                                                        //For Success
+                                                        debugger;
+                                                        $('.loadscreen').fadeOut();
+                                                        //debugger;
+
+                                                        var rs = WebResponse(data);
+                                                        if (rs.ResponseType == "swal-sucsess") {
+                                                        //    UploadFile(rs.ResponseData.testjson.TestID, 5, "testform", "attachmentfiles_test", false);
+                                                        //    $("#testform").trigger("reset");
+                                                        }
+                                                    },
+                                                    function (jqXhr, textStatus, errorMessage) {
+                                                        //For Error
+                                                        debugger;
+                                                        $('.loadscreen').fadeOut();
+                                                        WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                                                    });
+                                            //}
+                                        //})
 
 
-                swal.fire({
-                    title: "Are you sure?",
-                    text: "Once saved after that you won't be able to edit!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonText: 'Yes, I am sure!',
-                    cancelButtonText: 'No, cancel it!',
-                    preConfirm: function () {
-                        var _posturl = _User_MedicalTest_AddTestInfo;
 
-                        MakeRequest(_posturl, "POST", objectifyForm($("#testform").serializeArray()), "json",
-                            function (jqXHR, settings) {
-                                //For Before Send
-                                $('.loadscreen').fadeIn();
-                            },
-                            function (data, status, xhr) {
-                                //For Success
-
-                                $('.loadscreen').fadeOut();
-                                debugger;
-                                var rs = WebResponse(data);
-                                if (rs.ResponseType == "swal-sucsess") {
-                                    UploadFile(rs.ResponseData.testjson.TestID, 5, "testform", "attachmentfiles_test", false);
-                                    $("#testform").trigger("reset");
-                                }
-                            },
-                            function (jqXhr, textStatus, errorMessage) {
-                                //For Error
-                                $('.loadscreen').fadeOut();
-                                WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
-                            });
-                    }
-                })
+                                    }
+                                    //var rs = WebResponse(data);
+                                    //if (rs.ResponseType == "swal-sucsess") {
+                                    ////    UploadFile(rs.ResponseData.testjson.TestID, 5, "testform", "attachmentfiles_test", false);
+                                    ////    $("#testform").trigger("reset");
+                                    //}
+                                },
+                                function (jqXhr, textStatus, errorMessage) {
+                                    //For Error
+                                    debugger;
+                                    $('.loadscreen').fadeOut();
+                                    WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                                });
+                        }
+                    })
 
 
 
+                }
+            }
+            else {
+                // var form = document.querySelector('#testform');
+                if (form.reportValidity()) {
+
+
+                    swal.fire({
+                        title: "Are you sure?",
+                        text: "Once saved after that you won't be able to edit!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes, I am sure!',
+                        cancelButtonText: 'No, cancel it!',
+                        preConfirm: function () {
+                            var _posturl = _User_MedicalTest_AddTestInfo;
+
+                            MakeRequest(_posturl, "POST", objectifyForm($("#testform").serializeArray()), "json",
+                                function (jqXHR, settings) {
+                                    debugger;
+                                    //For Before Send
+                                    $('.loadscreen').fadeIn();
+                                },
+                                function (data, status, xhr) {
+                                    //For Success
+                                    debugger;
+                                    $('.loadscreen').fadeOut();
+                                    debugger;
+                                    var rs = WebResponse(data);
+                                    if (rs.ResponseType == "swal-sucsess") {
+                                        UploadFile(rs.ResponseData.testjson.TestID, 5, "testform", "attachmentfiles_test", false);
+                                        $("#testform").trigger("reset");
+                                    }
+                                },
+                                function (jqXhr, textStatus, errorMessage) {
+                                    //For Error
+                                    debugger;
+                                    $('.loadscreen').fadeOut();
+                                    WebResponse(new { ResponseType: "toastr-error", description: errorMessage, title: "Something went wrong (C)", data: {} });
+                                });
+                        }
+                    })
+
+
+
+                }
             }
             return false;
         });
@@ -2861,13 +3218,12 @@ function (jqXHR, settings) {
         });
 
         $("#savebtnsample").click(function () {
+            var roleid = $('#samplecollectionform #roleid').val();
             var form = document.querySelector('#samplecollectionform');
             if (form.reportValidity()) {
-
-
                 swal.fire({
                     title: "Are you sure?",
-                    text: "Once saved after that you won't be able to edit!",
+                    text: (roleid != '6') ? "Once saved after that you won't be able to edit!" : "",
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonText: 'Yes, I am sure!',
@@ -2882,12 +3238,12 @@ function (jqXHR, settings) {
                             },
                             function (data, status, xhr) {
                                 //For Success
-
+                                debugger;
                                 $('.loadscreen').fadeOut();
 
                                 var rs = WebResponse(data);
                                 if (rs.ResponseType == "Simple") {
-                                    UploadFile(rs.ResponseData.testjson.TestID, 1, "samplecollectionform", "attachmentfiles_sample", false);
+                                    //UploadFile(rs.ResponseData.testjson.TestID, 1, "samplecollectionform", "attachmentfiles_sample", false);
                                 }
                             },
                             function (jqXhr, textStatus, errorMessage) {
@@ -2906,12 +3262,13 @@ function (jqXHR, settings) {
 
         $("#savebtninvestigation").click(function () {
             debugger;
+            var roleid = $('#samplecollectionform #roleid').val();
             var form = document.querySelector('#investigationform');
             if (form.reportValidity()) {
 
                 swal.fire({
                     title: "Are you sure?",
-                    text: "Once saved after that you won't be able to edit!",
+                    text: (roleid !='6')?"Once saved after that you won't be able to edit!":"",
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonText: 'Yes, I am sure!',
@@ -2924,7 +3281,7 @@ function (jqXHR, settings) {
                         $(".investigationrow").each(function (i, obj) {
 
                             a[i] = {
-                                "InvestigationName": $(this).find(".investigationname").val(), "InvestigationValues": $(this).find(".investigationvalues").val(),
+                                "InvestigationId": $(this).closest('tr').attr('id'),"InvestigationName": $(this).find(".investigationname").val(), "InvestigationValues": $(this).find(".investigationvalues").val(),
                                 "InvestigationRange": $(this).find(".investigationrange").val(), "InvestigationResult": $(this).find(".investigationresult").val()
                             }
                         });
@@ -2938,10 +3295,10 @@ function (jqXHR, settings) {
                                 //For Success
 
                                 $('.loadscreen').fadeOut();
-
+                                debugger;
                                 var rs = WebResponse(data);
                                 if (rs.ResponseType == "Simple") {
-                                    UploadFile(rs.ResponseData.testjson.TestID, 2, "investigationform", "attachmentfiles_investigation", false);
+                                    //UploadFile(rs.ResponseData.testjson.TestID, 2, "investigationform", "attachmentfiles_investigation", false);
                                 }
                             },
                             function (jqXhr, textStatus, errorMessage) {

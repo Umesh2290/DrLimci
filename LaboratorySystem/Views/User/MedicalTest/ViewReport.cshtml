@@ -42,10 +42,11 @@
         }
     </style>
     <script>
+
         @{
             ReportModel report = Model.data;
             @report.TestReportTypeID;
-                      
+
         }
         if (@Model.supplementreportlist.Count > 0) {
             $('#previousreport').css('display', 'block');
@@ -54,7 +55,7 @@
         if (@Model.supplementreportlist.Count == 0) {
             $('#previousreport').css('display', 'none');
         }
-       
+
          if (@report.TestReportTypeID == 1)
          {
              $('#divhistopathology').css('display', 'block');
@@ -85,6 +86,11 @@
             $('#divMicrobiology').css('display', 'block');
             $('#divRadiology').css('display', 'none');
         }
+        if (@report.TestReportTypeID == 5)
+        {
+            $('#TblInvestigation').show();
+            $('#reportid').hide();
+        }
 
     </script>
 </head>
@@ -101,7 +107,7 @@
                 <p><a style="color:Highlight;text-decoration:underline;text-decoration-color:Highlight" href="mailto:@report.labEmail">@report.labEmail</a></p>
             </div>
             <div class=" column" style="font-weight:bold;font-family:Calibri;font-size:11px">
-                <span class="add-head blue-color"  style="display:none">
+                <span class="add-head blue-color" style="display:none">
                     Head Office:<br>
                     @report.LabHeadOfficeAddress<br>
                 </span>
@@ -444,8 +450,33 @@
                     <td style="width:15%">
                         <label class="control-label" for="name">Report :</label>
                     </td>
-                    <td>
+                    <td id="reportid">
                         @report.Report
+                    </td>
+                    <td>
+                        <table id="TblInvestigation" style="display:none;width:100%">
+                            @*<hr />*@
+                            <thead>
+                                <tr>
+                                    <th style="width:15%">Investigation Name</th>
+                                    <th style="width:15%">Values</th>
+                                    <th style="width:15%">Range</th>
+                                    <th style="width:15%">Result</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (TestInvestigationReport invest in Model.investigationreportlist)
+                                {
+                                    <tr>
+                                        <td style="width:15%">@invest.InvestigationName</td>
+                                        <td style="width:15%">@invest.InvestigationValues</td>
+                                        <td style="width:15%">@invest.InvestigationRange</td>
+                                        <td style="width:15%">@invest.InvestigationResult</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        @* <hr />*@
                     </td>
                 </tr>
                 <tr>
